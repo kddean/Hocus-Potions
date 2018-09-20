@@ -614,11 +614,12 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Collab: 1
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 8eb71923-fe69-4d66-abc5-2b9c7ad746b5
-  projectName: Hocus Potions (1)
+  cloudProjectId: 4e7910e2-724e-40b1-994c-4b7b7db4b2c4
+  projectName: Hocus Potions
   organizationId: kddean
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
