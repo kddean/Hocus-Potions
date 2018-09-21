@@ -15,7 +15,7 @@ public class Brewing : MonoBehaviour {
         Ingredient lambsgrass = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.healing, Ingredient.Attributes.sheep }, "lambsgrass", image);
         Ingredient poppy = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", image);
 
-        Brew(lambsgrass, lambsgrass, poppy);
+        Brew(poppy, poppy, nightshade);
     }
 
 class attList {
@@ -54,13 +54,15 @@ class attList {
         int duration = 0;
         //Sprite image;
         string name = "";
+        int aCount;
 
         bool add;
         for(int i = 0; i < 9; i++) {
             add = true;
             if (System.Enum.IsDefined(typeof(Ingredient.Modifiers), attArray[i].ToString())) {
+                Ingredient.Modifiers temp = (Ingredient.Modifiers)System.Enum.Parse(typeof(Ingredient.Modifiers), attArray[i].ToString());
                 foreach (modList m in modifiers) {
-                    if (m.attribute == (Ingredient.Modifiers)System.Enum.Parse(typeof(Ingredient.Modifiers), attArray[i].ToString())) {
+                    if (m.attribute == temp) {
                         m.count++;
                         add = false;
                         break;
@@ -86,13 +88,14 @@ class attList {
         List<attList> sortedAtt = attributes.OrderByDescending(attList => attList.count).ToList();
         List<modList> sortedMod = modifiers.OrderByDescending(modList => modList.count).ToList();
 
-        if (sortedAtt.Count() == 0) {
+        aCount = sortedAtt.Count();
+        if (aCount == 0) {
             Debug.Log("Error, no attributes");
         } else {
-            if (sortedAtt[0].count >= 3) {
+            if (sortedAtt[0].count >= 3) {              //fails if no attribute exists at least 3 times
                 //accounts for ties in primary attribute
-                if (sortedAtt.Count() > 1 && sortedAtt[0].count == sortedAtt[1].count) {
-                    if (sortedAtt.Count() > 2 && sortedAtt[1].count == sortedAtt[2].count) {  //three-way tie
+                if (aCount > 1 && sortedAtt[0].count == sortedAtt[1].count) {
+                    if (aCount > 2 && sortedAtt[1].count == sortedAtt[2].count) {  //three-way tie
                         int flip1 = Random.Range(0, 3);
                         int flip2 = Random.Range(0, 2);
                         switch (flip1) {
@@ -136,12 +139,12 @@ class attList {
                     primary = sortedAtt[0].attribute;          //no tie
 
 
-                    if (sortedAtt.Count() == 1) {
+                    if (aCount == 1) {
                         secondary = null;
                     } else {
                         if (sortedAtt[1].count >= 2) {
-                            if (sortedAtt.Count() > 2 && sortedAtt[1].count == sortedAtt[2].count) {
-                                if (sortedAtt.Count() > 3 && sortedAtt[2].count == sortedAtt[3].count) {    //three-way tie
+                            if (aCount > 2 && sortedAtt[1].count == sortedAtt[2].count) {
+                                if (aCount > 3 && sortedAtt[2].count == sortedAtt[3].count) {    //three-way tie
                                     int flip = Random.Range(0, 3);
                                     switch (flip) {
                                         case 0:
@@ -175,8 +178,8 @@ class attList {
                     }
                 }
                 //Modifiers - *should be functional but this will need some major tweaking in the long run*
-                //Any combinations of 2 mugwort + 1 poppy or 1 nightshade end up as transformation secondaries with no animal modifier 
-                if (sortedMod.Count < 1) {
+                //Combinations of 2 mugwort + 1 poppy or 1 nightshade end up as transformation secondaries with no animal modifier 
+                if (sortedMod.Count() < 1) {
                     mod = null;
                 } else {
                     if (primary == Ingredient.Attributes.transformation || secondary == Ingredient.Attributes.transformation) {
@@ -245,7 +248,7 @@ class attList {
                 //Still need to figure out how to set the sprite on creation - presumablly based on the attributes but how that works depends how many unique sprites we have 
                 //create the potion; this needs more added to it to add the potion to your inventory, display ui, etc. 
                 Potion pot = new Potion(name, image, duration, primary, secondary, mod);
-                //Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration);
+                Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration);
             } else {
                 Debug.Log("Potion creation failed");
                 //Debug.Log(sortedAtt[0].attribute.ToString() + " " + sortedAtt[0].count);
