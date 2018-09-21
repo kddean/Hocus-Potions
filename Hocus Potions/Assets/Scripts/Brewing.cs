@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 public class Brewing : MonoBehaviour {
+    //delete this later; it's just to make it compile for testing
     public Sprite image;
 
     void Start() {
@@ -45,8 +46,8 @@ class attList {
         List<attList> attributes = new List<attList>();
         List<modList> modifiers = new List<modList>();
         Ingredient.Attributes[] attArray = new Ingredient.Attributes[] { first.attributeList[0], first.attributeList[1], first.attributeList[2],
-                                                                        second.attributeList[0], second.attributeList[1], second.attributeList[2],
-                                                                        third.attributeList[0], third.attributeList[1], third.attributeList[2]};
+                                                                         second.attributeList[0], second.attributeList[1], second.attributeList[2],
+                                                                         third.attributeList[0], third.attributeList[1], third.attributeList[2]};
 
         Ingredient.Attributes primary;
         Ingredient.Attributes? secondary = null;
@@ -69,18 +70,19 @@ class attList {
                     }
                 }
                 if (add) {
-                    modifiers.Add(new modList(1, (Ingredient.Modifiers)System.Enum.Parse(typeof(Ingredient.Modifiers), attArray[i].ToString())));
+                    modifiers.Add(new modList(1, temp));
                 }
             } else {
+                Ingredient.Attributes temp = attArray[i];
                 foreach (attList a in attributes) {
-                    if (a.attribute == attArray[i]) {
+                    if (a.attribute == temp) {
                         a.count++;
                         add = false;
                         break;
                     }
                 }
                 if (add) {
-                    attributes.Add(new attList(1, attArray[i]));
+                    attributes.Add(new attList(1, temp));
                 }
             }
         }
@@ -127,7 +129,7 @@ class attList {
                                 break;
                         }
                     }
-                    int flip = Random.Range(0, 2);      //two-way tie
+                    int flip = Random.Range(0, 2);           //two-way tie
                     if (flip == 0) {
                         primary = sortedAtt[0].attribute;
                         secondary = sortedAtt[1].attribute;
@@ -136,8 +138,7 @@ class attList {
                         secondary = sortedAtt[0].attribute;
                     }
                 } else {
-                    primary = sortedAtt[0].attribute;          //no tie
-
+                    primary = sortedAtt[0].attribute;       //no tie
 
                     if (aCount == 1) {
                         secondary = null;
@@ -171,7 +172,7 @@ class attList {
                             } else {
                                 secondary = sortedAtt[1].attribute;         //no tie
                             }
-                            //Secondary is null if no other attribute appears 2 or more times
+                        //Secondary is null if no other attribute appears 2 or more times
                         } else {
                             secondary = null;
                         }
