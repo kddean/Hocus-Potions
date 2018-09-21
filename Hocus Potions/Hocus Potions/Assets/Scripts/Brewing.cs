@@ -4,13 +4,25 @@ using System.Linq;
 using UnityEngine;
 
 public class Brewing : MonoBehaviour {
+    public Sprite image;
 
+    void Start() {
+        //This is just for testing purposes  
+        Ingredient lavender = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.chicken }, "lavender", image);
+        Ingredient catnip = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.cat }, "catnip", image);
+        Ingredient nightshade = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", image);
+        Ingredient mugwort = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.magicPP, Ingredient.Attributes.transformation }, "mugwort", image);
+        Ingredient lambsgrass = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.healing, Ingredient.Attributes.sheep }, "lambsgrass", image);
+        Ingredient poppy = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", image);
 
-    class attList {
-       public int count;
-       public Ingredient.Attributes attribute;
-          
-       public attList(int c, Ingredient.Attributes a) {
+        Brew(lambsgrass, lambsgrass, poppy);
+    }
+
+class attList {
+        public int count;
+        public Ingredient.Attributes attribute;
+
+        public attList(int c, Ingredient.Attributes a) {
             count = c;
             attribute = a;
         }
@@ -26,6 +38,9 @@ public class Brewing : MonoBehaviour {
         }
     }
 
+   
+
+   
     void Brew(Ingredient first, Ingredient second, Ingredient third) {
         List<attList> attributes = new List<attList>();
         List<modList> modifiers = new List<modList>();
@@ -37,92 +52,153 @@ public class Brewing : MonoBehaviour {
         Ingredient.Attributes? secondary = null;
         Ingredient.Modifiers? mod = null;
         int duration = 0;
-        Sprite image;
+        //Sprite image;
         string name = "";
 
+        bool add;
         for(int i = 0; i < 9; i++) {
-            if(System.Enum.IsDefined(typeof(Ingredient.Modifiers), attArray[i].ToString())) {
-                modifiers.Add(new modList(1, (Ingredient.Modifiers)System.Enum.Parse(typeof(Ingredient.Modifiers), attArray[i].ToString())));
+            add = true;
+            if (System.Enum.IsDefined(typeof(Ingredient.Modifiers), attArray[i].ToString())) {
+                foreach (modList m in modifiers) {
+                    if (m.attribute == (Ingredient.Modifiers)System.Enum.Parse(typeof(Ingredient.Modifiers), attArray[i].ToString())) {
+                        m.count++;
+                        add = false;
+                        break;
+                    }
+                }
+                if (add) {
+                    modifiers.Add(new modList(1, (Ingredient.Modifiers)System.Enum.Parse(typeof(Ingredient.Modifiers), attArray[i].ToString())));
+                }
             } else {
-                attributes.Add(new attList(1, attArray[i]));
+                foreach (attList a in attributes) {
+                    if (a.attribute == attArray[i]) {
+                        a.count++;
+                        add = false;
+                        break;
+                    }
+                }
+                if (add) {
+                    attributes.Add(new attList(1, attArray[i]));
+                }
             }
-
-
         }
 
-        List<attList> sortedAtt = attributes.OrderBy(attList => attList.count).ToList();
-        List<modList> sortedMod = modifiers.OrderBy(modList => modList.count).ToList();
+        List<attList> sortedAtt = attributes.OrderByDescending(attList => attList.count).ToList();
+        List<modList> sortedMod = modifiers.OrderByDescending(modList => modList.count).ToList();
 
         if (sortedAtt.Count() == 0) {
             Debug.Log("Error, no attributes");
         } else {
-                if (sortedAtt[0].count >= 3) {
-                    //accounts for ties in primary attribute
-                    if (sortedAtt[0].count == sortedAtt[1].count) {
-                        int flip = Random.Range(0, 2);
-                        if (flip == 0) {
-                            primary = sortedAtt[0].attribute;
-                        } else {
-                            primary = sortedAtt[1].attribute;
+            if (sortedAtt[0].count >= 3) {
+                //accounts for ties in primary attribute
+                if (sortedAtt.Count() > 1 && sortedAtt[0].count == sortedAtt[1].count) {
+                    if (sortedAtt.Count() > 2 && sortedAtt[1].count == sortedAtt[2].count) {  //three-way tie
+                        int flip1 = Random.Range(0, 3);
+                        int flip2 = Random.Range(0, 2);
+                        switch (flip1) {
+                            case 0:
+                                primary = sortedAtt[0].attribute;
+                                if (flip2 == 0) {
+                                    secondary = sortedAtt[1].attribute;
+                                } else {
+                                    secondary = sortedAtt[2].attribute;
+                                }
+                                break;
+                            case 1:
+                                primary = sortedAtt[1].attribute;
+                                if (flip2 == 0) {
+                                    secondary = sortedAtt[0].attribute;
+                                } else {
+                                    secondary = sortedAtt[2].attribute;
+                                }
+                                break;
+                            case 2:
+                                primary = sortedAtt[2].attribute;
+                                if (flip2 == 0) {
+                                    secondary = sortedAtt[0].attribute;
+                                } else {
+                                    secondary = sortedAtt[1].attribute;
+                                }
+                                break;
+                            default:
+                                break;
                         }
-                        //if it's not a tie just use the first attribute
-                    } else {
-                        primary = sortedAtt[0].attribute;
                     }
+                    int flip = Random.Range(0, 2);      //two-way tie
+                    if (flip == 0) {
+                        primary = sortedAtt[0].attribute;
+                        secondary = sortedAtt[1].attribute;
+                    } else {
+                        primary = sortedAtt[1].attribute;
+                        secondary = sortedAtt[0].attribute;
+                    }
+                } else {
+                    primary = sortedAtt[0].attribute;          //no tie
+
 
                     if (sortedAtt.Count() == 1) {
                         secondary = null;
                     } else {
                         if (sortedAtt[1].count >= 2) {
-                            //accounts for ties in secondary attribute
                             if (sortedAtt.Count() > 2 && sortedAtt[1].count == sortedAtt[2].count) {
-                                int flip = Random.Range(0, 2);
-                                if (flip == 0) {
-                                    secondary = sortedAtt[1].attribute;
+                                if (sortedAtt.Count() > 3 && sortedAtt[2].count == sortedAtt[3].count) {    //three-way tie
+                                    int flip = Random.Range(0, 3);
+                                    switch (flip) {
+                                        case 0:
+                                            secondary = sortedAtt[1].attribute;
+                                            break;
+                                        case 1:
+                                            secondary = sortedAtt[2].attribute;
+                                            break;
+                                        case 2:
+                                            secondary = sortedAtt[3].attribute;
+                                            break;
+                                        default:
+                                            Debug.Log("how is this possible");
+                                            break;
+                                    }
                                 } else {
-                                    secondary = sortedAtt[2].attribute;
+                                    int flip = Random.Range(0, 2);          //two-way tie
+                                    if (flip == 0) {
+                                        secondary = sortedAtt[1].attribute;
+                                    } else {
+                                        secondary = sortedAtt[2].attribute;
+                                    }
                                 }
-                                //if it's not a tie just use the second attribute
                             } else {
-                                secondary = sortedAtt[1].attribute;
+                                secondary = sortedAtt[1].attribute;         //no tie
                             }
+                            //Secondary is null if no other attribute appears 2 or more times
                         } else {
                             secondary = null;
                         }
                     }
-
-                //Modifiers - *need to talk to Mikaila about the logic because it's missing a bunch of edge cases but this should be functional at least*
+                }
+                //Modifiers - *should be functional but this will need some major tweaking in the long run*
+                //Any combinations of 2 mugwort + 1 poppy or 1 nightshade end up as transformation secondaries with no animal modifier 
                 if (sortedMod.Count < 1) {
                     mod = null;
                 } else {
                     if (primary == Ingredient.Attributes.transformation || secondary == Ingredient.Attributes.transformation) {
-                        switch (sortedMod[0].attribute) {
-                            case Ingredient.Modifiers.cat:
-                            case Ingredient.Modifiers.chicken:
-                            case Ingredient.Modifiers.sheep:
-                                mod = sortedMod[0].attribute;
+                        foreach (modList m in sortedMod) {
+                            if (m.attribute == Ingredient.Modifiers.cat || m.attribute == Ingredient.Modifiers.sheep || m.attribute == Ingredient.Modifiers.chicken) {
+                                mod = m.attribute;
                                 break;
-                            default:
-                                mod = null;
-                                break;
+                            }
                         }
                     } else {
-                        switch (sortedMod[0].attribute) {
-                            case Ingredient.Modifiers.magicMM:
-                            case Ingredient.Modifiers.magicPP:
-                                mod = sortedMod[0].attribute;
+                        foreach (modList m in sortedMod) {
+                            if (m.attribute == Ingredient.Modifiers.magicMM || m.attribute == Ingredient.Modifiers.magicPP) {
+                                mod = m.attribute;
                                 break;
-                            default:
-                                mod = null;
-                                break;
+                            }
                         }
                     }
-                       
-                    }
+                }
 
 
                 //Potion name generation *Rough Draft just for functionality; names not final*
-                name = primary.ToString() + "potion of " + secondary.ToString();
+                name = primary.ToString() + " potion of " + secondary.ToString();
                 switch (mod) {
                     case Ingredient.Modifiers.magicPP:
                         name = "Super " + name;
@@ -143,7 +219,7 @@ public class Brewing : MonoBehaviour {
                         break;
                 }
 
-                //Duration calculation *Default values atm, needs to include strength adjustments based on count*
+                //Duration calculation *Default values atm, needs to be modified later*
                 switch (primary) {
                     case Ingredient.Attributes.healing:
                         duration = 1;
@@ -163,19 +239,18 @@ public class Brewing : MonoBehaviour {
                     default:
                         duration = 1;
                         break;
-    
+
                 }
-                   
+
                 //Still need to figure out how to set the sprite on creation - presumablly based on the attributes but how that works depends how many unique sprites we have 
                 //create the potion; this needs more added to it to add the potion to your inventory, display ui, etc. 
-                    Potion pot = new Potion(name, image, duration, primary, secondary, mod);
-                } else {
-                    Debug.Log("Potion creation failed");
-                }
+                Potion pot = new Potion(name, image, duration, primary, secondary, mod);
+                Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration);
+            } else {
+                Debug.Log("Potion creation failed");
+                //Debug.Log(sortedAtt[0].attribute.ToString() + " " + sortedAtt[0].count);
+            }
 
             }
         }
-  
-
-    }
 }

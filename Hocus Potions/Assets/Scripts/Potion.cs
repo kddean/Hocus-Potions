@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Potion : MonoBehaviour {
+public class Potion {
     //There's probably a better way to do this but it works for now
    // public enum Attributes { sleep, healing, transformation, posion, invisiblity, magicPP, magicMM, cat, sheep, chicken };
 
