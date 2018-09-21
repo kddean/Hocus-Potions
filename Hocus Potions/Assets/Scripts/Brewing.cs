@@ -245,7 +245,7 @@ class attList {
                 //Still need to figure out how to set the sprite on creation - presumablly based on the attributes but how that works depends how many unique sprites we have 
                 //create the potion; this needs more added to it to add the potion to your inventory, display ui, etc. 
                 Potion pot = new Potion(name, image, duration, primary, secondary, mod);
-                Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration);
+                //Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration);
             } else {
                 Debug.Log("Potion creation failed");
                 //Debug.Log(sortedAtt[0].attribute.ToString() + " " + sortedAtt[0].count);
