@@ -63,8 +63,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Brewing.cs" />
     <Compile Include="Assets\Scripts\Cauldron.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\Farming.cs" />
     <Compile Include="Assets\Scripts\Ingredient.cs" />
+=======
+    <Compile Include="Assets\Scripts\Ingredient.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
+>>>>>>> e113f4a3000f9ed01fa3544f1f348323ffd6b9a6
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Potion.cs" />
     <Reference Include="UnityEditor.StandardEvents">
