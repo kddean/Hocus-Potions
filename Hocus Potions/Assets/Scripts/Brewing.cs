@@ -3,22 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Brewing : MonoBehaviour {
+public class Brewing {
     //delete this later; it's just to make it compile for testing
     public Sprite image;
-
-    void Start() {
-        //This is just for testing purposes  
-        Ingredient lavender = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.chicken }, "lavender", image);
-        Ingredient catnip = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.cat }, "catnip", image);
-        Ingredient nightshade = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", image);
-        Ingredient mugwort = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.magicPP, Ingredient.Attributes.transformation }, "mugwort", image);
-        Ingredient lambsgrass = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.healing, Ingredient.Attributes.sheep }, "lambsgrass", image);
-        Ingredient poppy = new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", image);
-
-        Brew(poppy, poppy, nightshade);
-    }
-
+    List<Ingredient> ingredients;
 class attList {
         public int count;
         public Ingredient.Attributes attribute;
@@ -39,10 +27,25 @@ class attList {
         }
     }
 
-   
+      
+    public Potion Brew(string f, string s, string t) {
+        Ingredient first, second, third;
+        first = second = third = null;
+        //create list of all ingredients
+        createIngredients();
+        //assign ingredients based on name
+        foreach (Ingredient i in ingredients) {
+            if (i.name.Equals(f.ToLower())) {
+                first = i;
+            }
+            if (i.name.Equals(s.ToLower())) {
+                second = i;
+            }
+            if (i.name.Equals(t.ToLower())) {
+                third = i;
+            }
+        }
 
-   
-    void Brew(Ingredient first, Ingredient second, Ingredient third) {
         List<attList> attributes = new List<attList>();
         List<modList> modifiers = new List<modList>();
         Ingredient.Attributes[] attArray = new Ingredient.Attributes[] { first.attributeList[0], first.attributeList[1], first.attributeList[2],
@@ -227,34 +230,51 @@ class attList {
                 switch (primary) {
                     case Ingredient.Attributes.healing:
                         duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_healing_1");
                         break;
                     case Ingredient.Attributes.sleep:
                         duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_sleep_1");
                         break;
                     case Ingredient.Attributes.invisible:
                         duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_invis_1");
                         break;
                     case Ingredient.Attributes.poison:
                         duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_poison_1");
                         break;
                     case Ingredient.Attributes.transformation:
                         duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_transform_1");
                         break;
                     default:
                         duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_null_1");
                         break;
-
                 }
 
                 //Still need to figure out how to set the sprite on creation - presumablly based on the attributes but how that works depends how many unique sprites we have 
                 //create the potion; this needs more added to it to add the potion to your inventory, display ui, etc. 
                 Potion pot = new Potion(name, image, duration, primary, secondary, mod);
-                Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration);
+                Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration + "\ni: " + image.name);
+                return pot;
             } else {
                 Debug.Log("Potion creation failed");
                 //Debug.Log(sortedAtt[0].attribute.ToString() + " " + sortedAtt[0].count);
             }
 
             }
-        }
+        return null;
+    }
+
+    void createIngredients() {
+        ingredients = new List<Ingredient>();
+        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.chicken }, "lavender", image));
+        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.cat }, "catnip", image));
+        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", image));
+        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.magicPP, Ingredient.Attributes.transformation }, "mugwort", image));
+        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.healing, Ingredient.Attributes.sheep }, "lambsgrass", image));
+        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", image));
+    }
 }
