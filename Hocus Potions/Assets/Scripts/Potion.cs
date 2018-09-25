@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Potion {
+public class Potion : Object {
 
     public string name;
     public Sprite image;
