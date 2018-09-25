@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Potion {
 
-    string name;
-    Sprite image;
+    public string name;
+    public Sprite image;
 
     int duration;  //in whole hours
     Ingredient.Attributes primary;
