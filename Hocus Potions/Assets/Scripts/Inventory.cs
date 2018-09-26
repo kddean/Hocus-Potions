@@ -8,23 +8,26 @@ public class Inventory {
         public int count = 1;
         public Object item;
         public string name;
+        public Sprite image;
          
-        public inventoryItem(Object o, string n) {
+        public inventoryItem(Object o, string n, Sprite i) {
             item = o;
             name = n;
+            image = i;
         }
     }
 
 
     public List<inventoryItem> inventory = new List<inventoryItem>();
-    int maxSize = 1;
+    public int maxSize = 10;
     int currentSize = 0;
     bool display = false;
+   
 
-    public bool add(Object o, string n) {
+    public bool add(Object obj, string name, Sprite image) {
         bool add = true;
          foreach (inventoryItem i in inventory) {
-                 if (i.name.Equals(n)) {
+                 if (i.name.Equals(name)) {
                     if (i.count < i.maxStack) {
                         i.count++;
                         add = false;
@@ -36,7 +39,7 @@ public class Inventory {
         }
 
         if (currentSize < maxSize) {
-            inventory.Add(new inventoryItem(o, n));
+            inventory.Add(new inventoryItem(obj, name, image));
             currentSize++;
             return true;
         } else {
@@ -54,9 +57,14 @@ public class Inventory {
         }
     }
 
-    //TO DO
-    public void displayToggle() {
-        
+
+    //TO DO: function to allow players to drop items from their inventory
+    void dropItem() {
+
+    }
+
+    //TO DO: function to allow items to be used from inventory
+    void useItem() {
 
     }
 }

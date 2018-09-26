@@ -6,7 +6,7 @@ using UnityEngine;
 public class Brewing {
     //delete this later; it's just to make it compile for testing
     public Sprite image;
-    List<Ingredient> ingredients;
+
 class attList {
         public int count;
         public Ingredient.Attributes attribute;
@@ -31,10 +31,9 @@ class attList {
     public Potion Brew(string f, string s, string t) {
         Ingredient first, second, third;
         first = second = third = null;
-        //create list of all ingredients
-        createIngredients();
+        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         //assign ingredients based on name
-        foreach (Ingredient i in ingredients) {
+        foreach (Ingredient i in rl.ingredients) {
             if (i.name.Equals(f.ToLower())) {
                 first = i;
             }
@@ -268,13 +267,4 @@ class attList {
         return null;
     }
 
-    void createIngredients() {
-        ingredients = new List<Ingredient>();
-        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.chicken }, "lavender", image));
-        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.cat }, "catnip", image));
-        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", image));
-        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.magicPP, Ingredient.Attributes.transformation }, "mugwort", image));
-        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.healing, Ingredient.Attributes.sheep }, "lambsgrass", image));
-        ingredients.Add(new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", image));
-    }
 }

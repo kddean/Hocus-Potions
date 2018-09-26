@@ -13,7 +13,6 @@ public class Player : MonoBehaviour {
 
     public static string heldItem = "seeds";
 
-
     // Use this for initialization
     void Start () {
         body = GetComponent<Rigidbody2D>();
@@ -27,11 +26,7 @@ public class Player : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        //body.AddForce(movement * speed);
+
         Vector2 pos = transform.position;
 
         if (Input.GetKey("w"))

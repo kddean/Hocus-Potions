@@ -15,9 +15,7 @@ public class Cauldron : MonoBehaviour {
     public Button take;
 
     //replace this once we have a player character to attach the inventory to
-    Inventory inv = new Inventory();
     Potion pot;
-
 
     void OnMouseDown() {
         CanvasGroup cGroup = panel.GetComponent<CanvasGroup>();
@@ -29,7 +27,7 @@ public class Cauldron : MonoBehaviour {
     public void brewPotion() {
         Brewing b = new Brewing();
 
-        Potion pot = b.Brew(first.options[first.value].text, second.options[second.value].text, third.options[third.value].text);
+        pot = b.Brew(first.options[first.value].text, second.options[second.value].text, third.options[third.value].text);
         name.text = pot.name;
         pic.sprite = pot.image;
         pic.GetComponent<CanvasGroup>().alpha = 1;
@@ -47,8 +45,7 @@ public class Cauldron : MonoBehaviour {
     }
 
     public void takePotion() {
-        inv.add(pot, pot.name);
-
+        GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.add(pot, pot.name, pot.image); ;
         name.text = "";
         pic.GetComponent<CanvasGroup>().alpha = 0;
         CanvasGroup brewGroup = brew.GetComponent<CanvasGroup>();
@@ -78,5 +75,10 @@ public class Cauldron : MonoBehaviour {
         brewGroup.alpha = 1;
         brewGroup.interactable = true;
         brewGroup.blocksRaycasts = true;
+
+        CanvasGroup takeGroup = take.GetComponent<CanvasGroup>();
+        takeGroup.alpha = 0;
+        takeGroup.interactable = false;
+        takeGroup.blocksRaycasts = false;
     }
 }
