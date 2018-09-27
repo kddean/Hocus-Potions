@@ -11,11 +11,8 @@ public class Player : MonoBehaviour {
 
     private Rigidbody2D body;
 
-<<<<<<< HEAD
     public static string heldItem = "seeds";
 
-=======
->>>>>>> e113f4a3000f9ed01fa3544f1f348323ffd6b9a6
     // Use this for initialization
     void Start () {
         body = GetComponent<Rigidbody2D>();
@@ -29,14 +26,6 @@ public class Player : MonoBehaviour {
 
     private void FixedUpdate()
     {
-<<<<<<< HEAD
-=======
-        
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        //body.AddForce(movement * speed);
->>>>>>> e113f4a3000f9ed01fa3544f1f348323ffd6b9a6
 
         Vector2 pos = transform.position;
 
