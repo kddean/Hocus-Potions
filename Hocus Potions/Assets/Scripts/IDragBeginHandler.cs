@@ -1,2 +1,0 @@
-﻿internal interface IDragBeginHandler {
-}

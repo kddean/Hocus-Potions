@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - inventory
-  - loader
+  tags: [inventory, loader, inventory, loader]
   layers:
   - Default
   - TransparentFX

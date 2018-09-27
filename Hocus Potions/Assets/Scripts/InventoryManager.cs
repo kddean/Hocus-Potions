@@ -11,7 +11,10 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     Transform startingParent;
     Transform canvas;
     int index;
+    public Inventory.inventoryItem item;
+    ResourceLoader rl;
 
+     
     public void OnBeginDrag(PointerEventData eventData) {
         temp = transform.localPosition;
         startingParent = transform.parent;
@@ -26,35 +29,52 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData) {
         Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
-        RectTransform invPanel = transform.parent.transform as RectTransform;
-
-
-
+        RectTransform invPanel = GameObject.FindGameObjectWithTag("inventory").transform as RectTransform;
+        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         if (RectTransformUtility.RectangleContainsScreenPoint(invPanel, Input.mousePosition)) {
             set = false;
-            foreach(Button b in invButtons) {
+            //check which slot to swap with
+            foreach (Button b in invButtons) {
                 if (RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
                     transform.SetParent(startingParent);
+                    InventoryManager otherMgr = b.GetComponent<InventoryManager>();
                     transform.localPosition = b.transform.localPosition;
                     transform.SetSiblingIndex(b.transform.GetSiblingIndex());
                     b.transform.localPosition = temp;
                     b.transform.SetSiblingIndex(index);
+
+                    //check if combining stacks
+                    if (item.count != item.maxStack && otherMgr.item != null && otherMgr.item.name.Equals(item.name)) {
+                        while (item.count < item.maxStack && otherMgr.item.count != 0) {
+                            otherMgr.item.count--;
+                            item.count++;
+                        }
+                        GetComponent<Button>().GetComponentInChildren<Text>().text = item.count.ToString();
+                        if (otherMgr.item.count <= 0) {
+                            rl.inv.dropItem(otherMgr.item, b);
+                        } else {
+                            b.GetComponentInChildren<Text>().text = otherMgr.item.count.ToString();
+                        }
+                    }          
+                    
                     set = true;
                     break;                  
                 }
             }
+            //if it's in it's original spot just snap it back
             if (!set) {
                 transform.SetParent(startingParent);
                 transform.localPosition = temp;
                 transform.SetSiblingIndex(index);
             }
         } else {
+            //if player drags it out of inventory
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
+            rl.inv.dropItem(item, GetComponent<Button>());
         }
         set = false;
-        Debug.Log(transform.GetSiblingIndex());
     }
 
  }

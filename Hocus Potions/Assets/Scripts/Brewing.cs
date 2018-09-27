@@ -226,6 +226,7 @@ class attList {
                 }
 
                 //Duration calculation *Default values atm, needs to be modified later*
+                //Assigning sprites
                 switch (primary) {
                     case Ingredient.Attributes.healing:
                         duration = 1;
