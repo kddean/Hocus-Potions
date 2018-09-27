@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     public Inventory.inventoryItem item;
     ResourceLoader rl;
 
+     
     public void OnBeginDrag(PointerEventData eventData) {
         temp = transform.localPosition;
         startingParent = transform.parent;
@@ -36,17 +37,32 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             foreach (Button b in invButtons) {
                 if (RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
                     transform.SetParent(startingParent);
+                    InventoryManager otherMgr = b.GetComponent<InventoryManager>();
                     transform.localPosition = b.transform.localPosition;
                     transform.SetSiblingIndex(b.transform.GetSiblingIndex());
                     b.transform.localPosition = temp;
                     b.transform.SetSiblingIndex(index);
+
+                    //check if combining stacks
+                    if (item.count != item.maxStack && otherMgr.item != null && otherMgr.item.name.Equals(item.name)) {
+                        while (item.count < item.maxStack && otherMgr.item.count != 0) {
+                            otherMgr.item.count--;
+                            item.count++;
+                        }
+                        GetComponent<Button>().GetComponentInChildren<Text>().text = item.count.ToString();
+                        if (otherMgr.item.count <= 0) {
+                            rl.inv.dropItem(otherMgr.item, b);
+                        } else {
+                            b.GetComponentInChildren<Text>().text = otherMgr.item.count.ToString();
+                        }
+                    }          
+                    
                     set = true;
                     break;                  
                 }
             }
             //if it's in it's original spot just snap it back
             if (!set) {
-                Debug.Log("?");
                 transform.SetParent(startingParent);
                 transform.localPosition = temp;
                 transform.SetSiblingIndex(index);

@@ -13,6 +13,8 @@ public class ResourceLoader : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
         createIngredients();
         createInventory();
+        //Just for testing stack combining
+        inv.testing();
     }
 
     //TO DO: Add images for each ingredient once we have sprites for them
@@ -27,7 +29,7 @@ public class ResourceLoader : MonoBehaviour {
     }
 
     void createInventory() {
-        inv = new Inventory();       
+        inv = new Inventory();
         /*if(save file exists){
              pull data from that to fill inventory
           } */

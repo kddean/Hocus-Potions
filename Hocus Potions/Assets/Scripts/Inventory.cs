@@ -20,19 +20,29 @@ public class Inventory {
         }
     }
 
-
-    public List<inventoryItem> inventory = new List<inventoryItem>();
+    public List<inventoryItem> inventory; 
     public int maxSize = 10;
-    int currentSize = 0;
+    int currentSize = 3;
     bool display = false;
+
+    //Just for testing stack combining
+    public void testing() {
+        Brewing b = new Brewing();
+        Potion p = b.Brew("nightshade", "nightshade", "poppy");
+        inventory = new List<inventoryItem>() { new inventoryItem(p, p.name, p.image), new inventoryItem(p, p.name, p.image), new inventoryItem(p, p.name, p.image) };
+        Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
+        for (int i = 0; i < 3; i++) {
+            invButtons[i].GetComponentInChildren<Text>().text = "";
+            invButtons[i].GetComponentInChildren<Image>().sprite = p.image;
+            invButtons[i].GetComponent<InventoryManager>().item = inventory[i];
+        }
+    }
    
 
     public bool add(Object obj, string name, Sprite image) {
         bool add = true;
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
-        foreach(Button b in invButtons) {
-            Debug.Log(b.GetComponent<InventoryManager>().item);
-        }
+
         foreach (inventoryItem i in inventory) {
             if (i.name.Equals(name)) {
                 if (i.count < i.maxStack) {
