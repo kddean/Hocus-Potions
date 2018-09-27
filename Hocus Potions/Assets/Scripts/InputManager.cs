@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ public class InputManager : MonoBehaviour {
                 invGroup.blocksRaycasts = false;
             } else {
                 Button[] invButtons = invPanel.GetComponentsInChildren<Button>();
+                Array.Sort(invButtons, delegate(Button x, Button y) { return x.name.CompareTo(y.name); });
                 Debug.Log(rl.inv.inventory);
                 for(int i = 0; i < rl.inv.inventory.Count; i++) {
                     invButtons[i].GetComponentInChildren<Text>().text = rl.inv.inventory[i].count.ToString();
