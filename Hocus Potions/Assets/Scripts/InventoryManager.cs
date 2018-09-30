@@ -13,8 +13,33 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     int index;
     public Inventory.inventoryItem item;
     ResourceLoader rl;
+    public GameObject tooltip;
+    Text[] text;
+    bool hovered = false;
+    Vector3 offset = new Vector3(100, -45, 0);
 
-     
+    void Update() {
+        if (hovered) {
+            tooltip.transform.position = Input.mousePosition + offset;
+        }
+    }
+
+    public void OnMouseEnter() {
+        text = tooltip.GetComponentsInChildren<Text>();
+        text[0].text = item.name;
+        //text[1].text = item.flavorText;
+        //text[2].text = item.attributes;
+        tooltip.GetComponent<CanvasGroup>().alpha = 1;
+        tooltip.transform.position = Input.mousePosition;
+        hovered = true;
+    }
+
+
+    public void OnMouseExit() {
+        tooltip.GetComponent<CanvasGroup>().alpha = 0;
+        hovered = false;
+    }
+
     public void OnBeginDrag(PointerEventData eventData) {
         temp = transform.localPosition;
         startingParent = transform.parent;
