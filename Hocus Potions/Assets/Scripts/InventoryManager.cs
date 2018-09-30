@@ -25,19 +25,23 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     }
 
     public void OnMouseEnter() {
-        text = tooltip.GetComponentsInChildren<Text>();
-        text[0].text = item.name;
-        //text[1].text = item.flavorText;
-        //text[2].text = item.attributes;
-        tooltip.GetComponent<CanvasGroup>().alpha = 1;
-        tooltip.transform.position = Input.mousePosition;
-        hovered = true;
+        if (item != null) {
+            text = tooltip.GetComponentsInChildren<Text>();
+            text[0].text = item.name;
+            //text[1].text = item.flavorText;
+            //text[2].text = item.attributes;
+            tooltip.GetComponent<CanvasGroup>().alpha = 1;
+            tooltip.transform.position = Input.mousePosition;
+            hovered = true;
+        }
     }
 
 
     public void OnMouseExit() {
-        tooltip.GetComponent<CanvasGroup>().alpha = 0;
-        hovered = false;
+        if (item != null) {
+            tooltip.GetComponent<CanvasGroup>().alpha = 0;
+            hovered = false;
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
@@ -46,6 +50,8 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         index = transform.GetSiblingIndex();
         canvas = transform.parent.parent.transform;
         transform.SetParent(canvas);
+        hovered = false;
+        tooltip.GetComponent<CanvasGroup>().alpha = 0;
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -69,7 +75,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                     b.transform.SetSiblingIndex(index);
 
                     //check if combining stacks
-                    if (item.count != item.maxStack && otherMgr.item != null && otherMgr.item.name.Equals(item.name)) {
+                    if (item != null && item.count != item.maxStack && otherMgr.item != null && otherMgr.item.name.Equals(item.name)) {
                         while (item.count < item.maxStack && otherMgr.item.count != 0) {
                             otherMgr.item.count--;
                             item.count++;
@@ -100,6 +106,10 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             rl.inv.dropItem(item, GetComponent<Button>());
         }
         set = false;
+        if (item != null) {
+            hovered = true;
+            tooltip.GetComponent<CanvasGroup>().alpha = 1;
+        }
     }
 
  }
