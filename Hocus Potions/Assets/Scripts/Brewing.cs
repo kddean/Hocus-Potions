@@ -51,7 +51,7 @@ class attList {
                                                                          second.attributeList[0], second.attributeList[1], second.attributeList[2],
                                                                          third.attributeList[0], third.attributeList[1], third.attributeList[2]};
 
-        Ingredient.Attributes primary;
+        Ingredient.Attributes? primary = null;
         Ingredient.Attributes? secondary = null;
         Ingredient.Modifiers? mod = null;
         int duration = 0;
@@ -260,8 +260,15 @@ class attList {
                 Debug.Log("name: " + name + "\n" + "p:" + primary + "\ns: " + secondary + "\nm: " + mod + "\nd: " + duration + "\ni: " + image.name);
                 return pot;
             } else {
-                Debug.Log("Potion creation failed");
-                //Debug.Log(sortedAtt[0].attribute.ToString() + " " + sortedAtt[0].count);
+                //for failed potions TO DO: clean up a bit later
+                name = "failed potion";
+                primary = null;
+                secondary = null;
+                mod = null; 
+                duration = 0;
+                image = Resources.Load<Sprite>("Potions/potions_null_1");
+                Potion pot = new Potion(name, image, duration, primary, secondary, mod);
+                return pot;
             }
 
             }
