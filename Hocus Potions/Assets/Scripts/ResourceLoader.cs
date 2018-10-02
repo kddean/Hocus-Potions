@@ -8,11 +8,17 @@ public class ResourceLoader : MonoBehaviour {
     public Inventory inv;
     public List<Ingredient> ingredients;
 
+    public void Awake() {
+        DontDestroyOnLoad(this);
+        if (FindObjectsOfType(GetType()).Length > 1) {
+            Destroy(gameObject);
+        }
+    }
     //To DO: swap this to load from a saved data file rather than creating it from scratch every time
     void Start () {
-        DontDestroyOnLoad(this.gameObject);
         createIngredients();
         createInventory();
+        DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         //Just for testing stack combining
         inv.testing();
     }

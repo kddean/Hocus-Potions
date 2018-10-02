@@ -4,8 +4,6 @@ using System.Linq;
 using UnityEngine;
 
 public class Brewing {
-    //delete this later; it's just to make it compile for testing
-    public Sprite image;
 
 class attList {
         public int count;
@@ -57,6 +55,7 @@ class attList {
         int duration = 0;
         //Sprite image;
         string name = "";
+        Sprite image;
         int aCount;
 
         bool add;

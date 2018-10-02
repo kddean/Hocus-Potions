@@ -11,9 +11,14 @@ public class InputManager : MonoBehaviour {
     CanvasGroup invGroup;
     bool invToggle = false;
     ResourceLoader rl;
+    public void Awake() {
+        DontDestroyOnLoad(this);
+        if (FindObjectsOfType(GetType()).Length > 1) {
+            Destroy(gameObject);
+        }
+    }
 
     void Start() {
-        DontDestroyOnLoad(this.gameObject);
         invPanel = GameObject.FindGameObjectWithTag("inventory");
         invGroup = invPanel.GetComponent<CanvasGroup>();
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
