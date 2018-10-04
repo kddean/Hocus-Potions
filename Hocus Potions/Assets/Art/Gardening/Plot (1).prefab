@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4472326654668342}
   - component: {fileID: 212710741526372060}
-  - component: {fileID: 114082086746437118}
+  - component: {fileID: 114989066097586190}
   - component: {fileID: 61080778034031182}
   m_Layer: 0
   m_Name: Plot (1)
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.73, y: 0.44}
   m_EdgeRadius: 0
---- !u!114 &114082086746437118
+--- !u!114 &114989066097586190
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,7 +80,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emptyPlot: {fileID: 21300000, guid: b6cb850d1446d304181339ff0e7477ef, type: 3}
   sowedPlot: {fileID: 21300000, guid: 753e8bb9caefccc4ba014ecefb5cb9e4, type: 3}
+  growPlot: {fileID: 21300000, guid: 3b8f8718cc0d94a4ba53f6a849812403, type: 3}
   plantPlot: {fileID: 21300000, guid: 9f2cf7fd7315b534db1c0627c3d9edfe, type: 3}
+  harvestReady: 0
 --- !u!212 &212710741526372060
 SpriteRenderer:
   m_ObjectHideFlags: 1

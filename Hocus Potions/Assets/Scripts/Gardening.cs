@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Farming : MonoBehaviour {
+public class Gardening : MonoBehaviour {
 
     public Sprite emptyPlot;
     public Sprite sowedPlot;
+    public Sprite growPlot;
     public Sprite plantPlot;
+    
     public bool harvestReady;
+
+    public GameObject clock;
+    public int[] currentTime = new int[2];
+
+    public int growTime = 30;
+    int startHour;
+    int startMinutes;
+    int finishMinutes;
 
     private Sprite currentSprite;
 
@@ -16,21 +26,19 @@ public class Farming : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        clock = GameObject.Find("Clock");
+        currentTime[0] = clock.GetComponent<MoonCycle>().getHours();
+        currentTime[1] = clock.GetComponents<MoonCycle>().getMinutes();       
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		
-        if(this.GetComponent<SpriteRenderer>().sprite == sowedPlot && harvestReady == false)
-        {
-           
-           
-        }
 
+    void Update()
+    {
+        currentTime[0] = clock.GetComponent<MoonCycle>().getHours();
+        currentTime[1] = clock.GetComponents<MoonCycle>().getMinutes();
+        CheckTime();
+    }
 
-
-	}
+    // Update is called once per frame
 
     private void OnMouseDown()
     {
@@ -42,7 +50,7 @@ public class Farming : MonoBehaviour {
             //Debug.Log(this);
             currentSprite = this.GetComponent<SpriteRenderer>().sprite;
             Debug.Log("The current sprite: " + currentSprite);
-            StartCoroutine(GrowTime());
+            GrowTime();
         }
         else if (this.GetComponent<SpriteRenderer>().sprite == plantPlot && harvestReady == true)
         {
@@ -61,23 +69,53 @@ public class Farming : MonoBehaviour {
         
 
     }
-
-    private IEnumerator GrowTime()
+    private void GrowTime()
     {
-        //print(Time.time);
-        yield return new WaitForSeconds(5);
-        //print(Time.time);
+        this.startHour = currentTime[0];
+        this.startMinutes = currentTime[1];
+        //int finishHour;
+        this.finishMinutes = startMinutes + growTime;
+
+
+    }
+
+    private IEnumerator GrowProgressTime()
+    {
+       yield return new WaitForSeconds(5);
+       if (this.GetComponent<SpriteRenderer>().sprite == sowedPlot)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = growPlot;
+        }
+        //StartCoroutine(WaitTime());
+        
+    }
+
+    private IEnumerator WaitTime()
+    {
+        yield return new WaitForSeconds(10);
+        PlantReady();
+        //Player.heldItem = "seeds";
+        //Debug.Log("Wait time over");
+    }
+
+    void PlantReady()
+    {
         this.GetComponent<SpriteRenderer>().sprite = plantPlot;
         this.harvestReady = true;
         currentSprite = this.GetComponent<SpriteRenderer>().sprite;
         Debug.Log("The current sprite: " + currentSprite);
     }
 
-    private IEnumerator WaitTime()
+    void CheckTime()
     {
-        yield return new WaitForSeconds(0.5f);
-        Player.heldItem = "seeds";
-        //Debug.Log("Wait time over");
+        if(finishMinutes == currentTime[1])
+        {
+            PlantReady();
+        }
+        else
+        {
+            GrowProgressTime();
+        }
     }
         
 }

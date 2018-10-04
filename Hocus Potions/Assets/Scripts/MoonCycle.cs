@@ -11,7 +11,7 @@ public class MoonCycle : MonoBehaviour {
     // Moon phase is a day of the week
 
 
-    public GameObject Clock;
+    static public GameObject Clock;
     //static public Time time;
     public Text hoursUI;
     public Text minsUI;
