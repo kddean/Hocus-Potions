@@ -6,6 +6,7 @@ public class NPC : MonoBehaviour {
     private string characterName;
     private Sprite character;
     private Sprite portrait;
+    string[] dialogue;
 
     //Queue<Action> schedule;
     //Relationship[] relations;
@@ -50,6 +51,16 @@ public class NPC : MonoBehaviour {
 
         set {
             character = value;
+        }
+    }
+
+    public string[] Dialogue {
+        get {
+            return dialogue;
+        }
+
+        set {
+            dialogue = value;
         }
     }
 }
