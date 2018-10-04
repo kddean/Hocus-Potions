@@ -25,7 +25,27 @@ public class MoonCycle : MonoBehaviour {
     int hour;
     int minutes;
 
-   // int prevTime;
+    public int Hour {
+        get {
+            return hour;
+        }
+
+        set {
+            hour = value;
+        }
+    }
+
+    public int Minutes {
+        get {
+            return minutes;
+        }
+
+        set {
+            minutes = value;
+        }
+    }
+
+    // int prevTime;
 
 
     // Every 2 mins real time is 10 mins game time
@@ -33,14 +53,14 @@ public class MoonCycle : MonoBehaviour {
 
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
        
-        hour = 6;
-        minutes = 00;
-        hoursUI.text = hour.ToString();
-        minsUI.text = minutes.ToString();
+        Hour = 6;
+        Minutes = 00;
+        hoursUI.text = Hour.ToString();
+        minsUI.text = Minutes.ToString();
         moonPhase.sprite = moonCycleSprites[0];
         
        
@@ -51,8 +71,8 @@ public class MoonCycle : MonoBehaviour {
 
        
         StartCoroutine(PassingTime());
-        hoursUI.text = hour.ToString();
-        minsUI.text = minutes.ToString();
+        hoursUI.text = Hour.ToString();
+        minsUI.text = Minutes.ToString();
         moonPhase.sprite = moonCycleSprites[currentMoonPhase];
 
 
@@ -67,18 +87,18 @@ public class MoonCycle : MonoBehaviour {
 
     void ChangeTime()
     {
-        minutes = minutes + 10;
+        Minutes = Minutes + 10;
 
 
-        if (hour == 23 && minutes == 60)
+        if (Hour == 23 && Minutes == 60)
         {
             currentMoonPhase = (currentMoonPhase + 1) % 5;
         }
 
-        if (minutes == 60)
+        if (Minutes == 60)
         {
-            hour = (hour + 1) % 24;
-            minutes = 00;
+            Hour = (Hour + 1) % 24;
+            Minutes = 00;
 
         }
 
