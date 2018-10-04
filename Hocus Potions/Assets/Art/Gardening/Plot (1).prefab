@@ -83,6 +83,8 @@ MonoBehaviour:
   growPlot: {fileID: 21300000, guid: 3b8f8718cc0d94a4ba53f6a849812403, type: 3}
   plantPlot: {fileID: 21300000, guid: 9f2cf7fd7315b534db1c0627c3d9edfe, type: 3}
   harvestReady: 0
+  clock: {fileID: 0}
+  currentTime: 
 --- !u!212 &212710741526372060
 SpriteRenderer:
   m_ObjectHideFlags: 1
