@@ -80,7 +80,8 @@ public class MoonCycle : MonoBehaviour {
 
     IEnumerator PassingTime()
     {
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(120);
+        //Debug.Log("Did I get called?");
         ChangeTime();
        
     }

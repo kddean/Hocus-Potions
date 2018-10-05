@@ -26,16 +26,20 @@ public class Gardening : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        currentTime = new int[2];
         clock = GameObject.Find("Clock");
-        currentTime[0] = clock.GetComponent<MoonCycle>().getHours();
-        currentTime[1] = clock.GetComponents<MoonCycle>().getMinutes();       
-	}
+        currentTime[0] = clock.GetComponent<MoonCycle>().Hour;
+        currentTime[1] = clock.GetComponent<MoonCycle>().Minutes;
+
+    }
 
     void Update()
     {
-        currentTime[0] = clock.GetComponent<MoonCycle>().getHours();
-        currentTime[1] = clock.GetComponents<MoonCycle>().getMinutes();
+        currentTime[0] = clock.GetComponent<MoonCycle>().Hour;
+        currentTime[1] = clock.GetComponent<MoonCycle>().Minutes;
         CheckTime();
+        //Debug.Log(currentTime[0]);
+        //Debug.Log(currentTime[1]);
     }
 
     // Update is called once per frame
@@ -46,7 +50,7 @@ public class Gardening : MonoBehaviour {
         if(Player.heldItem == "seeds" && harvestReady == false)
         {
             this.GetComponent<SpriteRenderer>().sprite = sowedPlot;
-            //Debug.Log("Planted");
+            Debug.Log("Planted");
             //Debug.Log(this);
             currentSprite = this.GetComponent<SpriteRenderer>().sprite;
             Debug.Log("The current sprite: " + currentSprite);
@@ -74,26 +78,27 @@ public class Gardening : MonoBehaviour {
         this.startHour = currentTime[0];
         this.startMinutes = currentTime[1];
         //int finishHour;
-        this.finishMinutes = startMinutes + growTime;
+        this.finishMinutes = (startMinutes + growTime) % 60;
 
+        Debug.Log(this.finishMinutes);
 
     }
 
     private IEnumerator GrowProgressTime()
     {
-       yield return new WaitForSeconds(5);
+       yield return new WaitForSeconds(10);
        if (this.GetComponent<SpriteRenderer>().sprite == sowedPlot)
         {
             this.GetComponent<SpriteRenderer>().sprite = growPlot;
         }
-        //StartCoroutine(WaitTime());
+        StartCoroutine(WaitTime());
         
     }
 
     private IEnumerator WaitTime()
     {
-        yield return new WaitForSeconds(10);
-        PlantReady();
+        yield return new WaitForSeconds(50);
+        //PlantReady();
         //Player.heldItem = "seeds";
         //Debug.Log("Wait time over");
     }
@@ -108,13 +113,13 @@ public class Gardening : MonoBehaviour {
 
     void CheckTime()
     {
-        if(finishMinutes == currentTime[1])
+        if(finishMinutes == currentTime[1] && this.GetComponent<SpriteRenderer>().sprite == growPlot)
         {
             PlantReady();
         }
-        else
+        else if (this.GetComponent<SpriteRenderer>().sprite == sowedPlot)
         {
-            GrowProgressTime();
+             StartCoroutine(GrowProgressTime());
         }
     }
         
