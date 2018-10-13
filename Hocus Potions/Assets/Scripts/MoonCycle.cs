@@ -56,7 +56,6 @@ public class MoonCycle : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-       
         Hour = 6;
         Minutes = 00;
         hoursUI.text = Hour.ToString();
@@ -68,22 +67,20 @@ public class MoonCycle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-       
         StartCoroutine(PassingTime());
         hoursUI.text = Hour.ToString();
         minsUI.text = Minutes.ToString();
         moonPhase.sprite = moonCycleSprites[currentMoonPhase];
-
-
     }
 
     IEnumerator PassingTime()
     {
-        yield return new WaitForSecondsRealtime(120);
+        //actual time scale
+        //yield return new WaitForSecondsRealtime(120);
+        //testing purposes
+        yield return new WaitForSecondsRealtime(10);
         //Debug.Log("Did I get called?");
         ChangeTime();
-       
     }
 
     void ChangeTime()

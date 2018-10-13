@@ -6,6 +6,7 @@ TagManager:
   tags:
   - inventory
   - loader
+  - dialogue
   layers:
   - Default
   - TransparentFX

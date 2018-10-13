@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPC : MonoBehaviour {
-    private string characterName;
-    private Sprite character;
-    private Sprite portrait;
-    string[] dialogue;
+    string characterName;
+    Dictionary<string,string> dialogue;
 
+    //Status 
     //Queue<Action> schedule;
     //Relationship[] relations;
 
-    public class Action {
-        int hour;
-        int minute;
-        //Finish this when we figure out how to handle it;
-    }
 
+    /* TODO: figure out how this will work later
     public class Relationship {
         NPC otherNPC;
         enum relationshipType { };
         int level;
         //probably needs more fields; depends on depth of the system
     }
+    */
+
 
     public string CharacterName {
         get {
@@ -34,27 +31,7 @@ public class NPC : MonoBehaviour {
         }
     }
 
-    public Sprite Portrait {
-        get {
-            return portrait;
-        }
-
-        set {
-            portrait = value;
-        }
-    }
-
-    public Sprite Character {
-        get {
-            return character;
-        }
-
-        set {
-            character = value;
-        }
-    }
-
-    public string[] Dialogue {
+    public Dictionary<string, string> Dialogue {
         get {
             return dialogue;
         }

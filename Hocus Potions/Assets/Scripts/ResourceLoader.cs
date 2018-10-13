@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +10,11 @@ public class ResourceLoader : MonoBehaviour {
 
     public Inventory inv;
     public List<Ingredient> ingredients;
-    public List<NPC> npcs;
+    public Dictionary<string, Dictionary<string,string>> dialogueList;
+    public Dictionary<string, Sprite> portraitList;
+    public Dictionary<string, Sprite> charSpriteList;
+    public Dictionary<string, string[]> requestList;
+    public List<string> availableNPCs;
     public TextAsset npcTextFile;
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -17,13 +24,16 @@ public class ResourceLoader : MonoBehaviour {
     }
     //To DO: swap this to load from a saved data file rather than creating it from scratch every time
     void Start () {
+        dialogueList = new Dictionary<string, Dictionary<string, string>>();
+        portraitList = new Dictionary<string, Sprite>();
+        charSpriteList = new Dictionary<string, Sprite>();
+        requestList = new Dictionary<string, string[]>();
         CreateIngredients();
         CreateInventory();
+        CreateNPCs();
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         //Just for testing stack combining
         inv.testing();
-
-        CreateNPCs();
     }
 
     //TO DO: Add images for each ingredient once we have sprites for them
@@ -46,20 +56,25 @@ public class ResourceLoader : MonoBehaviour {
 
 
     void CreateNPCs() {
-        //TO DO: Load this from a file before I go insane adding any more by hand
-        //Turn these in to prefabs 
-
-        string[] splitList = npcTextFile.text.Split('/');
+        availableNPCs = new List<string>();
+        string cleanText = npcTextFile.text;
+        cleanText = Regex.Replace(cleanText, @"\r", "");
+        cleanText = Regex.Replace(cleanText, @"\n", "");
+        string[] splitList = cleanText.Split('/');
         for (int i = 0; i < splitList.Length; i++) {
-            string[] dataFields = splitList[i].Split(';');
-            Traveller temp = new Traveller {
-                Character = Resources.Load<Sprite>(dataFields[0].Split(':')[1]),
-                Portrait = null,
-                CharacterName = dataFields[0].Split(':')[0],
-                Dialogue = dataFields[1].Split(':'),
-                Requests = dataFields[2].Split(':')
-            };
-            npcs.Add(temp);
+            string[] data = splitList[i].Split(';');
+            availableNPCs.Add(data[0]);
+            portraitList.Add(data[0], Resources.Load<Sprite>(data[1]));
+            charSpriteList.Add(data[0], Resources.Load<Sprite>(data[2]));
+            Dictionary<string, string> temp = new Dictionary<string, string>();
+            string[] dialogueSplit = data[3].Split(':');
+            for (int j = 0; j < dialogueSplit.Length; j++) {
+                temp.Add(dialogueSplit[j].Split('=')[0], dialogueSplit[j].Split('=')[1]);
+            }
+            dialogueList.Add(data[0], temp);
+            if (!data[4].Split(':')[0].Equals(String.Empty)) {
+                requestList.Add(data[0], data[4].Split(':'));
+            }
         }
     }
 }

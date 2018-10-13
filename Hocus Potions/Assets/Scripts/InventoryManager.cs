@@ -16,13 +16,28 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     public GameObject tooltip;
     Text[] text;
     bool hovered = false;
+    bool dragging = false;
     Vector3 offset = new Vector3(100, -45, 0);
+    public bool active = false;
 
     void Update() {
         if (hovered) {
             tooltip.transform.position = Input.mousePosition + offset;
         }
     }
+
+    public void SetActive() {
+        if (active == true) {
+            active = false;
+        } else if (!dragging && item != null) {
+            Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
+            foreach (Button b in invButtons) {
+                b.GetComponent<InventoryManager>().active = false;
+            }
+            active = true;
+        }
+    }
+
 
     public void OnMouseEnter() {
         if (item != null) {
@@ -31,17 +46,14 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             //text[1].text = item.flavorText;
             //text[2].text = item.attributes;
             tooltip.GetComponent<CanvasGroup>().alpha = 1;
-            tooltip.transform.position = Input.mousePosition;
             hovered = true;
         }
     }
 
 
     public void OnMouseExit() {
-        if (item != null) {
-            tooltip.GetComponent<CanvasGroup>().alpha = 0;
-            hovered = false;
-        }
+        tooltip.GetComponent<CanvasGroup>().alpha = 0;
+        hovered = false;
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
@@ -52,6 +64,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         transform.SetParent(canvas);
         hovered = false;
         tooltip.GetComponent<CanvasGroup>().alpha = 0;
+        dragging = true;
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -110,6 +123,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             hovered = true;
             tooltip.GetComponent<CanvasGroup>().alpha = 1;
         }
+        dragging = false;
     }
 
  }
