@@ -16,7 +16,7 @@ request_random=For the first lesson, please supply me with 1 eye of newt, 2 bram
 yes=Wonderful, the great tentacled lord will be happy to take you under his maw.:
 wait=Of course, of course, I will be back tomorrow at the same time. Good evening.:
 no=You will live to rue this day...;
-request_random*1 eye of newt:request_random*2 brambleberries:request_random*3 silver tongues roses;
+request_random=1 eye of newt, 2 brambleberries, 3 silver tongues roses;
 
 
 /White robed traveler;
@@ -29,5 +29,5 @@ request_cat=As an initiation, we ask that you turn someone into a cat. Do this a
 yes=Welcome to the ranks of the Nocturnal Administration of Talented Utilitarian Robed Entropics! 
 wait=You have 1 day to decide.:
 no=You deny Chaos? You must be an agent of that tentacled order-monger Notcthulhu!!! We will meet again, fiend.;
-request_cat*cat potion;
+request_cat=cat potion;
 

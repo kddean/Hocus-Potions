@@ -104,7 +104,7 @@ public class Traveller : NPC {
         } else {
             if (!requested) {
                 choice = Random.Range(0, requests.Length - 1);
-                string key = requests[choice].Split('*')[0];
+                string key = requests[choice].Split('=')[0];
                 panel.GetComponentInChildren<Text>().text = Dialogue[key];
                 requested = true;
             } else {
