@@ -19,10 +19,11 @@ public class Traveller : NPC {
     bool returning;
     bool requested;
     bool done;
+    bool leaving;
 
     Object given;
     int waitHour, waitMinute;
-    int maxWait = 3;
+    int maxWait = 5;
 
     string[] dialoguePieces;
     int currentDialogue;
@@ -45,6 +46,7 @@ public class Traveller : NPC {
         wait = false;
         requested = false;
         done = false;
+        leaving = false;
 
         //set onclick functions for dialogue
         panel.transform.Find("Next").GetComponent<Button>().onClick.AddListener(NextDialogue);
@@ -55,25 +57,25 @@ public class Traveller : NPC {
     }
 
     void Update() {
-        if (move) {
+        if (move && !leaving) {
             transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("WaitPoint").transform.position, 0.025f);
             Vector3 temp = transform.position;
             temp.z = -1.0f;
             transform.position = temp;
         }
-        /* This will make them leave after they've waited long enough but it makes them instantly disappear when the clock speed is jacked up
-        if(move && waitHour >= mc.Hour) {
+        // This will make them leave after they've waited long enough but it makes them instantly disappear when the clock speed is jacked up
+        if (move && (waitHour <= mc.Hour || leaving)) {
+            leaving = true;
             transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("SpawnPoint").transform.position, 0.025f);
             Vector3 temp = transform.position;
             temp.z = -1.0f;
             transform.position = temp;
-            if(transform.position.x == GameObject.Find("SpawnPoint").transform.position.x && transform.position.y == GameObject.Find("SpawnPoint").transform.position.y) {
+            if (transform.position.x == GameObject.Find("SpawnPoint").transform.position.x && transform.position.y == GameObject.Find("SpawnPoint").transform.position.y) {
                 Destroy(this.gameObject);
                 manager.Spawned = false;
             }
-        }*/
+        }
     }
-
 
     private void OnMouseDown() {
         move = false;
@@ -158,7 +160,7 @@ public class Traveller : NPC {
         panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
         panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
     }
-    private void OnCollisionStay2D(Collision2D collision) {
+    private void OnCollisionEnter2D(Collision2D collision) {
         move = false;
     }
 

@@ -61,26 +61,17 @@ public class MoonCycle : MonoBehaviour {
         hoursUI.text = Hour.ToString();
         minsUI.text = Minutes.ToString();
         moonPhase.sprite = moonCycleSprites[0];
-        
-       
-	}
-	
-	// Update is called once per frame
-	void Update () {
         StartCoroutine(PassingTime());
-        hoursUI.text = Hour.ToString();
-        minsUI.text = Minutes.ToString();
-        moonPhase.sprite = moonCycleSprites[currentMoonPhase];
     }
+	
 
     IEnumerator PassingTime()
     {
-        //actual time scale
-        //yield return new WaitForSecondsRealtime(120);
-        //testing purposes
-        yield return new WaitForSecondsRealtime(10);
-        //Debug.Log("Did I get called?");
+        //120 for actual time scale
+        yield return new WaitForSecondsRealtime(120);
+             //Debug.Log("Did I get called?");
         ChangeTime();
+        StartCoroutine(PassingTime());
     }
 
     void ChangeTime()
@@ -91,6 +82,7 @@ public class MoonCycle : MonoBehaviour {
         if (Hour == 23 && Minutes == 60)
         {
             currentMoonPhase = (currentMoonPhase + 1) % 5;
+            moonPhase.sprite = moonCycleSprites[currentMoonPhase];
         }
 
         if (Minutes == 60)
@@ -99,8 +91,8 @@ public class MoonCycle : MonoBehaviour {
             Minutes = 00;
 
         }
-
-        
+        minsUI.text = Minutes.ToString();
+        hoursUI.text = Hour.ToString();
     }
 
 
