@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ingredient {
+public class Ingredient : Object {
     public enum Attributes { sleep, healing, transformation, poison, invisible, magicPP, magicMM, cat, chicken, sheep };
     public enum Modifiers { magicPP, magicMM, cat, chicken, sheep };
 

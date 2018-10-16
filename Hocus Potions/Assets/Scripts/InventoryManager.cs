@@ -6,20 +6,25 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
-    Vector3 temp;
-    bool set = false;
     Transform startingParent;
     Transform canvas;
-    int index;
     public Inventory.inventoryItem item;
     ResourceLoader rl;
+    int index;
+    Vector3 temp;
+    bool set = false;
     public GameObject tooltip;
+    //tooltip text
     Text[] text;
+    //flags for displaying tooltips
     bool hovered = false;
     bool dragging = false;
+    //tooltip offset
     Vector3 offset = new Vector3(100, -45, 0);
-    public bool active = false;
 
+    void Start() {
+        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+    }
     void Update() {
         if (hovered) {
             tooltip.transform.position = Input.mousePosition + offset;
@@ -27,15 +32,11 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     }
 
     public void SetActive() {
-        if (active == true) {
-            active = false;
-        } else if (!dragging && item != null) {
-            Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
-            foreach (Button b in invButtons) {
-                b.GetComponent<InventoryManager>().active = false;
-            }
-            active = true;
-        }
+        if(rl.activeItem == this) {
+            rl.activeItem = null;
+        } else if(item != null){
+            rl.activeItem = this;
+        }         
     }
 
 

@@ -21,7 +21,6 @@ public class Traveller : NPC {
     bool done;
     bool leaving;
 
-    Object given;
     int waitHour, waitMinute;
     int maxWait = 5;
 
@@ -92,6 +91,22 @@ public class Traveller : NPC {
         }
     }
 
+    private void OnMouseOver() {
+        if (Input.GetMouseButtonDown(1)) {
+            if(rl.activeItem != null) {
+                if(rl.activeItem.item.item is Potion) {
+                    Give();
+                }
+            }
+        }
+    }
+
+    void Give() {
+        rl.givenObjects.Add(CharacterName, rl.activeItem.item.item);
+        rl.inv.removeItem(rl.activeItem.item);
+
+        //TODO: handle response - change sprite, alignment, social, dialogue
+    }
     public void NextDialogue() {
         if (dialoguePieces.Length > (currentDialogue + 2)) {
             currentDialogue++;

@@ -89,13 +89,18 @@ public class Inventory {
                     b.GetComponentInChildren<Text>().text = "";
                     b.GetComponentInChildren<Image>().sprite = null;
                     b.GetComponent<InventoryManager>().item = null;
+                    break;
                 }
             }
         } else {
             item.count--;
             foreach (Button b in invButtons) {
                 if (b.GetComponent<InventoryManager>().item == item) {
-                    b.GetComponentInChildren<Text>().text = item.count.ToString();
+                    if (item.count == 1) {
+                        b.GetComponentInChildren<Text>().text = "";
+                    } else {
+                        b.GetComponentInChildren<Text>().text = item.count.ToString();
+                    }
                 }
             }
         }
