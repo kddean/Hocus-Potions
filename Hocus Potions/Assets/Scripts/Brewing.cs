@@ -31,17 +31,9 @@ class attList {
         first = second = third = null;
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         //assign ingredients based on name
-        foreach (Ingredient i in rl.ingredients) {
-            if (i.name.Equals(f.ToLower())) {
-                first = i;
-            }
-            if (i.name.Equals(s.ToLower())) {
-                second = i;
-            }
-            if (i.name.Equals(t.ToLower())) {
-                third = i;
-            }
-        }
+        first = rl.ingredients[f.ToLower()];
+        second = rl.ingredients[s.ToLower()];
+        third = rl.ingredients[t.ToLower()];
 
         List<attList> attributes = new List<attList>();
         List<modList> modifiers = new List<modList>();
