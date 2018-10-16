@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Schedule.cs" />
     <Compile Include="Assets\Scripts\Traveller.cs" />
     <None Include="Assets\NpcList.txt" />
+    <None Include="Assets\travellerText.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/u1149097/Documents/Hocus-Potions/Hocus Potions/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

@@ -68,7 +68,7 @@ public class MoonCycle : MonoBehaviour {
     IEnumerator PassingTime()
     {
         //120 for actual time scale
-        yield return new WaitForSecondsRealtime(120);
+        yield return new WaitForSecondsRealtime(.5f);
              //Debug.Log("Did I get called?");
         ChangeTime();
         StartCoroutine(PassingTime());

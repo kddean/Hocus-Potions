@@ -14,14 +14,18 @@ public class Gardening : MonoBehaviour {
     public GameObject clock;
     public int[] currentTime = new int[2];
 
-    public int growTime = 30;
+    public int growTime = 60;
     int startHour;
     int startMinutes;
+    int finishHour;
     int finishMinutes;
+    int halfOfGrowthTime;
 
     private Sprite currentSprite;
 
     private SpriteRenderer spriteRenderer;
+
+    Ingredient poppy;
 
 
     // Use this for initialization
@@ -30,6 +34,8 @@ public class Gardening : MonoBehaviour {
         clock = GameObject.Find("Clock");
         currentTime[0] = clock.GetComponent<MoonCycle>().Hour;
         currentTime[1] = clock.GetComponent<MoonCycle>().Minutes;
+
+        TestingGardenInv();
 
     }
 
@@ -69,6 +75,10 @@ public class Gardening : MonoBehaviour {
 
             Player.heldItem = "seeds";
 
+
+            Object obj = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().ingredients["poppy"];
+            GameObject.FindGameObjectWithTag("inventory").GetComponent<Inventory>().add(obj, poppy.name, poppy.image);
+            
         }
         
 
@@ -79,6 +89,7 @@ public class Gardening : MonoBehaviour {
         this.startMinutes = currentTime[1];
         //int finishHour;
         this.finishMinutes = (startMinutes + growTime) % 60;
+        this.halfOfGrowthTime = finishMinutes / 2;
 
         Debug.Log(this.finishMinutes);
 
@@ -91,7 +102,7 @@ public class Gardening : MonoBehaviour {
         {
             this.GetComponent<SpriteRenderer>().sprite = growPlot;
         }
-        StartCoroutine(WaitTime());
+        //StartCoroutine(WaitTime());
         
     }
 
@@ -119,8 +130,15 @@ public class Gardening : MonoBehaviour {
         }
         else if (this.GetComponent<SpriteRenderer>().sprite == sowedPlot)
         {
-             StartCoroutine(GrowProgressTime());
+            
+            StartCoroutine(GrowProgressTime());
         }
+    }
+
+    void TestingGardenInv()
+    {
+        poppy.name = "poppy";
+        poppy.image = plantPlot;
     }
         
 }
