@@ -37,7 +37,7 @@ public class ResourceLoader : MonoBehaviour {
         CreateNPCs();
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         //Just for testing stack combining
-        inv.testing();
+        inv.Testing();
     }
 
     //TO DO: Add images for each ingredient once we have sprites for them

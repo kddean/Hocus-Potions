@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 public class Inventory {
-    public class inventoryItem {
+    public class InventoryItem {
         public int maxStack = 10;
         public int count = 1;
         public Object item;
@@ -13,23 +13,23 @@ public class Inventory {
         public Sprite image;
 
          
-        public inventoryItem(Object o, string n, Sprite i) {
+        public InventoryItem(Object o, string n, Sprite i) {
             item = o;
             name = n;
             image = i;
         }
     }
 
-    public List<inventoryItem> inventory; 
+    public List<InventoryItem> inventory; 
     public int maxSize = 10;
     int currentSize = 3;
     bool display = false;
 
     //Just for testing stack combining
-    public void testing() {
+    public void Testing() {
         Brewing b = new Brewing();
         Potion p = b.Brew("nightshade", "nightshade", "poppy");
-        inventory = new List<inventoryItem>() { new inventoryItem(p, p.name, p.image), new inventoryItem(p, p.name, p.image), new inventoryItem(p, p.name, p.image) };
+        inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image) };
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         for (int i = 0; i < 3; i++) {
             invButtons[i].GetComponentInChildren<Text>().text = "";
@@ -39,11 +39,11 @@ public class Inventory {
     }
    
 
-    public bool add(Object obj, string name, Sprite image) {
+    public bool Add(Object obj, string name, Sprite image) {
         bool add = true;
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
 
-        foreach (inventoryItem i in inventory) {
+        foreach (InventoryItem i in inventory) {
             if (i.name.Equals(name)) {
                 if (i.count < i.maxStack) {
                     i.count++;
@@ -62,7 +62,7 @@ public class Inventory {
         }
 
         if (currentSize < maxSize) {
-            inventory.Add(new inventoryItem(obj, name, image));
+            inventory.Add(new InventoryItem(obj, name, image));
             foreach (Button b in invButtons) {
                 if (b.GetComponent<InventoryManager>().item == null) {
                     b.GetComponentInChildren<Text>().text = "";
@@ -79,7 +79,7 @@ public class Inventory {
         }
     }
 
-    public void removeItem(inventoryItem item) {
+    public void RemoveItem(InventoryItem item) {
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         if (item.count == 1) {
             inventory.Remove(item);
@@ -108,12 +108,12 @@ public class Inventory {
 
 
     //TO DO: function to allow players to drop items from their inventory
-    public void dropItem(inventoryItem item, Button b) {
+    public void DropItem(InventoryItem item, Button b) {
         b.GetComponentInChildren<Image>().sprite = null;
         b.GetComponentInChildren<Text>().text = "";
         b.GetComponent<InventoryManager>().item = null;
         currentSize--;
-        foreach(inventoryItem i in inventory) {
+        foreach(InventoryItem i in inventory) {
             if(i == item) {
                 inventory.Remove(i);
                 break;
@@ -123,7 +123,7 @@ public class Inventory {
     }
 
     //TO DO: function to allow items to be used from inventory
-    void useItem() {
+    void UseItem() {
 
     }
 }
