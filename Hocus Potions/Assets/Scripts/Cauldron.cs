@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Cauldron : MonoBehaviour {
@@ -13,18 +14,13 @@ public class Cauldron : MonoBehaviour {
 
     public Button brew;
     public Button take;
-
-    //replace this once we have a player character to attach the inventory to
     Potion pot;
 
     void OnMouseDown() {
-        CanvasGroup cGroup = panel.GetComponent<CanvasGroup>();
-        cGroup.alpha = 1f;
-        cGroup.blocksRaycasts = true;
-        cGroup.interactable = true;
+        SwapVisible(panel.GetComponent<CanvasGroup>());
     }
 
-    public void brewPotion() {
+    public void BrewPotion() {
         Brewing b = new Brewing();
 
         pot = b.Brew(first.options[first.value].text, second.options[second.value].text, third.options[third.value].text);
@@ -33,52 +29,38 @@ public class Cauldron : MonoBehaviour {
         pic.GetComponent<CanvasGroup>().alpha = 1;
 
         //swap which button is visible
-        CanvasGroup brewGroup = brew.GetComponent<CanvasGroup>();
-        brewGroup.alpha = 0;
-        brewGroup.interactable = false;
-        brewGroup.blocksRaycasts = false;
-
-        CanvasGroup takeGroup = take.GetComponent<CanvasGroup>();
-        takeGroup.alpha = 1;
-        takeGroup.interactable = true;
-        takeGroup.blocksRaycasts = true;
+        SwapVisible(brew.GetComponent<CanvasGroup>());
+        SwapVisible(take.GetComponent<CanvasGroup>());
     }
 
-    public void takePotion() {
+    public void TakePotion() {
         GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.add(pot, pot.name, pot.image); ;
         name.text = "";
         pic.GetComponent<CanvasGroup>().alpha = 0;
-        CanvasGroup brewGroup = brew.GetComponent<CanvasGroup>();
-        brewGroup.alpha = 1;
-        brewGroup.interactable = true;
-        brewGroup.blocksRaycasts = true;
 
-
-        CanvasGroup takeGroup = take.GetComponent<CanvasGroup>();
-        takeGroup.alpha = 0;
-        takeGroup.interactable = false;
-        takeGroup.blocksRaycasts = false;
+        SwapVisible(brew.GetComponent<CanvasGroup>());
+        SwapVisible(take.GetComponent<CanvasGroup>());  
     }
 
-    public void close() {
-        CanvasGroup cGroup = panel.GetComponent<CanvasGroup>();
-        cGroup.alpha = 0f;
-        cGroup.blocksRaycasts = false;
-        cGroup.interactable = false;
+    public void Close() {
         first.value = -1;
         second.value = -1;
         third.value = -1;
         name.text = "";
         pic.GetComponent<CanvasGroup>().alpha = 0;
 
-        CanvasGroup brewGroup = brew.GetComponent<CanvasGroup>();
-        brewGroup.alpha = 1;
-        brewGroup.interactable = true;
-        brewGroup.blocksRaycasts = true;
+        SwapVisible(panel.GetComponent<CanvasGroup>());
+        brew.GetComponent<CanvasGroup>().alpha = 1;
+        brew.GetComponent<CanvasGroup>().interactable = true;
+        brew.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        take.GetComponent<CanvasGroup>().alpha = 0;
+        take.GetComponent<CanvasGroup>().interactable = false;
+        take.GetComponent<CanvasGroup>().blocksRaycasts = false;
+    }
 
-        CanvasGroup takeGroup = take.GetComponent<CanvasGroup>();
-        takeGroup.alpha = 0;
-        takeGroup.interactable = false;
-        takeGroup.blocksRaycasts = false;
+    void SwapVisible(CanvasGroup cg) {
+        cg.alpha = Mathf.Abs(cg.alpha - 1);
+        cg.interactable = !cg.interactable;
+        cg.blocksRaycasts = !cg.blocksRaycasts;
     }
 }

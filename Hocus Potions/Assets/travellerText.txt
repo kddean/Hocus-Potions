@@ -1,0 +1,31 @@
+Red robed traveler;
+red_witch;
+red_witch;
+intro=I'm not here to ask for anything from you, kindly witch, just to offer you a couple tips.
+*Be cautious of decisions you make dealing with others who dress in robes like mine. Pacts made can never be unbroken.
+*Now, if you'll pardon me, I'm getting a bit sleepy. I might make myself some lavender tea.;
+
+
+/Black robed traveler;
+black_witch;
+black_witch;
+intro=Greetings, miss. I represent an entity that has been keeping an eye on the use of magic in this world.
+*It has come to my employer's attention that you have been dabbling in alchemical potions. I'm not here to sold you, far from it.
+*Magic can be a tricky beast. I'd like to offer you some guidance! For a price of course...:
+request_random=For the first lesson, please supply me with 1 eye of newt, 2 brambleberries, and 3 silver tongues roses.:
+yes=Wonderful, the great tentacled lord will be happy to take you under his maw.:
+wait=Of course, of course, I will be back tomorrow at the same time. Good evening.:
+no=You will live to rue this day...;
+request_random=1 eye of newt, 2 brambleberries, 3 silver tongues roses;
+
+
+/White robed traveler;
+white_witch;
+white_witch;
+intro=So you're the misguided witch that has been plaguing the townspeople with unnatural concoctions. It's an honor to meet you!*I find that chaos is the lifeblood of the world. I work for an organization that one might say ensures the thriving of entropy. I could teach you our ways if you are interested.:
+request_cat=As an initiation, we ask that you turn someone into a cat. Do this and I will gift unto you the rank of Sapling and with it the sworn allegiance of things that crawl, grow, and blossom.:
+yes=Welcome to the ranks of the Nocturnal Administration of Talented Utilitarian Robed Entropics!:
+wait=You have 1 day to decide.:
+no=You deny Chaos? You must be an agent of that tentacled order-monger Notcthulhu!!! We will meet again, fiend.;
+request_cat=cat potion;
+
