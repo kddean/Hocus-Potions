@@ -103,7 +103,7 @@ public class Traveller : NPC {
 
     void Give() {
         rl.givenObjects.Add(CharacterName, rl.activeItem.item.item);
-        rl.inv.removeItem(rl.activeItem.item);
+        rl.inv.RemoveItem(rl.activeItem.item);
 
         //TODO: handle response - change sprite, alignment, social, dialogue
     }

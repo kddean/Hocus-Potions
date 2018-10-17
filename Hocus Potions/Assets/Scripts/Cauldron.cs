@@ -34,7 +34,7 @@ public class Cauldron : MonoBehaviour {
     }
 
     public void TakePotion() {
-        GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.add(pot, pot.name, pot.image); ;
+        GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.Add(pot, pot.name, pot.image); ;
         name.text = "";
         pic.GetComponent<CanvasGroup>().alpha = 0;
 

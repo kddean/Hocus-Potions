@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     Transform startingParent;
     Transform canvas;
-    public Inventory.inventoryItem item;
+    public Inventory.InventoryItem item;
     ResourceLoader rl;
     int index;
     Vector3 temp;
@@ -96,7 +96,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                         }
                         GetComponent<Button>().GetComponentInChildren<Text>().text = item.count.ToString();
                         if (otherMgr.item.count <= 0) {
-                            rl.inv.dropItem(otherMgr.item, b);
+                            rl.inv.DropItem(otherMgr.item, b);
                         } else {
                             b.GetComponentInChildren<Text>().text = otherMgr.item.count.ToString();
                         }
@@ -117,7 +117,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
-            rl.inv.dropItem(item, GetComponent<Button>());
+            rl.inv.DropItem(item, GetComponent<Button>());
         }
         set = false;
         if (item != null) {
