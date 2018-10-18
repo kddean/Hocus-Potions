@@ -25,10 +25,10 @@ public class SceneSwitcher : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Me?");
+        //Debug.Log("Me?");
         if(currentScene == house)
         {
-            SceneManager.LoadScene("Garden");
+            SceneManager.LoadScene("SampleScene");
             currentScene = SceneManager.GetActiveScene();
         }
 

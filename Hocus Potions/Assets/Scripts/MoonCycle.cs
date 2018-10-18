@@ -68,7 +68,7 @@ public class MoonCycle : MonoBehaviour {
     IEnumerator PassingTime()
     {
         //Every 2 mins real time is 10 mins game time - 120 for actual time scale
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.5f);
         //Debug.Log("Did I get called?");
         ChangeTime();
         StartCoroutine(PassingTime());

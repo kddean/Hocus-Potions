@@ -19,7 +19,8 @@ public class Gardening : MonoBehaviour {
     int startMinutes;
     int finishHour;
     int finishMinutes;
-    int halfOfGrowthTime;
+    int halfOfGrowthTimeHour;
+    int halfOfGrowthTimeMinutes;
 
     private Sprite currentSprite;
 
@@ -87,11 +88,37 @@ public class Gardening : MonoBehaviour {
     {
         this.startHour = currentTime[0];
         this.startMinutes = currentTime[1];
-        
-        this.finishMinutes = (startMinutes + growTime) % 60;
-        this.halfOfGrowthTime = finishMinutes / 2;
 
-        Debug.Log(this.finishMinutes);
+        // Calculate the time when growing should finish
+        if((this.startMinutes + growTime > 60))
+        {
+            int increaseHourBy = (this.startMinutes + growTime) / 60;
+            Debug.Log("Increase Hour By: " + increaseHourBy);
+            
+            this.finishHour = this.startHour + increaseHourBy;
+            Debug.Log("Finish Hour is " + this.finishHour);
+        }
+        this.finishMinutes = (startMinutes + growTime) % 60;
+
+        //Calculate the half of the finish time for updating sprites
+        int halfOfGrowthTime = growTime / 2;
+        if((this.startMinutes + halfOfGrowthTime) > 60)
+        {
+            int increaseBy = (this.startMinutes + halfOfGrowthTime) / 60;
+            this.halfOfGrowthTimeHour = this.startHour + increaseBy;
+        }
+        else
+        {
+            this.halfOfGrowthTimeHour = currentTime[0];
+        }
+        this.halfOfGrowthTimeMinutes = (this.startMinutes + halfOfGrowthTime) % 60;
+
+
+        Debug.Log("Finish Minutes is: " + this.finishMinutes);
+        Debug.Log("Half time is " + this.halfOfGrowthTimeHour + ":" + this.halfOfGrowthTimeMinutes);
+        Debug.Log("Finish time is " + this.finishHour + ":" + this.finishMinutes);
+
+        //StartCoroutine(GrowProgressTime());
 
     }
 
@@ -102,6 +129,7 @@ public class Gardening : MonoBehaviour {
         {
             this.GetComponent<SpriteRenderer>().sprite = growPlot;
         }
+        
         //StartCoroutine(WaitTime());
         
     }
@@ -124,14 +152,15 @@ public class Gardening : MonoBehaviour {
 
     void CheckTime()
     {
-        if(finishMinutes == currentTime[1] && this.GetComponent<SpriteRenderer>().sprite == growPlot)
+        if (this.finishHour == currentTime[0] && this.finishMinutes == currentTime[1] && this.GetComponent<SpriteRenderer>().sprite == growPlot)
         {
             PlantReady();
         }
-        else if (this.GetComponent<SpriteRenderer>().sprite == sowedPlot)
+        else if (this.halfOfGrowthTimeHour == currentTime[0] && this.halfOfGrowthTimeMinutes == currentTime[1] && this.GetComponent<SpriteRenderer>().sprite == sowedPlot)
         {
-            
-            StartCoroutine(GrowProgressTime());
+
+            this.GetComponent<SpriteRenderer>().sprite = growPlot;
+
         }
     }
 
