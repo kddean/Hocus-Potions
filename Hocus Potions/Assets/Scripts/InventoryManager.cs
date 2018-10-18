@@ -18,8 +18,8 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     Text[] text;
     //flags for displaying tooltips
     bool hovered = false;
-    bool dragging = false;
     //tooltip offset
+    bool dragging = false;
     Vector3 offset = new Vector3(100, -45, 0);
 
     void Start() {
@@ -32,16 +32,18 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     }
 
     public void SetActive() {
+        if (dragging) { return; }
         if(rl.activeItem == this) {
             rl.activeItem = null;
         } else if(item != null){
             rl.activeItem = this;
-        }         
+        }
+        Debug.Log(rl.activeItem);
     }
 
 
     public void OnMouseEnter() {
-        if (item != null) {
+         if (item != null) {
             text = tooltip.GetComponentsInChildren<Text>();
             text[0].text = item.name;
             //text[1].text = item.flavorText;

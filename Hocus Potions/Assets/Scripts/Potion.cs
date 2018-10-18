@@ -20,4 +20,22 @@ public class Potion : Object {
         this.secondary = secondary;
         this.modifier = modifier;
     }
+
+    public Ingredient.Attributes? Primary {
+        get {
+            return primary;
+        }
+    }
+
+    public Ingredient.Attributes? Secondary {
+        get {
+            return secondary;
+        }
+    }
+
+    public Ingredient.Modifiers? Modifier {
+        get {
+            return modifier;
+        }
+    }
 }

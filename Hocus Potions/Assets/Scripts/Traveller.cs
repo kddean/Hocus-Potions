@@ -11,6 +11,7 @@ public class Traveller : NPC {
     NPCManager manager;
     GameObject panel;
     CanvasGroup panelCG;
+    Object given;
 
     //flags
     bool move;
@@ -19,7 +20,6 @@ public class Traveller : NPC {
     bool returning;
     bool requested;
     bool done;
-    bool leaving;
 
     int waitHour, waitMinute;
     int maxWait = 5;
@@ -42,10 +42,10 @@ public class Traveller : NPC {
         //set flags
         visible = false;
         move = true;
-        wait = false;
+        wait = true;
         requested = false;
+        given = null;
         done = false;
-        leaving = false;
 
         //set onclick functions for dialogue
         panel.transform.Find("Next").GetComponent<Button>().onClick.AddListener(NextDialogue);
@@ -56,27 +56,37 @@ public class Traveller : NPC {
     }
 
     void Update() {
-        if (move && !leaving) {
-            transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("WaitPoint").transform.position, 0.025f);
-            Vector3 temp = transform.position;
-            temp.z = -1.0f;
-            transform.position = temp;
-        }
-        // This will make them leave after they've waited long enough but it makes them instantly disappear when the clock speed is jacked up
-        if (move && (waitHour <= mc.Hour || leaving)) {
-            leaving = true;
-            transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("SpawnPoint").transform.position, 0.025f);
-            Vector3 temp = transform.position;
-            temp.z = -1.0f;
-            transform.position = temp;
-            if (transform.position.x == GameObject.Find("SpawnPoint").transform.position.x && transform.position.y == GameObject.Find("SpawnPoint").transform.position.y) {
-                Destroy(this.gameObject);
-                manager.Spawned = false;
+        if (move) {
+            if (wait) {
+                transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("WaitPoint").transform.position, 0.025f);
+                //TODO: Just set sorting layer once they're set up
+                Vector3 temp = transform.position;
+                temp.z = -1.0f;
+                transform.position = temp;
+            } else { //GET OUT OF MY HOUSE.... AND OFF MY LAWN
+                transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("SpawnPoint").transform.position, 0.025f);
+                //TODO: Removable once sorting layers are set
+                Vector3 temp = transform.position;
+                temp.z = -1.0f;
+                transform.position = temp;
+
+                if (transform.position.x == GameObject.Find("SpawnPoint").transform.position.x && transform.position.y == GameObject.Find("SpawnPoint").transform.position.y) {
+                    Destroy(this.gameObject);
+                    manager.Spawned = false;
+                }
             }
         }
+
+        if(waitHour < mc.Hour || mc.Hour == 22) {
+            wait = false;
+        }
+   
     }
 
+    //Set the initial dialogue when NPC is clicked
     private void OnMouseDown() {
+        if(done) { return; }
+
         move = false;
         if (!visible) {
             SwapVisibile(panelCG);
@@ -89,12 +99,14 @@ public class Traveller : NPC {
                 
             visible = true;
         }
+        Debug.Log(currentDialogue);
     }
 
     private void OnMouseOver() {
         if (Input.GetMouseButtonDown(1)) {
             if(rl.activeItem != null) {
                 if(rl.activeItem.item.item is Potion) {
+                    if (!requested || rl.activeItem == null || done) { return; }
                     Give();
                 }
             }
@@ -102,8 +114,65 @@ public class Traveller : NPC {
     }
 
     void Give() {
-        rl.givenObjects.Add(CharacterName, rl.activeItem.item.item);
-        rl.inv.RemoveItem(rl.activeItem.item);
+        //bail if they haven't asked for anything yet
+        requested = false;
+        List<object> givenObjects;
+        given = rl.activeItem.item.item;
+        done = true;
+        move = false;
+        wait = false;
+        CanvasGroup nextButton = panel.transform.Find("Next").GetComponent<CanvasGroup>();
+        nextButton.interactable = nextButton.blocksRaycasts = false;
+        nextButton.alpha = 0;
+
+        string[] split = requests[choice].Split('=')[1].Split(' ');
+        if (split[1].Equals("potion")) {
+            if (given is Potion) { //Give them the type of object they wanted
+                rl.inv.RemoveItem(rl.activeItem.item);
+                if (rl.npcGivenList.TryGetValue(CharacterName, out givenObjects)) { //add the item to the list of stuff you've given them before
+                    if (givenObjects.Count == rl.givenListMax) {
+                        givenObjects.RemoveAt(0);
+                        givenObjects.Add(given);
+                    } else {
+                        givenObjects.Add(given);
+                    }
+                } else {
+                    givenObjects = new List<object> { given };
+                    rl.npcGivenList.Add(CharacterName, givenObjects);
+                }
+                //Swap sprites
+                Potion temp = given as Potion;
+                switch (temp.Primary) {
+                    case Ingredient.Attributes.transformation:  //swap sprite to cat
+                        //transform.parent.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cat_sprite");
+                        break;
+                    case Ingredient.Attributes.sleep:
+                        //transform.parent.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cat_sprite");
+                        break;
+                    case Ingredient.Attributes.poison:
+                        //Probably do something nicer but this will just make them turn green for now
+                        gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 1);
+                        break;
+                    default:
+                        break;
+                }
+
+                SwapVisibile(panelCG);
+                string response = "given_" + temp.Primary.ToString();
+                string dia;
+                if(Dialogue.TryGetValue(response, out dia)) {
+                    panel.GetComponentInChildren<Text>().text = dia;
+                } else {
+                    panel.GetComponentInChildren<Text>().text = Dialogue["default"];
+                }
+
+            } else {  //handle trying to give people the wrong item type
+                SwapVisibile(panelCG);
+                panel.GetComponentInChildren<Text>().text = Dialogue["wrong"];
+            }
+        } else {
+            //deal with item requests besides potions
+        }
 
         //TODO: handle response - change sprite, alignment, social, dialogue
     }
@@ -140,21 +209,23 @@ public class Traveller : NPC {
     }
 
     public void AcceptRequest() {
-        panel.GetComponentInChildren<Text>().text = Dialogue["yes"];
+        wait = true;
+        waitHour = mc.Hour + maxWait;
+        requested = true;
         SwapButtonsAndText();
-        waitHour = mc.Hour;
-        //TODO: This needs to check if you actually have the items they're asking for at some point
-        //Should it just pull from inventory automatically, should you use the item on them, or are we doing contextual menus because setting this mess up wasn't torture enough?
+        ExitDialogue();
     }
 
     public void DeclineRequest() {
         panel.GetComponentInChildren<Text>().text = Dialogue["no"];
         SwapButtonsAndText();
-        waitHour = mc.Hour;
+        move = true;
+        wait = false;
     }
 
     public void Wait() {
         //TODO: can pull this from file if NPCs have different wait times
+        wait = true;
         waitHour = mc.Hour + maxWait;
         panel.GetComponentInChildren<Text>().text = Dialogue["wait"];
         SwapButtonsAndText();
