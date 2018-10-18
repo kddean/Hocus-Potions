@@ -87,7 +87,7 @@ public class Gardening : MonoBehaviour {
     {
         this.startHour = currentTime[0];
         this.startMinutes = currentTime[1];
-        //int finishHour;
+        
         this.finishMinutes = (startMinutes + growTime) % 60;
         this.halfOfGrowthTime = finishMinutes / 2;
 
