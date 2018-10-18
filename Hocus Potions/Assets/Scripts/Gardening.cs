@@ -77,7 +77,7 @@ public class Gardening : MonoBehaviour {
 
 
             ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
-            rl.inv.add(rl.ingredients["poppy"], rl.ingredients["poppy"].name, rl.ingredients["poppy"].image);
+            rl.inv.Add(rl.ingredients["poppy"], rl.ingredients["poppy"].name, rl.ingredients["poppy"].image);
             
         }
         
