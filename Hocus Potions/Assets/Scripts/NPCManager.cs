@@ -65,6 +65,7 @@ public class NPCManager : MonoBehaviour {
             SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
             go.AddComponent<BoxCollider2D>();
             string key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];
+
             //TODO: This needs to somehow repopulate it with data if the NPC has already existed before
             Traveller trav = go.AddComponent<Traveller>();
             trav.Manager = this;
