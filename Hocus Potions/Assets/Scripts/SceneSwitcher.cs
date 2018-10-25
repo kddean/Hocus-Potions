@@ -28,7 +28,7 @@ public class SceneSwitcher : MonoBehaviour {
         //Debug.Log("Me?");
         if(currentScene == house)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Garden");
             currentScene = SceneManager.GetActiveScene();
         }
 

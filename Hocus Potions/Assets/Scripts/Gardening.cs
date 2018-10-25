@@ -28,6 +28,7 @@ public class Gardening : MonoBehaviour {
 
     Ingredient poppy;
 
+    ResourceLoader rl;
 
     // Use this for initialization
     void Start () {
@@ -35,6 +36,7 @@ public class Gardening : MonoBehaviour {
         clock = GameObject.Find("Clock");
         currentTime[0] = clock.GetComponent<MoonCycle>().Hour;
         currentTime[1] = clock.GetComponent<MoonCycle>().Minutes;
+        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
 
         //TestingGardenInv();
 
@@ -77,7 +79,10 @@ public class Gardening : MonoBehaviour {
             Player.heldItem = "seeds";
 
 
-            ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+
+
+
+         
             rl.inv.Add(rl.ingredients["poppy"], rl.ingredients["poppy"].name, rl.ingredients["poppy"].image);
             
         }
