@@ -28,7 +28,7 @@ public class Inventory {
     //Just for testing stack combining
     public void Testing() {
         Brewing b = new Brewing();
-        Potion p = b.Brew("nightshade", "nightshade", "poppy");
+        Potion p = b.Brew("nightshade", "nightshade", "mugwort");
         inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image) };
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         for (int i = 0; i < 3; i++) {
@@ -82,13 +82,9 @@ public class Inventory {
     public void RemoveItem(InventoryItem item) {
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         if (item.count == 1) {
-            inventory.Remove(item);
-            currentSize--;
             foreach (Button b in invButtons) {
                 if (b.GetComponent<InventoryManager>().item == item) {
-                    b.GetComponentInChildren<Text>().text = "";
-                    b.GetComponentInChildren<Image>().sprite = null;
-                    b.GetComponent<InventoryManager>().item = null;
+                    DropItem(item, b);
                     break;
                 }
             }
@@ -113,13 +109,8 @@ public class Inventory {
         b.GetComponentInChildren<Text>().text = "";
         b.GetComponent<InventoryManager>().item = null;
         currentSize--;
-        foreach(InventoryItem i in inventory) {
-            if(i == item) {
-                inventory.Remove(i);
-                break;
-            }
-        }
-
+        inventory.Remove(item);
+        GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().activeItem = null;
     }
 
     //TO DO: function to allow items to be used from inventory

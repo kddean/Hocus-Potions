@@ -62,15 +62,10 @@ public class NPCManager : MonoBehaviour {
         if (Waiting != null & mc.Hour == spawnHour && mc.Minutes == spawnMinute) {
             GameObject go = new GameObject();
             go.transform.position = spawnPoint.transform.position;
-            //Swap this to set sorting layer instead once they're set up
-            Vector3 tempPos = go.transform.position;
-            tempPos.z = -1.0f;
-            go.transform.position = tempPos;
-
             SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
             go.AddComponent<BoxCollider2D>();
             string key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];
-            //This should use prefabs eventually to just spawn them with their data intact
+            //TODO: This needs to somehow repopulate it with data if the NPC has already existed before
             Traveller trav = go.AddComponent<Traveller>();
             trav.Manager = this;
             trav.CharacterName = key;
