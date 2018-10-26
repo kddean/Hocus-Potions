@@ -29,13 +29,20 @@ public class Inventory {
     public void Testing() {
         Brewing b = new Brewing();
         Potion p = b.Brew("nightshade", "nightshade", "mugwort");
-        inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image) };
+        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["catnip"];
+        inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image),
+            new InventoryItem(s, s.SeedType, Resources.Load<Sprite>("Plants/catnip")) };
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         for (int i = 0; i < 3; i++) {
             invButtons[i].GetComponentInChildren<Text>().text = "";
             invButtons[i].GetComponentInChildren<Image>().sprite = p.image;
             invButtons[i].GetComponent<InventoryManager>().item = inventory[i];
         }
+
+       
+        invButtons[3].GetComponentInChildren<Text>().text = "";
+        invButtons[3].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Plants/catnip");
+        invButtons[3].GetComponent<InventoryManager>().item = inventory[3];
     }
    
 

@@ -9,8 +9,10 @@ using UnityEngine.UI;
 public class ResourceLoader : MonoBehaviour {
 
     public Inventory inv;
+    public Garden garden;
     public InventoryManager activeItem;
     public Dictionary<string, Ingredient> ingredients;
+    public Dictionary<string, Seed> seeds;
     public Dictionary<string, Dictionary<string,string>> dialogueList;
     public Dictionary<string, Sprite> portraitList;
     public Dictionary<string, Sprite> charSpriteList;
@@ -19,6 +21,7 @@ public class ResourceLoader : MonoBehaviour {
     public List<string> availableNPCs;
     public TextAsset npcTextFile;
     public int givenListMax = 5;
+
     public void Awake() {
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1) {
@@ -33,27 +36,40 @@ public class ResourceLoader : MonoBehaviour {
         requestList = new Dictionary<string, string[]>();
         npcGivenList = new Dictionary<string, List<object>>();
         activeItem = null;
+        garden = GameObject.Find("GardenManager").GetComponent<Garden>();
         CreateIngredients();
+        CreateSeeds();
         CreateInventory();
         CreateNPCs();
+      
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
         //Just for force spawning inventory items for testing
         inv.Testing();
     }
 
-    //TO DO: Add images for each ingredient once we have sprites for them
+    //TO DO: Swap sprites to proper inv sprites once we have them
     void CreateIngredients() {
         ingredients = new Dictionary<string, Ingredient> {
-            { "lavender", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.chicken }, "lavender", Resources.Load<Sprite>("Ingredients/lavender")) },
-            { "catnip", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.cat }, "catnip", Resources.Load<Sprite>("Ingredients/catnip")) },
-            { "nightshade", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", Resources.Load<Sprite>("Ingredients/nightshade")) },
-            { "mugwort", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.magicPP, Ingredient.Attributes.transformation }, "mugwort", Resources.Load<Sprite>("Ingredients/mugwort")) },
-            { "lambsgrass", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.healing, Ingredient.Attributes.sheep }, "lambsgrass", Resources.Load<Sprite>("Ingredients/lambsgrass")) },
-            { "poppy", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", Resources.Load<Sprite>("Ingredients/poppy")) }
+            { "lavender", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.chicken }, "lavender", Resources.Load<Sprite>("Plants/lavender")) },
+            { "catnip", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.cat }, "catnip", Resources.Load<Sprite>("Plants/catnip")) },
+            { "nightshade", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", Resources.Load<Sprite>("Plants/nightshade")) },
+            { "mugwort", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.magicPP, Ingredient.Attributes.transformation }, "mugwort", Resources.Load<Sprite>("Plants/mugwort")) },
+            { "lambsgrass", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.healing, Ingredient.Attributes.sheep }, "lambsgrass", Resources.Load<Sprite>("Plants/lambsgrass")) },
+            { "poppy", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisible, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", Resources.Load<Sprite>("Plants/poppy")) }
         };
     }
 
+    //TODO: Load from file
+    void CreateSeeds() {
+        seeds = new Dictionary<string, Seed>();
+        seeds.Add("lavender", new Seed("lavender", 180, 4));
+        seeds.Add("catnip", new Seed("catnip", 180, 5));
+        seeds.Add("nightshade", new Seed("nightshade", 180, 4));
+        seeds.Add("mugwort", new Seed("mugwort", 180, 5));
+        seeds.Add("lambsgrass", new Seed("lambsgrass", 180, 5));
+        seeds.Add("poppy", new Seed("poppy", 180, 3));
+    }
     void CreateInventory() {
         inv = new Inventory();
         /*if(save file exists){
