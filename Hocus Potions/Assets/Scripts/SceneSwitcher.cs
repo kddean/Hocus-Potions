@@ -25,7 +25,6 @@ public class SceneSwitcher : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Me?");
         if(currentScene == house)
         {
             SceneManager.LoadScene("Garden");
@@ -41,7 +40,6 @@ public class SceneSwitcher : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Or Me?");
         if (currentScene == house)
         {
             SceneManager.LoadScene("Garden");

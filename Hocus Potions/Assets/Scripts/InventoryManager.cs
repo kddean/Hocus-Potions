@@ -38,7 +38,6 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         } else if(item != null){
             rl.activeItem = this;
         }
-        Debug.Log(rl.activeItem);
     }
 
 

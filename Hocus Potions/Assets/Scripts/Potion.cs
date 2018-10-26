@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potion : Object {
 
-    public string name;
+    public new string name;
     public Sprite image;
 
     int duration;  //in whole hours
