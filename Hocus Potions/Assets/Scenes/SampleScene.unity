@@ -231,8 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a00f77f74cddaf469acc034947441f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcs: []
+  garden: {fileID: 0}
+  activeItem: {fileID: 0}
+  availableNPCs: []
   npcTextFile: {fileID: 4900000, guid: c7b97a5180407f4459ee6d452cefcc35, type: 3}
+  givenListMax: 5
 --- !u!4 &280083436
 Transform:
   m_ObjectHideFlags: 0
