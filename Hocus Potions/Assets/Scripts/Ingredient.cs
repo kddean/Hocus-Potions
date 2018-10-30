@@ -7,7 +7,7 @@ public class Ingredient : Object {
     public enum Modifiers { magicPP, magicMM, cat, chicken, sheep };
 
     public Attributes[] attributeList;
-    public string name;
+    public new string name;
     public Sprite image;
 
     public Ingredient(Attributes[] attributeList, string name, Sprite image) {

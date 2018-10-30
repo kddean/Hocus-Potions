@@ -11,10 +11,10 @@ public class GardenPlot : MonoBehaviour {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         //Display plants if there's something growing
         Garden.PlotData temp;
-        if(rl.garden.plots.TryGetValue(gameObject.name, out temp)){
+        if (rl.garden.plots.TryGetValue(gameObject.name, out temp)) {
             SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
-            foreach(SpriteRenderer s in sprites) {
-                s.sprite = Resources.Load<Sprite>("Plants/" + temp.type + "_" + temp.index);
+            for (int i = 1; i < 4; i++) {
+                sprites[i].sprite = Resources.LoadAll<Sprite>("Plants/" + temp.type)[temp.index];
             }
         }
     }

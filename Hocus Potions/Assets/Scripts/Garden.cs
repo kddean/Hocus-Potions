@@ -12,7 +12,6 @@ public class Garden : MonoBehaviour {
     public Dictionary<string, PlotData> plots;
     ResourceLoader rl;
     MoonCycle mc;
-    int lastMinute;
     public struct PlotData {
         public Status stage;
         public int index;
@@ -22,12 +21,11 @@ public class Garden : MonoBehaviour {
     };
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         plots = new Dictionary<string, PlotData>();
         mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
-        lastMinute = mc.Minutes;
-        Grow();
+        StartCoroutine(Grow());
     }
 
     public void Awake() {
@@ -37,7 +35,7 @@ public class Garden : MonoBehaviour {
         }
     }
 
-  
+
     //Handles clicking on garden plots
     public void Farm(GardenPlot plot) {
         PlotData data;
@@ -55,7 +53,7 @@ public class Garden : MonoBehaviour {
                 newData.stage = Status.growing;
                 newData.type = seed.SeedType;
                 newData.growthTime = seed.GrowthTime;
-                newData.currentTime = mc.Minutes;
+                newData.currentTime = 0;
                 newData.index = 0;
                 //Add plot to dict
                 plots.Add(plot.gameObject.name, newData);
@@ -64,23 +62,23 @@ public class Garden : MonoBehaviour {
                 //Set plot sprite
                 SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
                 //TODO: FIX THIS TO PULL SPRITE FROM ARRAY OF ALL!!!!! ALSO IGNORE THE FIRST? OR LAST? IDK.. whichever one is the plot renderer
-                foreach (SpriteRenderer s in sr) {
-                    s.sprite = Resources.Load<Sprite>("Plants/" + seed.SeedType + "_0");
+                for (int i = 1; i < 4; i++) {
+                    sr[i].sprite = Resources.Load<Sprite>("Plants/" + seed.SeedType);
                 }
             }
         }
     }
-        
 
-    
+
+
     //Handles harvesting plots and adding ingredients to inventory
     void Harvest(GardenPlot plot) {
         PlotData data = plots[plot.gameObject.name];
-        if(rl.inv.Add(rl.ingredients[data.type], rl.ingredients[data.type].name, rl.ingredients[data.type].image)) {
+        if (rl.inv.Add(rl.ingredients[data.type], rl.ingredients[data.type].name, rl.ingredients[data.type].image)) {
             SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
-                foreach (SpriteRenderer s in sr) {
-                s.sprite = null;
-                }
+            for (int i = 1; i < 4; i++) {
+                sr[i].sprite = null;
+            }
             plots.Remove(plot.gameObject.name);
         }
     }
@@ -88,42 +86,40 @@ public class Garden : MonoBehaviour {
 
     //Grows plants in code; only updates visuals if you're in the garden
     IEnumerator Grow() {
-        if (plots.Count == 0 || mc.Minutes == lastMinute) {
+        if (plots.Count == 0) {
             yield return new WaitForSeconds(mc.CLOCK_SPEED);
-            Grow();
+            StartCoroutine(Grow());
         } else {
-            lastMinute = mc.Minutes;
             List<string> keys = plots.Keys.ToList();
             foreach (string s in keys) {
                 if (plots[s].stage == Status.harvestable) {
                     continue;
                 }
-
                 Seed seed = rl.seeds[plots[s].type];
                 PlotData temp = plots[s];
                 temp.currentTime += 10;
                 if (temp.currentTime >= (temp.growthTime / seed.GrowthStages)) {
-                    temp.growthTime -= temp.currentTime;
                     temp.currentTime = 0;
                     temp.index++;
                     //Mark as harvestable if fully grown
-                    if (temp.growthTime <= 0) {
+                    if (temp.index == (seed.GrowthStages - 1)) {
                         temp.stage = Status.harvestable;
-                    } else {
-                        //If you're in the garden update the sprites 
-                        if (SceneManager.GetActiveScene().name.Equals("Garden")) {
-                            SpriteRenderer[] renderers = GameObject.Find(s).GetComponentsInChildren<SpriteRenderer>();
-                            foreach (SpriteRenderer r in renderers) {
-                                r.sprite = Resources.Load<Sprite>("Plants/" + temp.type + "_" + temp.index);
-                            }
+                    }
+
+                    //If you're in the garden update the sprites 
+                    if (SceneManager.GetActiveScene().name.Equals("Garden")) {
+                        SpriteRenderer[] renderers = GameObject.Find(s).GetComponentsInChildren<SpriteRenderer>();
+                        for (int i = 1; i < 4; i++) {
+                            renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + temp.type)[temp.index];
                         }
                     }
-                    //Update stored data
-                    plots[s] = temp;
                 }
+
+                //Update stored data
+                plots[s] = temp;
             }
             yield return new WaitForSeconds(mc.CLOCK_SPEED);
-            Grow();
+            StartCoroutine(Grow());
 
         }
     }
