@@ -21,8 +21,8 @@ public class MoonCycle : MonoBehaviour {
     public Sprite[] moonCycleSprites = new Sprite[5];
     public Image moonPhase;
     int currentMoonPhase = 0;
- 
 
+    int days;
     int hour;
     int minutes;
 
@@ -46,6 +46,16 @@ public class MoonCycle : MonoBehaviour {
         }
     }
 
+    public int Days {
+        get {
+            return days;
+        }
+
+        set {
+            days = value;
+        }
+    }
+
     // int prevTime;
 
     // Use this for initialization
@@ -57,6 +67,7 @@ public class MoonCycle : MonoBehaviour {
         minsUI.text = Minutes.ToString();
         moonPhase.sprite = moonCycleSprites[0];
         StartCoroutine(PassingTime());
+        Days = 0;
     }
 
     public void Awake() {
@@ -84,6 +95,7 @@ public class MoonCycle : MonoBehaviour {
         {
             currentMoonPhase = (currentMoonPhase + 1) % 5;
             moonPhase.sprite = moonCycleSprites[currentMoonPhase];
+            days++;
         }
 
         if (Minutes == 60)
