@@ -7,9 +7,11 @@ public class SceneSwitcher : MonoBehaviour {
 
     public Scene house;
     public Scene garden;
+    public Scene world;
     Scene currentScene;
     public GameObject player;
     public bool enter = true;
+    public string portalTo;
 
 
 	// Use this for initialization
@@ -17,6 +19,7 @@ public class SceneSwitcher : MonoBehaviour {
         currentScene = SceneManager.GetActiveScene();
         house = SceneManager.GetSceneByName("House");
         garden = SceneManager.GetSceneByName("Garden");
+        world = SceneManager.GetSceneByName("SampleGameArea");
 	}
 	
 	// Update is called once per frame
@@ -27,14 +30,40 @@ public class SceneSwitcher : MonoBehaviour {
     {
         if(currentScene == house)
         {
-            SceneManager.LoadScene("Garden");
-            currentScene = SceneManager.GetActiveScene();
+            if (portalTo == "garden")
+            {
+                SceneManager.LoadScene("Garden");
+                currentScene = SceneManager.GetActiveScene();
+            }
+            else if(portalTo == "world")
+            {
+                SceneManager.LoadScene("SampleGameArea");
+                currentScene = SceneManager.GetActiveScene();
+            }
         }
 
         if(currentScene == garden)
         {
-            SceneManager.LoadScene("House");
-            currentScene = SceneManager.GetActiveScene();
+            if (portalTo == "house")
+            {
+                SceneManager.LoadScene("House");
+                currentScene = SceneManager.GetActiveScene();
+            }
+            else if(portalTo == "world")
+            {
+                SceneManager.LoadScene("SampleGameArea");
+                currentScene = SceneManager.GetActiveScene();
+            }
+        }
+
+        if (currentScene == world)
+        {
+            if (portalTo == "house")
+            {
+                SceneManager.LoadScene("House");
+                currentScene = SceneManager.GetActiveScene();
+            }
+
         }
     }
 
@@ -42,14 +71,39 @@ public class SceneSwitcher : MonoBehaviour {
     {
         if (currentScene == house)
         {
-            SceneManager.LoadScene("Garden");
-            currentScene = SceneManager.GetActiveScene();
+            if (portalTo == "garden")
+            {
+                SceneManager.LoadScene("Garden");
+                currentScene = SceneManager.GetActiveScene();
+            }
+            else if (portalTo == "world")
+            {
+                SceneManager.LoadScene("SampleGameArea");
+                currentScene = SceneManager.GetActiveScene();
+            }
         }
 
         if (currentScene == garden)
         {
-            SceneManager.LoadScene("House");
-            currentScene = SceneManager.GetActiveScene();
+            if (portalTo == "house")
+            {
+                SceneManager.LoadScene("House");
+                currentScene = SceneManager.GetActiveScene();
+            }
+            else if (portalTo == "world")
+            {
+                SceneManager.LoadScene("SampleGameArea");
+                currentScene = SceneManager.GetActiveScene();
+            }
+        }
+
+        if (currentScene == world)
+        {
+            if (portalTo == "house")
+            {
+                SceneManager.LoadScene("House");
+                currentScene = SceneManager.GetActiveScene();
+            }
         }
     }
 

@@ -46,9 +46,6 @@ public class Cauldron : MonoBehaviour {
         pic.sprite = pot.image;
         pic.GetComponent<CanvasGroup>().alpha = 1;
 
-        foreach (Animator a in anims) {
-            Debug.Log(a.GetBool("idle"));
-        }
         //swap which button is visible
         SwapVisible(brew.GetComponent<CanvasGroup>());
         SwapVisible(take.GetComponent<CanvasGroup>());
