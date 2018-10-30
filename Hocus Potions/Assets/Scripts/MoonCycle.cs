@@ -13,13 +13,15 @@ public class MoonCycle : MonoBehaviour {
 
     static public GameObject Clock;
     //static public Time time;
-    public Text hoursUI;
-    public Text minsUI;
+   // public Text hoursUI;
+    //public Text minsUI;
     public float CLOCK_SPEED = 0.5f;
 
     int[] moonCycle;
     public Sprite[] moonCycleSprites = new Sprite[5];
+    public Sprite[] timeOfDay = new Sprite[4];
     public Image moonPhase;
+    public Image timeImage;
     int currentMoonPhase = 0;
 
     int days;
@@ -63,8 +65,8 @@ public class MoonCycle : MonoBehaviour {
         moonCycle = new int[5];
         Hour = 6;
         Minutes = 00;
-        hoursUI.text = Hour.ToString();
-        minsUI.text = Minutes.ToString();
+      //  hoursUI.text = Hour.ToString();
+      // minsUI.text = Minutes.ToString();
         moonPhase.sprite = moonCycleSprites[0];
         StartCoroutine(PassingTime());
         Days = 0;
@@ -90,6 +92,22 @@ public class MoonCycle : MonoBehaviour {
     {
         Minutes = Minutes + 10;
 
+        switch (Hour) {
+            case 6:
+                timeImage.sprite = timeOfDay[0];
+                break;
+            case 10:
+                timeImage.sprite = timeOfDay[1];
+                break;
+            case 14:
+                timeImage.sprite = timeOfDay[2];
+                break;
+            case 18:
+                timeImage.sprite = timeOfDay[3];
+                break;
+            default:
+                break;
+        }
 
         if (Hour == 23 && Minutes == 60)
         {
@@ -104,8 +122,8 @@ public class MoonCycle : MonoBehaviour {
             Minutes = 00;
 
         }
-        minsUI.text = Minutes.ToString();
-        hoursUI.text = Hour.ToString();
+       // minsUI.text = Minutes.ToString();
+        //hoursUI.text = Hour.ToString();
     }
 
 
