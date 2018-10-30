@@ -16,8 +16,26 @@ public class Cauldron : MonoBehaviour {
     public Button take;
     Potion pot;
 
+    Animator[] anims;
+    GameObject sparkles;
+    GameObject bubbles;
+
+    private void Start() {
+        sparkles = GameObject.Find("sparkles");
+        bubbles = GameObject.Find("bubbles");
+        anims = GetComponentsInChildren<Animator>();
+        sparkles.SetActive(false);
+        bubbles.SetActive(false);
+
+    }
     void OnMouseDown() {
         SwapVisible(panel.GetComponent<CanvasGroup>());
+        sparkles.SetActive(true);
+        bubbles.SetActive(true);
+       
+        foreach (Animator a in anims) {
+            a.SetBool("idle", false);
+        }
     }
 
     public void BrewPotion() {
@@ -31,6 +49,10 @@ public class Cauldron : MonoBehaviour {
         //swap which button is visible
         SwapVisible(brew.GetComponent<CanvasGroup>());
         SwapVisible(take.GetComponent<CanvasGroup>());
+        sparkles.GetComponent<SpriteRenderer>().enabled = false;
+        bubbles.GetComponent<Animator>().SetBool("idle", true);
+        bubbles.GetComponent<Animator>().SetBool("full", true);
+
     }
 
     public void TakePotion() {
@@ -39,7 +61,10 @@ public class Cauldron : MonoBehaviour {
         pic.GetComponent<CanvasGroup>().alpha = 0;
 
         SwapVisible(brew.GetComponent<CanvasGroup>());
-        SwapVisible(take.GetComponent<CanvasGroup>());  
+        SwapVisible(take.GetComponent<CanvasGroup>());
+        sparkles.GetComponent<SpriteRenderer>().enabled = true;
+        bubbles.GetComponent<Animator>().SetBool("idle", false);
+        bubbles.GetComponent<Animator>().SetBool("full", false);
     }
 
     public void Close() {
@@ -56,6 +81,12 @@ public class Cauldron : MonoBehaviour {
         take.GetComponent<CanvasGroup>().alpha = 0;
         take.GetComponent<CanvasGroup>().interactable = false;
         take.GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+        foreach (Animator a in anims) {
+            a.SetBool("idle", true);
+        }
+        sparkles.SetActive(false);
+        bubbles.SetActive(false);
     }
 
     void SwapVisible(CanvasGroup cg) {
