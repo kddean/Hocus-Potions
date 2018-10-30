@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: floor_sq
+  m_Name: tiles houseRotate_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 58d8d3c438bdea04688b669c50fb8dc9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af4a295428cc4f74e94b59ffbbeae813, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
