@@ -63,12 +63,12 @@ public class ResourceLoader : MonoBehaviour {
     //TODO: Load from file
     void CreateSeeds() {
         seeds = new Dictionary<string, Seed> {
-            { "lavender", new Seed("lavender", 180, 4, "Lavender seed") },
-            { "catnip", new Seed("catnip", 180, 5, "Catnip seed") },
-            { "nightshade", new Seed("nightshade", 180, 4, "Nightshade seed") },
-            { "mugwort", new Seed("mugwort", 180, 5, "Mugwort seed") },
-            { "lambsgrass", new Seed("lambsgrass", 180, 5, "Lambsgrass seed") },
-            { "poppy", new Seed("poppy", 180, 3, "Poppy Seed") }
+            { "lavender", new Seed("lavender", 180, 4, "Lavender seed", Resources.Load<Sprite>("Seeds/lavender_seed")) },
+            { "catnip", new Seed("catnip", 180, 5, "Catnip seed", Resources.Load<Sprite>("Seeds/catnip_seed")) },
+            { "nightshade", new Seed("nightshade", 180, 4, "Nightshade seed", Resources.Load<Sprite>("Seeds/nightshade_seed")) },
+            { "mugwort", new Seed("mugwort", 180, 5, "Mugwort seed", Resources.Load<Sprite>("Seeds/mugwort_seed")) },
+            { "lambsgrass", new Seed("lambsgrass", 180, 5, "Lambsgrass seed", Resources.Load<Sprite>("Seeds/lambsgrass_seed")) },
+            { "poppy", new Seed("poppy", 180, 3, "Poppy Seed", Resources.Load<Sprite>("Seeds/poppy_seed")) }
         };
     }
     void CreateInventory() {

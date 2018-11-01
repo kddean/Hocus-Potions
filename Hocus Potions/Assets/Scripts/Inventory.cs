@@ -29,10 +29,10 @@ public class Inventory {
     public void Testing() {
         Brewing b = new Brewing();
         Potion p = b.Brew("nightshade", "nightshade", "mugwort");
-        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["lavender"];
-        Seed ss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["poppy"];
+        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["nightshade"];
+        Seed ss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["catnip"];
         inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image),
-            new InventoryItem(s, s.Name, Resources.Load<Sprite>("Plants/lavender")),  new InventoryItem(ss, ss.Name, Resources.Load<Sprite>("Plants/poppy")) };
+            new InventoryItem(s, s.Name, s.Icon),  new InventoryItem(ss, ss.Name, s.Icon) };
 
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         for (int i = 0; i < 3; i++) {
@@ -43,10 +43,10 @@ public class Inventory {
 
        
         invButtons[3].GetComponentInChildren<Text>().text = "4";
-        invButtons[3].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Plants/lavender");
+        invButtons[3].GetComponentInChildren<Image>().sprite = s.Icon;
         invButtons[3].GetComponent<InventoryManager>().item = inventory[3];
         invButtons[4].GetComponentInChildren<Text>().text = "2";
-        invButtons[4].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Plants/poppy");
+        invButtons[4].GetComponentInChildren<Image>().sprite = ss.Icon;
         invButtons[4].GetComponent<InventoryManager>().item = inventory[4];
         currentSize = 5;
         inventory[3].count = 4;

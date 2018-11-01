@@ -7,12 +7,14 @@ public class Seed : Object {
     int growthTime;
     int growthStages;
     new string name;
+    Sprite icon;
 
-    public Seed(string seedType, int growthTime, int growthStages, string name) {
+    public Seed(string seedType, int growthTime, int growthStages, string name, Sprite icon) {
         this.SeedType = seedType;
         this.GrowthTime = growthTime;
         this.GrowthStages = growthStages;
         this.Name = name;
+        this.Icon = icon;
     }
 
     public string SeedType {
@@ -52,6 +54,16 @@ public class Seed : Object {
 
         set {
             name = value;
+        }
+    }
+
+    public Sprite Icon {
+        get {
+            return icon;
+        }
+
+        set {
+            icon = value;
         }
     }
 }
