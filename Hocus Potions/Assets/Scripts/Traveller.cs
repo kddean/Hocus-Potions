@@ -12,14 +12,17 @@ public class Traveller : NPC {
     GameObject panel;
     CanvasGroup panelCG;
     Object given;
+    GameObject effects;
+    NPCManager.NPCData data;
+
 
     //flags
     bool move;
     bool visible;
     bool wait;
-    bool returning;
     bool requested;
     bool done;
+    bool asleep;
 
     int waitHour, waitMinute;
     int maxWait = 5;
@@ -28,17 +31,23 @@ public class Traveller : NPC {
     int currentDialogue;
     string[] requests;
     int choice;
+    int spawnHour;
+    int spawnMinute;
 
 
     private void Start() {
         //initializations
         mc = (MoonCycle)GameObject.FindObjectOfType(typeof(MoonCycle));
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        manager = GameObject.Find("NPCManager").GetComponent<NPCManager>();
         waitHour = mc.Hour + maxWait;
         panel = GameObject.FindGameObjectWithTag("dialogue");
         panelCG = panel.GetComponent<CanvasGroup>();
         Dialogue = rl.dialogueList[CharacterName];
-
+        effects = GameObject.Find("effects");
+        spawnHour = mc.Hour;
+        spawnMinute = mc.Minutes;
+       // effects.SetActive(false);
         //set flags
         visible = false;
         move = true;
@@ -46,6 +55,15 @@ public class Traveller : NPC {
         requested = false;
         given = null;
         done = false;
+        asleep = false;
+        if(!manager.data.TryGetValue(CharacterName, out data)) {
+            data = new NPCManager.NPCData();
+            data.timesInteracted = 0;
+            data.given = new List<Object>();
+            data.affinity = 0;
+            manager.data.Add(CharacterName, data);
+        }
+        data.returning = false;
 
         //set onclick functions for dialogue
         panel.transform.Find("Next").GetComponent<Button>().onClick.AddListener(NextDialogue);
@@ -56,14 +74,14 @@ public class Traveller : NPC {
     }
 
     void Update() {
-        if (move) {
+        if (move && !asleep) {
             if (wait) {
                 transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("WaitPoint").transform.position, 0.025f);
                 //TODO: Just set sorting layer once they're set up
                 Vector3 temp = transform.position;
                 temp.z = -1.0f;
                 transform.position = temp;
-            } else { //GET OUT OF MY HOUSE.... AND OFF MY LAWN
+            } else { 
                 transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("SpawnPoint").transform.position, 0.025f);
                 //TODO: Removable once sorting layers are set
                 Vector3 temp = transform.position;
@@ -77,8 +95,21 @@ public class Traveller : NPC {
             }
         }
 
-        if(waitHour < mc.Hour || mc.Hour == 22) {
+        if(waitHour < mc.Hour) {
             wait = false;
+        }
+
+        if(wait && mc.Hour == 22 && mc.Minutes == 0) {
+            wait = false;
+            data.returning = true;
+            data.returningDay = (mc.Days + 1);
+            data.returningHour = spawnHour;
+            data.returningMinutes = spawnMinute;
+            manager.data[CharacterName] = data;
+            string junk;
+            if (!manager.returnQueue.TryGetValue(data, out junk)) {
+                manager.returnQueue.Add(data, CharacterName);
+            }
         }
    
     }
@@ -99,7 +130,6 @@ public class Traveller : NPC {
                 
             visible = true;
         }
-        Debug.Log(currentDialogue);
     }
 
     private void OnMouseOver() {
@@ -128,7 +158,16 @@ public class Traveller : NPC {
         string[] split = requests[choice].Split('=')[1].Split(' ');
         if (split[1].Equals("potion")) {
             if (given is Potion) { //Give them the type of object they wanted
+                data.timesInteracted++;
+                if (data.given.Count < 5) {
+                    data.given.Add(given);
+                } else {
+                    data.given.RemoveAt(0);
+                    data.given.Add(given);
+                }
+
                 rl.inv.RemoveItem(rl.activeItem.item);
+
                 if (rl.npcGivenList.TryGetValue(CharacterName, out givenObjects)) { //add the item to the list of stuff you've given them before
                     if (givenObjects.Count == rl.givenListMax) {
                         givenObjects.RemoveAt(0);
@@ -147,11 +186,16 @@ public class Traveller : NPC {
                         //transform.parent.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cat_sprite");
                         break;
                     case Ingredient.Attributes.sleep:
-                        //transform.parent.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cat_sprite");
+                        StartCoroutine(PotionEffects("Sleep"));
                         break;
                     case Ingredient.Attributes.poison:
-                        //Probably do something nicer but this will just make them turn green for now
-                        gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 1);
+                        StartCoroutine(PotionEffects("Poison"));
+                        break;
+                    case Ingredient.Attributes.invisible:
+                        StartCoroutine(PotionEffects("Invisible"));
+                        break;
+                    case Ingredient.Attributes.healing:
+                        StartCoroutine(PotionEffects("Healing"));
                         break;
                     default:
                         break;
@@ -176,6 +220,7 @@ public class Traveller : NPC {
 
         //TODO: handle response - change sprite, alignment, social, dialogue
     }
+
     public void NextDialogue() {
         if (dialoguePieces.Length > (currentDialogue + 2)) {
             currentDialogue++;
@@ -214,6 +259,7 @@ public class Traveller : NPC {
         requested = true;
         SwapButtonsAndText();
         ExitDialogue();
+        manager.data[CharacterName] = data;
     }
 
     public void DeclineRequest() {
@@ -221,12 +267,19 @@ public class Traveller : NPC {
         SwapButtonsAndText();
         move = true;
         wait = false;
+        manager.data[CharacterName] = data;
     }
 
     public void Wait() {
         //TODO: can pull this from file if NPCs have different wait times
-        wait = true;
-        waitHour = mc.Hour + maxWait;
+        wait = false;
+        move = true;
+        data.returning = true;
+        data.returningDay = (mc.Days + 1);
+        data.returningHour = spawnHour;
+        data.returningMinutes = spawnMinute;
+        manager.data[CharacterName] = data;
+        manager.returnQueue.Add(data, CharacterName);
         panel.GetComponentInChildren<Text>().text = Dialogue["wait"];
         SwapButtonsAndText();
     }
@@ -246,6 +299,34 @@ public class Traveller : NPC {
         panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
         panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
     }
+
+    IEnumerator PotionEffects(string effect) {
+        effects.SetActive(true);
+        Animator anim = GetComponentInChildren<Animator>();
+        anim.SetBool(effect, true);
+        if (effect.Equals("Invisible")) {   //transparency 
+            Color c = GetComponent<SpriteRenderer>().color;
+            c.a = 0.25f;
+            GetComponent<SpriteRenderer>().color = c;
+        }
+        if (effect.Equals("Sleep")) {      //fall asleep
+            asleep = true;
+        }
+
+        yield return new WaitForSeconds(3);
+        anim.SetBool(effect, false);
+        if (effect.Equals("Invisible")) {       //fixing transparency
+            Color c = GetComponent<SpriteRenderer>().color;
+            c.a = 1.0f;
+            GetComponent<SpriteRenderer>().color = c;
+        }
+        if (effect.Equals("Sleep")) {   //waking up
+            asleep = false;
+        }
+
+        effects.SetActive(false);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision) {
         move = false;
     }
@@ -257,12 +338,6 @@ public class Traveller : NPC {
     public NPCManager Manager {
         set {
             manager = value;
-        }
-    }
-
-    public bool Returning {
-        set {
-            returning = value;
         }
     }
 

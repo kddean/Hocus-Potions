@@ -111,7 +111,7 @@ public class MoonCycle : MonoBehaviour {
 
         if (Hour == 23 && Minutes == 60)
         {
-            currentMoonPhase = (currentMoonPhase + 1) % 5;
+            currentMoonPhase = (currentMoonPhase + 1) % 6;
             moonPhase.sprite = moonCycleSprites[currentMoonPhase];
             days++;
         }

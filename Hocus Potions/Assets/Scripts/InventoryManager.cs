@@ -20,7 +20,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     bool hovered = false;
     //tooltip offset
     bool dragging = false;
-    Vector3 offset = new Vector3(100, -45, 0);
+    Vector3 offset = new Vector3(50, 0, 0);
 
     void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
