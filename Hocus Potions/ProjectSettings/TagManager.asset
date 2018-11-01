@@ -7,6 +7,7 @@ TagManager:
   - inventory
   - loader
   - dialogue
+  - spawner
   layers:
   - Default
   - TransparentFX
