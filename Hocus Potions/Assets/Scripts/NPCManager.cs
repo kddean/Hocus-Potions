@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NPCManager : MonoBehaviour {
     public GameObject spawnPoint;
@@ -47,6 +48,10 @@ public class NPCManager : MonoBehaviour {
 
 
     void Update() {
+        //TODO: Make it load data in the background if you're not there 
+        if (!SceneManager.GetActiveScene().name.Equals("House")) {
+            return;
+        }
 
         //If nobody is returning today
         if (returnQueue.Count == 0 && !spawned) {
@@ -67,10 +72,12 @@ public class NPCManager : MonoBehaviour {
                 tempPos.z = -1.0f;
                 go.transform.position = tempPos;
 
+                
                 string key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];
                 while (key.Equals(lastSpawned)) {
                     key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];
                 }
+
                 //This should use prefabs eventually to just spawn them with their data intact
                 Traveller trav = go.AddComponent<Traveller>();
                 trav.Manager = this;

@@ -29,8 +29,8 @@ public class Inventory {
     public void Testing() {
         Brewing b = new Brewing();
         Potion p = b.Brew("nightshade", "nightshade", "mugwort");
-        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["nightshade"];
-        Seed ss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["catnip"];
+        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["catnip"];
+        Seed ss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["lambsgrass"];
         inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image),
             new InventoryItem(s, s.Name, s.Icon),  new InventoryItem(ss, ss.Name, s.Icon) };
 

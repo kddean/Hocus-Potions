@@ -107,7 +107,7 @@ public class Garden : MonoBehaviour {
                     }
 
                     //If you're in the garden update the sprites 
-                    if (SceneManager.GetActiveScene().name.Equals("Garden")) {
+                    if (SceneManager.GetActiveScene().name.Equals("Garden") || SceneManager.GetActiveScene().name.Equals("SampleGameArea")) {
                         SpriteRenderer[] renderers = GameObject.Find(s).GetComponentsInChildren<SpriteRenderer>();
                         for (int i = 1; i < 4; i++) {
                             renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + temp.type)[temp.index];

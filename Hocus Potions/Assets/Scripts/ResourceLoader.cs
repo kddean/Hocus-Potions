@@ -71,8 +71,8 @@ public class ResourceLoader : MonoBehaviour {
             { "mugwort", new Seed("mugwort", 180, 5, "Mugwort seed", Resources.Load<Sprite>("Seeds/mugwort_seed")) },
             { "lambsgrass", new Seed("lambsgrass", 180, 5, "Lambsgrass seed", Resources.Load<Sprite>("Seeds/lambsgrass_seed")) },
             { "poppy", new Seed("poppy", 180, 3, "Poppy Seed", Resources.Load<Sprite>("Seeds/poppy_seed")) },
-            { "thistle", new Seed("poppy", 180, 3, "Thistle Seed", Resources.Load<Sprite>("Seeds/thistle_seed")) },
-            { "lily", new Seed("poppy", 180, 3, "Lily Seed", Resources.Load<Sprite>("Seeds/lily_seed")) }
+            { "thistle", new Seed("thistle", 180, 4, "Thistle Seed", Resources.Load<Sprite>("Seeds/thistle_seed")) },
+            { "lily", new Seed("lily", 180, 5, "Lily Seed", Resources.Load<Sprite>("Seeds/lily_seed")) }
         };
     }
     void CreateInventory() {
