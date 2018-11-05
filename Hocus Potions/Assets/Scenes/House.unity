@@ -415,6 +415,10 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Poppy
       m_Image: {fileID: 0}
+    - m_Text: Thistle
+      m_Image: {fileID: 0}
+    - m_Text: Lily
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -926,6 +930,10 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Poppy
       m_Image: {fileID: 0}
+    - m_Text: Thistle
+      m_Image: {fileID: 0}
+    - m_Text: Lily
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1113,6 +1121,10 @@ MonoBehaviour:
     - m_Text: Lambsgrass
       m_Image: {fileID: 0}
     - m_Text: Poppy
+      m_Image: {fileID: 0}
+    - m_Text: Thistle
+      m_Image: {fileID: 0}
+    - m_Text: Lily
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

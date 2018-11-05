@@ -23,6 +23,7 @@ public class Traveller : NPC {
     bool requested;
     bool done;
     bool asleep;
+    bool responding;
 
     int waitHour, waitMinute;
     int maxWait = 5;
@@ -56,6 +57,8 @@ public class Traveller : NPC {
         given = null;
         done = false;
         asleep = false;
+        responding = false;
+        currentDialogue = 0;
         if(!manager.data.TryGetValue(CharacterName, out data)) {
             data = new NPCManager.NPCData();
             data.timesInteracted = 0;
@@ -107,9 +110,9 @@ public class Traveller : NPC {
             data.returningMinutes = spawnMinute;
             manager.data[CharacterName] = data;
             string junk;
-            if (!manager.returnQueue.TryGetValue(data, out junk)) {
+           /* if (!manager.returnQueue.TryGetValue(data, out junk)) {       TODO: This works but it causes glitches with the time set too fast
                 manager.returnQueue.Add(data, CharacterName);
-            }
+            }*/
         }
    
     }
@@ -122,8 +125,7 @@ public class Traveller : NPC {
         if (!visible) {
             SwapVisibile(panelCG);
             dialoguePieces = Dialogue["intro"].Split('*');
-            panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
-            currentDialogue = 0;
+            panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
             if (dialoguePieces.Length <= 1) {
                 SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
             }
@@ -145,7 +147,7 @@ public class Traveller : NPC {
 
     void Give() {
         //bail if they haven't asked for anything yet
-        requested = false;
+
         List<object> givenObjects;
         given = rl.activeItem.item.item;
         done = true;
@@ -165,7 +167,6 @@ public class Traveller : NPC {
                     data.given.RemoveAt(0);
                     data.given.Add(given);
                 }
-
                 rl.inv.RemoveItem(rl.activeItem.item);
 
                 if (rl.npcGivenList.TryGetValue(CharacterName, out givenObjects)) { //add the item to the list of stuff you've given them before
@@ -179,10 +180,11 @@ public class Traveller : NPC {
                     givenObjects = new List<object> { given };
                     rl.npcGivenList.Add(CharacterName, givenObjects);
                 }
-                //Swap sprites
+
+                //Handle VFX and sprite swaps
                 Potion temp = given as Potion;
                 switch (temp.Primary) {
-                    case Ingredient.Attributes.transformation:  //swap sprite to cat
+                    case Ingredient.Attributes.transformation:  //swap sprite 
                         //transform.parent.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cat_sprite");
                         break;
                     case Ingredient.Attributes.sleep:
@@ -191,21 +193,59 @@ public class Traveller : NPC {
                     case Ingredient.Attributes.poison:
                         StartCoroutine(PotionEffects("Poison"));
                         break;
-                    case Ingredient.Attributes.invisible:
+                    case Ingredient.Attributes.invisibility:
                         StartCoroutine(PotionEffects("Invisible"));
                         break;
                     case Ingredient.Attributes.healing:
                         StartCoroutine(PotionEffects("Healing"));
                         break;
+                    case Ingredient.Attributes.mana:
+                        StartCoroutine(PotionEffects("Mana"));
+                        break;
+                    case Ingredient.Attributes.speed:
+                        StartCoroutine(PotionEffects("Speed"));
+                        break;
                     default:
                         break;
                 }
 
+                //Handle dialogue response
                 SwapVisibile(panelCG);
-                string response = "given_" + temp.Primary.ToString();
+                string affinity;    //TODO: there's definitely a cleaner way to do this
+                if (manager.data[CharacterName].affinity < 0) {
+                    affinity = "_bad";
+                } else if(manager.data[CharacterName].affinity > 0) {
+                    affinity = "_good";
+                } else {
+                    affinity = "_neutral";
+                }
+
+                //Choose from possible responses or use default if there is no response(this shouldn't ever happen)
+
+                string response;
+                if (temp.Primary == null) {
+                    response = "given_null" + affinity;
+                } else {
+                    response = "given_" + temp.Primary.ToString() + affinity;
+                }
                 string dia;
+                currentDialogue = 0;
                 if(Dialogue.TryGetValue(response, out dia)) {
-                    panel.GetComponentInChildren<Text>().text = dia;
+                    responding = true;
+                    string[] possibleResponses = dia.Split('\\');
+                    if (possibleResponses.Length > 1) {
+                        int i = Random.Range(0, possibleResponses.Length - 1);
+                        dialoguePieces = possibleResponses[i].Split('*');
+                        panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
+                    } else {
+                        dialoguePieces = possibleResponses[0].Split('*');
+                        panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
+                    }
+                    if (dialoguePieces.Length > 1) {
+                        nextButton = panel.transform.Find("Next").GetComponent<CanvasGroup>();
+                        nextButton.interactable = nextButton.blocksRaycasts = true;
+                        nextButton.alpha = 1;
+                    }
                 } else {
                     panel.GetComponentInChildren<Text>().text = Dialogue["default"];
                 }
@@ -215,31 +255,42 @@ public class Traveller : NPC {
                 panel.GetComponentInChildren<Text>().text = Dialogue["wrong"];
             }
         } else {
-            //deal with item requests besides potions
+            //deal with item requests besides potions - probably make the mess above into a function that can just be called with item types
         }
-
-        //TODO: handle response - change sprite, alignment, social, dialogue
     }
 
     public void NextDialogue() {
-        if (dialoguePieces.Length > (currentDialogue + 2)) {
-            currentDialogue++;
-            panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
-        } else if (dialoguePieces.Length == (currentDialogue + 2)) {
-            currentDialogue++;
-            panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
-            if (!rl.requestList.TryGetValue(CharacterName, out requests)) {
+        //Handles responses to being given items
+        if (responding) {
+            if (dialoguePieces.Length > (currentDialogue + 2)) {
+                currentDialogue++;
+                panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+            } else if (dialoguePieces.Length == (currentDialogue + 2)) {
+                currentDialogue++;
+                panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
                 SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
-                waitHour = mc.Hour;
             }
         } else {
-            if (!requested) {
-                choice = Random.Range(0, requests.Length - 1);
-                string key = requests[choice].Split('=')[0];
-                panel.GetComponentInChildren<Text>().text = Dialogue[key];
-                requested = true;
+
+            //Handling intro dialogue and requesting items
+            if (dialoguePieces.Length > (currentDialogue + 2)) {
+                currentDialogue++;
+                panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+            } else if (dialoguePieces.Length == (currentDialogue + 2)) {
+                currentDialogue++;
+                panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+                if (requested || !rl.requestList.TryGetValue(CharacterName, out requests)) {
+                    SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
+                }
             } else {
-                SwapButtonsAndText();
+                if (!requested) {
+                    choice = Random.Range(0, requests.Length - 1);
+                    string key = requests[choice].Split('=')[0];
+                    panel.GetComponentInChildren<Text>().text = Dialogue[key];
+                    requested = true;
+                } else {
+                    SwapButtonsAndText();
+                }
             }
         }
     }

@@ -67,7 +67,6 @@ public class NPCManager : MonoBehaviour {
                 tempPos.z = -1.0f;
                 go.transform.position = tempPos;
 
-
                 string key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];
                 while (key.Equals(lastSpawned)) {
                     key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];

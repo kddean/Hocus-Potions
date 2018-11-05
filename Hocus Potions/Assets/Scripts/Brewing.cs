@@ -193,10 +193,13 @@ class attList {
                     }
                 }
 
+                //TODO: finalize naming conventions - Currently just named by primary attrbute
+                //Potion name generation
+                name = primary.ToString() + " Potion";
+                name = char.ToUpper(name[0]) + name.Substring(1);
 
-                //Potion name generation *Rough Draft just for functionality; names not final*
-                name = primary.ToString() + " potion of " + secondary.ToString();
-                switch (mod) {
+                //Might need this later but for now it's ignoring modifiers
+                /*switch (mod) {
                     case Ingredient.Modifiers.magicPP:
                         name = "Super " + name;
                         break;
@@ -214,34 +217,42 @@ class attList {
                         break;
                     default:
                         break;
-                }
+                }*/ 
 
                 //Duration calculation *Default values atm, needs to be modified later*
                 //Assigning sprites
                 switch (primary) {
                     case Ingredient.Attributes.healing:
                         duration = 1;
-                        image = Resources.Load<Sprite>("Potions/potions_healing_1");
+                        image = Resources.Load<Sprite>("Potions/potions_healing");
                         break;
                     case Ingredient.Attributes.sleep:
                         duration = 1;
-                        image = Resources.Load<Sprite>("Potions/potions_sleep_1");
+                        image = Resources.Load<Sprite>("Potions/potions_sleep");
                         break;
-                    case Ingredient.Attributes.invisible:
+                    case Ingredient.Attributes.invisibility:
                         duration = 1;
-                        image = Resources.Load<Sprite>("Potions/potions_invis_1");
+                        image = Resources.Load<Sprite>("Potions/potions_invisibility");
                         break;
                     case Ingredient.Attributes.poison:
                         duration = 1;
-                        image = Resources.Load<Sprite>("Potions/potions_poison_1");
+                        image = Resources.Load<Sprite>("Potions/potions_poison");
                         break;
                     case Ingredient.Attributes.transformation:
                         duration = 1;
-                        image = Resources.Load<Sprite>("Potions/potions_transform_1");
+                        image = Resources.Load<Sprite>("Potions/potions_transform");
+                        break;
+                    case Ingredient.Attributes.mana:
+                        duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_mana");
+                        break;
+                    case Ingredient.Attributes.speed:
+                        duration = 1;
+                        image = Resources.Load<Sprite>("Potions/potions_speed");
                         break;
                     default:
                         duration = 1;
-                        image = Resources.Load<Sprite>("Potions/potions_null_1");
+                        image = Resources.Load<Sprite>("Potions/potions_null");
                         break;
                 }
 
@@ -252,12 +263,12 @@ class attList {
                 return pot;
             } else {
                 //for failed potions TO DO: clean up a bit later
-                name = "failed potion";
+                name = "Failed potion";
                 primary = null;
                 secondary = null;
                 mod = null; 
                 duration = 0;
-                image = Resources.Load<Sprite>("Potions/potions_null_1");
+                image = Resources.Load<Sprite>("Potions/potions_null");
                 Potion pot = new Potion(name, image, duration, primary, secondary, mod);
                 return pot;
             }

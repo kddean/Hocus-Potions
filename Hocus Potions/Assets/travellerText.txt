@@ -9,12 +9,49 @@ intro=I'm not here to ask for anything from you, kindly witch, just to offer you
 /Black robed traveler;
 black_witch;
 black_witch;
-intro=Greetings, miss.*I represent an entity that has been keeping an eye on the use of magic in this world.
-*It has come to my employer's attention that you have been dabbling in alchemical potions.*I'm not here to sold you, far from it. Magic can be a tricky beast. I'd like to offer you some guidance! For a price of course...:
-request_healing=For the first lesson, please supply me with 1 eye of newt, 2 brambleberries, and 3 silver tongues roses.:
-given_poison=Random gibberish to make sure this works:
-default=default text for receiving stuff.:
-yes=Wonderful, the great tentacled lord will be happy to take you under his maw.:
+intro=Greetings, miss.*I represent an entity that has been keeping an eye on the use of magic in this world.*It has come to my employer's attention that you have been dabbling in alchemical potions.*I'm not here to sold you, far from it. Magic can be a tricky beast. I'd like to offer you some guidance! For a price of course...:
+
+request_healing=For the first lesson, please supply me with a basic healing potion.:
+
+given_poison_bad=I don't know what I expected.*You, my dear, you have much to learn about the world.\I don't know why you don't want to help people, my dear.*Your Aunt asked me to guide you, my dear, before...*...well, before she left this plane.
+\I can't believe this, young lady...*Although, at this point, I suppose I shouldn't expect more from you.*Your Aunt would be so disappointed in you.:
+given_poison_neutral=Ack! That didn't taste very nice.\Ack! This is horrible!*What did you just give to me?\I don't think this is what I asked for...* Ahh, I'm not feeling very well.:
+given_poison_good=Ack! Did you make a mistake, my dear?*This is definitely not what I asked for.\-choke- Was this some sort of prank, my dear?*Please do not do that again.:
+
+given_healing_bad=You must forgive me if I am skeptical*-sniff- -sniff-*...*Alright, that's a healing potion alright. Thank you, my dear.\Oh, thank goodness it wasn't something horrible again.*Not that I can die, really, though.:
+given_healing_neutral=Excellent color! Lovely consistency. You have great skill, my dear.\Mmm, yes! A few drops of this in the well should take care of the village's little...*...problem.
+given_healing_good=Simply wonderful! You've outdone yourself again, my dear.*Thank you, it's always a pleasure to come visit your little cottage.*I do miss visiting your Aunt here, though.\
+Are you using your Aunt's old recipe for these?*They're simply wonderful, I daresay more potent and healthful than hers, even!*Don't tell her I said that though, not that you could, my dear!*Forgive me, I forget your kind is still mortal.:
+
+given_invisibility_bad=Hmm, a delicate flavor, balanced aftertaste...*Ah! Where did my hand go?*I can't believe you've done this again.:
+given_invisibility_neutral=Um, did something happen?*Oh heavens, I can't see my hands!*I can't see my feet!*I'm leaving before you can do anything worse to me!\Oh dear, what just happened?*Ah! I'm gone! I hope this isn't going to last very long.\Heavens!*Did you really just turn me invisible?:
+given_invisibility_good=Hmm, I can't say that this potion wor...*...ked... My dear! You've turned me invisible!*Was this supposed to be some prank? I can't say I find it very funny.:
+
+given_mana_bad=Are you sure this is okay?*-sniff-*Ah, you actually gave me a real potion this time. Thanks, I suppose.:
+given_mana_neutral=Ah, what a lovely mana potion my dear.*I can feel the magic running wild through my veins.\Simply wonderful!*I feel so energetic. I'm ready to seize the day!\I do love the color of a good mana potion, my dear. It's just like the sky on a bright sunny day.*Thank you, my dear.
+given_mana_good=Ahh, Wonderful. Simply wonderful.*Have I ever told you why I love mana potions so much, my dear, despite being what I am?*They're nostalgic. When I drink one, I feel like I did when I performed magic before I even became me.*Back then, it was so rare to feel such power flow through my body.\
+Mmmm, so much power in such a small bottle, my dear.*Your potions are potent, your Aunt would be proud.*Have I ever told you about the special potions she would make for me? They were quite similar to this.*I wonder if she still has her old recipe around somewhere. I would love to have it again, my dear.:
+
+given_null_bad=Oh well, at least it wasn't something horrible this time.*I guess you are slowly changing your ways, miss.\Did you mess up when trying to poison me again, miss?\This isn't even a real potion, miss, what is this even supposed to do?:
+given_null_neutral=Miss, I know you're still learning, but I don't think this potion turned out quite right.*Is it supposed to be a sleeping potion? If so, you should add some Catnip or Lavender next time.\Um, what is this supposed to be, my dear?*If you were trying to make a healing potion, try adding some Lavender or Lambsgrass.\
+My dear, this potion isn't much of anything.*Are you having trouble making something work? It's alright, we all start somewhere.*You must always ensure that your ingredients have something in common if you want them to mix into something useful.:
+given_null_good=That potion didn't feel very powerful, my dear. Please allow me to share some of my knowledge with you.*Mana potions can be very helpful, even for non-mages. Thistle and mugwort are both plants potent with arcane energies.*However, you must be careful with the mugwort. Too much in a potion and you'll make your customers sick!\
+My dear, I think this one didn't turn out quite right. Are you having trouble?*Nightshade is a powerful herb for its healing properties, but too much and it can become very toxic.*If you're trying to make a healing potion, be sure to add some Lavender or Lambsgrass too.:
+
+given_sleep_bad=If I were mortal, would this kill me in my sleep?*Do I even want to know, or would I just be further disappointed in you my dear?\This is certainly a sleeping potion, my dear. A powerful one, too.*Given your record, I wouldn't be surprised if this sleeping potion was a little too powerful for its own good.:
+given_sleep_neutral=-Yawn- I'm already feeling calm and relaxed.*This is even better than the herbal tea I usually use to settle down. Thank you, my dear.\-Yawn- You know, this is even stronger than the sleeping potions your Aunt used...*...used to*...make.:
+given_sleep_good=Ahh, Thank you, dear. -yawn-*Do you know how hard it is to quiet your mind when you're a being like me?*Maybe someday you'll find out like, well...*like someone else did.*Who?*I'm tired, can we discuss this another time?\Mmm, A find potion, my dear. -yawn-*Another wonderful, fine potion.:
+
+given_speed_bad=My dear, an actual potion!*-sip-*ahh, it's not even poison at all!\Wonderful, my dear, a speed potion!*Now I can leave this cursed place even faster, before you trick me again.:
+given_speed_neutral=Wow! Such energy in such a small bottle.*Do you ever put this in your tea in the morning? It would really get you going.\Quite excellent. A few drops of this in the well should have the town's toadball team working wonders, don't you agree?*Does that count as cheating? What they don't know won't hurt!\My dear, you've learned so quickly!*Your Aunt would be so proud.:
+given_speed_good=Another perfect potion, my dear!*Speed potions are helpful for many things, you know. You can give them to your local toadball team if you want your town to win the championship,*or you can give them to people who want to play tag!*There are so many happy things you can do with potions, my dear.:
+
+given_transformation_bad=Stop it, my dear! You know you can't see me like this.\Miss! Please! Do not transform me again!*I implore you!:
+given_transformation_neutral=Ahh! You can't see me like this! You won't understand!\Ack! My Dear, You've transformed me!*Please, you can't see me like this!\Quick my dear, close your eyes while I leave!:
+given_transformation_good=My dear, I know you want to understand what, no, who I am.*But please, it is not the right time. Please be patient.:
+
+default=default text for receiving stuff. This shouldn't ever be shown:
+
 wait=Of course, of course, I will be back tomorrow at the same time. Good evening.:
 no=You will live to rue this day...;
 request_healing=healing potion;
@@ -26,9 +63,9 @@ white_witch;
 white_witch;
 intro=So you're the misguided witch that has been plaguing the townspeople with unnatural concoctions.*It's an honor to meet you! I find that chaos is the lifeblood of the world.*I work for an organization that one might say ensures the thriving of entropy. I could teach you our ways if you are interested.:
 request_cat=As an initiation, we ask that you turn someone into a cat. Do this and I will gift unto you the rank of Sapling and with it the sworn allegiance of things that crawl, grow, and blossom.:
-given_poison=This tastes an awful lot like poison.:
+given_poison_neutral=This tastes an awful lot like poison.:
 default=default text for receiving stuff.:
-yes=Welcome to the ranks of the Nocturnal Administration of Talented Utilitarian Robed Entropics!:
+
 wait=You have 1 day to decide.:
 no=You deny Chaos? You must be an agent of that tentacled order-monger Notcthulhu!!! We will meet again, fiend.;
 request_cat=transformation potion;
