@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class NPCManager : MonoBehaviour {
-    public GameObject spawnPoint;
     MoonCycle mc;
     ResourceLoader rl;
     int lastHour;
@@ -43,8 +42,7 @@ public class NPCManager : MonoBehaviour {
         Spawned = false;
         queueLoaded = false;
         returnQueue = new SortedList<NPCData, string>(new CompareTimes());
-
-    }
+     }
 
 
     void Update() {
@@ -66,19 +64,22 @@ public class NPCManager : MonoBehaviour {
             //spawn the NPC if it's the correct time
             if (mc.Hour == spawnHour && mc.Minutes == spawnMinute) {
                 GameObject go = new GameObject();
+                GameObject spawnPoint = GameObject.Find("SpawnPoint");
                 go.transform.position = spawnPoint.transform.position;
                 //Swap this to set sorting layer instead once they're set up
                 Vector3 tempPos = go.transform.position;
                 tempPos.z = -1.0f;
                 go.transform.position = tempPos;
-
+                
                 
                 string key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];
                 while (key.Equals(lastSpawned)) {
                     key = rl.availableNPCs[Random.Range(0, rl.availableNPCs.Count)];
                 }
 
-                //This should use prefabs eventually to just spawn them with their data intact
+                //TODO: remove this later - purely for testing interactions
+                //string key = "Black robed traveler";
+
                 Traveller trav = go.AddComponent<Traveller>();
                 trav.Manager = this;
                 trav.CharacterName = key;
@@ -104,6 +105,7 @@ public class NPCManager : MonoBehaviour {
         } else if (returnQueue.Count != 0 && returnQueue.Keys[0].returningDay == mc.Days && returnQueue.Keys[0].returningHour == mc.Hour && returnQueue.Keys[0].returningMinutes == mc.Minutes) {        //if someone is supposed to return
 
             GameObject go = new GameObject();
+            GameObject spawnPoint = GameObject.Find("SpawnPoint");
             go.transform.position = spawnPoint.transform.position;
             //Swap this to set sorting layer instead once they're set up
             Vector3 tempPos = go.transform.position;
