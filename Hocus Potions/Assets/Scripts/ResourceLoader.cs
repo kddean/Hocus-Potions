@@ -10,6 +10,7 @@ public class ResourceLoader : MonoBehaviour {
 
     public Inventory inv;
     public Garden garden;
+    public GatheringManager gatheringManager;
     public InventoryManager activeItem;
     public Dictionary<string, Ingredient> ingredients;
     public Dictionary<string, Seed> seeds;
@@ -37,6 +38,7 @@ public class ResourceLoader : MonoBehaviour {
         npcGivenList = new Dictionary<string, List<object>>();
         activeItem = null;
         garden = GameObject.Find("GardenManager").GetComponent<Garden>();
+        gatheringManager = GameObject.Find("GatheringManager").GetComponent<GatheringManager>();
         CreateIngredients();
         CreateSeeds();
         CreateInventory();
