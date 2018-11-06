@@ -117,8 +117,6 @@ public class Inventory {
         }
     }
 
-
-    //TO DO: function to allow players to drop items from their inventory
     public void DropItem(InventoryItem item, Button b) {
         b.GetComponentInChildren<Image>().sprite = null;
         b.GetComponentInChildren<Text>().text = "";
@@ -128,7 +126,7 @@ public class Inventory {
         GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().activeItem = null;
     }
 
-    //TO DO: function to allow items to be used from inventory
+    //TODO: function to allow items to be used from inventory
     void UseItem() {
 
     }

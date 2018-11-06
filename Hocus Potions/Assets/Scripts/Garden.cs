@@ -61,7 +61,6 @@ public class Garden : MonoBehaviour {
                 rl.inv.RemoveItem(rl.activeItem.item);
                 //Set plot sprite
                 SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
-                //TODO: FIX THIS TO PULL SPRITE FROM ARRAY OF ALL!!!!! ALSO IGNORE THE FIRST? OR LAST? IDK.. whichever one is the plot renderer
                 for (int i = 1; i < 4; i++) {
                     sr[i].sprite = Resources.Load<Sprite>("Plants/" + seed.SeedType);
                 }

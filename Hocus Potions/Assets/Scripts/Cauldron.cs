@@ -97,33 +97,36 @@ public class Cauldron : MonoBehaviour {
     }
 
     public void TakePotion() {
-        GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.Add(pot, pot.name, pot.image); ;
-        name.text = "";
-        pic.GetComponent<CanvasGroup>().alpha = 0;
+        if (GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.Add(pot, pot.name, pot.image)) {
+            name.text = "";
+            pic.GetComponent<CanvasGroup>().alpha = 0;
 
-        anims[0].SetBool("full", false);
-        SwapVisible(brew.GetComponent<CanvasGroup>());
-        SwapVisible(take.GetComponent<CanvasGroup>());
-        bubbles.GetComponent<SpriteRenderer>().enabled = false;
+            anims[0].SetBool("full", false);
+            SwapVisible(brew.GetComponent<CanvasGroup>());
+            SwapVisible(take.GetComponent<CanvasGroup>());
+            bubbles.GetComponent<SpriteRenderer>().enabled = false;
 
-        manager.Brewing = 0;
-        done = false;
+            manager.Brewing = 0;
+            done = false;
+        }
     }
 
     public void Close() {
         first.value = -1;
         second.value = -1;
         third.value = -1;
-        name.text = "";
-        pic.GetComponent<CanvasGroup>().alpha = 0;
-
+      
         SwapVisible(panel.GetComponent<CanvasGroup>());
-        brew.GetComponent<CanvasGroup>().alpha = 1;
-        brew.GetComponent<CanvasGroup>().interactable = true;
-        brew.GetComponent<CanvasGroup>().blocksRaycasts = true;
-        take.GetComponent<CanvasGroup>().alpha = 0;
-        take.GetComponent<CanvasGroup>().interactable = false;
-        take.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        if (manager.Brewing == 0) {
+            brew.GetComponent<CanvasGroup>().alpha = 1;
+            brew.GetComponent<CanvasGroup>().interactable = true;
+            brew.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            take.GetComponent<CanvasGroup>().alpha = 0;
+            take.GetComponent<CanvasGroup>().interactable = false;
+            take.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            name.text = "";
+            pic.GetComponent<CanvasGroup>().alpha = 0;
+        }
     }
 
     void SwapVisible(CanvasGroup cg) {
