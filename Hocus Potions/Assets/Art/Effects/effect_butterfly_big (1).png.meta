@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b4d9486b59aad45479f2b63831b2095e
+guid: 00be94f30c296ba4782bbd276c0af487
 TextureImporter:
   fileIDToRecycleName:
-    21300000: cauldron_bubbles_boiling_0
-    21300002: cauldron_bubbles_boiling_1
-    21300004: cauldron_bubbles_boiling_2
+    21300000: effect_butterfly_big (1)_0
+    21300002: effect_butterfly_big (1)_1
+    21300004: effect_butterfly_big (1)_2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -120,61 +120,61 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cauldron_bubbles_boiling_0
+      name: effect_butterfly_big (1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 49
-        height: 25
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34518852cc8c02a49b1244a70b5cffe9
+      spriteID: 27c6a1d8b23f53648a4e12b77ebe0fe7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cauldron_bubbles_boiling_1
+      name: effect_butterfly_big (1)_1
       rect:
         serializedVersion: 2
-        x: 51
+        x: 17
         y: 0
-        width: 49
-        height: 25
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 284eb70dd2d8b5d4e9716063eb018493
+      spriteID: 9c26e39bb37008e4fa2c9e9c77d20d9e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cauldron_bubbles_boiling_2
+      name: effect_butterfly_big (1)_2
       rect:
         serializedVersion: 2
-        x: 102
+        x: 34
         y: 0
-        width: 49
-        height: 25
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83d84b4b9c995fe43b0e930ec9e34d67
+      spriteID: 8f8b748c9b9d5cc4c80b50a760981c15
       vertices: []
       indices: 
       edges: []
@@ -182,7 +182,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b18b337d83bec2f4da31ec273674eedd
+    spriteID: 725c2775ae925a54e9a4b06b1f01f566
     vertices: []
     indices: 
     edges: []
