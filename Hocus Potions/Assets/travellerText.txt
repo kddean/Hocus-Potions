@@ -1,14 +1,14 @@
 Red robed traveler;
-red_witch;
-red_witch;
+brown_robed_traveler;
+brown_robed_traveler;
 intro=I'm not here to ask for anything from you, kindly witch, just to offer you a couple tips.
 *Be cautious of decisions you make dealing with others who dress in robes like mine.*Pacts made can never be unbroken.
 *Now, if you'll pardon me, I'm getting a bit sleepy.*I might make myself some lavender tea.;
 
 
 /Black robed traveler;
-black_witch;
-black_witch;
+black_robed_traveler;
+black_robed_traveler;
 intro=Greetings, miss.*I represent an entity that has been keeping an eye on the use of magic in this world.*It has come to my employer's attention that you have been dabbling in alchemical potions.*I'm not here to sold you, far from it. Magic can be a tricky beast. I'd like to offer you some guidance! For a price of course...:
 
 request_healing=For the first lesson, please supply me with a basic healing potion.:
@@ -59,8 +59,8 @@ request_healing=healing potion;
 
 
 /White robed traveler;
-white_witch;
-white_witch;
+green_robed_travler;
+green_robed_traveler;
 intro=So you're the misguided witch that has been plaguing the townspeople with unnatural concoctions.*It's an honor to meet you! I find that chaos is the lifeblood of the world.*I work for an organization that one might say ensures the thriving of entropy. I could teach you our ways if you are interested.:
 request_cat=As an initiation, we ask that you turn someone into a cat. Do this and I will gift unto you the rank of Sapling and with it the sworn allegiance of things that crawl, grow, and blossom.:
 given_poison_neutral=This tastes an awful lot like poison.:

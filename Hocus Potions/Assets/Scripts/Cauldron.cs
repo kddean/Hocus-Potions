@@ -15,44 +15,85 @@ public class Cauldron : MonoBehaviour {
     public Button brew;
     public Button take;
     Potion pot;
-
+    BrewingManager manager;
+    MoonCycle mc;
     Animator[] anims;
     GameObject sparkles;
     GameObject bubbles;
 
+    bool done;
+
     private void Start() {
+        manager = GameObject.Find("BrewingManager").GetComponent<BrewingManager>();
+        mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
         sparkles = GameObject.Find("sparkles");
         bubbles = GameObject.Find("bubbles");
         anims = GetComponentsInChildren<Animator>();
-        sparkles.SetActive(false);
-        bubbles.SetActive(false);
-
+        done = false;
+        switch (GameObject.Find("BrewingManager").GetComponent<BrewingManager>().Brewing) {
+            case 0:
+                foreach (Animator a in anims) {
+                    a.SetBool("idle", true);
+                }
+                bubbles.GetComponent<SpriteRenderer>().enabled = false;
+                sparkles.GetComponent<SpriteRenderer>().enabled = false;
+                break;
+            case 1:
+                foreach (Animator a in anims) {
+                    a.SetBool("idle", false);
+                }
+                bubbles.GetComponent<SpriteRenderer>().enabled = true;
+                sparkles.GetComponent<SpriteRenderer>().enabled = true;
+                break;
+            case 2:
+                foreach (Animator a in anims) {
+                    a.SetBool("idle", true);
+                }
+                anims[0].SetBool("full", true);
+                bubbles.GetComponent<SpriteRenderer>().enabled = true;
+                sparkles.GetComponent<SpriteRenderer>().enabled = false;
+                break;
+            default:
+                Debug.Log("How did it get to this");
+                break;
+        }
     }
+
+    private void Update() {
+        if (manager.Brewing == 2 && !done) {
+            SwapVisible(brew.GetComponent<CanvasGroup>());
+            SwapVisible(take.GetComponent<CanvasGroup>());
+
+            foreach (Animator a in anims) {
+                a.SetBool("idle", true);
+            }
+            bubbles.GetComponent<Animator>().SetBool("full", true);
+            sparkles.GetComponent<SpriteRenderer>().enabled = false;
+
+            pot = manager.Pot;
+            name.text = pot.name;
+            pic.sprite = pot.image;
+            pic.GetComponent<CanvasGroup>().alpha = 1;
+            done = true;
+        }
+    }
+
     void OnMouseDown() {
-        SwapVisible(panel.GetComponent<CanvasGroup>());
-        sparkles.SetActive(true);
-        bubbles.SetActive(true);
-       
-        foreach (Animator a in anims) {
-            a.SetBool("idle", false);
+        if (manager.Brewing == 0 || manager.Brewing == 2) {
+            SwapVisible(panel.GetComponent<CanvasGroup>());
         }
     }
 
     public void BrewPotion() {
         Brewing b = new Brewing();
-
+        bubbles.GetComponent<SpriteRenderer>().enabled = true;
+        sparkles.GetComponent<SpriteRenderer>().enabled = true;
+        foreach(Animator a in anims) {
+            a.SetBool("idle", false);
+        }
         pot = b.Brew(first.options[first.value].text, second.options[second.value].text, third.options[third.value].text);
-        name.text = pot.name;
-        pic.sprite = pot.image;
-        pic.GetComponent<CanvasGroup>().alpha = 1;
-
-        //swap which button is visible
-        SwapVisible(brew.GetComponent<CanvasGroup>());
-        SwapVisible(take.GetComponent<CanvasGroup>());
-        sparkles.GetComponent<SpriteRenderer>().enabled = false;
-        bubbles.GetComponent<Animator>().SetBool("idle", true);
-        bubbles.GetComponent<Animator>().SetBool("full", true);
-
+        manager.Begin((pot.brewingTime / 10) * mc.CLOCK_SPEED, pot);
+        Close();
     }
 
     public void TakePotion() {
@@ -60,11 +101,13 @@ public class Cauldron : MonoBehaviour {
         name.text = "";
         pic.GetComponent<CanvasGroup>().alpha = 0;
 
+        anims[0].SetBool("full", false);
         SwapVisible(brew.GetComponent<CanvasGroup>());
         SwapVisible(take.GetComponent<CanvasGroup>());
-        sparkles.GetComponent<SpriteRenderer>().enabled = true;
-        bubbles.GetComponent<Animator>().SetBool("idle", false);
-        bubbles.GetComponent<Animator>().SetBool("full", false);
+        bubbles.GetComponent<SpriteRenderer>().enabled = false;
+
+        manager.Brewing = 0;
+        done = false;
     }
 
     public void Close() {
@@ -81,12 +124,6 @@ public class Cauldron : MonoBehaviour {
         take.GetComponent<CanvasGroup>().alpha = 0;
         take.GetComponent<CanvasGroup>().interactable = false;
         take.GetComponent<CanvasGroup>().blocksRaycasts = false;
-
-        foreach (Animator a in anims) {
-            a.SetBool("idle", true);
-        }
-        sparkles.SetActive(false);
-        bubbles.SetActive(false);
     }
 
     void SwapVisible(CanvasGroup cg) {
