@@ -1930,7 +1930,7 @@ MonoBehaviour:
   gatheringManager: {fileID: 0}
   activeItem: {fileID: 0}
   availableNPCs: []
-  npcTextFile: {fileID: 4900000, guid: 8a9d1f8d80dcbae43a97f1984fe2613a, type: 3}
+  npcData: {fileID: 4900000, guid: f56422dd1a1cd3740b175ed6dc544a9c, type: 3}
   givenListMax: 5
 --- !u!4 &468501727
 Transform:
@@ -3651,7 +3651,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &976782554
 MonoBehaviour:

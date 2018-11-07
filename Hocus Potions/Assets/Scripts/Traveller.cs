@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class Traveller : NPC {
     //static references
@@ -30,7 +31,7 @@ public class Traveller : NPC {
 
     string[] dialoguePieces;
     int currentDialogue;
-    string[] requests;
+    List<Request> requests;
     int choice;
     int spawnHour;
     int spawnMinute;
@@ -67,7 +68,6 @@ public class Traveller : NPC {
             manager.data.Add(CharacterName, data);
         }
         data.returning = false;
-
         //set onclick functions for dialogue
         panel.transform.Find("Next").GetComponent<Button>().onClick.AddListener(NextDialogue);
         panel.transform.Find("Exit").GetComponent<Button>().onClick.AddListener(ExitDialogue);
@@ -124,7 +124,7 @@ public class Traveller : NPC {
         move = false;
         if (!visible) {
             SwapVisibile(panelCG);
-            dialoguePieces = Dialogue["intro"].Split('*');
+            dialoguePieces = Dialogue["intro"][0].Split('*');
             panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
             if (dialoguePieces.Length <= 1) {
                 SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
@@ -157,8 +157,7 @@ public class Traveller : NPC {
         nextButton.interactable = nextButton.blocksRaycasts = false;
         nextButton.alpha = 0;
 
-        string[] split = requests[choice].Split('=')[1].Split(' ');
-        if (split[1].Equals("potion")) {
+        if (requests[choice].Item.ToLower().Contains("potion")) {
             if (given is Potion) { //Give them the type of object they wanted
                 data.timesInteracted++;
                 if (data.given.Count < 5) {
@@ -228,17 +227,16 @@ public class Traveller : NPC {
                 } else {
                     response = "given_" + temp.Primary.ToString() + affinity;
                 }
-                string dia;
+                List<string> dia;
                 currentDialogue = 0;
                 if(Dialogue.TryGetValue(response, out dia)) {
                     responding = true;
-                    string[] possibleResponses = dia.Split('\\');
-                    if (possibleResponses.Length > 1) {
-                        int i = Random.Range(0, possibleResponses.Length - 1);
-                        dialoguePieces = possibleResponses[i].Split('*');
+                    if (dia.Count > 1) {
+                        int i = Random.Range(0, dia.Count - 1);
+                        dialoguePieces = dia[i].Split('*');
                         panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
                     } else {
-                        dialoguePieces = possibleResponses[0].Split('*');
+                        dialoguePieces = dia[0].Split('*');
                         panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
                     }
                     if (dialoguePieces.Length > 1) {
@@ -247,12 +245,12 @@ public class Traveller : NPC {
                         nextButton.alpha = 1;
                     }
                 } else {
-                    panel.GetComponentInChildren<Text>().text = Dialogue["default"];
+                    panel.GetComponentInChildren<Text>().text = Dialogue["default"][0];
                 }
 
             } else {  //handle trying to give people the wrong item type
                 SwapVisibile(panelCG);
-                panel.GetComponentInChildren<Text>().text = Dialogue["wrong"];
+                panel.GetComponentInChildren<Text>().text = Dialogue["wrong"][0];
             }
         } else {
             //deal with item requests besides potions - probably make the mess above into a function that can just be called with item types
@@ -284,9 +282,8 @@ public class Traveller : NPC {
                 }
             } else {
                 if (!requested) {
-                    choice = Random.Range(0, requests.Length - 1);
-                    string key = requests[choice].Split('=')[0];
-                    panel.GetComponentInChildren<Text>().text = Dialogue[key];
+                    choice = Random.Range(0, requests.Count - 1);
+                    panel.GetComponentInChildren<Text>().text = Dialogue[requests[choice].Key][0];
                     requested = true;
                 } else {
                     SwapButtonsAndText();
@@ -314,7 +311,7 @@ public class Traveller : NPC {
     }
 
     public void DeclineRequest() {
-        panel.GetComponentInChildren<Text>().text = Dialogue["no"];
+        panel.GetComponentInChildren<Text>().text = Dialogue["no"][0];
         SwapButtonsAndText();
         move = true;
         wait = false;
@@ -331,7 +328,7 @@ public class Traveller : NPC {
         data.returningMinutes = spawnMinute;
         manager.data[CharacterName] = data;
         manager.returnQueue.Add(data, CharacterName);
-        panel.GetComponentInChildren<Text>().text = Dialogue["wait"];
+        panel.GetComponentInChildren<Text>().text = Dialogue["wait"][0];
         SwapButtonsAndText();
     }
 

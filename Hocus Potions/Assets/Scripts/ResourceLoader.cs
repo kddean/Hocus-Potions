@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class ResourceLoader : MonoBehaviour {
 
@@ -14,13 +15,13 @@ public class ResourceLoader : MonoBehaviour {
     public InventoryManager activeItem;
     public Dictionary<string, Ingredient> ingredients;
     public Dictionary<string, Seed> seeds;
-    public Dictionary<string, Dictionary<string,string>> dialogueList;
+    public Dictionary<string, Dictionary<string, List<string>>> dialogueList;
     public Dictionary<string, Sprite> portraitList;
     public Dictionary<string, Sprite> charSpriteList;
-    public Dictionary<string, string[]> requestList;
+    public Dictionary<string, List<Request>> requestList;
     public Dictionary<string, List<object>> npcGivenList;
     public List<string> availableNPCs;
-    public TextAsset npcTextFile;
+    public TextAsset npcData;
     public int givenListMax = 5;
 
     public void Awake() {
@@ -30,11 +31,11 @@ public class ResourceLoader : MonoBehaviour {
         }
     }
 
-    void Start () {
-        dialogueList = new Dictionary<string, Dictionary<string, string>>();
+    void Start() {
+        dialogueList = new Dictionary<string, Dictionary<string, List<string>>>();
         portraitList = new Dictionary<string, Sprite>();
         charSpriteList = new Dictionary<string, Sprite>();
-        requestList = new Dictionary<string, string[]>();
+        requestList = new Dictionary<string, List<Request>>();
         npcGivenList = new Dictionary<string, List<object>>();
         activeItem = null;
         garden = GameObject.Find("GardenManager").GetComponent<Garden>();
@@ -43,11 +44,14 @@ public class ResourceLoader : MonoBehaviour {
         CreateSeeds();
         CreateInventory();
         CreateNPCs();
-      
+
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
+
         //Just for force spawning inventory items for testing
         inv.Testing();
+
+        //This is insanity and there has to be a better way...
     }
 
     //TO DO: Swap sprites to proper inv sprites once we have them
@@ -86,24 +90,48 @@ public class ResourceLoader : MonoBehaviour {
 
 
     void CreateNPCs() {
-        availableNPCs = new List<string>();
-        string cleanText = npcTextFile.text;
-        cleanText = Regex.Replace(cleanText, @"\r", "");
-        cleanText = Regex.Replace(cleanText, @"\n", "");
-        string[] splitList = cleanText.Split('/');
-        for (int i = 0; i < splitList.Length; i++) {
-            string[] data = splitList[i].Split(';');
-            availableNPCs.Add(data[0]);
-            portraitList.Add(data[0], Resources.Load<Sprite>(data[1]));
-            charSpriteList.Add(data[0], Resources.Load<Sprite>(data[2]));
-            Dictionary<string, string> temp = new Dictionary<string, string>();
-            string[] dialogueSplit = data[3].Split(':');
-            for (int j = 0; j < dialogueSplit.Length; j++) {
-                temp.Add(dialogueSplit[j].Split('=')[0], dialogueSplit[j].Split('=')[1]);
+        Regex.Replace(npcData.text, "\r", String.Empty);
+        string[] characterSegments = npcData.text.Split('\\'); //Split by character
+        for (int i = 0; i < characterSegments.Length; i++) {
+
+            string[] dataSegments = characterSegments[i].Split('@');       //split by segment
+            string[] first = dataSegments[0].Split('\n');                  //populate name and sprites
+            string key = first[0].Split(',')[0];
+            availableNPCs.Add(key);
+            portraitList.Add(key, Resources.Load<Sprite>(first[1].Split(',')[0]));
+            charSpriteList.Add(key, Resources.Load<Sprite>(first[2].Split(',')[0]));
+
+            //Fill dialogue dictionary
+            Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();
+            string[] dialogue = dataSegments[1].Split('\n');
+            foreach (string s in dialogue) {
+                List<string> dialogueSplit = Regex.Split(s, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)").ToList();
+                if (!dialogueSplit[0].Equals(String.Empty)) {
+                    string k = dialogueSplit[0];
+                    dialogueSplit.RemoveAt(0);
+                    dialogueSplit.RemoveAll(j => j.Equals(String.Empty));
+                    for (int f = 0; f < dialogueSplit.Count; f++) {
+                        dialogueSplit[f] = dialogueSplit[f].Replace("\"", "");
+                    }
+                    temp.Add(k, dialogueSplit);
+                }
             }
-            dialogueList.Add(data[0], temp);
-            if (!data[4].Split(':')[0].Equals(String.Empty)) {
-                requestList.Add(data[0], data[4].Split(':'));
+            dialogueList.Add(key, temp);
+
+            //TODO:Maybe change this if we handle requests differently
+            string[] requests = dataSegments[2].Split('\n');
+            List<Request> questList = new List<Request>();
+            foreach (string req in requests) {
+                List<string> r = Regex.Split(req, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)").ToList();
+                if (!r[0].Equals(String.Empty)) {
+
+                    r.RemoveAll(q => q.Equals(String.Empty));
+                    Request newRequest = new Request(r[0], r[1]);
+                    questList.Add(newRequest);
+                }
+            }
+            if (questList.Count > 0) {
+                requestList.Add(key, questList);
             }
         }
     }

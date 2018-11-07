@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour {
     string characterName;
-    Dictionary<string,string> dialogue;
+    Dictionary<string,List<string>> dialogue;
 
     //Status 
     //Queue<Action> schedule;
@@ -31,7 +31,7 @@ public class NPC : MonoBehaviour {
         }
     }
 
-    public Dictionary<string, string> Dialogue {
+    public Dictionary<string, List<string>> Dialogue {
         get {
             return dialogue;
         }

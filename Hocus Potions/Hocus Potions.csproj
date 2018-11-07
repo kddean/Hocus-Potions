@@ -313,10 +313,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Brewing.cs" />
+    <Compile Include="Assets\Scripts\BrewingManager.cs" />
     <Compile Include="Assets\Scripts\Cauldron.cs" />
     <Compile Include="Assets\Scripts\Garden.cs" />
     <Compile Include="Assets\Scripts\GardenPlot.cs" />
     <Compile Include="Assets\Scripts\Gathering.cs" />
+    <Compile Include="Assets\Scripts\GatheringManager.cs" />
     <Compile Include="Assets\Scripts\Ingredient.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
@@ -326,6 +328,7 @@
     <Compile Include="Assets\Scripts\NPCManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Potion.cs" />
+    <Compile Include="Assets\Scripts\Request.cs" />
     <Compile Include="Assets\Scripts\ResourceLoader.cs" />
     <Compile Include="Assets\Scripts\SceneSwitcher.cs" />
     <Compile Include="Assets\Scripts\Schedule.cs" />
@@ -334,7 +337,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\NpcList.txt" />
-    <None Include="Assets\travellerText.txt" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Templates\Alert.uxml" />
