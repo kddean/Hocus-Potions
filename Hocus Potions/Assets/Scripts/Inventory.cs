@@ -23,16 +23,17 @@ public class Inventory {
     public List<InventoryItem> inventory; 
     public int maxSize = 10;
     int currentSize = 3;
-    bool display = false;
 
     //Just for testing stack combining
     public void Testing() {
+        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         Brewing b = new Brewing();
-        Potion p = b.Brew("nightshade", "nightshade", "mugwort");
-        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["catnip"];
+        Potion p = b.Brew(rl.ingredients["nightshade"], rl.ingredients["nightshade"], rl.ingredients["mugwort"]);
+        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["thistle"];
         Seed ss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["lambsgrass"];
+        Seed sss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["catnip"];
         inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image),
-            new InventoryItem(s, s.Name, s.Icon),  new InventoryItem(ss, ss.Name, s.Icon) };
+            new InventoryItem(s, s.Name, s.Icon),  new InventoryItem(ss, ss.Name, ss.Icon), new InventoryItem(sss, sss.Name, sss.Icon) };
 
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         for (int i = 0; i < 3; i++) {
@@ -45,12 +46,16 @@ public class Inventory {
         invButtons[3].GetComponentInChildren<Text>().text = "4";
         invButtons[3].GetComponentInChildren<Image>().sprite = s.Icon;
         invButtons[3].GetComponent<InventoryManager>().item = inventory[3];
-        invButtons[4].GetComponentInChildren<Text>().text = "2";
+        invButtons[4].GetComponentInChildren<Text>().text = "4";
         invButtons[4].GetComponentInChildren<Image>().sprite = ss.Icon;
         invButtons[4].GetComponent<InventoryManager>().item = inventory[4];
-        currentSize = 5;
+        invButtons[5].GetComponentInChildren<Text>().text = "4";
+        invButtons[5].GetComponentInChildren<Image>().sprite = sss.Icon;
+        invButtons[5].GetComponent<InventoryManager>().item = inventory[5];
+        currentSize = 6;
         inventory[3].count = 4;
-        inventory[4].count = 2;
+        inventory[4].count = 4;
+        inventory[5].count = 4;
     }
    
 

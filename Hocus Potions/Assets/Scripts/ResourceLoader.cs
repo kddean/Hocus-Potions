@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEngine.UI;
-using System.IO;
 
 public class ResourceLoader : MonoBehaviour {
 
@@ -20,9 +17,11 @@ public class ResourceLoader : MonoBehaviour {
     public Dictionary<string, Sprite> charSpriteList;
     public Dictionary<string, List<Request>> requestList;
     public Dictionary<string, List<object>> npcGivenList;
+    public Ingredient[] brewingIngredients;
     public List<string> availableNPCs;
     public TextAsset npcData;
     public int givenListMax = 5;
+    public int ingredientCount;
 
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -37,9 +36,13 @@ public class ResourceLoader : MonoBehaviour {
         charSpriteList = new Dictionary<string, Sprite>();
         requestList = new Dictionary<string, List<Request>>();
         npcGivenList = new Dictionary<string, List<object>>();
+        brewingIngredients = new Ingredient[3];
+  
         activeItem = null;
+        ingredientCount = 0;
         garden = GameObject.Find("GardenManager").GetComponent<Garden>();
         gatheringManager = GameObject.Find("GatheringManager").GetComponent<GatheringManager>();
+
         CreateIngredients();
         CreateSeeds();
         CreateInventory();
@@ -47,11 +50,9 @@ public class ResourceLoader : MonoBehaviour {
 
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
-
         //Just for force spawning inventory items for testing
         inv.Testing();
 
-        //This is insanity and there has to be a better way...
     }
 
     //TO DO: Swap sprites to proper inv sprites once we have them
