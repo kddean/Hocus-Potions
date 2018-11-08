@@ -26,14 +26,9 @@ public class Brewing {
     }
 
 
-    public Potion Brew(string f, string s, string t) {
-        Ingredient first, second, third;
-        first = second = third = null;
-        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+    public Potion Brew(Ingredient first, Ingredient second, Ingredient third) {
+
         //assign ingredients based on name
-        first = rl.ingredients[f.ToLower()];
-        second = rl.ingredients[s.ToLower()];
-        third = rl.ingredients[t.ToLower()];
 
         List<attList> attributes = new List<attList>();
         List<modList> modifiers = new List<modList>();

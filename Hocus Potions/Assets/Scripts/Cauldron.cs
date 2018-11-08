@@ -5,12 +5,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Cauldron : MonoBehaviour {
-    public GameObject panel;
-    public Dropdown first;
-    public Dropdown second;
-    public Dropdown third;
-    public Text name;
-    public Image pic;
+    public GameObject brewPanel;
+    public GameObject ingredientPanel;
+    public Image first, second, third;
+    public Text potionName;
+    public Image potionImage;
 
     public Button brew;
     public Button take;
@@ -20,16 +19,23 @@ public class Cauldron : MonoBehaviour {
     Animator[] anims;
     GameObject sparkles;
     GameObject bubbles;
+    ResourceLoader rl;
 
     bool done;
+    bool visible;
+    bool brewVisible;
 
     private void Start() {
+        ingredientPanel.SetActive(false);
+        brewPanel.SetActive(false);
         manager = GameObject.Find("BrewingManager").GetComponent<BrewingManager>();
         mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
+        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         sparkles = GameObject.Find("sparkles");
         bubbles = GameObject.Find("bubbles");
         anims = GetComponentsInChildren<Animator>();
         done = false;
+        brewVisible = false;
         switch (GameObject.Find("BrewingManager").GetComponent<BrewingManager>().Brewing) {
             case 0:
                 foreach (Animator a in anims) {
@@ -71,16 +77,29 @@ public class Cauldron : MonoBehaviour {
             sparkles.GetComponent<SpriteRenderer>().enabled = false;
 
             pot = manager.Pot;
-            name.text = pot.name;
-            pic.sprite = pot.image;
-            pic.GetComponent<CanvasGroup>().alpha = 1;
+            potionName.text = pot.name;
+            potionImage.sprite = pot.image;
+            potionImage.GetComponent<CanvasGroup>().alpha = 1;
             done = true;
+        }
+        if(visible && !brewVisible && rl.ingredientCount == 3) {
+            brewPanel.SetActive(true);
+            brewPanel.GetComponent<CanvasGroup>().alpha = 1;
+            brewPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            brewPanel.GetComponent<CanvasGroup>().interactable = true;
+            brewVisible = true;
         }
     }
 
-    void OnMouseDown() {
-        if (manager.Brewing == 0 || manager.Brewing == 2) {
-            SwapVisible(panel.GetComponent<CanvasGroup>());
+    void OnMouseUp() {
+        if (!visible && manager.Brewing == 0 || manager.Brewing == 2) {
+            ingredientPanel.SetActive(true);
+            SwapVisible(ingredientPanel.GetComponent<CanvasGroup>());
+            visible = true;
+            if(manager.Brewing == 2) {
+                brewPanel.SetActive(true);
+                brewVisible = true;
+            }
         }
     }
 
@@ -91,15 +110,21 @@ public class Cauldron : MonoBehaviour {
         foreach(Animator a in anims) {
             a.SetBool("idle", false);
         }
-        pot = b.Brew(first.options[first.value].text, second.options[second.value].text, third.options[third.value].text);
+        pot = b.Brew(rl.brewingIngredients[0], rl.brewingIngredients[1], rl.brewingIngredients[2]);
         manager.Begin((pot.brewingTime / 10) * mc.CLOCK_SPEED, pot);
         Close();
+        first.sprite = second.sprite = third.sprite = null;
+        first.GetComponentInChildren<CanvasGroup>().alpha = second.GetComponentInChildren<CanvasGroup>().alpha = third.GetComponentInChildren<CanvasGroup>().alpha = 0;
+        for(int i = 0; i < 3; i++) {
+            rl.brewingIngredients[i] = null;
+        }
+        rl.ingredientCount = 0;
     }
 
     public void TakePotion() {
         if (GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.Add(pot, pot.name, pot.image)) {
-            name.text = "";
-            pic.GetComponent<CanvasGroup>().alpha = 0;
+            potionName.text = "";
+            potionImage.GetComponent<CanvasGroup>().alpha = 0;
 
             anims[0].SetBool("full", false);
             SwapVisible(brew.GetComponent<CanvasGroup>());
@@ -108,15 +133,17 @@ public class Cauldron : MonoBehaviour {
 
             manager.Brewing = 0;
             done = false;
+            brewPanel.SetActive(false);
+            brewVisible = false;
         }
     }
 
     public void Close() {
-        first.value = -1;
-        second.value = -1;
-        third.value = -1;
+       // first.value = -1;
+      //  second.value = -1;
+      //  third.value = -1;
       
-        SwapVisible(panel.GetComponent<CanvasGroup>());
+        SwapVisible(ingredientPanel.GetComponent<CanvasGroup>());
         if (manager.Brewing == 0) {
             brew.GetComponent<CanvasGroup>().alpha = 1;
             brew.GetComponent<CanvasGroup>().interactable = true;
@@ -124,14 +151,51 @@ public class Cauldron : MonoBehaviour {
             take.GetComponent<CanvasGroup>().alpha = 0;
             take.GetComponent<CanvasGroup>().interactable = false;
             take.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            name.text = "";
-            pic.GetComponent<CanvasGroup>().alpha = 0;
+            potionName.text = "";
+            potionImage.GetComponent<CanvasGroup>().alpha = 0;
+            SwapVisible(brewPanel.GetComponent<CanvasGroup>());
+            brewVisible = false;
         }
+        ingredientPanel.SetActive(false);
+        brewPanel.SetActive(false);
+        visible = false;
     }
 
     void SwapVisible(CanvasGroup cg) {
         cg.alpha = Mathf.Abs(cg.alpha - 1);
         cg.interactable = !cg.interactable;
         cg.blocksRaycasts = !cg.blocksRaycasts;
+    }
+
+    public void RemoveIngredient(int i) {
+        try {
+            if(rl.inv.Add(rl.brewingIngredients[i], rl.brewingIngredients[i].name, rl.brewingIngredients[i].image)) {
+                rl.ingredientCount--;
+                switch (i) {
+                    case 0:
+                        first.sprite = null;
+                        first.GetComponentInChildren<CanvasGroup>().alpha = 0;
+                        rl.brewingIngredients[i] = null;
+                        break;
+                    case 1:
+                        second.sprite = null;
+                        second.GetComponentInChildren<CanvasGroup>().alpha = 0;
+                        rl.brewingIngredients[i] = null;
+                        break;
+                    case 2:
+                        third.sprite = null;
+                        third.GetComponentInChildren<CanvasGroup>().alpha = 0;
+                        rl.brewingIngredients[i] = null;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            brewPanel.SetActive(false);
+            brewVisible = false;
+        } catch (System.NullReferenceException e) {
+
+        }
+
     }
 }

@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
@@ -20,10 +22,14 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     bool hovered = false;
     //tooltip offset
     bool dragging = false;
+    bool triedBrewing = false;
+    bool setImages;
     Vector3 offset = new Vector3(50, 0, 0);
+    Image first, second, third;
 
     void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        setImages = false;
     }
     void Update() {
         if (hovered) {
@@ -67,6 +73,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         hovered = false;
         tooltip.GetComponent<CanvasGroup>().alpha = 0;
         dragging = true;
+        triedBrewing = false;
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -74,6 +81,14 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     }
 
     public void OnEndDrag(PointerEventData eventData) {
+        if (!setImages) {
+            if (SceneManager.GetActiveScene().name.Equals("House")) {
+                first = GameObject.Find("Ingredient1").GetComponent<Image>();
+                second = GameObject.Find("Ingredient2").GetComponent<Image>();
+                third = GameObject.Find("Ingredient3").GetComponent<Image>();
+                setImages = true;
+            }
+        }
         Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
         RectTransform invPanel = GameObject.FindGameObjectWithTag("inventory").transform as RectTransform;
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
@@ -101,10 +116,10 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                         } else {
                             b.GetComponentInChildren<Text>().text = otherMgr.item.count.ToString();
                         }
-                    }          
-                    
+                    }
+
                     set = true;
-                    break;                  
+                    break;
                 }
             }
             //if it's in it's original spot just snap it back
@@ -113,7 +128,14 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                 transform.localPosition = temp;
                 transform.SetSiblingIndex(index);
             }
+        } else if (RectTransformUtility.RectangleContainsScreenPoint(first.transform as RectTransform, Input.mousePosition)) {
+            SetIngredient(first, 0);
+        } else if (RectTransformUtility.RectangleContainsScreenPoint(second.transform as RectTransform, Input.mousePosition)) {
+            SetIngredient(second, 1);
+        } else if (RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
+            SetIngredient(third, 2);
         } else {
+
             //if player drags it out of inventory
             transform.SetParent(startingParent);
             transform.localPosition = temp;
@@ -121,11 +143,67 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             rl.inv.DropItem(item, GetComponent<Button>());
         }
         set = false;
-        if (item != null) {
+        if (item != null && !triedBrewing) {
             hovered = true;
             tooltip.GetComponent<CanvasGroup>().alpha = 1;
         }
         dragging = false;
+    }
+
+    void SetIngredient(Image slot, int i) {
+        if (item!= null && item.item is Ingredient) {
+            Ingredient[] ings = rl.brewingIngredients;
+            foreach (Ingredient ingred in rl.brewingIngredients) {
+                try {
+                    if (ingred.name.Equals(item.name)) {
+                        ResetDrag();
+                        triedBrewing = true;
+                        return;
+                    }
+                } catch (NullReferenceException ex) {
+                    continue;
+                }
+            }
+
+            try {
+                if (rl.inv.Add(ings[i], ings[i].name, ings[i].image)) {
+                    ings[i] = item.item as Ingredient;
+                    slot.sprite = item.image;
+                    Text[] text = slot.GetComponentsInChildren<Text>();
+                    text[0].text = item.name;
+                } else {
+                    ResetDrag();
+                    triedBrewing = true;
+                    return;
+                }
+            } catch (NullReferenceException e) {
+                ings[i] = item.item as Ingredient;
+                slot.sprite = item.image;
+                Text[] text = slot.GetComponentsInChildren<Text>();
+                text[0].text = item.name;
+                slot.GetComponentInChildren<CanvasGroup>().alpha = 1;
+                rl.ingredientCount++;
+            }
+
+            //TODO: Keep track of discovered attributes
+            //text[1].text = discoveredAttributes;
+
+            ResetDrag();
+            triedBrewing = true;
+            rl.inv.RemoveItem(item);
+        } else {
+            ResetDrag();
+            triedBrewing = true;
+        }
+    }
+
+    void ResetDrag() {
+        transform.SetParent(startingParent);
+        transform.localPosition = temp;
+        transform.SetSiblingIndex(index);
+        tooltip.GetComponent<CanvasGroup>().alpha = 0;
+        dragging = false;
+        hovered = false;
     }
 
  }
