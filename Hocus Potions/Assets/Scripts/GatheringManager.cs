@@ -37,6 +37,8 @@ public class GatheringManager : MonoBehaviour {
 
         plants = rl.ingredients.Keys.ToList();
 
+        StartCoroutine(Spawn());
+
        
     }
 	
@@ -83,6 +85,35 @@ public class GatheringManager : MonoBehaviour {
             Debug.Log("Now?");
             //Instantiate(, this.transform.position, Quaternion.identity);
 
+        }
+    }
+
+    IEnumerator Spawn()
+    {
+        if(spawnerData.Count == 0)
+        {
+            yield return new WaitForSeconds(mc.CLOCK_SPEED);
+            StartCoroutine(Spawn());
+        }
+        else
+        {
+            List<string> keys = spawnerData.Keys.ToList();
+            foreach ( string spawner in keys)
+            {
+                SpawnerData sD;
+                if(spawnerData.TryGetValue(spawner, out sD))
+                {
+                    if (sD.hasSpawnedItem == true)
+                    {
+                        GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem].image;
+                    }
+                    else
+                    { yield return new WaitForSeconds(mc.CLOCK_SPEED); }
+                }
+                
+
+            }
+            yield return new WaitForSeconds(mc.CLOCK_SPEED);
         }
     }
 }
