@@ -23,13 +23,11 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     //tooltip offset
     bool dragging = false;
     bool triedBrewing = false;
-    bool setImages;
     Vector3 offset = new Vector3(50, 0, 0);
     Image first, second, third;
 
     void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
-        setImages = false;
     }
     void Update() {
         if (hovered) {
@@ -50,7 +48,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     public void OnMouseEnter() {
          if (item != null) {
             text = tooltip.GetComponentsInChildren<Text>();
-            text[0].text = item.name;
+            text[0].text = item.item.name;
             //text[1].text = item.flavorText;
             //text[2].text = item.attributes;
             tooltip.GetComponent<CanvasGroup>().alpha = 1;
@@ -81,13 +79,10 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (!setImages) {
-            if (SceneManager.GetActiveScene().name.Equals("House")) {
-                first = GameObject.Find("Ingredient1").GetComponent<Image>();
-                second = GameObject.Find("Ingredient2").GetComponent<Image>();
-                third = GameObject.Find("Ingredient3").GetComponent<Image>();
-                setImages = true;
-            }
+        if (SceneManager.GetActiveScene().name.Equals("House")) {
+            first = GameObject.Find("Ingredient1").GetComponent<Image>();
+            second = GameObject.Find("Ingredient2").GetComponent<Image>();
+            third = GameObject.Find("Ingredient3").GetComponent<Image>();
         }
         Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
         RectTransform invPanel = GameObject.FindGameObjectWithTag("inventory").transform as RectTransform;
@@ -105,7 +100,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                     b.transform.SetSiblingIndex(index);
 
                     //check if combining stacks
-                    if (item != null && item.count != item.maxStack && otherMgr.item != null && otherMgr.item.name.Equals(item.name)) {
+                    if (item != null && item.count != item.maxStack && otherMgr.item != null && otherMgr.item.item.name.Equals(item.item.name)) {
                         while (item.count < item.maxStack && otherMgr.item.count != 0) {
                             otherMgr.item.count--;
                             item.count++;
@@ -128,11 +123,11 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                 transform.localPosition = temp;
                 transform.SetSiblingIndex(index);
             }
-        } else if (RectTransformUtility.RectangleContainsScreenPoint(first.transform as RectTransform, Input.mousePosition)) {
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && RectTransformUtility.RectangleContainsScreenPoint(first.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(first, 0);
-        } else if (RectTransformUtility.RectangleContainsScreenPoint(second.transform as RectTransform, Input.mousePosition)) {
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && RectTransformUtility.RectangleContainsScreenPoint(second.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(second, 1);
-        } else if (RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(third, 2);
         } else {
 
@@ -151,50 +146,42 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     }
 
     void SetIngredient(Image slot, int i) {
-        if (item!= null && item.item is Ingredient) {
+        if (item != null && item.item is Ingredient) {
             Ingredient[] ings = rl.brewingIngredients;
+            //Make sure it isn't a duplicate
             foreach (Ingredient ingred in rl.brewingIngredients) {
-                try {
-                    if (ingred.name.Equals(item.name)) {
+                if (ingred != null) {
+                    if (ingred.name.Equals(item.item.name)) {
                         ResetDrag();
                         triedBrewing = true;
                         return;
                     }
-                } catch (NullReferenceException ex) {
+                } else {
                     continue;
                 }
             }
 
-            try {
-                if (rl.inv.Add(ings[i], ings[i].name, ings[i].image)) {
+            rl.inv.RemoveItem(item);
+            if (ings[i] != null) {
+                if (rl.inv.Add(ings[i], 1, 10)) {
                     ings[i] = item.item as Ingredient;
-                    slot.sprite = item.image;
+                    slot.sprite = item.item.image;
                     Text[] text = slot.GetComponentsInChildren<Text>();
-                    text[0].text = item.name;
+                    text[0].text = item.item.name;
                 } else {
-                    ResetDrag();
-                    triedBrewing = true;
-                    return;
+                    rl.inv.Add(item.item, 1, item.maxStack);
                 }
-            } catch (NullReferenceException e) {
+            } else {
                 ings[i] = item.item as Ingredient;
-                slot.sprite = item.image;
+                slot.sprite = item.item.image;
                 Text[] text = slot.GetComponentsInChildren<Text>();
-                text[0].text = item.name;
+                text[0].text = item.item.name;
                 slot.GetComponentInChildren<CanvasGroup>().alpha = 1;
                 rl.ingredientCount++;
             }
-
-            //TODO: Keep track of discovered attributes
-            //text[1].text = discoveredAttributes;
-
-            ResetDrag();
-            triedBrewing = true;
-            rl.inv.RemoveItem(item);
-        } else {
-            ResetDrag();
-            triedBrewing = true;
         }
+        ResetDrag();
+        triedBrewing = true;
     }
 
     void ResetDrag() {
@@ -205,5 +192,4 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         dragging = false;
         hovered = false;
     }
-
- }
+}

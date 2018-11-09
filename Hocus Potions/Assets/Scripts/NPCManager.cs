@@ -16,7 +16,7 @@ public class NPCManager : MonoBehaviour {
     public struct NPCData {
         public int timesInteracted;
         public bool returning;
-        public List<Object> given;
+        public List<Item> given;
         public int returningDay;
         public int returningHour;
         public int returningMinutes;

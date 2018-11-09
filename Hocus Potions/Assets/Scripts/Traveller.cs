@@ -12,7 +12,7 @@ public class Traveller : NPC {
     NPCManager manager;
     GameObject panel;
     CanvasGroup panelCG;
-    Object given;
+    Item given;
     GameObject effects;
     NPCManager.NPCData data;
 
@@ -63,7 +63,7 @@ public class Traveller : NPC {
         if(!manager.data.TryGetValue(CharacterName, out data)) {
             data = new NPCManager.NPCData();
             data.timesInteracted = 0;
-            data.given = new List<Object>();
+            data.given = new List<Item>();
             data.affinity = 0;
             manager.data.Add(CharacterName, data);
         }

@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Potion : Object {
-
-    public new string name;
-    public Sprite image;
-    public int brewingTime;
+public class Potion : Item {
+    public int brewingTime; //in minutes
 
     int duration;  //in whole hours
     Ingredient.Attributes? primary;

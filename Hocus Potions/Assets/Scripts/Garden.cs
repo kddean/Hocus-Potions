@@ -73,7 +73,7 @@ public class Garden : MonoBehaviour {
     //Handles harvesting plots and adding ingredients to inventory
     void Harvest(GardenPlot plot) {
         PlotData data = plots[plot.gameObject.name];
-        if (rl.inv.Add(rl.ingredients[data.type], rl.ingredients[data.type].name, rl.ingredients[data.type].image)) {
+        if (rl.inv.Add(rl.ingredients[data.type], 1, 10)) {
             SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
             for (int i = 1; i < 4; i++) {
                 sr[i].sprite = null;

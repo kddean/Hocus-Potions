@@ -42,7 +42,7 @@ public class Gathering : MonoBehaviour {
         GatheringManager.SpawnerData temp;
         rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp);
 
-        if(rl.inv.Add(rl.ingredients[temp.spawnedItem], rl.ingredients[temp.spawnedItem].name, rl.ingredients[temp.spawnedItem].image))
+        if(rl.inv.Add(rl.ingredients[temp.spawnedItem], 1, 10))
         {
             this.GetComponent<SpriteRenderer>().sprite = null;
             rl.gatheringManager.spawnerData.Remove(gameObject.name);

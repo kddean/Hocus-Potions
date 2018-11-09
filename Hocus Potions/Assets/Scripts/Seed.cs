@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Seed : Object {
+public class Seed : Item {
     string seedType;
     int growthTime;
     int growthStages;
-    new string name;
-    Sprite icon;
 
     public Seed(string seedType, int growthTime, int growthStages, string name, Sprite icon) {
         this.SeedType = seedType;
         this.GrowthTime = growthTime;
         this.GrowthStages = growthStages;
         this.Name = name;
-        this.Icon = icon;
+        image = icon;
     }
 
     public string SeedType {
@@ -57,14 +55,5 @@ public class Seed : Object {
         }
     }
 
-    public Sprite Icon {
-        get {
-            return icon;
-        }
-
-        set {
-            icon = value;
-        }
-    }
 }
 

@@ -37,7 +37,7 @@ public class ResourceLoader : MonoBehaviour {
         requestList = new Dictionary<string, List<Request>>();
         npcGivenList = new Dictionary<string, List<object>>();
         brewingIngredients = new Ingredient[3];
-  
+
         activeItem = null;
         ingredientCount = 0;
         garden = GameObject.Find("GardenManager").GetComponent<Garden>();

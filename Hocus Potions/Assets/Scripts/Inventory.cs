@@ -8,15 +8,12 @@ public class Inventory {
     public class InventoryItem {
         public int maxStack = 10;
         public int count = 1;
-        public Object item;
-        public string name;
-        public Sprite image;
+        public Item item;
 
-         
-        public InventoryItem(Object o, string n, Sprite i) {
+        public InventoryItem(Item o, int c, int m) {
             item = o;
-            name = n;
-            image = i;
+            maxStack = m;
+            count = c;
         }
     }
 
@@ -29,42 +26,59 @@ public class Inventory {
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         Brewing b = new Brewing();
         Potion p = b.Brew(rl.ingredients["nightshade"], rl.ingredients["nightshade"], rl.ingredients["mugwort"]);
-        Seed s = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["thistle"];
-        Seed ss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["lambsgrass"];
-        Seed sss = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().seeds["catnip"];
-        inventory = new List<InventoryItem>() { new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image), new InventoryItem(p, p.name, p.image),
-            new InventoryItem(s, s.Name, s.Icon),  new InventoryItem(ss, ss.Name, ss.Icon), new InventoryItem(sss, sss.Name, sss.Icon) };
+        Seed s = rl.seeds["thistle"];
+        Seed ss = rl.seeds["lambsgrass"];
+        Seed sss = rl.seeds["catnip"];
+        Ingredient i = rl.ingredients["thistle"];
+        Ingredient ii = rl.ingredients["catnip"];
+        Ingredient iii = rl.ingredients["lambsgrass"];
+        inventory = new List<InventoryItem>() {
+            new InventoryItem(p, 1, 10), new InventoryItem(p, 1, 10), new InventoryItem(p, 1, 10),
+            new InventoryItem(s, 4, 10),  new InventoryItem(ss, 4, 10), new InventoryItem(sss, 4, 10),
+            new InventoryItem(i, 5, 10), new InventoryItem(ii, 5, 10), new InventoryItem(iii, 5, 10)};
 
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
-        for (int i = 0; i < 3; i++) {
-            invButtons[i].GetComponentInChildren<Text>().text = "";
-            invButtons[i].GetComponentInChildren<Image>().sprite = p.image;
-            invButtons[i].GetComponent<InventoryManager>().item = inventory[i];
+        for (int j = 0; j < 3; j++) {
+            invButtons[j].GetComponentInChildren<Text>().text = "";
+            invButtons[j].GetComponentInChildren<Image>().sprite = p.image;
+            invButtons[j].GetComponent<InventoryManager>().item = inventory[j];
         }
 
        
         invButtons[3].GetComponentInChildren<Text>().text = "4";
-        invButtons[3].GetComponentInChildren<Image>().sprite = s.Icon;
+        invButtons[3].GetComponentInChildren<Image>().sprite = s.image;
         invButtons[3].GetComponent<InventoryManager>().item = inventory[3];
         invButtons[4].GetComponentInChildren<Text>().text = "4";
-        invButtons[4].GetComponentInChildren<Image>().sprite = ss.Icon;
+        invButtons[4].GetComponentInChildren<Image>().sprite = ss.image;
         invButtons[4].GetComponent<InventoryManager>().item = inventory[4];
         invButtons[5].GetComponentInChildren<Text>().text = "4";
-        invButtons[5].GetComponentInChildren<Image>().sprite = sss.Icon;
+        invButtons[5].GetComponentInChildren<Image>().sprite = sss.image;
         invButtons[5].GetComponent<InventoryManager>().item = inventory[5];
-        currentSize = 6;
+        invButtons[6].GetComponentInChildren<Text>().text = "5";
+        invButtons[6].GetComponentInChildren<Image>().sprite = i.image;
+        invButtons[6].GetComponent<InventoryManager>().item = inventory[6];
+        invButtons[7].GetComponentInChildren<Text>().text = "5";
+        invButtons[7].GetComponentInChildren<Image>().sprite = ii.image;
+        invButtons[7].GetComponent<InventoryManager>().item = inventory[7];
+        invButtons[8].GetComponentInChildren<Text>().text = "5";
+        invButtons[8].GetComponentInChildren<Image>().sprite = iii.image;
+        invButtons[8].GetComponent<InventoryManager>().item = inventory[8];
+        currentSize = 9;
         inventory[3].count = 4;
         inventory[4].count = 4;
         inventory[5].count = 4;
+        inventory[6].count = 5;
+        inventory[7].count = 5;
+        inventory[8].count = 5;
     }
    
 
-    public bool Add(Object obj, string name, Sprite image) {
+    public bool Add(Item obj, int count, int max) {
         bool add = true;
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
 
         foreach (InventoryItem i in inventory) {
-            if (i.name.Equals(name)) {
+            if (i.item.name.Equals(obj.name)) {
                 if (i.count < i.maxStack) {
                     i.count++;
                     add = false;
@@ -82,11 +96,11 @@ public class Inventory {
         }
 
         if (currentSize < maxSize) {
-            inventory.Add(new InventoryItem(obj, name, image));
+            inventory.Add(new InventoryItem(obj, count, max));
             foreach (Button b in invButtons) {
                 if (b.GetComponent<InventoryManager>().item == null) {
                     b.GetComponentInChildren<Text>().text = "";
-                    b.GetComponentInChildren<Image>().sprite = image;
+                    b.GetComponentInChildren<Image>().sprite = obj.image;
                     b.GetComponent<InventoryManager>().item = inventory[currentSize];
                     break;
                 }
@@ -100,7 +114,7 @@ public class Inventory {
     }
 
     public void RemoveItem(InventoryItem item) {
-        Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
+        Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").transform.parent.GetComponentsInChildren<Button>();
         if (item.count == 1) {
             foreach (Button b in invButtons) {
                 if (b.GetComponent<InventoryManager>().item == item) {

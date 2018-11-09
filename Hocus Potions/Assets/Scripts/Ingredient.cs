@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ingredient : Object {
+public class Ingredient : Item {
     public enum Attributes { sleep, healing, transformation, mana, speed, poison, invisibility, none};
     public enum Modifiers { magicPP, magicMM, cat, chicken, sheep };
 
     public Attributes[] attributeList;
-    public new string name;
-    public Sprite image;
 
     public Ingredient(Attributes[] attributeList, string name, Sprite image) {
         this.attributeList = attributeList;
