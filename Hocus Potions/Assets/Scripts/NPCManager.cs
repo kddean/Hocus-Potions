@@ -20,7 +20,7 @@ public class NPCManager : MonoBehaviour {
         public int returningDay;
         public int returningHour;
         public int returningMinutes;
-        public int affinity;
+        public float affinity;
     }
 
     public Dictionary<string, NPCData> data;

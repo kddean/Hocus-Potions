@@ -157,7 +157,7 @@ public class Traveller : NPC {
         nextButton.interactable = nextButton.blocksRaycasts = false;
         nextButton.alpha = 0;
 
-        if (requests[choice].Item.ToLower().Contains("potion")) {
+       // if (requests[choice].Item.ToLower().Contains("potion")) {
             if (given is Potion) { //Give them the type of object they wanted
                 data.timesInteracted++;
                 if (data.given.Count < 5) {
@@ -210,7 +210,7 @@ public class Traveller : NPC {
 
                 //Handle dialogue response
                 SwapVisibile(panelCG);
-                string affinity;    //TODO: there's definitely a cleaner way to do this
+                string affinity;    //TODO: This might need to be ranges
                 if (manager.data[CharacterName].affinity < 0) {
                     affinity = "_bad";
                 } else if(manager.data[CharacterName].affinity > 0) {
@@ -222,10 +222,11 @@ public class Traveller : NPC {
                 //Choose from possible responses or use default if there is no response(this shouldn't ever happen)
 
                 string response;
+                string rKey = requests[choice].Key;
                 if (temp.Primary == null) {
-                    response = "given_null" + affinity;
+                    response = rKey +"_null" + affinity;
                 } else {
-                    response = "given_" + temp.Primary.ToString() + affinity;
+                    response = rKey + "_" + temp.Primary.ToString() + affinity;
                 }
                 List<string> dia;
                 currentDialogue = 0;
@@ -247,15 +248,22 @@ public class Traveller : NPC {
                 } else {
                     panel.GetComponentInChildren<Text>().text = Dialogue["default"][0];
                 }
-
+            string type;
+            if (temp.Primary == null) {
+                type = "none";
+            } else {
+                type = temp.Primary.ToString();
+            }
+            data.affinity += (requests[choice].GetValue(type) * requests[choice].Strength);
+            manager.data[CharacterName] = data;
             } else {  //handle trying to give people the wrong item type
                 SwapVisibile(panelCG);
                 panel.GetComponentInChildren<Text>().text = Dialogue["wrong"][0];
             }
-        } else {
+        /*} else {
             //deal with item requests besides potions - probably make the mess above into a function that can just be called with item types
-        }
-    }
+        }*/
+   }
 
     public void NextDialogue() {
         //Handles responses to being given items

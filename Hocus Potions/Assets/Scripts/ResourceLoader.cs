@@ -21,6 +21,7 @@ public class ResourceLoader : MonoBehaviour {
     public List<string> availableNPCs;
     public TextAsset npcData;
     public int givenListMax = 5;
+    public float potionStrength = 1;
     public int ingredientCount;
 
     public void Awake() {
@@ -125,9 +126,8 @@ public class ResourceLoader : MonoBehaviour {
             foreach (string req in requests) {
                 List<string> r = Regex.Split(req, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)").ToList();
                 if (!r[0].Equals(String.Empty)) {
-
                     r.RemoveAll(q => q.Equals(String.Empty));
-                    Request newRequest = new Request(r[0], r[1]);
+                    Request newRequest = new Request(r[0], potionStrength, float.Parse(r[1]), float.Parse(r[2]), float.Parse(r[3]), float.Parse(r[4]), float.Parse(r[5]), float.Parse(r[6]), float.Parse(r[7]), float.Parse(r[8]));
                     questList.Add(newRequest);
                 }
             }
