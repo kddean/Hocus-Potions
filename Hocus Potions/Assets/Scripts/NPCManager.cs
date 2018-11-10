@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -93,7 +92,7 @@ public class NPCManager : MonoBehaviour {
                 GameObject effects = new GameObject();
                 effects.AddComponent<SpriteRenderer>();
                 Animator anim = effects.AddComponent<Animator>();
-                anim.runtimeAnimatorController = Resources.Load<AnimatorController>("NPC_effects");
+                anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("NPC_effects");
                 effects.transform.SetParent(go.transform);
                 effects.name = "effects";
                 effects.transform.localPosition = new Vector3(0, 0, -1);
@@ -127,7 +126,7 @@ public class NPCManager : MonoBehaviour {
             GameObject effects = new GameObject();
             effects.AddComponent<SpriteRenderer>();
             Animator anim = effects.AddComponent<Animator>();
-            anim.runtimeAnimatorController = Resources.Load<AnimatorController>("NPC_effects");
+            anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("NPC_effects");
             effects.transform.SetParent(go.transform);
             effects.name = "effects";
             effects.transform.localPosition = new Vector3(0, 0, -1);
