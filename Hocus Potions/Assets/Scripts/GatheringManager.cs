@@ -160,7 +160,6 @@ public class GatheringManager : MonoBehaviour {
             SpawnerResetTime newTime = new SpawnerResetTime();
             newTime.numberOfDaysLeft = 0;
             spawnerReset.Add(spawners[i].name, newTime);
-
         }
       
     }

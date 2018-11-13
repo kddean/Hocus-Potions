@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Brewing.cs" />
     <Compile Include="Assets\Scripts\BrewingManager.cs" />
     <Compile Include="Assets\Scripts\Cauldron.cs" />
+    <Compile Include="Assets\Scripts\GarbageCollecter.cs" />
     <Compile Include="Assets\Scripts\Garden.cs" />
     <Compile Include="Assets\Scripts\GardenPlot.cs" />
     <Compile Include="Assets\Scripts\Gathering.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Assets\Scripts\MoonCycle.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
     <Compile Include="Assets\Scripts\NPCManager.cs" />
+    <Compile Include="Assets\Scripts\Pickups.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Potion.cs" />
     <Compile Include="Assets\Scripts\Request.cs" />

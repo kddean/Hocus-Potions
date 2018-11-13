@@ -21,52 +21,42 @@ public class SceneSwitcher : MonoBehaviour {
         garden = SceneManager.GetSceneByName("Garden");
         world = SceneManager.GetSceneByName("SampleGameArea");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(currentScene == house)
-        {
-            if (portalTo == "garden")
-            {
+    // Update is called once per frame
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (currentScene == house) {
+            if (portalTo == "garden") {
                 SceneManager.LoadScene("Garden");
                 currentScene = SceneManager.GetActiveScene();
-            }
-            else if(portalTo == "world")
-            {
+            } else if (portalTo == "world") {
                 SceneManager.LoadScene("SampleGameArea");
                 currentScene = SceneManager.GetActiveScene();
             }
         }
 
-        if(currentScene == garden)
-        {
-            if (portalTo == "house")
-            {
+        if (currentScene == garden) {
+            if (portalTo == "house") {
                 SceneManager.LoadScene("House");
                 currentScene = SceneManager.GetActiveScene();
-            }
-            else if(portalTo == "world")
-            {
+            } else if (portalTo == "world") {
                 SceneManager.LoadScene("SampleGameArea");
                 currentScene = SceneManager.GetActiveScene();
             }
         }
 
-        if (currentScene == world)
-        {
-            if (portalTo == "house")
-            {
+        if (currentScene == world) {
+            if (portalTo == "house") {
                 SceneManager.LoadScene("House");
                 currentScene = SceneManager.GetActiveScene();
             }
 
         }
+
+        GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().CallSpawner();
     }
 
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         if (currentScene == house)
@@ -105,6 +95,6 @@ public class SceneSwitcher : MonoBehaviour {
                 currentScene = SceneManager.GetActiveScene();
             }
         }
-    }
+    }*/
 
 }

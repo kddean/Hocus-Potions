@@ -79,8 +79,8 @@ public class Inventory {
 
         foreach (InventoryItem i in inventory) {
             if (i.item.name.Equals(obj.name)) {
-                if (i.count < i.maxStack) {
-                    i.count++;
+                if ((i.count + count) <= i.maxStack) {
+                    i.count += count;
                     add = false;
                     foreach (Button b in invButtons) {
                         if (b.GetComponent<InventoryManager>().item == i) {
@@ -88,7 +88,21 @@ public class Inventory {
                             break;
                         }
                     }
+                } else if (currentSize < maxSize) {
+                    int remaining = count - (maxSize - i.count);
+                    i.count = maxSize;
+                    add = false;
+                    inventory.Add(new InventoryItem(obj, remaining, max));
+                    foreach (Button b in invButtons) {
+                        if(b.GetComponent<InventoryManager>().item == null) {
+                            b.GetComponentInChildren<Text>().text = remaining.ToString();
+                            b.GetComponentInChildren<Image>().sprite = obj.image;
+                            b.GetComponent<InventoryManager>().item = inventory[currentSize];
+                            break;
+                        }
+                    }
                 }
+                break;
             }
         }
         if (!add) {
@@ -99,7 +113,7 @@ public class Inventory {
             inventory.Add(new InventoryItem(obj, count, max));
             foreach (Button b in invButtons) {
                 if (b.GetComponent<InventoryManager>().item == null) {
-                    b.GetComponentInChildren<Text>().text = "";
+                    b.GetComponentInChildren<Text>().text = count.ToString();
                     b.GetComponentInChildren<Image>().sprite = obj.image;
                     b.GetComponent<InventoryManager>().item = inventory[currentSize];
                     break;
@@ -137,12 +151,31 @@ public class Inventory {
     }
 
     public void DropItem(InventoryItem item, Button b) {
+        GameObject go = new GameObject();
+        go.name = item.item.name;
+        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+        Vector3 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+        go.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + offset;
+        sr.sprite = item.item.image;
+        if (!(item.item is Ingredient)) {
+            go.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+        }
+          
+
+        Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
+        BoxCollider2D c = go.AddComponent<BoxCollider2D>();
+        c.size = bounds;
+        c.isTrigger = true;
+        Pickups p = go.AddComponent<Pickups>();
+        p.Item = item.item;
+        p.Count = item.count;
+        p.Data = new GarbageCollecter.DroppedItemData(item.item, item.count, go.transform.position, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, go);
+        GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().droppedItems.Add(p.Data);
         b.GetComponentInChildren<Image>().sprite = null;
         b.GetComponentInChildren<Text>().text = "";
         b.GetComponent<InventoryManager>().item = null;
         currentSize--;
         inventory.Remove(item);
-        GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().activeItem = null;
     }
 
     //TODO: function to allow items to be used from inventory
