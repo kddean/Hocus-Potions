@@ -16,8 +16,8 @@ public class GatheringManager : MonoBehaviour {
     public struct SpawnerData
     {
         public bool hasSpawnedItem;
-        public string spawnedItem;
         public int numberOfDaysLeft;
+        public Item spawnedItem;
     }
 
     public Dictionary<string, SpawnerData> spawnerData;
@@ -62,7 +62,7 @@ public class GatheringManager : MonoBehaviour {
         {
             if(sD.hasSpawnedItem == true)
             {
-                gatherer.GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem].image;
+                gatherer.GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem.name].image;
             }
             else
             { return; } 
@@ -76,7 +76,7 @@ public class GatheringManager : MonoBehaviour {
 
             newPlant = plants[ran];
             
-            newData.spawnedItem = rl.ingredients[newPlant].name;
+            newData.spawnedItem = rl.ingredients[newPlant];
             newData.numberOfDaysLeft = 2;
             newData.hasSpawnedItem = true;
 
@@ -105,7 +105,7 @@ public class GatheringManager : MonoBehaviour {
                 {
                     if (sD.hasSpawnedItem == true)
                     {
-                        GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem].image;
+                        GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem.name].image;
                     }
                     else
                     { yield return new WaitForSeconds(mc.CLOCK_SPEED); }

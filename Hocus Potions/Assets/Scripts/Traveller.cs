@@ -25,6 +25,7 @@ public class Traveller : NPC {
     bool done;
     bool asleep;
     bool responding;
+    bool showButtons;
 
     int waitHour, waitMinute;
     int maxWait = 5;
@@ -59,6 +60,7 @@ public class Traveller : NPC {
         done = false;
         asleep = false;
         responding = false;
+        showButtons = false;
         currentDialogue = 0;
         if(!manager.data.TryGetValue(CharacterName, out data)) {
             data = new NPCManager.NPCData();
@@ -275,7 +277,7 @@ public class Traveller : NPC {
                 currentDialogue++;
                 panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
                 SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
-            }
+            } 
         } else {
 
             //Handling intro dialogue and requesting items
@@ -285,14 +287,26 @@ public class Traveller : NPC {
             } else if (dialoguePieces.Length == (currentDialogue + 2)) {
                 currentDialogue++;
                 panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
-                if (requested || !rl.requestList.TryGetValue(CharacterName, out requests)) {
+                if (!showButtons && requested || !rl.requestList.TryGetValue(CharacterName, out requests)) {
                     SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
                 }
             } else {
                 if (!requested) {
                     choice = Random.Range(0, requests.Count - 1);
-                    panel.GetComponentInChildren<Text>().text = Dialogue[requests[choice].Key][0];
+                    string affinity;
+                    if (manager.data[CharacterName].affinity < 0) {
+                        affinity = "_bad";
+                    } else if (manager.data[CharacterName].affinity > 0) {
+                        affinity = "_good";
+                    } else {
+                        affinity = "_neutral";
+                    }
+                    string key = requests[choice].Key + affinity;
+                    dialoguePieces = Dialogue[key][0].Split('*');
+                    currentDialogue = 0;
+                    panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
                     requested = true;
+                    showButtons = true;
                 } else {
                     SwapButtonsAndText();
                 }
@@ -316,6 +330,7 @@ public class Traveller : NPC {
         SwapButtonsAndText();
         ExitDialogue();
         manager.data[CharacterName] = data;
+        showButtons = false;
     }
 
     public void DeclineRequest() {
@@ -324,6 +339,7 @@ public class Traveller : NPC {
         move = true;
         wait = false;
         manager.data[CharacterName] = data;
+        showButtons = false;
     }
 
     public void Wait() {
@@ -338,6 +354,7 @@ public class Traveller : NPC {
         manager.returnQueue.Add(data, CharacterName);
         panel.GetComponentInChildren<Text>().text = Dialogue["wait"][0];
         SwapButtonsAndText();
+        showButtons = false;
     }
 
     void SwapVisibile(CanvasGroup cg) {

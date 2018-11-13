@@ -19,7 +19,7 @@ public class Gathering : MonoBehaviour {
         GatheringManager.SpawnerData temp;
         if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp))
         {
-            this.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite = rl.ingredients[temp.spawnedItem].image;
+            this.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite = temp.spawnedItem.image;
         }
         else
         {
@@ -42,7 +42,7 @@ public class Gathering : MonoBehaviour {
         GatheringManager.SpawnerData temp;
         rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp);
 
-        if(rl.inv.Add(rl.ingredients[temp.spawnedItem], 1, 10))
+        if(rl.inv.Add(temp.spawnedItem, 1, 10))
         {
             this.GetComponent<SpriteRenderer>().sprite = null;
             rl.gatheringManager.spawnerData.Remove(gameObject.name);

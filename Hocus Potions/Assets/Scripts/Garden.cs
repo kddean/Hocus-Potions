@@ -18,6 +18,7 @@ public class Garden : MonoBehaviour {
         public string type;
         public int growthTime;
         public int currentTime;
+        public Scene plotScene;
     };
 
     // Use this for initialization
@@ -55,6 +56,7 @@ public class Garden : MonoBehaviour {
                 newData.growthTime = seed.GrowthTime;
                 newData.currentTime = 0;
                 newData.index = 0;
+                newData.plotScene = SceneManager.GetActiveScene();
                 //Add plot to dict
                 plots.Add(plot.gameObject.name, newData);
                 //Remove seed from inv
@@ -106,7 +108,7 @@ public class Garden : MonoBehaviour {
                     }
 
                     //If you're in the garden update the sprites 
-                    if (SceneManager.GetActiveScene().name.Equals("Garden") || SceneManager.GetActiveScene().name.Equals("SampleGameArea")) {
+                    if (SceneManager.GetActiveScene() == plots[s].plotScene) {
                         SpriteRenderer[] renderers = GameObject.Find(s).GetComponentsInChildren<SpriteRenderer>();
                         for (int i = 1; i < 4; i++) {
                             renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + temp.type)[temp.index];

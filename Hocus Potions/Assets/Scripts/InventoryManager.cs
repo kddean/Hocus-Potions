@@ -160,22 +160,22 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                     continue;
                 }
             }
-
+            Ingredient temp = item.item as Ingredient;
             rl.inv.RemoveItem(item);
             if (ings[i] != null) {
                 if (rl.inv.Add(ings[i], 1, 10)) {
-                    ings[i] = item.item as Ingredient;
-                    slot.sprite = item.item.image;
+                    ings[i] = temp;
+                    slot.sprite = temp.image;
                     Text[] text = slot.GetComponentsInChildren<Text>();
-                    text[0].text = item.item.name;
+                    text[0].text = temp.name;
                 } else {
-                    rl.inv.Add(item.item, 1, item.maxStack);
+                    rl.inv.Add(temp, 1, item.maxStack);
                 }
             } else {
-                ings[i] = item.item as Ingredient;
-                slot.sprite = item.item.image;
+                ings[i] = temp;
+                slot.sprite = temp.image;
                 Text[] text = slot.GetComponentsInChildren<Text>();
-                text[0].text = item.item.name;
+                text[0].text = temp.name;
                 slot.GetComponentInChildren<CanvasGroup>().alpha = 1;
                 rl.ingredientCount++;
             }
