@@ -11,15 +11,23 @@ public class GatheringManager : MonoBehaviour {
     ResourceLoader rl;
     public List<string> plants;
     GameObject[] plantList;
+    public int defaultResetTime = 3;
 
 
     public struct SpawnerData
     {
         public bool hasSpawnedItem;
-        public int numberOfDaysLeft;
+        //public int numberOfDaysLeft;
         public Item spawnedItem;
     }
 
+    public struct SpawnerResetTime
+    {
+        public int numberOfDaysLeft;
+        public Gathering spawner;
+    }
+
+    public Dictionary<string, SpawnerResetTime> spawnerReset;
     public Dictionary<string, SpawnerData> spawnerData;
 
     public void Awake() {
@@ -34,6 +42,7 @@ public class GatheringManager : MonoBehaviour {
         mc = (MoonCycle)GameObject.FindObjectOfType(typeof(MoonCycle));
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         spawnerData = new Dictionary<string, SpawnerData>();
+        spawnerReset = new Dictionary<string, SpawnerResetTime>();
 
         plants = rl.ingredients.Keys.ToList();
 
@@ -57,40 +66,66 @@ public class GatheringManager : MonoBehaviour {
     public void Populate(Gathering gatherer)
     {
         SpawnerData sD;
+        SpawnerResetTime sRT;
 
-        if (spawnerData.TryGetValue(gatherer.gameObject.name, out sD))
+        if (spawnerReset.Count == 0)
         {
-            if(sD.hasSpawnedItem == true)
+            SetResetDictionary();
+        }
+        
+        if (spawnerReset.TryGetValue(gatherer.gameObject.name, out sRT))
+        {
+            if (sRT.numberOfDaysLeft > 0)
             {
-                gatherer.GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem.name].image;
+                if (spawnerData.TryGetValue(gatherer.gameObject.name, out sD))
+                {
+                    if (sD.hasSpawnedItem == true)
+                    {
+                        gatherer.GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem.name].image;
+                        
+                    }
+                    else
+                    { return; }
+                }
+                else { return; }
             }
             else
-            { return; } 
-        }
-        else
-        {
-           
-            SpawnerData newData = new SpawnerData();
-            int ran = Random.Range(0, rl.ingredients.Count);
-            string newPlant;
+            {
+               
+                SpawnerResetTime newTime = new SpawnerResetTime();
+                SpawnerData newData = new SpawnerData();
+                int ran = Random.Range(0, rl.ingredients.Count);
+                string newPlant;
 
-            newPlant = plants[ran];
+                newPlant = plants[ran];
+
+                newData.spawnedItem = rl.ingredients[newPlant];
+                //newData.numberOfDaysLeft = 2;
+                newData.hasSpawnedItem = true;
+
+                spawnerData.Add(gatherer.gameObject.name, newData);
+
+                spawnerReset.TryGetValue(gatherer.gameObject.name, out newTime);
+                newTime.numberOfDaysLeft = defaultResetTime;
+
+                gatherer.GetComponent<SpriteRenderer>().sprite = newData.spawnedItem.image;
+
+                Debug.Log("Now?");
+                //Instantiate(, this.transform.position, Quaternion.identity);
+
+            }
             
-            newData.spawnedItem = rl.ingredients[newPlant];
-            newData.numberOfDaysLeft = 2;
-            newData.hasSpawnedItem = true;
-
-            spawnerData.Add(gatherer.gameObject.name, newData);
-
-            Debug.Log("Now?");
-            //Instantiate(, this.transform.position, Quaternion.identity);
-
         }
     }
 
     IEnumerator Spawn()
     {
-        if(spawnerData.Count == 0)
+ 
+        if(spawnerReset.Count == 0 && spawners.Length > 0 )
+        {
+            SetResetDictionary();
+        }
+        else if(spawnerData.Count == 0)
         {
             yield return new WaitForSeconds(mc.CLOCK_SPEED);
             StartCoroutine(Spawn());
@@ -115,5 +150,18 @@ public class GatheringManager : MonoBehaviour {
             }
             yield return new WaitForSeconds(mc.CLOCK_SPEED);
         }
+    }
+
+
+    void SetResetDictionary()
+    {
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            SpawnerResetTime newTime = new SpawnerResetTime();
+            newTime.numberOfDaysLeft = 0;
+            spawnerReset.Add(spawners[i].name, newTime);
+
+        }
+      
     }
 }
