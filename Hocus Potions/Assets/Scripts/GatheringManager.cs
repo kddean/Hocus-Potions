@@ -81,8 +81,6 @@ public class GatheringManager : MonoBehaviour {
             newData.hasSpawnedItem = true;
 
             spawnerData.Add(gatherer.gameObject.name, newData);
-
-            Debug.Log("Now?");
             //Instantiate(, this.transform.position, Quaternion.identity);
 
         }

@@ -75,7 +75,7 @@ public class MoonCycle : MonoBehaviour {
     public void Awake() {
         DontDestroyOnLoad(this.transform.parent);
         if (FindObjectsOfType(GetType()).Length > 1) {
-            Destroy(gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
         }
     }
 
