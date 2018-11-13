@@ -191,16 +191,19 @@ public class Cauldron : MonoBehaviour {
                 switch (i) {
                     case 0:
                         first.sprite = null;
+                        first.GetComponent<Image>().enabled = false;
                         first.GetComponentInChildren<CanvasGroup>().alpha = 0;
                         rl.brewingIngredients[i] = null;
                         break;
                     case 1:
                         second.sprite = null;
+                        second.GetComponent<Image>().enabled = false;
                         second.GetComponentInChildren<CanvasGroup>().alpha = 0;
                         rl.brewingIngredients[i] = null;
                         break;
                     case 2:
                         third.sprite = null;
+                        third.GetComponent<Image>().enabled = false;
                         third.GetComponentInChildren<CanvasGroup>().alpha = 0;
                         rl.brewingIngredients[i] = null;
                         break;

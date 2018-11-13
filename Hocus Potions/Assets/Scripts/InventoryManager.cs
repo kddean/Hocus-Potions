@@ -173,6 +173,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                 }
             } else {
                 ings[i] = temp;
+                slot.GetComponent<Image>().enabled = true;
                 slot.sprite = temp.image;
                 Text[] text = slot.GetComponentsInChildren<Text>();
                 text[0].text = temp.name;
