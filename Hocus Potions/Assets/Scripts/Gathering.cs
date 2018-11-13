@@ -24,6 +24,8 @@ public class Gathering : MonoBehaviour {
         else
         {
             rl.gatheringManager.Populate(this);
+           // rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp);
+           // this.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite = temp.spawnedItem.image;
         }
 
         /*rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
