@@ -72,13 +72,16 @@ public class GatheringManager : MonoBehaviour {
         {
             SetResetDictionary();
         }
-        
-        if (spawnerReset.TryGetValue(gatherer.gameObject.name, out sRT))
+
+
+        if(spawnerReset.TryGetValue(gatherer.gameObject.name, out sRT))
         {
+
             if (sRT.numberOfDaysLeft > 0)
             {
                 if (spawnerData.TryGetValue(gatherer.gameObject.name, out sD))
                 {
+                    
                     if (sD.hasSpawnedItem == true)
                     {
                         gatherer.GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem.name].image;
@@ -91,7 +94,7 @@ public class GatheringManager : MonoBehaviour {
             }
             else
             {
-               
+
                 SpawnerResetTime newTime = new SpawnerResetTime();
                 SpawnerData newData = new SpawnerData();
                 int ran = Random.Range(0, rl.ingredients.Count);
@@ -114,8 +117,15 @@ public class GatheringManager : MonoBehaviour {
                 //Instantiate(, this.transform.position, Quaternion.identity);
 
             }
-            
+
+
         }
+        else
+        {
+            StartCoroutine(Spawn());
+        }
+               
+       
     }
 
     IEnumerator Spawn()
@@ -125,11 +135,11 @@ public class GatheringManager : MonoBehaviour {
         {
             SetResetDictionary();
         }
-        else if(spawnerData.Count == 0)
+       /* else if(spawnerData.Count == 0)
         {
             yield return new WaitForSeconds(mc.CLOCK_SPEED);
             StartCoroutine(Spawn());
-        }
+        }*/
         else
         {
             List<string> keys = spawnerData.Keys.ToList();
