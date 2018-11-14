@@ -92,7 +92,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             set = false;
             //check which slot to swap with
             foreach (Button b in invButtons) {
-                if (RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
+                if (b != this.gameObject.GetComponent<Button>() && RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
                     transform.SetParent(startingParent);
                     InventoryManager otherMgr = b.GetComponent<InventoryManager>();
                     transform.localPosition = b.transform.localPosition;
