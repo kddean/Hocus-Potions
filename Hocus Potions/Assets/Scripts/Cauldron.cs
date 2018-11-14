@@ -133,6 +133,7 @@ public class Cauldron : MonoBehaviour {
         }
 
         first.sprite = second.sprite = third.sprite = null;
+        first.GetComponent<Image>().enabled = second.GetComponent<Image>().enabled = third.GetComponent<Image>().enabled = false;
         first.GetComponentInChildren<CanvasGroup>().alpha = second.GetComponentInChildren<CanvasGroup>().alpha = third.GetComponentInChildren<CanvasGroup>().alpha = 0;
         for(int i = 0; i < 3; i++) {
             rl.brewingIngredients[i] = null;

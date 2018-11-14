@@ -100,8 +100,8 @@ public class ResourceLoader : MonoBehaviour {
             string[] first = dataSegments[0].Split('\n');                  //populate name and sprites
             string key = first[0].Split(',')[0];
             availableNPCs.Add(key);
-            portraitList.Add(key, Resources.Load<Sprite>(first[1].Split(',')[0]));
-            charSpriteList.Add(key, Resources.Load<Sprite>(first[2].Split(',')[0]));
+            portraitList.Add(key, Resources.Load<Sprite>("Characters/" + first[1].Split(',')[0]));
+            charSpriteList.Add(key, Resources.Load<Sprite>("Characters/" + first[2].Split(',')[0]));
 
             //Fill dialogue dictionary
             Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();

@@ -159,97 +159,97 @@ public class Traveller : NPC {
         nextButton.interactable = nextButton.blocksRaycasts = false;
         nextButton.alpha = 0;
 
-       // if (requests[choice].Item.ToLower().Contains("potion")) {
-            if (given is Potion) { //Give them the type of object they wanted
-                data.timesInteracted++;
-                if (data.given.Count < 5) {
-                    data.given.Add(given);
-                } else {
-                    data.given.RemoveAt(0);
-                    data.given.Add(given);
-                }
-                rl.inv.RemoveItem(rl.activeItem.item);
+        // if (requests[choice].Item.ToLower().Contains("potion")) {
+        if (given is Potion) { //Give them the type of object they wanted
+            data.timesInteracted++;
+            if (data.given.Count < 5) {
+                data.given.Add(given);
+            } else {
+                data.given.RemoveAt(0);
+                data.given.Add(given);
+            }
+            rl.inv.RemoveItem(rl.activeItem.item);
 
-                if (rl.npcGivenList.TryGetValue(CharacterName, out givenObjects)) { //add the item to the list of stuff you've given them before
-                    if (givenObjects.Count == rl.givenListMax) {
-                        givenObjects.RemoveAt(0);
-                        givenObjects.Add(given);
-                    } else {
-                        givenObjects.Add(given);
-                    }
+            if (rl.npcGivenList.TryGetValue(CharacterName, out givenObjects)) { //add the item to the list of stuff you've given them before
+                if (givenObjects.Count == rl.givenListMax) {
+                    givenObjects.RemoveAt(0);
+                    givenObjects.Add(given);
                 } else {
-                    givenObjects = new List<object> { given };
-                    rl.npcGivenList.Add(CharacterName, givenObjects);
+                    givenObjects.Add(given);
                 }
+            } else {
+                givenObjects = new List<object> { given };
+                rl.npcGivenList.Add(CharacterName, givenObjects);
+            }
 
-                //Handle VFX and sprite swaps
-                Potion temp = given as Potion;
-                switch (temp.Primary) {
-                    case Ingredient.Attributes.transformation:  //swap sprite 
-                        //transform.parent.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cat_sprite");
-                        break;
-                    case Ingredient.Attributes.sleep:
-                        StartCoroutine(PotionEffects("Sleep"));
-                        break;
-                    case Ingredient.Attributes.poison:
-                        StartCoroutine(PotionEffects("Poison"));
-                        break;
-                    case Ingredient.Attributes.invisibility:
-                        StartCoroutine(PotionEffects("Invisible"));
-                        break;
-                    case Ingredient.Attributes.healing:
-                        StartCoroutine(PotionEffects("Healing"));
-                        break;
-                    case Ingredient.Attributes.mana:
-                        StartCoroutine(PotionEffects("Mana"));
-                        break;
-                    case Ingredient.Attributes.speed:
-                        StartCoroutine(PotionEffects("Speed"));
-                        break;
-                    default:
-                        break;
-                }
+            //Handle VFX and sprite swaps
+            Potion temp = given as Potion;
+            switch (temp.Primary) {
+                case Ingredient.Attributes.transformation:  //swap sprite 
+                    StartCoroutine(PotionEffects("Transformation"));
+                    break;
+                case Ingredient.Attributes.sleep:
+                    StartCoroutine(PotionEffects("Sleep"));
+                    break;
+                case Ingredient.Attributes.poison:
+                    StartCoroutine(PotionEffects("Poison"));
+                    break;
+                case Ingredient.Attributes.invisibility:
+                    StartCoroutine(PotionEffects("Invisible"));
+                    break;
+                case Ingredient.Attributes.healing:
+                    StartCoroutine(PotionEffects("Healing"));
+                    break;
+                case Ingredient.Attributes.mana:
+                    StartCoroutine(PotionEffects("Mana"));
+                    break;
+                case Ingredient.Attributes.speed:
+                    StartCoroutine(PotionEffects("Speed"));
+                    break;
+                default:
+                    break;
+            }
 
-                //Handle dialogue response
-                SwapVisibile(panelCG);
-                string affinity;    //TODO: This might need to be ranges
-                if (manager.data[CharacterName].affinity < 0) {
-                    affinity = "_bad";
-                } else if(manager.data[CharacterName].affinity > 0) {
-                    affinity = "_good";
+            //Handle dialogue response
+            SwapVisibile(panelCG);
+            string affinity;    //TODO: This might need to be ranges
+            if (manager.data[CharacterName].affinity < 0) {
+                affinity = "_bad";
+            } else if (manager.data[CharacterName].affinity > 0) {
+                affinity = "_good";
+            } else {
+                affinity = "_neutral";
+            }
+
+            //Choose from possible responses or use default if there is no response(this shouldn't ever happen)
+
+            string response;
+            string rKey = requests[choice].Key;
+            if (temp.Primary == null) {
+                response = rKey + "_null" + affinity;
+            } else {
+                response = rKey + "_" + temp.Primary.ToString() + affinity;
+            }
+            List<string> dia;
+            currentDialogue = 0;
+            if (Dialogue.TryGetValue(response, out dia)) {
+                responding = true;
+                if (dia.Count > 1) {
+                    int i = Random.Range(0, dia.Count - 1);
+                    dialoguePieces = dia[i].Split('*');
+                    panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
                 } else {
-                    affinity = "_neutral";
+                    dialoguePieces = dia[0].Split('*');
+                    panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
                 }
-
-                //Choose from possible responses or use default if there is no response(this shouldn't ever happen)
-
-                string response;
-                string rKey = requests[choice].Key;
-                if (temp.Primary == null) {
-                    response = rKey +"_null" + affinity;
-                } else {
-                    response = rKey + "_" + temp.Primary.ToString() + affinity;
+                if (dialoguePieces.Length > 1) {
+                    nextButton = panel.transform.Find("Next").GetComponent<CanvasGroup>();
+                    nextButton.interactable = nextButton.blocksRaycasts = true;
+                    nextButton.alpha = 1;
                 }
-                List<string> dia;
-                currentDialogue = 0;
-                if(Dialogue.TryGetValue(response, out dia)) {
-                    responding = true;
-                    if (dia.Count > 1) {
-                        int i = Random.Range(0, dia.Count - 1);
-                        dialoguePieces = dia[i].Split('*');
-                        panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
-                    } else {
-                        dialoguePieces = dia[0].Split('*');
-                        panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
-                    }
-                    if (dialoguePieces.Length > 1) {
-                        nextButton = panel.transform.Find("Next").GetComponent<CanvasGroup>();
-                        nextButton.interactable = nextButton.blocksRaycasts = true;
-                        nextButton.alpha = 1;
-                    }
-                } else {
-                    panel.GetComponentInChildren<Text>().text = Dialogue["default"][0];
-                }
+            } else {
+                panel.GetComponentInChildren<Text>().text = Dialogue["default"][0];
+            }
             string type;
             if (temp.Primary == null) {
                 type = "none";
@@ -258,14 +258,14 @@ public class Traveller : NPC {
             }
             data.affinity += (requests[choice].GetValue(type) * requests[choice].Strength);
             manager.data[CharacterName] = data;
-            } else {  //handle trying to give people the wrong item type
-                SwapVisibile(panelCG);
-                panel.GetComponentInChildren<Text>().text = Dialogue["wrong"][0];
-            }
+        } else {  //handle trying to give people the wrong item type
+            SwapVisibile(panelCG);
+            panel.GetComponentInChildren<Text>().text = Dialogue["wrong"][0];
+        }
         /*} else {
             //deal with item requests besides potions - probably make the mess above into a function that can just be called with item types
         }*/
-   }
+    }
 
     public void NextDialogue() {
         //Handles responses to being given items
@@ -377,24 +377,45 @@ public class Traveller : NPC {
         effects.SetActive(true);
         Animator anim = GetComponentInChildren<Animator>();
         anim.SetBool(effect, true);
-        if (effect.Equals("Invisible")) {   //transparency 
-            Color c = GetComponent<SpriteRenderer>().color;
-            c.a = 0.25f;
-            GetComponent<SpriteRenderer>().color = c;
-        }
-        if (effect.Equals("Sleep")) {      //fall asleep
-            asleep = true;
+
+        switch (effect) {
+            case "Invisible":
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = 0.25f;
+                GetComponent<SpriteRenderer>().color = c;
+                break;
+            case "Sleep":
+                asleep = true;
+                break;
+            case "Transformation":
+                anim.Play("Transformation", 0, 0);
+                yield return new WaitForSeconds(0.92f);
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
+                break;
+            default:
+                break;
         }
 
         yield return new WaitForSeconds(3);
         anim.SetBool(effect, false);
-        if (effect.Equals("Invisible")) {       //fixing transparency
-            Color c = GetComponent<SpriteRenderer>().color;
-            c.a = 1.0f;
-            GetComponent<SpriteRenderer>().color = c;
-        }
-        if (effect.Equals("Sleep")) {   //waking up
-            asleep = false;
+        switch (effect) {
+            case "Invisible":
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = 1.0f;
+                GetComponent<SpriteRenderer>().color = c;
+                break;
+            case "Sleep":
+                asleep = false;
+                break;
+            case "Transformation":
+                anim.SetBool(effect, true);
+                anim.Play("Transformation", 0, 0);
+                yield return new WaitForSeconds(0.9f);
+                GetComponent<SpriteRenderer>().sprite = rl.charSpriteList[CharacterName];
+                anim.SetBool(effect, false);
+                break;
+            default:
+                break;
         }
 
         effects.SetActive(false);

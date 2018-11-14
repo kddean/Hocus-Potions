@@ -84,6 +84,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             second = GameObject.Find("Ingredient2").GetComponent<Image>();
             third = GameObject.Find("Ingredient3").GetComponent<Image>();
         }
+
         Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
         RectTransform invPanel = GameObject.FindGameObjectWithTag("inventory").transform as RectTransform;
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
@@ -107,7 +108,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                         }
                         GetComponent<Button>().GetComponentInChildren<Text>().text = item.count.ToString();
                         if (otherMgr.item.count <= 0) {
-                            rl.inv.DropItem(otherMgr.item, b);
+                            rl.inv.RemoveStack(otherMgr.item, b);
                         } else {
                             b.GetComponentInChildren<Text>().text = otherMgr.item.count.ToString();
                         }

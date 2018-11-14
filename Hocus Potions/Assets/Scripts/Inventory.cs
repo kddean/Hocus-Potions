@@ -25,7 +25,7 @@ public class Inventory {
     public void Testing() {
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         Brewing b = new Brewing();
-        Potion p = b.Brew(rl.ingredients["nightshade"], rl.ingredients["nightshade"], rl.ingredients["mugwort"]);
+        Potion p = b.Brew(rl.ingredients["lily"], rl.ingredients["mugwort"], rl.ingredients["catnip"]);
         Seed s = rl.seeds["thistle"];
         Seed ss = rl.seeds["lambsgrass"];
         Seed sss = rl.seeds["catnip"];
@@ -132,7 +132,7 @@ public class Inventory {
         if (item.count == 1) {
             foreach (Button b in invButtons) {
                 if (b.GetComponent<InventoryManager>().item == item) {
-                    DropItem(item, b);
+                    RemoveStack(item, b);
                     break;
                 }
             }
@@ -171,11 +171,15 @@ public class Inventory {
         p.Count = item.count;
         p.Data = new GarbageCollecter.DroppedItemData(item.item, item.count, go.transform.position, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, go);
         GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().droppedItems.Add(p.Data);
+        RemoveStack(item, b);
+    }
+
+    public void RemoveStack(InventoryItem item, Button b) {
+        inventory.Remove(item);
         b.GetComponentInChildren<Image>().sprite = null;
         b.GetComponentInChildren<Text>().text = "";
         b.GetComponent<InventoryManager>().item = null;
         currentSize--;
-        inventory.Remove(item);
     }
 
     //TODO: function to allow items to be used from inventory
