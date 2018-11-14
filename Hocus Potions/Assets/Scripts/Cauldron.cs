@@ -111,7 +111,7 @@ public class Cauldron : MonoBehaviour {
     }
 
     void OnMouseUp() {
-        if (!visible && manager.Brewing == 0 || manager.Brewing == 2) {
+        if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
             SwapVisible(ingredientPanel.GetComponent<CanvasGroup>());
             visible = true;
             if(manager.Brewing == 2) {

@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 142162666}
   - component: {fileID: 142162665}
   - component: {fileID: 142162668}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ingredient3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 278876858}
   - component: {fileID: 278876859}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 313536525}
   - component: {fileID: 313536524}
   - component: {fileID: 313536526}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BrewButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,11 +561,11 @@ RectTransform:
   m_Children:
   - {fileID: 1064535991}
   m_Father: {fileID: 1065185344}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -39.6}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 22.400002}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &355155365
@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 427695042}
   - component: {fileID: 427695044}
   - component: {fileID: 427695043}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Attributes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 462585792}
   - component: {fileID: 462585793}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 467297157}
   - component: {fileID: 467297159}
   - component: {fileID: 467297158}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Attributes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1477,7 +1477,7 @@ GameObject:
   - component: {fileID: 477566535}
   - component: {fileID: 477566534}
   - component: {fileID: 477566537}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ingredient1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1686,7 +1686,7 @@ GameObject:
   - component: {fileID: 596872775}
   - component: {fileID: 596872777}
   - component: {fileID: 596872776}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: IngredientName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2096,7 +2096,7 @@ GameObject:
   - component: {fileID: 791533092}
   - component: {fileID: 791533091}
   - component: {fileID: 791533090}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TakeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2117,9 +2117,9 @@ RectTransform:
   m_Father: {fileID: 1065185344}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -39.600006}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 22.400002}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &791533090
@@ -2229,7 +2229,7 @@ GameObject:
   - component: {fileID: 807549651}
   - component: {fileID: 807549653}
   - component: {fileID: 807549652}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2455,7 +2455,7 @@ GameObject:
   - component: {fileID: 897201118}
   - component: {fileID: 897201117}
   - component: {fileID: 897201116}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InventoryCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2719,7 +2719,7 @@ GameObject:
   - component: {fileID: 979337080}
   - component: {fileID: 979337079}
   - component: {fileID: 979337078}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BrewingCanvas
   m_TagString: brewing
   m_Icon: {fileID: 0}
@@ -4939,7 +4939,7 @@ GameObject:
   - component: {fileID: 1064535991}
   - component: {fileID: 1064535993}
   - component: {fileID: 1064535992}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5015,7 +5015,7 @@ GameObject:
   - component: {fileID: 1065185347}
   - component: {fileID: 1065185346}
   - component: {fileID: 1065185345}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BrewPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5032,16 +5032,16 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 313536528}
   - {fileID: 1235515694}
   - {fileID: 1760639568}
+  - {fileID: 313536528}
   - {fileID: 791533089}
   m_Father: {fileID: 979337081}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -2.1, y: -270.8}
+  m_AnchoredPosition: {x: -2.1, y: -279.6}
   m_SizeDelta: {x: 150, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1065185345
@@ -5373,7 +5373,7 @@ GameObject:
   - component: {fileID: 1235515694}
   - component: {fileID: 1235515693}
   - component: {fileID: 1235515691}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PotionName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5431,12 +5431,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1065185344}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -15.100006}
-  m_SizeDelta: {x: 140, y: 30}
+  m_AnchoredPosition: {x: 0, y: -12.350006}
+  m_SizeDelta: {x: 140, y: 24.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!213 &1239741290
 Sprite:
@@ -5654,7 +5654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1240668696}
   - component: {fileID: 1240668697}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5702,7 +5702,7 @@ GameObject:
   - component: {fileID: 1247864647}
   - component: {fileID: 1247864649}
   - component: {fileID: 1247864648}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: IngredientName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6008,7 +6008,7 @@ GameObject:
   - component: {fileID: 1374721082}
   - component: {fileID: 1374721081}
   - component: {fileID: 1374721084}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ingredient2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7508,7 +7508,7 @@ GameObject:
   - component: {fileID: 1638049290}
   - component: {fileID: 1638049289}
   - component: {fileID: 1638049291}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: IngredientPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7534,7 +7534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -191.5}
+  m_AnchoredPosition: {x: 0, y: -200.30002}
   m_SizeDelta: {x: 476, y: 283}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1638049289
@@ -8524,7 +8524,7 @@ GameObject:
   - component: {fileID: 1760639567}
   - component: {fileID: 1760639565}
   - component: {fileID: 1760639566}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PotionImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8587,7 +8587,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1065185344}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8861,6 +8861,106 @@ Prefab:
         type: 2}
       propertyPath: m_Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782398743263348, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954383522121590, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214848025107518, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321210315109418, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797371061616998, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243314217690212, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770761677277718, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661751885805726, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557846153815170, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907757334649622, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1744129825410022, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733091878581956, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1608093470420162, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635001459047596, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1146710926313374, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544556141565294, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646873065774646, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529586632788984, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217865534371038, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144276888867404, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1261940464910636, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1487358727258126, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782271867538592, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098394116214616, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1039814919694674, guid: a2d4fecde027566448e92e0d48322629, type: 2}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2d4fecde027566448e92e0d48322629, type: 2}
@@ -9402,7 +9502,7 @@ GameObject:
   - component: {fileID: 1927998018}
   - component: {fileID: 1927998020}
   - component: {fileID: 1927998019}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9571,7 +9671,7 @@ GameObject:
   - component: {fileID: 1967044122}
   - component: {fileID: 1967044124}
   - component: {fileID: 1967044123}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Attributes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9778,7 +9878,7 @@ GameObject:
   - component: {fileID: 2047675432}
   - component: {fileID: 2047675431}
   - component: {fileID: 2047675430}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9940,7 +10040,7 @@ GameObject:
   - component: {fileID: 2056784362}
   - component: {fileID: 2056784364}
   - component: {fileID: 2056784363}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: IngredientName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
