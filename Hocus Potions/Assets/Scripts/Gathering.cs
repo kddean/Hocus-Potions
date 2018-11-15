@@ -17,13 +17,18 @@ public class Gathering : MonoBehaviour {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         //Display plant if spawener has one else go get one
         GatheringManager.SpawnerData temp;
+        GatheringManager.SpawnerResetTime temp2;
         if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp))
         {
             this.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite = temp.spawnedItem.image;
         }
         else
         {
-            rl.gatheringManager.Populate(this);
+            rl.gatheringManager.spawnerReset.TryGetValue(gameObject.name, out temp2);
+            if (temp2.numberOfDaysLeft <= 0)
+            {
+                rl.gatheringManager.Populate(this);
+            }
            // rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp);
            // this.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite = temp.spawnedItem.image;
         }

@@ -67,16 +67,20 @@ public class GatheringManager : MonoBehaviour {
     {
         SpawnerData sD;
         SpawnerResetTime sRT;
+        if(spawners.Length == 0)
+        {
+            spawners = GameObject.FindGameObjectsWithTag("spawner");
+        }
 
         if (spawnerReset.Count == 0)
         {
             SetResetDictionary();
         }
 
-
+         
         if(spawnerReset.TryGetValue(gatherer.gameObject.name, out sRT))
         {
-
+            Debug.Log(sRT.numberOfDaysLeft);
             if (sRT.numberOfDaysLeft > 0)
             {
                 if (spawnerData.TryGetValue(gatherer.gameObject.name, out sD))
@@ -110,13 +114,15 @@ public class GatheringManager : MonoBehaviour {
 
                 spawnerReset.TryGetValue(gatherer.gameObject.name, out newTime);
                 newTime.numberOfDaysLeft = defaultResetTime;
-
+                spawnerReset[gatherer.gameObject.name] = newTime;
+               // spawnerReset.Remove(gatherer.gameObject.name);
+               // spawnerReset.Add(gatherer.gameObject.name, newTime);
                 gatherer.GetComponent<SpriteRenderer>().sprite = newData.spawnedItem.image;
 
-                Debug.Log("Now?");
-                //Instantiate(, this.transform.position, Quaternion.identity);
 
             }
+
+            StartCoroutine(Spawn());
 
 
         }
@@ -124,47 +130,83 @@ public class GatheringManager : MonoBehaviour {
         {
             StartCoroutine(Spawn());
         }
-               
-       
+
     }
 
     IEnumerator Spawn()
     {
- 
+
         if(spawnerReset.Count == 0 && spawners.Length > 0 )
         {
-            SetResetDictionary();
-        }
-       /* else if(spawnerData.Count == 0)
-        {
-            yield return new WaitForSeconds(mc.CLOCK_SPEED);
-            StartCoroutine(Spawn());
-        }*/
+            SetResetDictionary();      
+        }      
         else
         {
+            //Debug.Log(mc.Hour);
+            if (mc.Hour == 23)
+            {
+                //Debug.Log("here?");
+                List<string> timeList = spawnerReset.Keys.ToList();
+                SpawnerData sD;
+                foreach (string time in timeList)
+                {
+                    Debug.Log(time);
+                    SpawnerResetTime sRT;
+                    if (spawnerReset.TryGetValue(time, out sRT))
+                    {
+                        //Debug.Log(sRT.numberOfDaysLeft);
+                        sRT.numberOfDaysLeft = sRT.numberOfDaysLeft - 1;
+                        if(sRT.numberOfDaysLeft >= 0){
+                            spawnerReset[time] = sRT;
+                        }
+                        else
+                        {
+                            
+                            sRT.numberOfDaysLeft = 0;
+                            sD = spawnerData[time];
+                            sD.hasSpawnedItem = false;
+                            spawnerData[time] = sD;
+                        }
+                        //Debug.Log(sRT.numberOfDaysLeft);
+                    }
+
+
+                }
+            }
             List<string> keys = spawnerData.Keys.ToList();
             foreach ( string spawner in keys)
             {
+                //Debug.Log("boo");
+                Debug.Log(spawner);
                 SpawnerData sD;
                 if(spawnerData.TryGetValue(spawner, out sD))
                 {
+                    //Debug.Log(spawner);
                     if (sD.hasSpawnedItem == true)
                     {
                         GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = rl.ingredients[sD.spawnedItem.name].image;
+                       // Debug.Log("U");
                     }
                     else
-                    { yield return new WaitForSeconds(mc.CLOCK_SPEED); }
+                    {
+                        //Debug.Log("UNITY!!!!!!!!!");
+                        yield return new WaitForSeconds(mc.CLOCK_SPEED);
+                        StartCoroutine(Spawn());
+                    }
                 }
                 
 
             }
+            //Debug.Log("UNITY");
             yield return new WaitForSeconds(mc.CLOCK_SPEED);
+            StartCoroutine(Spawn());
         }
     }
 
 
     void SetResetDictionary()
     {
+
         for (int i = 0; i < spawners.Length; i++)
         {
             SpawnerResetTime newTime = new SpawnerResetTime();
