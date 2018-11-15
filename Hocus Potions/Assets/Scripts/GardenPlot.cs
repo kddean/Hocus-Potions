@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class GardenPlot : MonoBehaviour {
+public class GardenPlot : MonoBehaviour, IPointerDownHandler {
 
     // Use this for initialization
     ResourceLoader rl;
@@ -18,7 +18,7 @@ public class GardenPlot : MonoBehaviour {
             }
         }
     }
-    private void OnMouseDown() {
+    public void OnPointerDown(PointerEventData eventData) {
         rl.garden.Farm(this);
     }
 

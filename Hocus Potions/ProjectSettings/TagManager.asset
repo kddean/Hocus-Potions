@@ -9,6 +9,7 @@ TagManager:
   - dialogue
   - spawner
   - brewing
+  - storage
   layers:
   - Default
   - TransparentFX

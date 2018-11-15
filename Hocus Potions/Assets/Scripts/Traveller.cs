@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-public class Traveller : NPC {
+public class Traveller : NPC, IPointerDownHandler {
     //static references
     ResourceLoader rl;
     MoonCycle mc;
@@ -26,6 +26,7 @@ public class Traveller : NPC {
     bool asleep;
     bool responding;
     bool showButtons;
+    bool chosen;
 
     int waitHour, waitMinute;
     int maxWait = 5;
@@ -50,6 +51,7 @@ public class Traveller : NPC {
         effects = GameObject.Find("effects");
         spawnHour = mc.Hour;
         spawnMinute = mc.Minutes;
+        chosen = false;
        // effects.SetActive(false);
         //set flags
         visible = false;
@@ -61,6 +63,7 @@ public class Traveller : NPC {
         asleep = false;
         responding = false;
         showButtons = false;
+        
         currentDialogue = 0;
         if(!manager.data.TryGetValue(CharacterName, out data)) {
             data = new NPCManager.NPCData();
@@ -120,16 +123,20 @@ public class Traveller : NPC {
     }
 
     //Set the initial dialogue when NPC is clicked
-    private void OnMouseDown() {
+   public void OnPointerDown(PointerEventData eventData) {
         if(done) { return; }
 
         move = false;
         if (!visible) {
             SwapVisibile(panelCG);
-            dialoguePieces = Dialogue["intro"][0].Split('*');
+            if (dialoguePieces == null) {
+                dialoguePieces = Dialogue["intro"][0].Split('*');
+            }
             panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
-            if (dialoguePieces.Length <= 1) {
-                SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
+            if ((dialoguePieces.Length <= 1 || (currentDialogue == dialoguePieces.Length - 1)) && (requests == null || chosen)) {
+                panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
+                panel.transform.Find("Next").GetComponent<CanvasGroup>().interactable = false;
+                panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
             }
                 
             visible = true;
@@ -148,8 +155,6 @@ public class Traveller : NPC {
     }
 
     void Give() {
-        //bail if they haven't asked for anything yet
-
         List<object> givenObjects;
         given = rl.activeItem.item.item;
         done = true;
@@ -291,7 +296,7 @@ public class Traveller : NPC {
                     SwapVisibile(panel.transform.Find("Next").GetComponent<CanvasGroup>());
                 }
             } else {
-                if (!requested) {
+                if (!requested && requests != null) {
                     choice = Random.Range(0, requests.Count - 1);
                     string affinity;
                     if (manager.data[CharacterName].affinity < 0) {
@@ -331,6 +336,7 @@ public class Traveller : NPC {
         ExitDialogue();
         manager.data[CharacterName] = data;
         showButtons = false;
+        chosen = true;
     }
 
     public void DeclineRequest() {
@@ -340,6 +346,7 @@ public class Traveller : NPC {
         wait = false;
         manager.data[CharacterName] = data;
         showButtons = false;
+        chosen = true;
     }
 
     public void Wait() {
@@ -355,6 +362,7 @@ public class Traveller : NPC {
         panel.GetComponentInChildren<Text>().text = Dialogue["wait"][0];
         SwapButtonsAndText();
         showButtons = false;
+        chosen = true;
     }
 
     void SwapVisibile(CanvasGroup cg) {

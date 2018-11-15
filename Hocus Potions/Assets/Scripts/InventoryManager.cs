@@ -22,9 +22,10 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     bool hovered = false;
     //tooltip offset
     bool dragging = false;
+    bool filledStack = false;
     bool triedBrewing = false;
     Vector3 offset = new Vector3(50, 0, 0);
-    Image first, second, third;
+    Image first, second, third, firstIcon, secondIcon, thirdIcon;
 
     void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
@@ -46,7 +47,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
 
     public void OnMouseEnter() {
-         if (item != null) {
+         if (item != null && !dragging) {
             text = tooltip.GetComponentsInChildren<Text>();
             text[0].text = item.item.name;
             //text[1].text = item.flavorText;
@@ -72,6 +73,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         tooltip.GetComponent<CanvasGroup>().alpha = 0;
         dragging = true;
         triedBrewing = false;
+        canvas.GetComponent<Canvas>().sortingOrder = 1;
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -79,10 +81,21 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (SceneManager.GetActiveScene().name.Equals("House")) {
+        canvas.GetComponent<Canvas>().sortingOrder = 0;
+        if(item == null) {
+            transform.SetParent(startingParent);
+            transform.localPosition = temp;
+            transform.SetSiblingIndex(index);
+            dragging = false;
+            return;
+        }
+        if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active) {
             first = GameObject.Find("Ingredient1").GetComponent<Image>();
             second = GameObject.Find("Ingredient2").GetComponent<Image>();
             third = GameObject.Find("Ingredient3").GetComponent<Image>();
+            firstIcon = first.GetComponentsInChildren<Image>()[1];
+            secondIcon = second.GetComponentsInChildren<Image>()[1];
+            thirdIcon = third.GetComponentsInChildren<Image>()[1];
         }
 
         Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
@@ -124,12 +137,75 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                 transform.localPosition = temp;
                 transform.SetSiblingIndex(index);
             }
-        } else if (SceneManager.GetActiveScene().name.Equals("House") && RectTransformUtility.RectangleContainsScreenPoint(first.transform as RectTransform, Input.mousePosition)) {
-            SetIngredient(first, 0);
-        } else if (SceneManager.GetActiveScene().name.Equals("House") && RectTransformUtility.RectangleContainsScreenPoint(second.transform as RectTransform, Input.mousePosition)) {
-            SetIngredient(second, 1);
-        } else if (SceneManager.GetActiveScene().name.Equals("House") && RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
-            SetIngredient(third, 2);
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(first.transform as RectTransform, Input.mousePosition)) {
+            SetIngredient(first, firstIcon, 0);
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(second.transform as RectTransform, Input.mousePosition)) {
+            SetIngredient(second, secondIcon, 1);
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
+            SetIngredient(third, thirdIcon, 2);
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.FindGameObjectWithTag("storage").GetComponent<CanvasGroup>().alpha != 0 && RectTransformUtility.RectangleContainsScreenPoint(GameObject.FindGameObjectWithTag("storage").transform as RectTransform, Input.mousePosition)) {
+            GameObject storagePanel = GameObject.FindGameObjectWithTag("storage");
+            StorageSlot[] slots = storagePanel.GetComponentsInChildren<StorageSlot>();
+            foreach (StorageSlot s in slots) {
+                if (s.item != null 
+                    && s.item == 
+                    item.item) {
+                    while (item.count > 0 && s.count < s.maxStack) {
+                        item.count--;
+                        s.count++;
+                    }
+
+                    if (item.count == 0) {
+                        item = null;
+                        GetComponent<Image>().sprite = null;
+                        GetComponentInChildren<Text>().text = "";
+                        s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
+                        s.gameObject.GetComponent<Image>().sprite = s.item.image;
+                    }
+                    transform.SetParent(startingParent);
+                    transform.localPosition = temp;
+                    transform.SetSiblingIndex(index);
+                    filledStack = true;
+                    s.UpdatedDict();
+                }
+            }
+
+            if (!filledStack) {
+                foreach (StorageSlot s in slots) {
+                    if (RectTransformUtility.RectangleContainsScreenPoint(s.gameObject.transform as RectTransform, Input.mousePosition)) {
+                        if (s.item != null) {
+                            Item tempItem = s.item;
+                            int tempCount = s.count;
+                            s.item = item.item;
+                            s.count = item.count;
+                            s.gameObject.GetComponent<Image>().sprite = s.item.image;
+                            s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
+                            item.item = tempItem;
+                            item.count = tempCount;
+                            gameObject.GetComponent<Image>().sprite = item.item.image;
+                            gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
+                            transform.SetParent(startingParent);
+                            transform.localPosition = temp;
+                            transform.SetSiblingIndex(index);
+                            s.UpdatedDict();
+                        } else {
+                            s.item = item.item;
+                            s.count = item.count;
+                            s.gameObject.GetComponent<Image>().sprite = s.item.image;
+                            s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
+                            s.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+                            item = null;
+                            gameObject.GetComponent<Image>().sprite = null;
+                            gameObject.GetComponentInChildren<Text>().text = "";
+                            s.UpdatedDict();
+                        }
+                    }
+                }
+                transform.SetParent(startingParent);
+                transform.localPosition = temp;
+                transform.SetSiblingIndex(index);
+            }
+            filledStack = false;
         } else {
 
             //if player drags it out of inventory
@@ -146,7 +222,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         dragging = false;
     }
 
-    void SetIngredient(Image slot, int i) {
+    void SetIngredient(Image slot, Image icon, int i) {
         if (item != null && item.item is Ingredient) {
             Ingredient[] ings = rl.brewingIngredients;
             //Make sure it isn't a duplicate
@@ -166,7 +242,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             if (ings[i] != null) {
                 if (rl.inv.Add(ings[i], 1, 10)) {
                     ings[i] = temp;
-                    slot.sprite = temp.image;
+                    icon.sprite = temp.image;
                     Text[] text = slot.GetComponentsInChildren<Text>();
                     text[0].text = temp.name;
                 } else {
@@ -174,8 +250,8 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                 }
             } else {
                 ings[i] = temp;
-                slot.GetComponent<Image>().enabled = true;
-                slot.sprite = temp.image;
+                icon.GetComponent<Image>().enabled = true;
+                icon.sprite = temp.image;
                 Text[] text = slot.GetComponentsInChildren<Text>();
                 text[0].text = temp.name;
                 slot.GetComponentInChildren<CanvasGroup>().alpha = 1;

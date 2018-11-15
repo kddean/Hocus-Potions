@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Pickups : MonoBehaviour {
+public class Pickups : MonoBehaviour, IPointerDownHandler {
     Item item;
     int count;
     GarbageCollecter gc;
@@ -31,13 +32,13 @@ public class Pickups : MonoBehaviour {
         }
     }
 
-    private void OnMouseUp() {
-        if(rl.inv.Add(item, count, 10)) {
+    public void OnPointerDown(PointerEventData eventData) {
+        if (rl.inv.Add(item, count, 10)) {
             gc.RemoveItem(item, data.position, data.scene);
             Destroy(this.gameObject);
         } else {
             //TODO: probably play an animation or something to show you can't pick it up
-        }       
+        }
     }
 
     // Use this for initialization
