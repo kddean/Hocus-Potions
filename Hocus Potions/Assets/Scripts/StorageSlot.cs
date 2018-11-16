@@ -62,7 +62,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             Button[] invButtons = invPanel.GetComponentsInChildren<Button>();
             foreach (Button b in invButtons) {
                 InventoryManager im = b.GetComponent<InventoryManager>();
-                if (im.item != null && im.item.item == item) {                                  //filling stacks
+                if (im.item != null && im.item.item == item && im.item.count != im.item.maxStack) {                                  //filling stacks
                     while (im.item.count < im.item.maxStack && count > 0) {
                         im.item.count++;
                         count--;
@@ -92,6 +92,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                             count = 0;
                             GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0;
                             GetComponent<Image>().sprite = null;
+                            rl.inv.inventory.Add(new Inventory.InventoryItem(im.item.item, im.item.count, im.item.maxStack));
                         } else if (im.item != null && item != null) {
                             item = im.item.item;
                             count = im.item.count;

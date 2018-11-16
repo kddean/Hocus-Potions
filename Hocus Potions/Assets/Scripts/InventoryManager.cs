@@ -147,21 +147,21 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             GameObject storagePanel = GameObject.FindGameObjectWithTag("storage");
             StorageSlot[] slots = storagePanel.GetComponentsInChildren<StorageSlot>();
             foreach (StorageSlot s in slots) {
-                if (s.item != null 
-                    && s.item == 
-                    item.item) {
+                if (s.item != null && s.item == item.item && s.count != s.maxStack) {
                     while (item.count > 0 && s.count < s.maxStack) {
                         item.count--;
                         s.count++;
                     }
 
                     if (item.count == 0) {
-                        item = null;
-                        GetComponent<Image>().sprite = null;
-                        GetComponentInChildren<Text>().text = "";
-                        s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
-                        s.gameObject.GetComponent<Image>().sprite = s.item.image;
+                        rl.inv.RemoveStack(item, gameObject.GetComponent<Button>());
+                        
+                    } else {
+                        gameObject.GetComponent<Image>().sprite = item.item.image;
+                        gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
                     }
+                    s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
+                    s.gameObject.GetComponent<Image>().sprite = s.item.image;
                     transform.SetParent(startingParent);
                     transform.localPosition = temp;
                     transform.SetSiblingIndex(index);
@@ -194,9 +194,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                             s.gameObject.GetComponent<Image>().sprite = s.item.image;
                             s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
                             s.gameObject.GetComponent<CanvasGroup>().alpha = 1;
-                            item = null;
-                            gameObject.GetComponent<Image>().sprite = null;
-                            gameObject.GetComponentInChildren<Text>().text = "";
+                            rl.inv.RemoveStack(item, gameObject.GetComponent<Button>());
                             s.UpdatedDict();
                         }
                     }

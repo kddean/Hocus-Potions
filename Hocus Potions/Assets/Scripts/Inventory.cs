@@ -35,7 +35,7 @@ public class Inventory {
         inventory = new List<InventoryItem>() {
             new InventoryItem(p, 1, 10), new InventoryItem(p, 1, 10), new InventoryItem(p, 1, 10),
             new InventoryItem(s, 4, 10),  new InventoryItem(ss, 4, 10), new InventoryItem(sss, 4, 10),
-            new InventoryItem(i, 5, 10), new InventoryItem(ii, 5, 10), new InventoryItem(iii, 5, 10)};
+            new InventoryItem(i, 8, 10), new InventoryItem(ii, 8, 10), new InventoryItem(iii, 8, 10)};
 
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         for (int j = 0; j < 3; j++) {
@@ -54,22 +54,22 @@ public class Inventory {
         invButtons[5].GetComponentInChildren<Text>().text = "4";
         invButtons[5].GetComponentInChildren<Image>().sprite = sss.image;
         invButtons[5].GetComponent<InventoryManager>().item = inventory[5];
-        invButtons[6].GetComponentInChildren<Text>().text = "5";
+        invButtons[6].GetComponentInChildren<Text>().text = "8";
         invButtons[6].GetComponentInChildren<Image>().sprite = i.image;
         invButtons[6].GetComponent<InventoryManager>().item = inventory[6];
-        invButtons[7].GetComponentInChildren<Text>().text = "5";
+        invButtons[7].GetComponentInChildren<Text>().text = "8";
         invButtons[7].GetComponentInChildren<Image>().sprite = ii.image;
         invButtons[7].GetComponent<InventoryManager>().item = inventory[7];
-        invButtons[8].GetComponentInChildren<Text>().text = "5";
+        invButtons[8].GetComponentInChildren<Text>().text = "8";
         invButtons[8].GetComponentInChildren<Image>().sprite = iii.image;
         invButtons[8].GetComponent<InventoryManager>().item = inventory[8];
         currentSize = 9;
         inventory[3].count = 4;
         inventory[4].count = 4;
         inventory[5].count = 4;
-        inventory[6].count = 5;
-        inventory[7].count = 5;
-        inventory[8].count = 5;
+        inventory[6].count = 8;
+        inventory[7].count = 8;
+        inventory[8].count = 8;
     }
    
 
@@ -175,6 +175,10 @@ public class Inventory {
     }
 
     public void RemoveStack(InventoryItem item, Button b) {
+        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        if (rl.activeItem == b.GetComponent<InventoryManager>()) {
+            rl.activeItem = null;
+        }
         inventory.Remove(item);
         b.GetComponentInChildren<Image>().sprite = null;
         b.GetComponentInChildren<Text>().text = "";
