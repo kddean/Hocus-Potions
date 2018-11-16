@@ -58,7 +58,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             return;
         }
         transform.parent.GetComponent<Canvas>().sortingOrder = 0;
-        if (invPanel.GetComponent<CanvasGroup>().alpha != 0 && RectTransformUtility.RectangleContainsScreenPoint(invPanel.transform as RectTransform, Input.mousePosition) && item != null) {               //Dragging items into inventory
+        if (invPanel.GetComponent<CanvasGroup>().alpha != 0 && RectTransformUtility.RectangleContainsScreenPoint(invPanel.transform as RectTransform, Input.mousePosition)) {               //Dragging items into inventory
             Button[] invButtons = invPanel.GetComponentsInChildren<Button>();
             foreach (Button b in invButtons) {
                 InventoryManager im = b.GetComponent<InventoryManager>();
@@ -70,12 +70,9 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     if (count == 0) {
                         item = null;
                         GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0;
-                        break;
-                    }
-
+                    } 
                     im.gameObject.GetComponentInChildren<Text>().text = im.item.count.ToString();
                     gameObject.GetComponentInChildren<Text>().text = count.ToString();
-                    Debug.Log("testtest");
                     done = true;
                 }
             }
