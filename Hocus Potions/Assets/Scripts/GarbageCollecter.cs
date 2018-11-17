@@ -67,12 +67,7 @@ public class GarbageCollecter : MonoBehaviour {
         StartCoroutine(CleanUp());
     }
 
-    public void CallSpawner() {
-        StartCoroutine(SpawnDropped());
-    }
-
-    IEnumerator SpawnDropped() {
-        yield return new WaitForSeconds(0.01f);
+    public void SpawnDropped() {
         List<DroppedItemData> junk = new List<DroppedItemData>();
         foreach(DroppedItemData d in droppedItems) {
             if(d.scene.Equals(SceneManager.GetActiveScene().name)) {

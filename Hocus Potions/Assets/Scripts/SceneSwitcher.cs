@@ -5,96 +5,60 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour {
 
-    public Scene house;
-    public Scene garden;
-    public Scene world;
-    Scene currentScene;
-    public GameObject player;
-    public bool enter = true;
-    public string portalTo;
+    int house;
+    int garden;
+    int world;
+    int currentScene;
+    AsyncOperation scene;
 
 
-	// Use this for initialization
-	void Start () {
-        currentScene = SceneManager.GetActiveScene();
-        house = SceneManager.GetSceneByName("House");
-        garden = SceneManager.GetSceneByName("Garden");
-        world = SceneManager.GetSceneByName("SampleGameArea");
+    public void Awake() {
+        DontDestroyOnLoad(this);
+        if (FindObjectsOfType(GetType()).Length > 1) {
+            Destroy(gameObject);
+        }
+    }
+
+
+    void Start () {
+        house = 0;
+        garden = 1; 
+        world = 2;
 	}
 
     // Update is called once per frame
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (currentScene == house) {
-            if (portalTo == "garden") {
-                SceneManager.LoadScene("Garden");
-                currentScene = SceneManager.GetActiveScene();
-            } else if (portalTo == "world") {
-                SceneManager.LoadScene("SampleGameArea");
-                currentScene = SceneManager.GetActiveScene();
-            }
+    public void SceneSwap(string s) {
+        switch (s) {
+            case "ToHouse":
+                StartCoroutine(SceneLoader(house));
+                break;
+            case "ToWorld":
+                StartCoroutine(SceneLoader(world));
+                break;
+            case "ToGarden":
+                StartCoroutine(SceneLoader(garden));
+                break;
+            default:
+                break;
         }
-
-        if (currentScene == garden) {
-            if (portalTo == "house") {
-                SceneManager.LoadScene("House");
-                currentScene = SceneManager.GetActiveScene();
-            } else if (portalTo == "world") {
-                SceneManager.LoadScene("SampleGameArea");
-                currentScene = SceneManager.GetActiveScene();
-            }
-        }
-
-        if (currentScene == world) {
-            if (portalTo == "house") {
-                SceneManager.LoadScene("House");
-                currentScene = SceneManager.GetActiveScene();
-            }
-
-        }
-
-        GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().CallSpawner();
     }
 
-    /*
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (currentScene == house)
-        {
-            if (portalTo == "garden")
-            {
-                SceneManager.LoadScene("Garden");
-                currentScene = SceneManager.GetActiveScene();
-            }
-            else if (portalTo == "world")
-            {
-                SceneManager.LoadScene("SampleGameArea");
-                currentScene = SceneManager.GetActiveScene();
-            }
+    IEnumerator SceneLoader(int index) {
+        scene = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
+        while (!scene.isDone) {
+            yield return new WaitForSeconds(0.01f);
         }
+        OnSceneLoaded(index);
+    }
 
-        if (currentScene == garden)
-        {
-            if (portalTo == "house")
-            {
-                SceneManager.LoadScene("House");
-                currentScene = SceneManager.GetActiveScene();
-            }
-            else if (portalTo == "world")
-            {
-                SceneManager.LoadScene("SampleGameArea");
-                currentScene = SceneManager.GetActiveScene();
-            }
+    void OnSceneLoaded(int index) {
+        Scene loadingScene = SceneManager.GetSceneByBuildIndex(index);
+        if (loadingScene.IsValid()) {
+            SceneManager.SetActiveScene(loadingScene);
+            GameObject spawnPoint = GameObject.Find("SpawnPoint");
+            GameObject.FindGameObjectWithTag("Player").transform.position = spawnPoint.transform.position;
+            GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().SpawnDropped();
         }
-
-        if (currentScene == world)
-        {
-            if (portalTo == "house")
-            {
-                SceneManager.LoadScene("House");
-                currentScene = SceneManager.GetActiveScene();
-            }
-        }
-    }*/
-
+    }
 }
