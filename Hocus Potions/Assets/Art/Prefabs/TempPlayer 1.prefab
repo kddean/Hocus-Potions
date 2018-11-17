@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50118074383187792}
   - component: {fileID: 61197529647547674}
   - component: {fileID: 212632303001910162}
+  - component: {fileID: 95956747239513924}
   m_Layer: 0
   m_Name: TempPlayer 1
   m_TagString: Player
@@ -88,6 +89,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3579953, y: 2.121719}
   m_EdgeRadius: 0
+--- !u!95 &95956747239513924
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1283993604407130}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f21cad92cdf6ecc45b288f879a510633, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114187325647405822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21fe629adc8fdc46bedeac604bf0e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 5
 --- !u!212 &212632303001910162
 SpriteRenderer:
   m_ObjectHideFlags: 1

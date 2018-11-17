@@ -13,7 +13,7 @@ public class Potion : Item {
     public Potion(string name, Sprite image, int duration, Ingredient.Attributes? primary, Ingredient.Attributes? secondary, Ingredient.Modifiers? modifier, int brewingTime) {
         this.name = name;
         this.image = image;
-        this.duration = duration;
+        this.Duration = duration;
         this.primary = primary;
         this.secondary = secondary;
         this.modifier = modifier;
@@ -35,6 +35,16 @@ public class Potion : Item {
     public Ingredient.Modifiers? Modifier {
         get {
             return modifier;
+        }
+    }
+
+    public int Duration {
+        get {
+            return duration;
+        }
+
+        set {
+            duration = value;
         }
     }
 }

@@ -22,6 +22,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     GameObject bubbles;
     ResourceLoader rl;
     Button[] invButtons;
+    Player player;
 
     bool done;
     bool visible;
@@ -32,6 +33,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         manager = GameObject.Find("BrewingManager").GetComponent<BrewingManager>();
         mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         sparkles = GameObject.Find("sparkles");
         bubbles = GameObject.Find("bubbles");
         anims = GetComponentsInChildren<Animator>();
@@ -116,17 +118,24 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             brewPanel.GetComponent<CanvasGroup>().interactable = true;
             brewVisible = true;
         }
+        if (player.Status == Player.PlayerStatus.asleep || player.Status == Player.PlayerStatus.transformed) {
+            Close();
+        }
     }
 
 
    public void OnPointerDown(PointerEventData eventData) {
+        if(player.Status == Player.PlayerStatus.asleep || player.Status == Player.PlayerStatus.transformed) {
+            return;
+        }
+
         canvas.SetActive(true);
         active = true;
         if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
-            SwapVisible(ingredientPanel.GetComponent<CanvasGroup>());
+            SetVisible(ingredientPanel.GetComponent<CanvasGroup>());
             visible = true;
             if (manager.Brewing == 2) {
-                SwapVisible(brewPanel.GetComponent<CanvasGroup>());
+                SetVisible(brewPanel.GetComponent<CanvasGroup>());
                 brewVisible = true;
             }
 
@@ -182,9 +191,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     public void Close() {
         SwapVisible(ingredientPanel.GetComponent<CanvasGroup>());
         if (manager.Brewing == 0) {
-            brew.GetComponent<CanvasGroup>().alpha = 1;
-            brew.GetComponent<CanvasGroup>().interactable = true;
-            brew.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            SetVisible(brew.GetComponent<CanvasGroup>());
             take.GetComponent<CanvasGroup>().alpha = 0;
             take.GetComponent<CanvasGroup>().interactable = false;
             take.GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -209,6 +216,12 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         cg.alpha = Mathf.Abs(cg.alpha - 1);
         cg.interactable = !cg.interactable;
         cg.blocksRaycasts = !cg.blocksRaycasts;
+    }
+
+    void SetVisible(CanvasGroup cg) {
+        cg.alpha = 1;
+        cg.interactable = true;
+        cg.blocksRaycasts = true;
     }
 
     public void RemoveIngredient(int i) {

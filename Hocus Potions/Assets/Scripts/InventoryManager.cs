@@ -143,7 +143,7 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             SetIngredient(second, secondIcon, 1);
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(third, thirdIcon, 2);
-        } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.FindGameObjectWithTag("storage").GetComponent<CanvasGroup>().alpha != 0 && RectTransformUtility.RectangleContainsScreenPoint(GameObject.FindGameObjectWithTag("storage").transform as RectTransform, Input.mousePosition)) {
+        } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("StorageChest").GetComponent<StorageChest>().active && RectTransformUtility.RectangleContainsScreenPoint(GameObject.FindGameObjectWithTag("storage").transform as RectTransform, Input.mousePosition)) {
             GameObject storagePanel = GameObject.FindGameObjectWithTag("storage");
             StorageSlot[] slots = storagePanel.GetComponentsInChildren<StorageSlot>();
             foreach (StorageSlot s in slots) {

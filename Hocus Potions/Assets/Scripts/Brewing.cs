@@ -215,37 +215,37 @@ public class Brewing {
             //Assigning sprites, effect duration, and brewing time
             switch (primary) {
                 case Ingredient.Attributes.healing:
-                    duration = 1;
+                    duration = 10;
                     brewingTime = 50;
                     image = Resources.Load<Sprite>("Potions/potions_healing");
                     break;
                 case Ingredient.Attributes.sleep:
-                    duration = 1;
+                    duration = 100;
                     brewingTime = 60;
                     image = Resources.Load<Sprite>("Potions/potions_sleep");
                     break;
                 case Ingredient.Attributes.invisibility:
-                    duration = 1;
+                    duration = 100;
                     brewingTime = 90;
                     image = Resources.Load<Sprite>("Potions/potions_invisibility");
                     break;
                 case Ingredient.Attributes.poison:
-                    duration = 1;
+                    duration = 100;
                     brewingTime = 60;
                     image = Resources.Load<Sprite>("Potions/potions_poison");
                     break;
                 case Ingredient.Attributes.transformation:
-                    duration = 1;
+                    duration = 100;
                     brewingTime = 90;
                     image = Resources.Load<Sprite>("Potions/potions_transform");
                     break;
                 case Ingredient.Attributes.mana:
-                    duration = 1;
+                    duration = 10;
                     brewingTime = 60;
                     image = Resources.Load<Sprite>("Potions/potions_mana");
                     break;
                 case Ingredient.Attributes.speed:
-                    duration = 1;
+                    duration = 100;
                     brewingTime = 80;
                     image = Resources.Load<Sprite>("Potions/potions_speed");
                     break;

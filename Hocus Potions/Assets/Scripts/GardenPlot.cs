@@ -7,8 +7,10 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
 
     // Use this for initialization
     ResourceLoader rl;
+    Player player;
     private void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //Display plants if there's something growing
         Garden.PlotData temp;
         if (rl.garden.plots.TryGetValue(gameObject.name, out temp)) {
@@ -19,6 +21,10 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
         }
     }
     public void OnPointerDown(PointerEventData eventData) {
+        if(player.Status == Player.PlayerStatus.asleep || player.Status == Player.PlayerStatus.transformed) {
+            return;
+        }
+
         rl.garden.Farm(this);
     }
 

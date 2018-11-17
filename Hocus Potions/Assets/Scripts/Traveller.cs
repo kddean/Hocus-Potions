@@ -15,6 +15,7 @@ public class Traveller : NPC, IPointerDownHandler {
     Item given;
     GameObject effects;
     NPCManager.NPCData data;
+    Player player;
 
 
     //flags
@@ -44,6 +45,7 @@ public class Traveller : NPC, IPointerDownHandler {
         mc = (MoonCycle)GameObject.FindObjectOfType(typeof(MoonCycle));
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         manager = GameObject.Find("NPCManager").GetComponent<NPCManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         waitHour = mc.Hour + maxWait;
         panel = GameObject.FindGameObjectWithTag("dialogue");
         panelCG = panel.GetComponent<CanvasGroup>();
@@ -123,30 +125,28 @@ public class Traveller : NPC, IPointerDownHandler {
     }
 
     //Set the initial dialogue when NPC is clicked
-   public void OnPointerDown(PointerEventData eventData) {
-        if(done) { return; }
+   public void OnPointerDown(PointerEventData eventData) {      
+        if (done || player.Status == Player.PlayerStatus.asleep || player.Status == Player.PlayerStatus.transformed) { return; }
 
-        move = false;
-        if (!visible) {
-            SwapVisibile(panelCG);
-            if (dialoguePieces == null) {
-                dialoguePieces = Dialogue["intro"][0].Split('*');
-            }
-            panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
-            if ((dialoguePieces.Length <= 1 || (currentDialogue == dialoguePieces.Length - 1)) && (requests == null || chosen)) {
-                panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-                panel.transform.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-                panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
-            }
-                
-            visible = true;
-        }
-    }
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            move = false;
+            if (!visible) {
+                SwapVisibile(panelCG);
+                if (dialoguePieces == null) {
+                    dialoguePieces = Dialogue["intro"][0].Split('*');
+                }
+                panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+                if ((dialoguePieces.Length <= 1 || (currentDialogue == dialoguePieces.Length - 1)) && (requests == null || chosen)) {
+                    panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
+                    panel.transform.Find("Next").GetComponent<CanvasGroup>().interactable = false;
+                    panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+                }
 
-    private void OnMouseOver() {
-        if (Input.GetMouseButtonDown(1)) {
-            if(rl.activeItem != null) {
-                if(rl.activeItem.item.item is Potion) {
+                visible = true;
+            }
+        } else if(eventData.button == PointerEventData.InputButton.Right) {
+            if (rl.activeItem != null) {
+                if (rl.activeItem.item.item is Potion) {
                     if (!requested || rl.activeItem == null || done) { return; }
                     Give();
                 }
@@ -154,7 +154,7 @@ public class Traveller : NPC, IPointerDownHandler {
         }
     }
 
-    void Give() {
+   void Give() {
         List<object> givenObjects;
         given = rl.activeItem.item.item;
         done = true;
@@ -189,31 +189,7 @@ public class Traveller : NPC, IPointerDownHandler {
 
             //Handle VFX and sprite swaps
             Potion temp = given as Potion;
-            switch (temp.Primary) {
-                case Ingredient.Attributes.transformation:  //swap sprite 
-                    StartCoroutine(PotionEffects("Transformation"));
-                    break;
-                case Ingredient.Attributes.sleep:
-                    StartCoroutine(PotionEffects("Sleep"));
-                    break;
-                case Ingredient.Attributes.poison:
-                    StartCoroutine(PotionEffects("Poison"));
-                    break;
-                case Ingredient.Attributes.invisibility:
-                    StartCoroutine(PotionEffects("Invisible"));
-                    break;
-                case Ingredient.Attributes.healing:
-                    StartCoroutine(PotionEffects("Healing"));
-                    break;
-                case Ingredient.Attributes.mana:
-                    StartCoroutine(PotionEffects("Mana"));
-                    break;
-                case Ingredient.Attributes.speed:
-                    StartCoroutine(PotionEffects("Speed"));
-                    break;
-                default:
-                    break;
-            }
+            StartCoroutine(PotionEffects(temp));
 
             //Handle dialogue response
             SwapVisibile(panelCG);
@@ -381,8 +357,9 @@ public class Traveller : NPC, IPointerDownHandler {
         panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
     }
 
-    IEnumerator PotionEffects(string effect) {
+    IEnumerator PotionEffects(Potion pot) {
         effects.SetActive(true);
+        string effect = pot.Primary.ToString();
         Animator anim = GetComponentInChildren<Animator>();
         anim.SetBool(effect, true);
 
