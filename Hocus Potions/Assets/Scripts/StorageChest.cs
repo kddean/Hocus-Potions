@@ -17,7 +17,7 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if (player.Status == Player.PlayerStatus.asleep || player.Status == Player.PlayerStatus.transformed) { return; }
+        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed)) { return; }
         canvas.SetActive(true);
         active = true;
         GameObject panel = GameObject.FindGameObjectWithTag("storage");

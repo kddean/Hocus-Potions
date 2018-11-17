@@ -5,17 +5,17 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour, IPointerDownHandler {
 
-    public enum PlayerStatus { poisoned, fast, invisible, transformed, asleep, none }
+    public enum PlayerStatus { poisoned, fast, invisible, transformed, asleep }
     float speed;
     public float defaultSpeed, poisonedSpeed, fastSpeed;
     int x, y;
     ResourceLoader rl;
     Animator anim;
     Potion lastTaken;
-    PlayerStatus status;
+    List<PlayerStatus> status;
     SpriteRenderer sr;
 
-    public PlayerStatus Status {
+    public List<PlayerStatus> Status {
         get {
             return status;
         }
@@ -35,18 +35,18 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     public void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         anim = GetComponentInChildren<Animator>();
-        Status = PlayerStatus.none;
+        Status = new List<PlayerStatus>();
         speed = defaultSpeed;
         sr = GetComponent<SpriteRenderer>();
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if (Status == PlayerStatus.asleep || Status == PlayerStatus.transformed || rl.activeItem == null) {
+        if (Status.Contains(PlayerStatus.asleep) || rl.activeItem == null) {
             return;
         }
 
         if (eventData.button == PointerEventData.InputButton.Right) {
-            if (rl.activeItem.item.item is Potion && (rl.activeItem.item.item != lastTaken || Status == PlayerStatus.none)) {
+            if (rl.activeItem.item.item is Potion && (rl.activeItem.item.item != lastTaken)) {
                 lastTaken = rl.activeItem.item.item as Potion;
                 StartCoroutine(HandlePotions(rl.activeItem.item.item as Potion));
                 rl.inv.RemoveItem(rl.activeItem.item);
@@ -91,15 +91,15 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
 
     IEnumerator HandlePotions(Potion pot) {
-        foreach(AnimatorControllerParameter p in anim.parameters) {
+        foreach (AnimatorControllerParameter p in anim.parameters) {
             anim.SetBool(p.name, false);
         }
 
         switch (pot.Primary) {
             case Ingredient.Attributes.healing:
                 anim.SetBool("Healing", true);
-                if (Status == PlayerStatus.poisoned) {
-                    Status = PlayerStatus.none;
+                if (Status.Contains(PlayerStatus.poisoned)) {
+                    Status.Remove(PlayerStatus.poisoned);
                     speed = defaultSpeed;
                 }
                 //TODO:Maybe add more use for this potion
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             case Ingredient.Attributes.invisibility:
                 anim.SetBool("Invisible", true);
                 anim.Play("Invisible", 0, 0);
-                Status = PlayerStatus.invisible;
+                Status.Add(PlayerStatus.invisible);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.5f;
                 GetComponent<SpriteRenderer>().color = c;
@@ -118,29 +118,29 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
             case Ingredient.Attributes.poison:
                 anim.SetBool("Poison", true);
-                Status = PlayerStatus.poisoned;
-                if (Status == PlayerStatus.fast) {
-                    speed = defaultSpeed; ;
+                Status.Add(PlayerStatus.poisoned);
+                if (Status.Contains(PlayerStatus.fast)) {
+                    speed = defaultSpeed;
                 } else {
                     speed = poisonedSpeed;
                 }
                 break;
             case Ingredient.Attributes.sleep:
                 anim.SetBool("Sleep", true);
-                Status = PlayerStatus.asleep;
+                Status.Add(PlayerStatus.asleep);
                 speed = 0;
                 break;
             case Ingredient.Attributes.speed:
                 anim.SetBool("Speed", true);
-                Status = PlayerStatus.fast;
-                if (Status == PlayerStatus.poisoned) {
+                Status.Add(PlayerStatus.fast);
+                if (Status.Contains(PlayerStatus.poisoned)) {
                     speed = defaultSpeed;
                 } else {
                     speed = fastSpeed;
                 }
                 break;
             case Ingredient.Attributes.transformation:
-                Status = PlayerStatus.transformed;
+                Status.Add(PlayerStatus.transformed);
                 anim.SetBool("Transformation", true);
                 anim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
@@ -156,18 +156,21 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
         }
 
-
-        yield return new WaitForSeconds((pot.Duration / 10 ) * GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
+        yield return new WaitForSeconds((pot.Duration / 10) * GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
+        foreach (AnimatorControllerParameter p in anim.parameters) {
+            anim.SetBool(p.name, false);
+        }
 
         switch (pot.Primary) {
             case Ingredient.Attributes.healing:
                 anim.SetBool("Healing", false);
                 break;
             case Ingredient.Attributes.invisibility:
+                anim.SetBool("Invisible", true);
                 anim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.833f);
                 anim.SetBool("Invisible", false);
-                Status = PlayerStatus.none;
+                Status.Remove(PlayerStatus.invisible);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 1f;
                 GetComponent<SpriteRenderer>().color = c;
@@ -177,35 +180,61 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
             case Ingredient.Attributes.poison:
                 anim.SetBool("Poison", false);
-                Status = PlayerStatus.none;
-                speed = defaultSpeed;
+                Status.Remove(PlayerStatus.poisoned);
+                if (Status.Contains(PlayerStatus.fast)) {
+                    speed = fastSpeed;
+                } else {
+                    speed = defaultSpeed;
+                }
                 break;
             case Ingredient.Attributes.sleep:
                 anim.SetBool("Sleep", false);
-                Status = PlayerStatus.none;
+                Status.Remove(PlayerStatus.asleep);
                 speed = defaultSpeed;
                 break;
             case Ingredient.Attributes.speed:
                 anim.SetBool("Speed", false);
-                Status = PlayerStatus.none;
-                speed = defaultSpeed;
+                Status.Remove(PlayerStatus.fast);
+                if (Status.Contains(PlayerStatus.poisoned)) {
+                    speed = poisonedSpeed;
+                } else {
+                    speed = defaultSpeed;
+                }
                 break;
             case Ingredient.Attributes.transformation:
+                anim.SetBool("Transformation", true);
                 anim.Play("Transformation", 0, 0);
-
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/witch");
                 Vector2 temp = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
                 GetComponent<BoxCollider2D>().size = temp;
                 yield return new WaitForSeconds(0.43f);
                 anim.SetBool("Transformation", false);
-                Status = PlayerStatus.none;
+                Status.Remove(PlayerStatus.transformed);
                 speed = defaultSpeed;
+                if (Status.Contains(PlayerStatus.fast) && Status.Contains(PlayerStatus.poisoned)) {
+                    speed = defaultSpeed;
+                } else if (Status.Contains(PlayerStatus.fast)) {
+                    speed = fastSpeed;
+                } else if (Status.Contains(PlayerStatus.poisoned)) {
+                    speed = poisonedSpeed;
+                } else {
+                    speed = defaultSpeed;
+                }
                 break;
             case Ingredient.Attributes.none:
                 break;
             default:
                 break;
         }
+
+        if (Status.Contains(PlayerStatus.fast)) {
+            anim.SetBool("Speed", true);
+        }
+        if (Status.Contains(PlayerStatus.poisoned)) {
+            anim.SetBool("Poison", true);
+        }
+
+        lastTaken = null;
     }
 }

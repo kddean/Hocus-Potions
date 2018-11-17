@@ -126,7 +126,7 @@ public class Traveller : NPC, IPointerDownHandler {
 
     //Set the initial dialogue when NPC is clicked
    public void OnPointerDown(PointerEventData eventData) {      
-        if (done || player.Status == Player.PlayerStatus.asleep || player.Status == Player.PlayerStatus.transformed) { return; }
+        if (done || player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed)) { return; }
 
         if (eventData.button == PointerEventData.InputButton.Left) {
             move = false;
