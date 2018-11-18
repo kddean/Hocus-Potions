@@ -314,6 +314,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Brewing.cs" />
     <Compile Include="Assets\Scripts\BrewingManager.cs" />
+    <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Cauldron.cs" />
     <Compile Include="Assets\Scripts\GarbageCollecter.cs" />
     <Compile Include="Assets\Scripts\Garden.cs" />
