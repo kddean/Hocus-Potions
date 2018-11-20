@@ -63,16 +63,15 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Brewing.cs" />
     <Compile Include="Assets\Scripts\BrewingManager.cs" />
+    <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Cauldron.cs" />
     <Compile Include="Assets\Scripts\GarbageCollecter.cs" />
     <Compile Include="Assets\Scripts\Garden.cs" />
     <Compile Include="Assets\Scripts\GardenPlot.cs" />
-    <Compile Include="Assets\Scripts\Gathering.cs" />
-    <Compile Include="Assets\Scripts\GatheringManager.cs" />
     <Compile Include="Assets\Scripts\Ingredient.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
-    <Compile Include="Assets\Scripts\InventoryManager.cs" />
+    <Compile Include="Assets\Scripts\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\MoonCycle.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
