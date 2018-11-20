@@ -16,8 +16,7 @@ public class Mana : MonoBehaviour {
 
     void Start () {
         MaxMana = 100;
-        //CurrentMana = MaxMana;
-        currentMana = 0;
+        CurrentMana = MaxMana;
         UpdateMana();
 	}
 
