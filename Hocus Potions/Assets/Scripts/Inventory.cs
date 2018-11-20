@@ -157,15 +157,15 @@ public class Inventory {
         Vector3 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
         go.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + offset;
         sr.sprite = item.item.image;
-        if (item.item is Seed) {
-            go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
-        }
-          
-
         Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
         BoxCollider2D c = go.AddComponent<BoxCollider2D>();
         c.size = bounds;
         c.isTrigger = true;
+
+        if (item.item is Seed) {
+            go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+        }
+             
         Pickups p = go.AddComponent<Pickups>();
         p.Item = item.item;
         p.Count = item.count;
