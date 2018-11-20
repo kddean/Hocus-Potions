@@ -68,6 +68,8 @@
     <Compile Include="Assets\Scripts\GarbageCollecter.cs" />
     <Compile Include="Assets\Scripts\Garden.cs" />
     <Compile Include="Assets\Scripts\GardenPlot.cs" />
+    <Compile Include="Assets\Scripts\Gathering.cs" />
+    <Compile Include="Assets\Scripts\GatheringManager.cs" />
     <Compile Include="Assets\Scripts\Ingredient.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
