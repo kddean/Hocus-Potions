@@ -16,7 +16,6 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     public Button take;
     Potion pot;
     BrewingManager manager;
-    MoonCycle mc;
     Animator[] anims;
     GameObject sparkles;
     GameObject bubbles;
@@ -31,7 +30,6 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
     private void Start() {
         manager = GameObject.Find("BrewingManager").GetComponent<BrewingManager>();
-        mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         sparkles = GameObject.Find("sparkles");
@@ -47,22 +45,25 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
         if (rl.ingredientCount != 0) {
             try {
-                first.sprite = rl.brewingIngredients[0].image;
+                first.GetComponentsInChildren<Image>()[1].sprite = rl.brewingIngredients[0].image;
+                first.GetComponentsInChildren<Image>()[1].enabled = true;
                 first.GetComponentInChildren<Text>().text = rl.brewingIngredients[0].name;
                 first.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            } catch (System.NullReferenceException e) { Debug.Log("test1"); }
+            } catch (System.NullReferenceException e) { }
 
             try {
-                second.sprite = rl.brewingIngredients[1].image;
+                second.GetComponentsInChildren<Image>()[1].sprite = rl.brewingIngredients[1].image;
+                second.GetComponentsInChildren<Image>()[1].enabled = true;
                 second.GetComponentInChildren<Text>().text = rl.brewingIngredients[1].name;
                 second.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            } catch (System.NullReferenceException e) { Debug.Log("test2"); }
+            } catch (System.NullReferenceException e) { }
 
             try {
-                third.sprite = rl.brewingIngredients[2].image;
+                third.GetComponentsInChildren<Image>()[1].sprite = rl.brewingIngredients[2].image;
+                third.GetComponentsInChildren<Image>()[1].enabled = true;
                 third.GetComponentInChildren<Text>().text = rl.brewingIngredients[2].name;
                 third.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            } catch (System.NullReferenceException e) { Debug.Log("test3"); }
+            } catch (System.NullReferenceException e) { }
         }
 
 
@@ -152,7 +153,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     public void BrewPotion() {
         Brewing b = new Brewing();
         pot = b.Brew(rl.brewingIngredients[0], rl.brewingIngredients[1], rl.brewingIngredients[2]);
-        manager.Begin((pot.brewingTime / 10) * mc.CLOCK_SPEED, pot);
+        manager.Begin(pot.brewingTime, pot);
 
         bubbles.GetComponent<SpriteRenderer>().enabled = true;
         sparkles.GetComponent<SpriteRenderer>().enabled = true;

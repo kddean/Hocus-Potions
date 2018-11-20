@@ -220,7 +220,7 @@ public class Brewing {
                     image = Resources.Load<Sprite>("Potions/potions_healing");
                     break;
                 case Ingredient.Attributes.sleep:
-                    duration = 100;
+                    duration = 120;
                     brewingTime = 60;
                     image = Resources.Load<Sprite>("Potions/potions_sleep");
                     break;

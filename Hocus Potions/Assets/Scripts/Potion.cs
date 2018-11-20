@@ -5,7 +5,7 @@ using UnityEngine;
 public class Potion : Item {
     public int brewingTime; //in minutes
 
-    int duration;  //in whole hours
+    int duration;  //in minutes
     Ingredient.Attributes? primary;
     Ingredient.Attributes? secondary;
     Ingredient.Modifiers? modifier;
