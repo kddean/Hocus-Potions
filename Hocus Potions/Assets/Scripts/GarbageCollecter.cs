@@ -77,14 +77,15 @@ public class GarbageCollecter : MonoBehaviour {
                 SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
                 sr.sprite = d.item.image;
                 go.transform.position = d.position;
-                 if (!(d.item is Ingredient)) {
-                    go.transform.localScale = new Vector3(0.3f, 0.3f, 1);
-                }
-
                 Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
                 BoxCollider2D c = go.AddComponent<BoxCollider2D>();
                 c.size = bounds;
                 c.isTrigger = true;
+
+                if (d.item is Seed) {
+                    go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+                }
+
                 Pickups p = go.AddComponent<Pickups>();
                 p.Item = d.item;
                 p.Count = d.count;

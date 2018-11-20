@@ -329,7 +329,6 @@ GameObject:
   - component: {fileID: 51494800}
   - component: {fileID: 51494802}
   - component: {fileID: 51494801}
-  - component: {fileID: 51494804}
   - component: {fileID: 51494803}
   m_Layer: 5
   m_Name: StorageSlot16
@@ -363,7 +362,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 51494799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -404,17 +403,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &51494804
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 51494799}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &65811695
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +490,6 @@ GameObject:
   - component: {fileID: 68526583}
   - component: {fileID: 68526585}
   - component: {fileID: 68526584}
-  - component: {fileID: 68526587}
   - component: {fileID: 68526586}
   m_Layer: 5
   m_Name: StorageSlot28
@@ -536,7 +523,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 68526582}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -577,17 +564,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &68526587
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 68526582}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!4 &72746447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4550098322201666, guid: 4644bfdd3c7d5624eaebd350265c0e43,
@@ -603,7 +579,6 @@ GameObject:
   - component: {fileID: 78331926}
   - component: {fileID: 78331928}
   - component: {fileID: 78331927}
-  - component: {fileID: 78331930}
   - component: {fileID: 78331929}
   m_Layer: 5
   m_Name: StorageSlot19
@@ -637,7 +612,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 78331925}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -678,17 +653,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &78331930
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 78331925}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &82770205
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +864,6 @@ GameObject:
   - component: {fileID: 163660532}
   - component: {fileID: 163660534}
   - component: {fileID: 163660533}
-  - component: {fileID: 163660536}
   - component: {fileID: 163660535}
   m_Layer: 5
   m_Name: StorageSlot3
@@ -934,7 +897,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 163660531}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -975,17 +938,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &163660536
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 163660531}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &187288360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,7 +1121,6 @@ GameObject:
   - component: {fileID: 254024042}
   - component: {fileID: 254024044}
   - component: {fileID: 254024043}
-  - component: {fileID: 254024046}
   - component: {fileID: 254024045}
   m_Layer: 5
   m_Name: StorageSlot22
@@ -1203,7 +1154,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 254024041}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1244,17 +1195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &254024046
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 254024041}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &278876857
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,9 +1430,9 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 294600441}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &313536523
 GameObject:
@@ -3200,7 +3140,6 @@ GameObject:
   - component: {fileID: 523256185}
   - component: {fileID: 523256187}
   - component: {fileID: 523256186}
-  - component: {fileID: 523256189}
   - component: {fileID: 523256188}
   m_Layer: 5
   m_Name: StorageSlot24
@@ -3234,7 +3173,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 523256184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -3275,17 +3214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &523256189
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 523256184}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &543464515
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,7 +3347,6 @@ GameObject:
   - component: {fileID: 553960816}
   - component: {fileID: 553960818}
   - component: {fileID: 553960817}
-  - component: {fileID: 553960820}
   - component: {fileID: 553960819}
   m_Layer: 5
   m_Name: StorageSlot4
@@ -3453,7 +3380,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 553960815}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -3494,17 +3421,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &553960820
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 553960815}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &582241069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3667,7 +3583,6 @@ GameObject:
   - component: {fileID: 602496487}
   - component: {fileID: 602496489}
   - component: {fileID: 602496488}
-  - component: {fileID: 602496491}
   - component: {fileID: 602496490}
   m_Layer: 5
   m_Name: StorageSlot21
@@ -3701,7 +3616,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 602496486}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -3742,17 +3657,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &602496491
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 602496486}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &614006572
 GameObject:
   m_ObjectHideFlags: 0
@@ -3967,7 +3871,6 @@ GameObject:
   - component: {fileID: 688805675}
   - component: {fileID: 688805677}
   - component: {fileID: 688805676}
-  - component: {fileID: 688805679}
   - component: {fileID: 688805678}
   m_Layer: 5
   m_Name: StorageSlot14
@@ -4001,7 +3904,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 688805674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -4042,17 +3945,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &688805679
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 688805674}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &693292291
 GameObject:
   m_ObjectHideFlags: 0
@@ -4063,7 +3955,6 @@ GameObject:
   - component: {fileID: 693292292}
   - component: {fileID: 693292294}
   - component: {fileID: 693292293}
-  - component: {fileID: 693292296}
   - component: {fileID: 693292295}
   m_Layer: 5
   m_Name: StorageSlot30
@@ -4097,7 +3988,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 693292291}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -4138,17 +4029,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &693292296
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 693292291}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &702473185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4311,7 +4191,6 @@ GameObject:
   - component: {fileID: 728497849}
   - component: {fileID: 728497851}
   - component: {fileID: 728497850}
-  - component: {fileID: 728497853}
   - component: {fileID: 728497852}
   m_Layer: 5
   m_Name: StorageSlot18
@@ -4345,7 +4224,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 728497848}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -4386,17 +4265,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &728497853
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 728497848}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &747161759
 GameObject:
   m_ObjectHideFlags: 0
@@ -4909,7 +4777,6 @@ GameObject:
   - component: {fileID: 841660746}
   - component: {fileID: 841660748}
   - component: {fileID: 841660747}
-  - component: {fileID: 841660750}
   - component: {fileID: 841660749}
   m_Layer: 5
   m_Name: StorageSlot32
@@ -4943,7 +4810,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 841660745}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -4984,17 +4851,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &841660750
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 841660745}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &885142666
 GameObject:
   m_ObjectHideFlags: 0
@@ -5328,7 +5184,6 @@ GameObject:
   - component: {fileID: 914578512}
   - component: {fileID: 914578514}
   - component: {fileID: 914578513}
-  - component: {fileID: 914578516}
   - component: {fileID: 914578515}
   m_Layer: 5
   m_Name: StorageSlot25
@@ -5362,7 +5217,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 914578511}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -5403,17 +5258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &914578516
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 914578511}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &937642435
 GameObject:
   m_ObjectHideFlags: 0
@@ -5715,7 +5559,7 @@ Prefab:
     - target: {fileID: 114703404203343728, guid: 2877ef530d2233842b6304816ebef73b,
         type: 2}
       propertyPath: CLOCK_SPEED
-      value: 1
+      value: 1.67
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2877ef530d2233842b6304816ebef73b, type: 2}
@@ -5901,7 +5745,6 @@ GameObject:
   - component: {fileID: 997451742}
   - component: {fileID: 997451744}
   - component: {fileID: 997451743}
-  - component: {fileID: 997451746}
   - component: {fileID: 997451745}
   m_Layer: 5
   m_Name: StorageSlot11
@@ -5935,7 +5778,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 997451741}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -5976,17 +5819,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &997451746
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 997451741}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1009824236
 GameObject:
   m_ObjectHideFlags: 0
@@ -6406,7 +6238,6 @@ GameObject:
   - component: {fileID: 1045427043}
   - component: {fileID: 1045427045}
   - component: {fileID: 1045427044}
-  - component: {fileID: 1045427047}
   - component: {fileID: 1045427046}
   m_Layer: 5
   m_Name: StorageSlot20
@@ -6440,7 +6271,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1045427042}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -6481,17 +6312,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1045427047
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1045427042}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1058573446
 GameObject:
   m_ObjectHideFlags: 0
@@ -8687,7 +8507,6 @@ GameObject:
   - component: {fileID: 1066140310}
   - component: {fileID: 1066140312}
   - component: {fileID: 1066140311}
-  - component: {fileID: 1066140314}
   - component: {fileID: 1066140313}
   m_Layer: 5
   m_Name: StorageSlot1
@@ -8721,7 +8540,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066140309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -8762,17 +8581,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1066140314
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1066140309}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1074166575
 GameObject:
   m_ObjectHideFlags: 0
@@ -8783,7 +8591,6 @@ GameObject:
   - component: {fileID: 1074166576}
   - component: {fileID: 1074166578}
   - component: {fileID: 1074166577}
-  - component: {fileID: 1074166580}
   - component: {fileID: 1074166579}
   m_Layer: 5
   m_Name: StorageSlot26
@@ -8817,7 +8624,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1074166575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -8858,17 +8665,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1074166580
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1074166575}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1091372928
 GameObject:
   m_ObjectHideFlags: 0
@@ -8879,7 +8675,6 @@ GameObject:
   - component: {fileID: 1091372929}
   - component: {fileID: 1091372931}
   - component: {fileID: 1091372930}
-  - component: {fileID: 1091372933}
   - component: {fileID: 1091372932}
   m_Layer: 5
   m_Name: StorageSlot12
@@ -8913,7 +8708,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1091372928}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -8954,17 +8749,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1091372933
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1091372928}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1114802085
 GameObject:
   m_ObjectHideFlags: 0
@@ -9050,7 +8834,6 @@ GameObject:
   - component: {fileID: 1115983967}
   - component: {fileID: 1115983969}
   - component: {fileID: 1115983968}
-  - component: {fileID: 1115983971}
   - component: {fileID: 1115983970}
   m_Layer: 5
   m_Name: StorageSlot17
@@ -9084,7 +8867,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1115983966}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -9125,17 +8908,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1115983971
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1115983966}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1132265553
 GameObject:
   m_ObjectHideFlags: 0
@@ -9499,7 +9271,6 @@ GameObject:
   - component: {fileID: 1226759952}
   - component: {fileID: 1226759954}
   - component: {fileID: 1226759953}
-  - component: {fileID: 1226759956}
   - component: {fileID: 1226759955}
   m_Layer: 5
   m_Name: StorageSlot6
@@ -9533,7 +9304,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226759951}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -9574,17 +9345,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1226759956
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1226759951}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1235515690
 GameObject:
   m_ObjectHideFlags: 0
@@ -10288,7 +10048,6 @@ GameObject:
   - component: {fileID: 1341006902}
   - component: {fileID: 1341006904}
   - component: {fileID: 1341006903}
-  - component: {fileID: 1341006906}
   - component: {fileID: 1341006905}
   m_Layer: 5
   m_Name: StorageSlot13
@@ -10322,7 +10081,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1341006901}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -10363,17 +10122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1341006906
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1341006901}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1343759741
 GameObject:
   m_ObjectHideFlags: 0
@@ -10764,7 +10512,6 @@ GameObject:
   - component: {fileID: 1393979237}
   - component: {fileID: 1393979239}
   - component: {fileID: 1393979238}
-  - component: {fileID: 1393979241}
   - component: {fileID: 1393979240}
   m_Layer: 5
   m_Name: StorageSlot2
@@ -10798,7 +10545,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1393979236}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -10839,17 +10586,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1393979241
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1393979236}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1402961490
 GameObject:
   m_ObjectHideFlags: 0
@@ -10860,7 +10596,6 @@ GameObject:
   - component: {fileID: 1402961491}
   - component: {fileID: 1402961493}
   - component: {fileID: 1402961492}
-  - component: {fileID: 1402961495}
   - component: {fileID: 1402961494}
   m_Layer: 5
   m_Name: StorageSlot7
@@ -10894,7 +10629,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402961490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -10935,17 +10670,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1402961495
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1402961490}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1405365112
 GameObject:
   m_ObjectHideFlags: 0
@@ -12266,7 +11990,6 @@ GameObject:
   - component: {fileID: 1575283729}
   - component: {fileID: 1575283731}
   - component: {fileID: 1575283730}
-  - component: {fileID: 1575283733}
   - component: {fileID: 1575283732}
   m_Layer: 5
   m_Name: StorageSlot15
@@ -12300,7 +12023,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1575283728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -12341,17 +12064,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1575283733
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1575283728}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1577694048
 GameObject:
   m_ObjectHideFlags: 0
@@ -12439,7 +12151,6 @@ GameObject:
   - component: {fileID: 1592659749}
   - component: {fileID: 1592659751}
   - component: {fileID: 1592659750}
-  - component: {fileID: 1592659753}
   - component: {fileID: 1592659752}
   m_Layer: 5
   m_Name: StorageSlot9
@@ -12473,7 +12184,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1592659748}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -12514,17 +12225,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1592659753
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1592659748}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1599375162
 GameObject:
   m_ObjectHideFlags: 0
@@ -12535,7 +12235,6 @@ GameObject:
   - component: {fileID: 1599375163}
   - component: {fileID: 1599375165}
   - component: {fileID: 1599375164}
-  - component: {fileID: 1599375167}
   - component: {fileID: 1599375166}
   m_Layer: 5
   m_Name: StorageSlot31
@@ -12569,7 +12268,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1599375162}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -12610,17 +12309,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1599375167
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1599375162}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1612660894
 GameObject:
   m_ObjectHideFlags: 0
@@ -12631,7 +12319,6 @@ GameObject:
   - component: {fileID: 1612660895}
   - component: {fileID: 1612660897}
   - component: {fileID: 1612660896}
-  - component: {fileID: 1612660899}
   - component: {fileID: 1612660898}
   m_Layer: 5
   m_Name: StorageSlot10
@@ -12665,7 +12352,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1612660894}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -12706,17 +12393,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1612660899
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1612660894}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1626374215
 GameObject:
   m_ObjectHideFlags: 0
@@ -13097,7 +12773,6 @@ GameObject:
   - component: {fileID: 1670560829}
   - component: {fileID: 1670560831}
   - component: {fileID: 1670560830}
-  - component: {fileID: 1670560833}
   - component: {fileID: 1670560832}
   m_Layer: 5
   m_Name: StorageSlot29
@@ -13131,7 +12806,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1670560828}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -13172,17 +12847,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1670560833
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1670560828}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1739030055
 GameObject:
   m_ObjectHideFlags: 0
@@ -13193,7 +12857,6 @@ GameObject:
   - component: {fileID: 1739030056}
   - component: {fileID: 1739030058}
   - component: {fileID: 1739030057}
-  - component: {fileID: 1739030060}
   - component: {fileID: 1739030059}
   m_Layer: 5
   m_Name: StorageSlot5
@@ -13227,7 +12890,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1739030055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -13268,17 +12931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &1739030060
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1739030055}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1743659370
 GameObject:
   m_ObjectHideFlags: 0
@@ -14293,6 +13945,56 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114876813527752756, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114313911183292674, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114001331380022164, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114940666776619838, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114773288689295212, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114057888139039940, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114980535079384280, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114106423566005198, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114996114355471498, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114780826667570526, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2d4fecde027566448e92e0d48322629, type: 2}
@@ -15715,7 +15417,6 @@ GameObject:
   - component: {fileID: 2012623487}
   - component: {fileID: 2012623489}
   - component: {fileID: 2012623488}
-  - component: {fileID: 2012623491}
   - component: {fileID: 2012623490}
   m_Layer: 5
   m_Name: StorageSlot8
@@ -15749,7 +15450,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2012623486}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -15790,17 +15491,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &2012623491
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2012623486}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &2021510728
 GameObject:
   m_ObjectHideFlags: 0
@@ -16372,7 +16062,6 @@ GameObject:
   - component: {fileID: 2089339605}
   - component: {fileID: 2089339607}
   - component: {fileID: 2089339606}
-  - component: {fileID: 2089339609}
   - component: {fileID: 2089339608}
   m_Layer: 5
   m_Name: StorageSlot23
@@ -16406,7 +16095,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2089339604}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -16447,17 +16136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &2089339609
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2089339604}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &2091596631
 GameObject:
   m_ObjectHideFlags: 0
@@ -16623,7 +16301,6 @@ GameObject:
   - component: {fileID: 2130942746}
   - component: {fileID: 2130942748}
   - component: {fileID: 2130942747}
-  - component: {fileID: 2130942750}
   - component: {fileID: 2130942749}
   m_Layer: 5
   m_Name: StorageSlot27
@@ -16657,7 +16334,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2130942745}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -16698,17 +16375,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStack: 10
   count: 0
---- !u!225 &2130942750
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2130942745}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!213 &2133804061
 Sprite:
   m_ObjectHideFlags: 0

@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class ResourceLoader : MonoBehaviour {
 
-    public Inventory inv;
     public Garden garden;
     public GatheringManager gatheringManager;
-    public InventoryManager activeItem;
+    public InventorySlot activeItem;
     public Dictionary<string, Ingredient> ingredients;
     public Dictionary<string, Seed> seeds;
     public Dictionary<string, Dictionary<string, List<string>>> dialogueList;
@@ -52,7 +51,7 @@ public class ResourceLoader : MonoBehaviour {
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
         //Just for force spawning inventory items for testing
-        inv.Testing();
+        Inventory.Testing();
 
     }
 
@@ -83,8 +82,8 @@ public class ResourceLoader : MonoBehaviour {
             { "lily", new Seed("lily", 180, 5, "Lily Seed", Resources.Load<Sprite>("Seeds/lily_seed")) }
         };
     }
-    void CreateInventory() {
-        inv = new Inventory();
+
+    void CreateInventory() {     
         /*if(save file exists){
              pull data from that to fill inventory
           } */

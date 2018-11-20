@@ -23,18 +23,8 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         invPanel = GameObject.FindGameObjectWithTag("inventory");
         sm = GameObject.Find("StorageManager").GetComponent<StorageManager>();
         StorageManager.StoreageData temp;
-        if(sm.storageChest.TryGetValue(gameObject.name, out temp)){
-            item = temp.item;
-            count = temp.count;
-            transform.SetSiblingIndex(temp.index);
-            transform.localPosition = temp.position;
-            if (item != null) {
-                GetComponent<Image>().sprite = item.image;
-                GetComponentInChildren<Text>().text = count.ToString();
-                GetComponent<CanvasGroup>().alpha = 1;
-            }
-        } else {
-            sm.storageChest.Add(gameObject.name, new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition));
+        if (!sm.storageChest.TryGetValue(gameObject.name, out temp)) {
+            sm.storageChest.Add(gameObject.name, new StorageManager.StoreageData(null, 0, transform.GetSiblingIndex(), transform.localPosition));
         }
     }
 
@@ -51,95 +41,127 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if(item == null) {
+        transform.parent.GetComponent<Canvas>().sortingOrder = 0;
+        if (item == null) {
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
             return;
         }
-        transform.parent.GetComponent<Canvas>().sortingOrder = 0;
-        if (invPanel.GetComponent<CanvasGroup>().alpha != 0 && RectTransformUtility.RectangleContainsScreenPoint(invPanel.transform as RectTransform, Input.mousePosition)) {               //Dragging items into inventory
+        bool filledStack = false;
+        if (invPanel.GetComponent<CanvasGroup>().alpha != 0 && RectTransformUtility.RectangleContainsScreenPoint(invPanel.transform as RectTransform, Input.mousePosition)) { //Putting items into inventory
             Button[] invButtons = invPanel.GetComponentsInChildren<Button>();
-            foreach (Button b in invButtons) {
-                InventoryManager im = b.GetComponent<InventoryManager>();
-                if (im.item != null && im.item.item == item && im.item.count != im.item.maxStack) {                                  //filling stacks
-                    while (im.item.count < im.item.maxStack && count > 0) {
-                        im.item.count++;
-                        count--;
-                    }
-                    if (count == 0) {
-                        item = null;
-                        GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0;
-                    } 
-                    im.gameObject.GetComponentInChildren<Text>().text = im.item.count.ToString();
-                    gameObject.GetComponentInChildren<Text>().text = count.ToString();
-                    done = true;
-                }
-            }
-
-            if (!done) {
-                Item tempItem = item;
-                int tempCount = count;
-
-                foreach (Button b in invButtons) {
-                    if (RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
-                        InventoryManager im = b.GetComponent<InventoryManager>();
-                        if (im.item == null && item != null) {
-                            im.item = new Inventory.InventoryItem(item, count, maxStack);
-                            im.gameObject.GetComponent<Image>().sprite = item.image;
-                            im.gameObject.GetComponentInChildren<Text>().text = count.ToString();
-                            item = null;
-                            count = 0;
-                            GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0;
-                            GetComponent<Image>().sprite = null;
-                            rl.inv.inventory.Add(new Inventory.InventoryItem(im.item.item, im.item.count, im.item.maxStack));
-                        } else if (im.item != null && item != null) {
-                            item = im.item.item;
-                            count = im.item.count;
-                            GetComponent<Image>().sprite = item.image;
-                            GetComponentInChildren<Text>().text = count.ToString();
-                            im.item.item = tempItem;
-                            im.item.count = tempCount;
-                            im.gameObject.GetComponent<Image>().sprite = tempItem.image;
-                            im.gameObject.GetComponentInChildren<Text>().text = tempCount.ToString();
-                        }
-                    }
-                }
-            }
-
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
-        } else if (RectTransformUtility.RectangleContainsScreenPoint(startingParent as RectTransform, Input.mousePosition)) {            //swapping slots
-            Image[] slots = startingParent.GetComponentsInChildren<Image>();
-            for (int i = 1; i < slots.Length; i++) {
-                if (slots[i] != gameObject.GetComponent<Image>() && RectTransformUtility.RectangleContainsScreenPoint(slots[i].transform as RectTransform, Input.mousePosition)) {
-                    transform.SetParent(startingParent);
-                    transform.localPosition = slots[i].transform.localPosition;
-                    transform.SetSiblingIndex(slots[i].transform.GetSiblingIndex());
-                    slots[i].transform.localPosition = temp;
-                    slots[i].transform.SetSiblingIndex(index);
-                    done = true;
-                    sm.storageChest[slots[i].name] = new StorageManager.StoreageData(slots[i].GetComponent<StorageSlot>().item, slots[i].GetComponent<StorageSlot>().count, slots[i].transform.GetSiblingIndex(), slots[i].transform.localPosition);
+            foreach (Button b in invButtons) {
+                InventorySlot im = b.GetComponent<InventorySlot>();
+
+                //Filling a stack
+                if(im.item != null && im.item.item.name == item.name) {
+                    while(im.item.count < im.item.maxStack && count > 0) {
+                        im.item.count++;
+                        count--;
+                    }
+                    
+                    //Update chest slot 
+                    if(count == 0) {
+                        gameObject.GetComponent<Image>().enabled = false;
+                        gameObject.GetComponentInChildren<Text>().text = "";
+                        item = null;                     
+                    } else {
+                        if (count != 1) {
+                            gameObject.GetComponentInChildren<Text>().text = count.ToString();
+                        } else {
+                            gameObject.GetComponentInChildren<Text>().text = "";
+                        }
+                    }
+
+                    //Update inventory slot
+                    im.gameObject.GetComponentInChildren<Text>().text = im.item.count.ToString();
+
+                    sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+                    filledStack = true;
                     break;
                 }
             }
-            if (!done) {
-                transform.SetParent(startingParent);
-                transform.localPosition = temp;
-                transform.SetSiblingIndex(index);
+
+            //Adding to inventory or swapping with an existing item
+            if (!filledStack) {
+                foreach(Button b in invButtons) {
+                    if(RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
+                        InventorySlot im = b.GetComponent<InventorySlot>();
+                        if (im.item == null) {
+                            im.item = new Inventory.InventoryItem(item, count);
+                            im.gameObject.GetComponent<Image>().enabled = true;
+                            im.gameObject.GetComponent<Image>().sprite = item.image;
+                            if (count > 1) {
+                                im.gameObject.GetComponentInChildren<Text>().text = count.ToString();
+                            } else {
+                                im.gameObject.GetComponentInChildren<Text>().text = "";
+                            }
+                            item = null;
+                            count = 0;
+                            gameObject.GetComponent<Image>().enabled = false;
+                            gameObject.GetComponentInChildren<Text>().text = "";
+
+                            sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+                        } else {
+                            Item tempItem = item;
+                            int tempCount = count;
+                            item = im.item.item;
+                            count = im.item.count;
+                            im.item.item = tempItem;
+                            im.item.count = tempCount;
+                            im.gameObject.GetComponent<Image>().sprite = tempItem.image;
+                            if (tempCount > 1) {
+                                im.gameObject.GetComponentInChildren<Text>().text = tempCount.ToString();
+                            } else {
+                                im.gameObject.GetComponentInChildren<Text>().text = "";
+                            }
+
+                            gameObject.GetComponent<Image>().sprite = item.image;
+                            if (count > 1) {
+                                gameObject.GetComponentInChildren<Text>().text = count.ToString();
+                            } else {
+                                gameObject.GetComponentInChildren<Text>().text = "";
+                            }
+                            sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+                        }
+                        break;
+                    }
+                }
+
             }
-        } else {                                                                                                                        //reset it
+
+
+        } else if(RectTransformUtility.RectangleContainsScreenPoint(startingParent as RectTransform, Input.mousePosition)) {            //Rearranging items in chest
+            StorageSlot[] slots = startingParent.GetComponentsInChildren<StorageSlot>();
+            foreach(StorageSlot s in slots) {
+                if(s != this && RectTransformUtility.RectangleContainsScreenPoint(s.gameObject.transform as RectTransform, Input.mousePosition)) {
+                    transform.SetParent(startingParent);
+                    transform.SetSiblingIndex(index);
+                    transform.localPosition = s.transform.localPosition;
+                    transform.SetSiblingIndex(s.transform.GetSiblingIndex());
+                    s.transform.localPosition = temp;
+                    s.transform.SetSiblingIndex(index);
+                    sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+                    sm.storageChest[s.name] = new StorageManager.StoreageData(s.GetComponent<StorageSlot>().item, s.GetComponent<StorageSlot>().count, s.transform.GetSiblingIndex(), s.transform.localPosition);
+                    return;
+                }
+            }
+            transform.SetParent(startingParent);
+            transform.localPosition = temp;
+            transform.SetSiblingIndex(index);
+        } else {                                        //dragging into empty space
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
         }
-        done = false;
-        sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+
     }
 
-
-    public void UpdatedDict() {
+    public void UpdateDict() {
         sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
     }
 }

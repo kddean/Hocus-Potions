@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             if (rl.activeItem.item.item is Potion && (rl.activeItem.item.item != lastTaken)) {
                 lastTaken = rl.activeItem.item.item as Potion;
                 StartCoroutine(HandlePotions(rl.activeItem.item.item as Potion));
-                rl.inv.RemoveItem(rl.activeItem.item);
+                Inventory.RemoveItem(rl.activeItem);
             }
         }
     }

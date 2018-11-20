@@ -35,12 +35,14 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
 
     public void OnPointerDown(PointerEventData eventData) {
         if(player.Status.Contains(Player.PlayerStatus.asleep)) { return; }
-        if (rl.inv.Add(item, count, 10)) {
+
+        if (Inventory.Add(item, count)) {
             gc.RemoveItem(item, data.position, data.scene);
             Destroy(this.gameObject);
         } else {
             //TODO: probably play an animation or something to show you can't pick it up
         }
+        
     }
 
     // Use this for initialization

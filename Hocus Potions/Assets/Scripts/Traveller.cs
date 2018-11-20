@@ -173,7 +173,7 @@ public class Traveller : NPC, IPointerDownHandler {
                 data.given.RemoveAt(0);
                 data.given.Add(given);
             }
-            rl.inv.RemoveItem(rl.activeItem.item);
+            Inventory.RemoveItem(rl.activeItem);
 
             if (rl.npcGivenList.TryGetValue(CharacterName, out givenObjects)) { //add the item to the list of stuff you've given them before
                 if (givenObjects.Count == rl.givenListMax) {
@@ -359,50 +359,88 @@ public class Traveller : NPC, IPointerDownHandler {
 
     IEnumerator PotionEffects(Potion pot) {
         effects.SetActive(true);
-        string effect = pot.Primary.ToString();
+        Ingredient.Attributes? type = pot.Primary;
         Animator anim = GetComponentInChildren<Animator>();
-        anim.SetBool(effect, true);
 
-        switch (effect) {
-            case "Invisible":
+        switch (type) {
+            case Ingredient.Attributes.healing:
+                anim.SetBool("Healing", true);
+                break;
+            case Ingredient.Attributes.invisibility:
+                anim.SetBool("Invisible", true);
+                anim.Play("Invisible", 0, 0);
+                yield return new WaitForSeconds(0.83f);
+                anim.SetBool("Invisible", false);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.25f;
                 GetComponent<SpriteRenderer>().color = c;
                 break;
-            case "Sleep":
+            case Ingredient.Attributes.mana:
+                anim.SetBool("Mana", true);
+                break;
+            case Ingredient.Attributes.none:
+                break;
+            case Ingredient.Attributes.poison:
+                anim.SetBool("Poison", true);
+                break;
+            case Ingredient.Attributes.sleep:
+                anim.SetBool("Sleep", true);
                 asleep = true;
                 break;
-            case "Transformation":
+            case Ingredient.Attributes.speed:
+                anim.SetBool("Speed", true);
+                break;
+            case Ingredient.Attributes.transformation:
+                anim.SetBool("Transformation", true);
                 anim.Play("Transformation", 0, 0);
-                yield return new WaitForSeconds(0.92f);
+                yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
+                anim.SetBool("Transformation", false);
                 break;
             default:
                 break;
         }
 
-        yield return new WaitForSeconds(3);
-        anim.SetBool(effect, false);
-        switch (effect) {
-            case "Invisible":
+        yield return new WaitForSeconds((pot.Duration / 10) * mc.CLOCK_SPEED);
+
+        switch (type) {
+            case Ingredient.Attributes.healing:
+                anim.SetBool("Healing", false);
+                break;
+            case Ingredient.Attributes.invisibility:
+                anim.SetBool("Invisible", true);
+                anim.Play("Invisible", 0, 0);
+                yield return new WaitForSeconds(0.83f);
+                anim.SetBool("Invisible", false);
                 Color c = GetComponent<SpriteRenderer>().color;
-                c.a = 1.0f;
+                c.a = 0.25f;
                 GetComponent<SpriteRenderer>().color = c;
                 break;
-            case "Sleep":
+            case Ingredient.Attributes.mana:
+                anim.SetBool("Mana", false);
+                break;
+            case Ingredient.Attributes.none:
+                break;
+            case Ingredient.Attributes.poison:
+                anim.SetBool("Poison", false);
+                break;
+            case Ingredient.Attributes.sleep:
+                anim.SetBool("Sleep", false);
                 asleep = false;
                 break;
-            case "Transformation":
-                anim.SetBool(effect, true);
+            case Ingredient.Attributes.speed:
+                anim.SetBool("Speed", false);
+                break;
+            case Ingredient.Attributes.transformation:
+                anim.SetBool("Transformation", true);
                 anim.Play("Transformation", 0, 0);
-                yield return new WaitForSeconds(0.9f);
+                yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = rl.charSpriteList[CharacterName];
-                anim.SetBool(effect, false);
+                anim.SetBool("Transformation", false);
                 break;
             default:
                 break;
         }
-
         effects.SetActive(false);
     }
 

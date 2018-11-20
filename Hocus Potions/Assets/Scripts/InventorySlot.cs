@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
     Transform startingParent;
     Transform canvas;
@@ -48,15 +48,18 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnMouseEnter() {
          if (item != null && !dragging) {
-            text = tooltip.GetComponentsInChildren<Text>();
-            text[0].text = item.item.name;
-            //text[1].text = item.flavorText;
-            //text[2].text = item.attributes;
-            tooltip.GetComponent<CanvasGroup>().alpha = 1;
-            hovered = true;
+            displayTooltip();
         }
     }
 
+    void displayTooltip() {
+        text = tooltip.GetComponentsInChildren<Text>();
+        text[0].text = item.item.name;
+        //text[1].text = item.flavorText;
+        //text[2].text = item.attributes;
+        tooltip.GetComponent<CanvasGroup>().alpha = 1;
+        hovered = true;
+    }
 
     public void OnMouseExit() {
         tooltip.GetComponent<CanvasGroup>().alpha = 0;
@@ -69,7 +72,6 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         index = transform.GetSiblingIndex();
         canvas = transform.parent.parent.transform;
         transform.SetParent(canvas);
-        hovered = false;
         tooltip.GetComponent<CanvasGroup>().alpha = 0;
         dragging = true;
         triedBrewing = false;
@@ -82,13 +84,14 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData) {
         canvas.GetComponent<Canvas>().sortingOrder = 0;
-        if(item == null) {
+        if (item == null) {
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
             dragging = false;
             return;
         }
+        //Initialize images if in the house
         if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active) {
             first = GameObject.Find("Ingredient1").GetComponent<Image>();
             second = GameObject.Find("Ingredient2").GetComponent<Image>();
@@ -98,45 +101,57 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             thirdIcon = third.GetComponentsInChildren<Image>()[1];
         }
 
-        Button[] invButtons = transform.parent.gameObject.GetComponentsInChildren<Button>();
-        RectTransform invPanel = GameObject.FindGameObjectWithTag("inventory").transform as RectTransform;
-        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
-        if (RectTransformUtility.RectangleContainsScreenPoint(invPanel, Input.mousePosition)) {
-            set = false;
+        Button[] invButtons = startingParent.gameObject.GetComponentsInChildren<Button>();
+
+        //Dragging within inventory panel
+        if (RectTransformUtility.RectangleContainsScreenPoint(startingParent as RectTransform, Input.mousePosition)) {
             //check which slot to swap with
             foreach (Button b in invButtons) {
-                if (b != this.gameObject.GetComponent<Button>() && RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
-                    transform.SetParent(startingParent);
-                    InventoryManager otherMgr = b.GetComponent<InventoryManager>();
-                    transform.localPosition = b.transform.localPosition;
-                    transform.SetSiblingIndex(b.transform.GetSiblingIndex());
-                    b.transform.localPosition = temp;
-                    b.transform.SetSiblingIndex(index);
+                if (b != gameObject.GetComponent<Button>() && RectTransformUtility.RectangleContainsScreenPoint(b.transform as RectTransform, Input.mousePosition)) {
+                    InventorySlot slot = b.GetComponent<InventorySlot>();
+                    //Combining stacks
+                    if (slot.item != null && slot.item.item.name == item.item.name && slot.item.count < slot.item.maxStack) {
+                        while (slot.item.count < slot.item.maxStack && item.count > 0) {
+                            slot.item.count++;
+                            item.count--;
+                        }
 
-                    //check if combining stacks
-                    if (item != null && item.count != item.maxStack && otherMgr.item != null && otherMgr.item.item.name.Equals(item.item.name)) {
-                        while (item.count < item.maxStack && otherMgr.item.count != 0) {
-                            otherMgr.item.count--;
-                            item.count++;
-                        }
-                        GetComponent<Button>().GetComponentInChildren<Text>().text = item.count.ToString();
-                        if (otherMgr.item.count <= 0) {
-                            rl.inv.RemoveStack(otherMgr.item, b);
+                        slot.gameObject.GetComponentInChildren<Text>().text = slot.item.count.ToString();
+
+                        if (item.count == 0) {
+                            Inventory.RemoveStack(this);
                         } else {
-                            b.GetComponentInChildren<Text>().text = otherMgr.item.count.ToString();
+                            if (item.count > 1) {
+                                gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
+                            } else {
+                                gameObject.GetComponentInChildren<Text>().text = "";
+                            }
                         }
+
+                        transform.SetParent(startingParent);
+                        transform.localPosition = temp;
+                        transform.SetSiblingIndex(index);
+                        dragging = false;
+                        return;
+                    } else {
+                        transform.SetParent(startingParent);
+                        transform.SetSiblingIndex(index);
+                        transform.localPosition = b.transform.localPosition;
+                        transform.SetSiblingIndex(b.transform.GetSiblingIndex());
+                        b.transform.localPosition = temp;
+                        b.transform.SetSiblingIndex(index);
+                        dragging = false;
+                        return;
                     }
 
-                    set = true;
-                    break;
+                } else {
+                    transform.SetParent(startingParent);
+                    transform.localPosition = temp;
+                    transform.SetSiblingIndex(index);
+                    dragging = false;
                 }
             }
-            //if it's in it's original spot just snap it back
-            if (!set) {
-                transform.SetParent(startingParent);
-                transform.localPosition = temp;
-                transform.SetSiblingIndex(index);
-            }
+            displayTooltip();
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(first.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(first, firstIcon, 0);
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(second.transform as RectTransform, Input.mousePosition)) {
@@ -144,78 +159,83 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(third, thirdIcon, 2);
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("StorageChest").GetComponent<StorageChest>().active && RectTransformUtility.RectangleContainsScreenPoint(GameObject.FindGameObjectWithTag("storage").transform as RectTransform, Input.mousePosition)) {
-            GameObject storagePanel = GameObject.FindGameObjectWithTag("storage");
-            StorageSlot[] slots = storagePanel.GetComponentsInChildren<StorageSlot>();
-            foreach (StorageSlot s in slots) {
-                if (s.item != null && s.item == item.item && s.count != s.maxStack) {
-                    while (item.count > 0 && s.count < s.maxStack) {
-                        item.count--;
-                        s.count++;
-                    }
-
-                    if (item.count == 0) {
-                        rl.inv.RemoveStack(item, gameObject.GetComponent<Button>());
-                        
-                    } else {
-                        gameObject.GetComponent<Image>().sprite = item.item.image;
-                        gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
-                    }
-                    s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
-                    s.gameObject.GetComponent<Image>().sprite = s.item.image;
-                    transform.SetParent(startingParent);
-                    transform.localPosition = temp;
-                    transform.SetSiblingIndex(index);
-                    filledStack = true;
-                    s.UpdatedDict();
-                }
-            }
-
-            if (!filledStack) {
-                foreach (StorageSlot s in slots) {
-                    if (RectTransformUtility.RectangleContainsScreenPoint(s.gameObject.transform as RectTransform, Input.mousePosition)) {
-                        if (s.item != null) {
-                            Item tempItem = s.item;
-                            int tempCount = s.count;
-                            s.item = item.item;
-                            s.count = item.count;
-                            s.gameObject.GetComponent<Image>().sprite = s.item.image;
-                            s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
-                            item.item = tempItem;
-                            item.count = tempCount;
-                            gameObject.GetComponent<Image>().sprite = item.item.image;
-                            gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
-                            transform.SetParent(startingParent);
-                            transform.localPosition = temp;
-                            transform.SetSiblingIndex(index);
-                            s.UpdatedDict();
-                        } else {
-                            s.item = item.item;
-                            s.count = item.count;
-                            s.gameObject.GetComponent<Image>().sprite = s.item.image;
-                            s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
-                            s.gameObject.GetComponent<CanvasGroup>().alpha = 1;
-                            rl.inv.RemoveStack(item, gameObject.GetComponent<Button>());
-                            s.UpdatedDict();
-                        }
-                    }
-                }
-                transform.SetParent(startingParent);
-                transform.localPosition = temp;
-                transform.SetSiblingIndex(index);
-            }
-            filledStack = false;
-        } else {
-
-            //if player drags it out of inventory
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
-            rl.inv.DropItem(item, GetComponent<Button>());
-        }
-        set = false;
-        if (item != null && !triedBrewing) {
-            hovered = true;
-            tooltip.GetComponent<CanvasGroup>().alpha = 1;
+            dragging = false;
+            StorageSlot[] slots = GameObject.FindGameObjectWithTag("storage").GetComponentsInChildren<StorageSlot>();
+            foreach (StorageSlot s in slots) {
+                //Filling a stack
+                if (s.item != null && s.item.name == item.item.name && s.count < s.maxStack) {
+                    while (s.count < s.maxStack && item.count > 0) {
+                        s.count++;
+                        item.count--;
+                    }
+
+                    if (item.count == 0) {
+                        Inventory.RemoveStack(this);
+                    } else {
+                        if (item.count > 1) {
+                            gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
+                        } else {
+                            gameObject.GetComponentInChildren<Text>().text = "";
+                        }
+                    }
+
+                    s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
+                    s.UpdateDict();
+                    return;
+                }
+
+            }
+
+            //Adding to storage chest
+            foreach (StorageSlot s in slots) {
+                if (RectTransformUtility.RectangleContainsScreenPoint(s.transform as RectTransform, Input.mousePosition)) {
+                    if (s.item == null) {
+                        s.item = item.item;
+                        s.count = item.count;
+                        s.gameObject.GetComponent<Image>().enabled = true;
+                        s.gameObject.GetComponent<Image>().sprite = item.item.image;
+                        s.UpdateDict();
+                        if (item.count > 1) {
+                            s.gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
+                        } else {
+                            s.gameObject.GetComponentInChildren<Text>().text = "";
+                        }
+                        Inventory.RemoveStack(this);
+                    } else {                            //Swapping with item in chest
+                        Item tempItem = item.item;
+                        int tempCount = item.count;
+                        item.item = s.item;
+                        item.count = s.count;
+                        s.item = tempItem;
+                        s.count = tempCount;
+
+                        s.gameObject.GetComponent<Image>().sprite = s.item.image;
+                        gameObject.GetComponent<Image>().sprite = item.item.image;
+                        if (s.count > 1) {
+                            s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
+                        } else {
+                            s.gameObject.GetComponentInChildren<Text>().text = "";
+                        }
+                        if (item.count > 1) {
+                            gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
+                        } else {
+                            gameObject.GetComponentInChildren<Text>().text = "";
+                        }
+                        s.UpdateDict();
+                    }
+
+                }
+            }
+
+          //if player drags it out of inventory
+        } else { 
+            transform.SetParent(startingParent);
+            transform.localPosition = temp;
+            transform.SetSiblingIndex(index);
+            Inventory.DropItem(this);
         }
         dragging = false;
     }
@@ -236,15 +256,15 @@ public class InventoryManager : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                 }
             }
             Ingredient temp = item.item as Ingredient;
-            rl.inv.RemoveItem(item);
+            Inventory.RemoveItem(this);
             if (ings[i] != null) {
-                if (rl.inv.Add(ings[i], 1, 10)) {
+                if (Inventory.Add(ings[i], 1)) {
                     ings[i] = temp;
                     icon.sprite = temp.image;
                     Text[] text = slot.GetComponentsInChildren<Text>();
                     text[0].text = temp.name;
                 } else {
-                    rl.inv.Add(temp, 1, item.maxStack);
+                   Inventory.Add(temp, 1);
                 }
             } else {
                 ings[i] = temp;

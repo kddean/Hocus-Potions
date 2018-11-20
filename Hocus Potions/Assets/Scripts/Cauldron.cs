@@ -140,7 +140,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             }
 
             foreach (Button b in invButtons) {
-                if (b.GetComponent<InventoryManager>().item != null && !(b.GetComponent<InventoryManager>().item.item is Ingredient)) {
+                if (b.GetComponent<InventorySlot>().item != null && !(b.GetComponent<InventorySlot>().item.item is Ingredient)) {
                     Color c = b.image.color;
                     c.a = 0.25f;
                     b.image.color = c;
@@ -172,7 +172,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     }
 
     public void TakePotion() {
-        if (GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>().inv.Add(pot, 1, 10)) {
+        if (Inventory.Add(pot, 1)) {
             potionName.text = "";
             potionImage.GetComponent<CanvasGroup>().alpha = 0;
 
@@ -225,7 +225,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     }
 
     public void RemoveIngredient(int i) {
-        if (rl.brewingIngredients[i] != null && rl.inv.Add(rl.brewingIngredients[i], 1, 10)) {
+        if (rl.brewingIngredients[i] != null && Inventory.Add(rl.brewingIngredients[i], 1)) {
             rl.ingredientCount--;
             switch (i) {
                 case 0:

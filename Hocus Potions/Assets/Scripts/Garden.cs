@@ -60,7 +60,7 @@ public class Garden : MonoBehaviour {
                 //Add plot to dict
                 plots.Add(plot.gameObject.name, newData);
                 //Remove seed from inv
-                rl.inv.RemoveItem(rl.activeItem.item);
+                Inventory.RemoveItem(rl.activeItem);
                 //Set plot sprite
                 SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
                 for (int i = 1; i < 4; i++) {
@@ -75,7 +75,7 @@ public class Garden : MonoBehaviour {
     //Handles harvesting plots and adding ingredients to inventory
     void Harvest(GardenPlot plot) {
         PlotData data = plots[plot.gameObject.name];
-        if (rl.inv.Add(rl.ingredients[data.type], 1, 10)) {
+        if (Inventory.Add(rl.ingredients[data.type], 1)) {
             SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
             for (int i = 1; i < 4; i++) {
                 sr[i].sprite = null;
