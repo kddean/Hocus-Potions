@@ -14,6 +14,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     Potion lastTaken;
     List<PlayerStatus> status;
     SpriteRenderer sr;
+    public GameObject fadeScreen, sleepCanvas;
 
     public List<PlayerStatus> Status {
         get {
@@ -22,6 +23,16 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
         set {
             status = value;
+        }
+    }
+
+    public float Speed {
+        get {
+            return speed;
+        }
+
+        set {
+            speed = value;
         }
     }
 
@@ -36,7 +47,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         anim = GetComponentInChildren<Animator>();
         Status = new List<PlayerStatus>();
-        speed = defaultSpeed;
+        Speed = defaultSpeed;
         sr = GetComponent<SpriteRenderer>();
     }
 
@@ -66,8 +77,8 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         } else if (Input.GetKey("d")) {
             x = 1;
         }
-        pos.x += x * speed * Time.deltaTime;
-        pos.y += y * speed * Time.deltaTime;
+        pos.x += x * Speed * Time.deltaTime;
+        pos.y += y * Speed * Time.deltaTime;
         transform.position = pos;
     }
 
@@ -100,7 +111,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 anim.SetBool("Healing", true);
                 if (Status.Contains(PlayerStatus.poisoned)) {
                     Status.Remove(PlayerStatus.poisoned);
-                    speed = defaultSpeed;
+                    Speed = defaultSpeed;
                 }
                 //TODO:Maybe add more use for this potion
                 break;
@@ -114,29 +125,36 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
             case Ingredient.Attributes.mana:
                 anim.SetBool("Mana", true);
-                //TODO: give you mana back
+                GameObject.FindObjectOfType<Mana>().CurrentMana = Mathf.Clamp(GameObject.FindObjectOfType<Mana>().CurrentMana + 50, 0, GameObject.FindObjectOfType<Mana>().MaxMana);
+                GameObject.FindObjectOfType<Mana>().UpdateMana();
                 break;
             case Ingredient.Attributes.poison:
                 anim.SetBool("Poison", true);
                 Status.Add(PlayerStatus.poisoned);
                 if (Status.Contains(PlayerStatus.fast)) {
-                    speed = defaultSpeed;
+                    Speed = defaultSpeed;
                 } else {
-                    speed = poisonedSpeed;
+                    Speed = poisonedSpeed;
                 }
                 break;
             case Ingredient.Attributes.sleep:
                 anim.SetBool("Sleep", true);
                 Status.Add(PlayerStatus.asleep);
-                speed = 0;
+                GameObject.FindObjectOfType<Mana>().CurrentMana = Mathf.Clamp(GameObject.FindObjectOfType<Mana>().CurrentMana + (pot.Duration/60) * 10, 0, GameObject.FindObjectOfType<Mana>().MaxMana);
+                GameObject.FindObjectOfType<Mana>().UpdateMana();
+                Speed = 0;
+                sleepCanvas.SetActive(true);
+                StartCoroutine(FadeScreen(1));
+                yield return new WaitForSeconds(2);
+                Time.timeScale = Time.timeScale / (0.1f / GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
                 break;
             case Ingredient.Attributes.speed:
                 anim.SetBool("Speed", true);
                 Status.Add(PlayerStatus.fast);
                 if (Status.Contains(PlayerStatus.poisoned)) {
-                    speed = defaultSpeed;
+                    Speed = defaultSpeed;
                 } else {
-                    speed = fastSpeed;
+                    Speed = fastSpeed;
                 }
                 break;
             case Ingredient.Attributes.transformation:
@@ -148,7 +166,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 Vector2 temp = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
                 GetComponent<BoxCollider2D>().size = temp;
 
-                speed = defaultSpeed + 1;
+                Speed = defaultSpeed + 1;
                 break;
             case Ingredient.Attributes.none:
                 break;
@@ -182,23 +200,28 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 anim.SetBool("Poison", false);
                 Status.Remove(PlayerStatus.poisoned);
                 if (Status.Contains(PlayerStatus.fast)) {
-                    speed = fastSpeed;
+                    Speed = fastSpeed;
                 } else {
-                    speed = defaultSpeed;
+                    Speed = defaultSpeed;
                 }
                 break;
             case Ingredient.Attributes.sleep:
                 anim.SetBool("Sleep", false);
                 Status.Remove(PlayerStatus.asleep);
-                speed = defaultSpeed;
+                Speed = defaultSpeed;
+                Time.timeScale = Time.timeScale * (0.1f / GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
+                StartCoroutine(FadeScreen(-1));
+                sleepCanvas.GetComponentsInChildren<CanvasGroup>()[0].blocksRaycasts = false;
+                yield return new WaitForSeconds(2);
+                sleepCanvas.SetActive(false);
                 break;
             case Ingredient.Attributes.speed:
                 anim.SetBool("Speed", false);
                 Status.Remove(PlayerStatus.fast);
                 if (Status.Contains(PlayerStatus.poisoned)) {
-                    speed = poisonedSpeed;
+                    Speed = poisonedSpeed;
                 } else {
-                    speed = defaultSpeed;
+                    Speed = defaultSpeed;
                 }
                 break;
             case Ingredient.Attributes.transformation:
@@ -211,15 +234,15 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 yield return new WaitForSeconds(0.43f);
                 anim.SetBool("Transformation", false);
                 Status.Remove(PlayerStatus.transformed);
-                speed = defaultSpeed;
+                Speed = defaultSpeed;
                 if (Status.Contains(PlayerStatus.fast) && Status.Contains(PlayerStatus.poisoned)) {
-                    speed = defaultSpeed;
+                    Speed = defaultSpeed;
                 } else if (Status.Contains(PlayerStatus.fast)) {
-                    speed = fastSpeed;
+                    Speed = fastSpeed;
                 } else if (Status.Contains(PlayerStatus.poisoned)) {
-                    speed = poisonedSpeed;
+                    Speed = poisonedSpeed;
                 } else {
-                    speed = defaultSpeed;
+                    Speed = defaultSpeed;
                 }
                 break;
             case Ingredient.Attributes.none:
@@ -236,5 +259,15 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
 
         lastTaken = null;
+    }
+
+
+    IEnumerator FadeScreen(int i) {
+        CanvasGroup cg = fadeScreen.GetComponent<CanvasGroup>();
+        cg.alpha += i * (Time.deltaTime / 2);
+        while (cg.alpha > 0 && cg.alpha < 1) {
+            cg.alpha += i * (Time.deltaTime / 2);
+            yield return null;
+        }
     }
 }

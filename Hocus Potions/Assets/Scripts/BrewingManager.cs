@@ -5,6 +5,7 @@ using UnityEngine;
 public class BrewingManager : MonoBehaviour {
     int brewing; //0 = off, 1 = brewing, 2 = finished
     Potion pot;
+    MoonCycle mc;
 
     public int Brewing {
         get {
@@ -14,6 +15,9 @@ public class BrewingManager : MonoBehaviour {
         set {
             brewing = value;
         }
+    }
+    private void Start() {
+        mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
     }
 
     public Potion Pot {
@@ -37,9 +41,10 @@ public class BrewingManager : MonoBehaviour {
         StartCoroutine(StartBrewing(t, p));
     }
     IEnumerator StartBrewing(float time, Potion p) {
+        
         pot = p;
         Brewing = 1;
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time/10 * mc.CLOCK_SPEED);
         Brewing = 2;
     }
 }
