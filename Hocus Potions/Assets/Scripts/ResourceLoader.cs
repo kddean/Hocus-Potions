@@ -9,6 +9,7 @@ public class ResourceLoader : MonoBehaviour {
     public Garden garden;
     public GatheringManager gatheringManager;
     public InventorySlot activeItem;
+    public Spell activeSpell;
     public Dictionary<string, Ingredient> ingredients;
     public Dictionary<string, Seed> seeds;
     public Dictionary<string, Dictionary<string, List<string>>> dialogueList;
@@ -18,6 +19,7 @@ public class ResourceLoader : MonoBehaviour {
     public Dictionary<string, List<object>> npcGivenList;
     public Ingredient[] brewingIngredients;
     public List<string> availableNPCs;
+    public List<Spell> spells;
     public TextAsset npcData;
     public int givenListMax = 5;
     public float potionStrength = 1;
@@ -39,12 +41,14 @@ public class ResourceLoader : MonoBehaviour {
         brewingIngredients = new Ingredient[3];
 
         activeItem = null;
+        activeSpell = null;
         ingredientCount = 0;
         garden = GameObject.Find("GardenManager").GetComponent<Garden>();
         gatheringManager = GameObject.Find("GatheringManager").GetComponent<GatheringManager>();
 
         CreateIngredients();
         CreateSeeds();
+        CreateSpells();
         CreateInventory();
         CreateNPCs();
 
@@ -81,6 +85,13 @@ public class ResourceLoader : MonoBehaviour {
             { "thistle", new Seed("thistle", 180, 4, "Thistle Seed", Resources.Load<Sprite>("Seeds/thistle_seed")) },
             { "lily", new Seed("lily", 180, 5, "Lily Seed", Resources.Load<Sprite>("Seeds/lily_seed")) }
         };
+    }
+
+    void CreateSpells() {
+        spells = new List<Spell>();
+        spells.Add(new Spell("Ignite", 20, null));
+        spells.Add(new Spell("Wild Growth", 50, null));
+       
     }
 
     void CreateInventory() {     

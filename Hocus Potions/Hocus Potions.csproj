@@ -326,6 +326,7 @@
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\Mana.cs" />
     <Compile Include="Assets\Scripts\MoonCycle.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
     <Compile Include="Assets\Scripts\NPCManager.cs" />
@@ -336,6 +337,10 @@
     <Compile Include="Assets\Scripts\ResourceLoader.cs" />
     <Compile Include="Assets\Scripts\SceneSwitcher.cs" />
     <Compile Include="Assets\Scripts\Seed.cs" />
+    <Compile Include="Assets\Scripts\Sleep.cs" />
+    <Compile Include="Assets\Scripts\SleepCanvas.cs" />
+    <Compile Include="Assets\Scripts\Spell.cs" />
+    <Compile Include="Assets\Scripts\SpellCanvas.cs" />
     <Compile Include="Assets\Scripts\StorageChest.cs" />
     <Compile Include="Assets\Scripts\StorageManager.cs" />
     <Compile Include="Assets\Scripts\StorageSlot.cs" />

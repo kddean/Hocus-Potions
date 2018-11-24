@@ -84,6 +84,28 @@ public class Garden : MonoBehaviour {
         }
     }
 
+    public void SpellCast(GardenPlot plot) {
+        PlotData data;
+        if (!plots.TryGetValue(plot.gameObject.name, out data)) {
+            return;
+        }      
+        if(data.stage == Status.harvestable) {
+            return;
+        }
+
+        data.index++;
+        if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {
+            data.stage = Status.harvestable;
+        }
+        if (SceneManager.GetActiveScene() == data.plotScene) {
+            SpriteRenderer[] renderers = GameObject.Find(plot.gameObject.name).GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 1; i < 4; i++) {
+                renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + data.type)[data.index];
+            }
+        }
+        GameObject.FindObjectOfType<Mana>().CurrentMana -= rl.activeSpell.Cost;
+        GameObject.FindObjectOfType<Mana>().UpdateMana();
+    }
 
     //Grows plants in code; only updates visuals if you're in the garden
     IEnumerator Grow() {

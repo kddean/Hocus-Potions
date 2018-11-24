@@ -35,6 +35,7 @@ public class Sleep : MonoBehaviour {
         canvas.GetComponentsInChildren<CanvasGroup>()[1].alpha = 0;
         canvas.SetActive(false);
     }
+
     private void Update() {
         if (done) {
             Time.timeScale = Time.timeScale / (0.1f / temp);
@@ -55,15 +56,12 @@ public class Sleep : MonoBehaviour {
         }
         if (sleeping && mc.Hour == 6) {
             sleeping = false;
-            canvas.SetActive(false);
             Time.timeScale = Time.timeScale * (0.1f / temp);
             StartCoroutine(FadeScreen(-1));
             canvas.GetComponentsInChildren<CanvasGroup>()[0].blocksRaycasts = false;
-            player.Status.Remove(Player.PlayerStatus.asleep);
-            player.Speed = player.defaultSpeed;
-            player.GetComponentInChildren<Animator>().SetBool("Sleep", false);
         }
     }
+
     public void FallAsleep() {
         canvas.GetComponentsInChildren<CanvasGroup>()[1].alpha = 0;
         canvas.GetComponentsInChildren<CanvasGroup>()[0].blocksRaycasts = true;
@@ -86,6 +84,13 @@ public class Sleep : MonoBehaviour {
         }
         if (cg.alpha == 1) {
             done = true;
+        }
+
+        if(cg.alpha == 0) {
+            canvas.SetActive(false);
+            player.Status.Remove(Player.PlayerStatus.asleep);
+            player.Speed = player.defaultSpeed;
+            player.GetComponentInChildren<Animator>().SetBool("Sleep", false);
         }
     }
 }

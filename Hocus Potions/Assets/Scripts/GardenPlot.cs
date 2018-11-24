@@ -25,7 +25,13 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
             return;
         }
 
-        rl.garden.Farm(this);
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            rl.garden.Farm(this);
+        } else if (eventData.button == PointerEventData.InputButton.Right) {
+            if(rl.activeSpell != null && rl.activeSpell.SpellName == "Wild Growth") {
+                rl.garden.SpellCast(this);
+            }
+        }
     }
 
 }

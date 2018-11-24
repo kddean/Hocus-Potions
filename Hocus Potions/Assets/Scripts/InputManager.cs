@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour {
     //This class should be used to handle all keybinds and player inputs
     GameObject invPanel;
     CanvasGroup invGroup;
+    GameObject spellCanvas;
     bool invToggle = false;
     ResourceLoader rl;
     public void Awake() {
@@ -22,6 +23,8 @@ public class InputManager : MonoBehaviour {
         invPanel = GameObject.FindGameObjectWithTag("inventory");
         invGroup = invPanel.GetComponent<CanvasGroup>();
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        spellCanvas = GameObject.Find("SpellCanvas");
+        spellCanvas.SetActive(false);
     }
 
 	void Update () {
@@ -37,6 +40,14 @@ public class InputManager : MonoBehaviour {
                 invGroup.interactable = true;
                 invGroup.blocksRaycasts = true;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            spellCanvas.SetActive(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift)) {
+            spellCanvas.SetActive(false);
         }
 	}
 }
