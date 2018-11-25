@@ -92,6 +92,9 @@ public class Garden : MonoBehaviour {
         if(data.stage == Status.harvestable) {
             return;
         }
+        if (GameObject.FindObjectOfType<Mana>().InUse) {
+            return;
+        }
 
         data.index++;
         if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {
@@ -103,8 +106,7 @@ public class Garden : MonoBehaviour {
                 renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + data.type)[data.index];
             }
         }
-        GameObject.FindObjectOfType<Mana>().CurrentMana -= rl.activeSpell.Cost;
-        GameObject.FindObjectOfType<Mana>().UpdateMana();
+        GameObject.FindObjectOfType<Mana>().UpdateMana(rl.activeSpell.Cost);
     }
 
     //Grows plants in code; only updates visuals if you're in the garden

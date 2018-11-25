@@ -43,16 +43,15 @@ public class Sleep : MonoBehaviour {
             sleeping = true;
             switch (mc.Hour) {
                 case 22:
-                    GameObject.FindObjectOfType<Mana>().CurrentMana = Mathf.Clamp(GameObject.FindObjectOfType<Mana>().CurrentMana + 40 + ((6 - mc.Hour) * 20), 0, GameObject.FindObjectOfType<Mana>().MaxMana);
+                    GameObject.FindObjectOfType<Mana>().UpdateMana(-160);             
                     break;
                 case 23:
-                    GameObject.FindObjectOfType<Mana>().CurrentMana = Mathf.Clamp(GameObject.FindObjectOfType<Mana>().CurrentMana + 20 + ((6 - mc.Hour) * 20), 0, GameObject.FindObjectOfType<Mana>().MaxMana);
+                    GameObject.FindObjectOfType<Mana>().UpdateMana(-140);
                     break;
                 default:
-                    GameObject.FindObjectOfType<Mana>().CurrentMana = Mathf.Clamp(GameObject.FindObjectOfType<Mana>().CurrentMana + ((6 - mc.Hour) * 20), 0, GameObject.FindObjectOfType<Mana>().MaxMana);
+                    GameObject.FindObjectOfType<Mana>().UpdateMana(-((6 - mc.Hour) * 20));  
                     break;
             }
-            GameObject.FindObjectOfType<Mana>().UpdateMana();
         }
         if (sleeping && mc.Hour == 6) {
             sleeping = false;

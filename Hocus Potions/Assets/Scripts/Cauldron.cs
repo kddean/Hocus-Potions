@@ -14,6 +14,8 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
     public Button brew;
     public Button take;
+
+    public float speedUp;
     Potion pot;
     BrewingManager manager;
     Animator[] anims;
@@ -130,22 +132,32 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             return;
         }
 
-        canvas.SetActive(true);
-        active = true;
-        if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
-            SetVisible(ingredientPanel.GetComponent<CanvasGroup>());
-            visible = true;
-            if (manager.Brewing == 2) {
-                SetVisible(brewPanel.GetComponent<CanvasGroup>());
-                brewVisible = true;
-            }
-
-            foreach (Button b in invButtons) {
-                if (b.GetComponent<InventorySlot>().item != null && !(b.GetComponent<InventorySlot>().item.item is Ingredient)) {
-                    Color c = b.image.color;
-                    c.a = 0.25f;
-                    b.image.color = c;
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            canvas.SetActive(true);
+            active = true;
+            if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
+                SetVisible(ingredientPanel.GetComponent<CanvasGroup>());
+                visible = true;
+                if (manager.Brewing == 2) {
+                    SetVisible(brewPanel.GetComponent<CanvasGroup>());
+                    brewVisible = true;
                 }
+
+                foreach (Button b in invButtons) {
+                    if (b.GetComponent<InventorySlot>().item != null && !(b.GetComponent<InventorySlot>().item.item is Ingredient)) {
+                        Color c = b.image.color;
+                        c.a = 0.25f;
+                        b.image.color = c;
+                    }
+                }
+            }
+        } else {
+            if(manager.Brewing == 1 && rl.activeSpell == rl.spells[0] && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.spells[0].Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
+                manager.BrewTime = manager.BrewTime * speedUp;
+                if(manager.CurrentTime >= manager.BrewTime) {
+                    manager.Brewing = 2;
+                }
+                GameObject.FindObjectOfType<Mana>().UpdateMana(rl.activeSpell.Cost);
             }
         }
     }

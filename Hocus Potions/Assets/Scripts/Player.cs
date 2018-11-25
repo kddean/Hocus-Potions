@@ -124,9 +124,8 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 GetComponent<SpriteRenderer>().color = c;
                 break;
             case Ingredient.Attributes.mana:
-                anim.SetBool("Mana", true);
-                GameObject.FindObjectOfType<Mana>().CurrentMana = Mathf.Clamp(GameObject.FindObjectOfType<Mana>().CurrentMana + 50, 0, GameObject.FindObjectOfType<Mana>().MaxMana);
-                GameObject.FindObjectOfType<Mana>().UpdateMana();
+                anim.SetBool("Mana", true);            
+                GameObject.FindObjectOfType<Mana>().UpdateMana(-50);
                 break;
             case Ingredient.Attributes.poison:
                 anim.SetBool("Poison", true);
@@ -139,9 +138,8 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
             case Ingredient.Attributes.sleep:
                 anim.SetBool("Sleep", true);
-                Status.Add(PlayerStatus.asleep);
-                GameObject.FindObjectOfType<Mana>().CurrentMana = Mathf.Clamp(GameObject.FindObjectOfType<Mana>().CurrentMana + (pot.Duration/60) * 10, 0, GameObject.FindObjectOfType<Mana>().MaxMana);
-                GameObject.FindObjectOfType<Mana>().UpdateMana();
+                Status.Add(PlayerStatus.asleep);          
+                GameObject.FindObjectOfType<Mana>().UpdateMana(-(pot.Duration / 60) * 10);
                 Speed = 0;
                 sleepCanvas.SetActive(true);
                 StartCoroutine(FadeScreen(1));

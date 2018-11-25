@@ -12462,6 +12462,7 @@ MonoBehaviour:
   potionImage: {fileID: 1760639565}
   brew: {fileID: 313536524}
   take: {fileID: 791533091}
+  speedUp: 0.9
   active: 0
 --- !u!212 &1550247411
 SpriteRenderer:

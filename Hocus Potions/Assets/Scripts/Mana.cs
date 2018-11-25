@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Mana : MonoBehaviour {
     public Image manaBar;
     float maxMana, currentMana;
+    bool inUse;
 
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -15,16 +16,35 @@ public class Mana : MonoBehaviour {
     }
 
     void Start () {
+        inUse = false;
         MaxMana = 100;
         CurrentMana = MaxMana;
-        UpdateMana();
-	}
+        manaBar.fillAmount = 1.0f;
 
-
-    public void UpdateMana() {
-        manaBar.fillAmount = currentMana / MaxMana;
     }
 
+
+    public void UpdateMana(float amount) {
+        if(currentMana - amount < 0) {
+            amount = currentMana;
+        } else if( currentMana - amount > maxMana) {
+            amount = maxMana - currentMana;
+        }
+
+        StartCoroutine(DrainBar(amount));
+    }
+
+    IEnumerator DrainBar(float amount) {
+        inUse = true;
+        float t = 0;
+        while (t < 1) {
+            manaBar.fillAmount = Mathf.Lerp(currentMana, currentMana - amount, t) / maxMana;
+            t += Time.deltaTime * 2;
+            yield return new WaitForEndOfFrame();
+        }
+        currentMana -= amount;
+        inUse = false;
+    }
     public float CurrentMana {
         get {
             return currentMana;
@@ -42,6 +62,12 @@ public class Mana : MonoBehaviour {
 
         set {
             maxMana = value;
+        }
+    }
+
+    public bool InUse {
+        get {
+            return inUse;
         }
     }
 }

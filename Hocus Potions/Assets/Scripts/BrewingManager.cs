@@ -6,6 +6,31 @@ public class BrewingManager : MonoBehaviour {
     int brewing; //0 = off, 1 = brewing, 2 = finished
     Potion pot;
     MoonCycle mc;
+    float brewTime;
+    float currentTime;
+
+    public void Awake() {
+        DontDestroyOnLoad(this);
+        if (FindObjectsOfType(GetType()).Length > 1) {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Begin(float t, Potion p) {
+        StartCoroutine(StartBrewing(t, p));
+    }
+    IEnumerator StartBrewing(float time, Potion p) {
+        currentTime = 0;
+        brewTime = time;
+        pot = p;
+        Brewing = 1;
+        while (currentTime < brewTime) {
+            yield return new WaitForSeconds(mc.CLOCK_SPEED);
+            currentTime += 10;
+        }
+       
+        Brewing = 2;
+    }
 
     public int Brewing {
         get {
@@ -30,21 +55,23 @@ public class BrewingManager : MonoBehaviour {
         }
     }
 
-    public void Awake() {
-        DontDestroyOnLoad(this);
-        if (FindObjectsOfType(GetType()).Length > 1) {
-            Destroy(gameObject);
+    public float BrewTime {
+        get {
+            return brewTime;
+        }
+
+        set {
+            brewTime = value;
         }
     }
 
-    public void Begin(float t, Potion p) {
-        StartCoroutine(StartBrewing(t, p));
-    }
-    IEnumerator StartBrewing(float time, Potion p) {
-        
-        pot = p;
-        Brewing = 1;
-        yield return new WaitForSeconds(time/10 * mc.CLOCK_SPEED);
-        Brewing = 2;
+    public float CurrentTime {
+        get {
+            return currentTime;
+        }
+
+        set {
+            currentTime = value;
+        }
     }
 }
