@@ -174,6 +174,17 @@ public class MainMenu : MonoBehaviour {
         mc.Hour = data.hour;
         mc.Minutes = data.minute;
         mc.Days = data.day;
+        mc.CurrentMoonPhase = mc.Days % 6;
+        mc.moonPhase.sprite = mc.moonCycleSprites[mc.CurrentMoonPhase];
+        if(mc.Hour >= 18 || mc.Hour < 6) {
+            mc.timeImage.sprite = mc.timeOfDay[3];
+        } else if( mc.Hour >= 6 && mc.Hour < 10) {
+            mc.timeImage.sprite = mc.timeOfDay[0];
+        } else if(mc.Hour >= 10 && mc.Hour < 14) {
+            mc.timeImage.sprite = mc.timeOfDay[1];
+        } else if(mc.Hour >= 14 && mc.Hour < 18) {
+            mc.timeImage.sprite = mc.timeOfDay[2];
+        }
 
         npcs.data.Clear();
         for(int i = 0; i < data.npcNames.Count; i++) {

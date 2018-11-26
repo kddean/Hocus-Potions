@@ -17,7 +17,6 @@ public class MoonCycle : MonoBehaviour {
     //public Text minsUI;
     public float CLOCK_SPEED = 0.5f;
 
-    int[] moonCycle;
     public Sprite[] moonCycleSprites = new Sprite[5];
     public Sprite[] timeOfDay = new Sprite[4];
     public Image moonPhase;
@@ -58,15 +57,21 @@ public class MoonCycle : MonoBehaviour {
         }
     }
 
-    // int prevTime;
+    public int CurrentMoonPhase {
+        get {
+            return currentMoonPhase;
+        }
+
+        set {
+            currentMoonPhase = value;
+        }
+    }
+
 
     // Use this for initialization
     void Start () {
-        moonCycle = new int[5];
         Hour = 6;
         Minutes = 00;
-      //  hoursUI.text = Hour.ToString();
-      // minsUI.text = Minutes.ToString();
         moonPhase.sprite = moonCycleSprites[0];
         StartCoroutine(PassingTime());
         Days = 0;
@@ -83,7 +88,6 @@ public class MoonCycle : MonoBehaviour {
     {
         //Every 2 mins real time is 10 mins game time - 120 for actual time scale
         yield return new WaitForSeconds(CLOCK_SPEED);
-        //Debug.Log("Did I get called?");
         ChangeTime();
         StartCoroutine(PassingTime());
     }
@@ -122,8 +126,6 @@ public class MoonCycle : MonoBehaviour {
             Minutes = 00;
 
         }
-       // minsUI.text = Minutes.ToString();
-        //hoursUI.text = Hour.ToString();
     }
 
 
