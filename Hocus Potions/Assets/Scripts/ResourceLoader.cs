@@ -62,28 +62,28 @@ public class ResourceLoader : MonoBehaviour {
     //TO DO: Swap sprites to proper inv sprites once we have them
     void CreateIngredients() {
         ingredients = new Dictionary<string, Ingredient> {
-            { "lavender", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.mana }, "lavender", Resources.Load<Sprite>("Plants/lavender_inv")) },
-            { "catnip", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.speed }, "catnip", Resources.Load<Sprite>("Plants/catnip_inv")) },
-            { "nightshade", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", Resources.Load<Sprite>("Plants/nightshade_inv")) },
-            { "mugwort", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.mana, Ingredient.Attributes.transformation }, "mugwort", Resources.Load<Sprite>("Plants/mugwort_inv")) },
-            { "lambsgrass", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.healing, Ingredient.Attributes.speed }, "lambsgrass", Resources.Load<Sprite>("Plants/lambsgrass_inv")) },
-            { "poppy", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", Resources.Load<Sprite>("Plants/poppy_inv")) },
-            { "thistle", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.speed, Ingredient.Attributes.mana }, "thistle", Resources.Load<Sprite>("Plants/thistle_inv")) },
-            { "lily", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.transformation, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lily", Resources.Load<Sprite>("Plants/lily_inv")) }
+            { "lavender", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.mana }, "lavender", "Plants/lavender_inv") },
+            { "catnip", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.speed }, "catnip", "Plants/catnip_inv") },
+            { "nightshade", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", "Plants/nightshade_inv") },
+            { "mugwort", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.mana, Ingredient.Attributes.transformation }, "mugwort", "Plants/mugwort_inv") },
+            { "lambsgrass", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.healing, Ingredient.Attributes.speed }, "lambsgrass", "Plants/lambsgrass_inv") },
+            { "poppy", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", "Plants/poppy_inv") },
+            { "thistle", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.speed, Ingredient.Attributes.mana }, "thistle", "Plants/thistle_inv") },
+            { "lily", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.transformation, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lily", "Plants/lily_inv") }
         };
     }
 
     //TODO: Load from file
     void CreateSeeds() {
         seeds = new Dictionary<string, Seed> {
-            { "lavender", new Seed("lavender", 180, 4, "Lavender seed", Resources.Load<Sprite>("Seeds/lavender_seed")) },
-            { "catnip", new Seed("catnip", 180, 5, "Catnip seed", Resources.Load<Sprite>("Seeds/catnip_seed")) },
-            { "nightshade", new Seed("nightshade", 180, 4, "Nightshade seed", Resources.Load<Sprite>("Seeds/nightshade_seed")) },
-            { "mugwort", new Seed("mugwort", 180, 5, "Mugwort seed", Resources.Load<Sprite>("Seeds/mugwort_seed")) },
-            { "lambsgrass", new Seed("lambsgrass", 180, 5, "Lambsgrass seed", Resources.Load<Sprite>("Seeds/lambsgrass_seed")) },
-            { "poppy", new Seed("poppy", 180, 3, "Poppy Seed", Resources.Load<Sprite>("Seeds/poppy_seed")) },
-            { "thistle", new Seed("thistle", 180, 4, "Thistle Seed", Resources.Load<Sprite>("Seeds/thistle_seed")) },
-            { "lily", new Seed("lily", 180, 5, "Lily Seed", Resources.Load<Sprite>("Seeds/lily_seed")) }
+            { "lavender", new Seed("lavender", 180, 4, "Lavender seed", "Seeds/lavender_seed") },
+            { "catnip", new Seed("catnip", 180, 5, "Catnip seed", "Seeds/catnip_seed") },
+            { "nightshade", new Seed("nightshade", 180, 4, "Nightshade seed", "Seeds/nightshade_seed") },
+            { "mugwort", new Seed("mugwort", 180, 5, "Mugwort seed", "Seeds/mugwort_seed") },
+            { "lambsgrass", new Seed("lambsgrass", 180, 5, "Lambsgrass seed", "Seeds/lambsgrass_seed") },
+            { "poppy", new Seed("poppy", 180, 3, "Poppy Seed", "Seeds/poppy_seed") },
+            { "thistle", new Seed("thistle", 180, 4, "Thistle Seed", "Seeds/thistle_seed") },
+            { "lily", new Seed("lily", 180, 5, "Lily Seed", "Seeds/lily_seed") }
         };
     }
 
@@ -94,7 +94,12 @@ public class ResourceLoader : MonoBehaviour {
        
     }
 
-    void CreateInventory() {     
+    void CreateInventory() {
+        InventorySlot[] slots = GameObject.FindObjectsOfType<InventorySlot>();
+        foreach(InventorySlot s in slots) {
+            s.item = null;
+        }
+
         /*if(save file exists){
              pull data from that to fill inventory
           } */

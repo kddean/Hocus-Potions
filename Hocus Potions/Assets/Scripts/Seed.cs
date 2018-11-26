@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Seed : Item {
     string seedType;
     int growthTime;
     int growthStages;
 
-    public Seed(string seedType, int growthTime, int growthStages, string name, Sprite icon) {
+    public Seed(string seedType, int growthTime, int growthStages, string name, string icon) {
         this.SeedType = seedType;
         this.GrowthTime = growthTime;
         this.GrowthStages = growthStages;
         this.Name = name;
-        image = icon;
+        imagePath = icon;
     }
 
     public string SeedType {

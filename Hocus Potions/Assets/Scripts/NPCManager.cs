@@ -12,6 +12,8 @@ public class NPCManager : MonoBehaviour {
     bool queueLoaded;
     bool spawned;
     string lastSpawned;
+
+    [System.Serializable]
     public struct NPCData {
         public int timesInteracted;
         public bool returning;
@@ -156,7 +158,7 @@ public class NPCManager : MonoBehaviour {
         }
     }
 
-
+    [System.Serializable]
     private class CompareTimes : IComparer<NPCData> {
         int IComparer<NPCData>.Compare(NPCData a, NPCData b) {
             if (a.returningDay < b.returningDay) {

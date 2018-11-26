@@ -12,13 +12,14 @@ public class Garden : MonoBehaviour {
     public Dictionary<string, PlotData> plots;
     ResourceLoader rl;
     MoonCycle mc;
+    [System.Serializable]
     public struct PlotData {
         public Status stage;
         public int index;
         public string type;
         public int growthTime;
         public int currentTime;
-        public Scene plotScene;
+        public string plotScene;
     };
 
     // Use this for initialization
@@ -56,7 +57,7 @@ public class Garden : MonoBehaviour {
                 newData.growthTime = seed.GrowthTime;
                 newData.currentTime = 0;
                 newData.index = 0;
-                newData.plotScene = SceneManager.GetActiveScene();
+                newData.plotScene = SceneManager.GetActiveScene().name;
                 //Add plot to dict
                 plots.Add(plot.gameObject.name, newData);
                 //Remove seed from inv
@@ -100,7 +101,7 @@ public class Garden : MonoBehaviour {
         if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {
             data.stage = Status.harvestable;
         }
-        if (SceneManager.GetActiveScene() == data.plotScene) {
+        if (SceneManager.GetActiveScene().name.Equals(data.plotScene)) {
             SpriteRenderer[] renderers = GameObject.Find(plot.gameObject.name).GetComponentsInChildren<SpriteRenderer>();
             for (int i = 1; i < 4; i++) {
                 renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + data.type)[data.index];
@@ -132,7 +133,7 @@ public class Garden : MonoBehaviour {
                     }
 
                     //If you're in the garden update the sprites 
-                    if (SceneManager.GetActiveScene() == plots[s].plotScene) {
+                    if (SceneManager.GetActiveScene().name.Equals(plots[s].plotScene)) {
                         SpriteRenderer[] renderers = GameObject.Find(s).GetComponentsInChildren<SpriteRenderer>();
                         for (int i = 1; i < 4; i++) {
                             renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + temp.type)[temp.index];

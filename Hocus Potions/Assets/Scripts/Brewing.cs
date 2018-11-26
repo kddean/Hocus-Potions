@@ -42,7 +42,7 @@ public class Brewing {
         int duration = 0;
         //Sprite image;
         string name = "";
-        Sprite image;
+        string image;
         int brewingTime;
         int aCount;
 
@@ -217,43 +217,43 @@ public class Brewing {
                 case Ingredient.Attributes.healing:
                     duration = 10;
                     brewingTime = 50;
-                    image = Resources.Load<Sprite>("Potions/potions_healing");
+                    image = "Potions/potions_healing";
                     break;
                 case Ingredient.Attributes.sleep:
                     duration = 120;
                     brewingTime = 60;
-                    image = Resources.Load<Sprite>("Potions/potions_sleep");
+                    image = "Potions/potions_sleep";
                     break;
                 case Ingredient.Attributes.invisibility:
                     duration = 100;
                     brewingTime = 90;
-                    image = Resources.Load<Sprite>("Potions/potions_invisibility");
+                    image = "Potions/potions_invisibility";
                     break;
                 case Ingredient.Attributes.poison:
                     duration = 100;
                     brewingTime = 60;
-                    image = Resources.Load<Sprite>("Potions/potions_poison");
+                    image = "Potions/potions_poison";
                     break;
                 case Ingredient.Attributes.transformation:
                     duration = 100;
                     brewingTime = 90;
-                    image = Resources.Load<Sprite>("Potions/potions_transform");
+                    image = "Potions/potions_transform";
                     break;
                 case Ingredient.Attributes.mana:
                     duration = 10;
                     brewingTime = 60;
-                    image = Resources.Load<Sprite>("Potions/potions_mana");
+                    image = "Potions/potions_mana";
                     break;
                 case Ingredient.Attributes.speed:
                     duration = 100;
                     brewingTime = 80;
-                    image = Resources.Load<Sprite>("Potions/potions_speed");
+                    image = "Potions/potions_speed";
                     break;
                 default:
                     name = "Failed potion";
                     duration = 0;
                     brewingTime = 30;
-                    image = Resources.Load<Sprite>("Potions/potions_null");
+                    image = "Potions/potions_null";
                     break;
             }
 
@@ -268,7 +268,7 @@ public class Brewing {
             mod = null;
             duration = 0;
             brewingTime = 30;
-            image = Resources.Load<Sprite>("Potions/potions_null");
+            image = "Potions/potions_null";
             Potion pot = new Potion(name, image, duration, primary, secondary, mod, brewingTime);
             return pot;
         }

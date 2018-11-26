@@ -11,17 +11,20 @@ public class StorageManager : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    [System.Serializable]
     public struct StoreageData {
         public Item item;
         public int count;
         public int index;
-        public Vector3 position;
+        public float x, y, z;
 
-        public StoreageData(Item item, int count, int index, Vector3 position) {
+        public StoreageData(Item item, int count, int index, float x, float y, float z) {
             this.item = item;
             this.count = count;
             this.index = index;
-            this.position = position;
+            this.x = x;
+            this.y = y;
+            this.z = z;
         }
     }
 
@@ -35,11 +38,11 @@ public class StorageManager : MonoBehaviour {
     public void OpenChest() {
         foreach (string key in storageChest.Keys) {
             GameObject obj = GameObject.Find(key);
-            obj.transform.localPosition = storageChest[key].position;
+            obj.transform.localPosition = new Vector3(storageChest[key].x, storageChest[key].y, storageChest[key].z);
             obj.transform.SetSiblingIndex(storageChest[key].index);
             if(storageChest[key].item != null) {
                 obj.GetComponent<Image>().enabled = true;
-                obj.GetComponent<Image>().sprite = storageChest[key].item.image;
+                obj.GetComponent<Image>().sprite = Resources.Load<Sprite>(storageChest[key].item.imagePath);
                 obj.GetComponent<StorageSlot>().item = storageChest[key].item;
                 obj.GetComponent<StorageSlot>().count = storageChest[key].count;
                 if (storageChest[key].count != 1) {

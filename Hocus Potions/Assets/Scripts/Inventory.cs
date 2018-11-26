@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 
 public class Inventory {
+    [System.Serializable]
     public class InventoryItem {
         public int maxStack = 10;
         public int count = 1;
@@ -60,7 +61,7 @@ public class Inventory {
                         InventorySlot s = bt.GetComponent<InventorySlot>();
                         if (s.item == null) {
                             s.item = new InventoryItem(obj, remainder);
-                            s.gameObject.GetComponent<Image>().sprite = s.item.item.image;
+                            s.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(obj.imagePath);
                             if (s.item.count > 1) {
                                 s.gameObject.GetComponentInChildren<Text>().text = s.item.count.ToString();
                             } else {
@@ -73,12 +74,13 @@ public class Inventory {
             }
         }
 
+        //Creating new stack
         foreach (Button b in invButtons) {
             InventorySlot s = b.GetComponent<InventorySlot>();
             if (s.item == null) {
                 s.item = new InventoryItem(obj, count);
                 s.gameObject.GetComponent<Image>().enabled = true;
-                s.gameObject.GetComponent<Image>().sprite = s.item.item.image;
+                s.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(obj.imagePath);
                 if (s.item.count > 1) {
                     s.gameObject.GetComponentInChildren<Text>().text = s.item.count.ToString();
                 } else {
@@ -110,7 +112,7 @@ public class Inventory {
         GameObject go = new GameObject();
         go.name = slot.item.item.name;
         SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-        sr.sprite = slot.item.item.image;
+        sr.sprite = Resources.Load<Sprite>(slot.item.item.imagePath);
         Vector3 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
         go.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + offset;      
         Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
@@ -125,7 +127,7 @@ public class Inventory {
         Pickups p = go.AddComponent<Pickups>();
         p.Item = slot.item.item;
         p.Count = slot.item.count;
-        p.Data = new GarbageCollecter.DroppedItemData(slot.item.item, slot.item.count, go.transform.position, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, go);
+        p.Data = new GarbageCollecter.DroppedItemData(slot.item.item, slot.item.count, go.transform.position.x, go.transform.position.y, go.transform.position.z, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().droppedItems.Add(p.Data);
         RemoveStack(slot);
     }

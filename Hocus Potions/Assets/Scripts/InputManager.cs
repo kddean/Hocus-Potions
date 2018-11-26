@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour {
     GameObject invPanel;
     CanvasGroup invGroup;
     GameObject spellCanvas;
+    GameObject mainMenu;
     bool invToggle = false;
     ResourceLoader rl;
     public void Awake() {
@@ -24,10 +25,15 @@ public class InputManager : MonoBehaviour {
         invGroup = invPanel.GetComponent<CanvasGroup>();
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         spellCanvas = GameObject.Find("SpellCanvas");
+        mainMenu = GameObject.Find("MainMenuCanvas");
+        mainMenu.SetActive(false);
         spellCanvas.SetActive(false);
     }
 
 	void Update () {
+        if (GameObject.FindObjectOfType<Player>().Status.Contains(Player.PlayerStatus.asleep)) {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.I)) {
             if (invToggle) {
                 invToggle = false;
@@ -48,6 +54,10 @@ public class InputManager : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.LeftShift)) {
             spellCanvas.SetActive(false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            mainMenu.SetActive(!mainMenu.activeSelf);
         }
 	}
 }

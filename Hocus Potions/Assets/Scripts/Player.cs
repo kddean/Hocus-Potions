@@ -10,13 +10,26 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     public float defaultSpeed, poisonedSpeed, fastSpeed;
     int x, y;
     ResourceLoader rl;
-    Animator anim;
+    Animator effectAnim, playerAnim;
     Potion lastTaken;
+    [SerializeField]
     List<PlayerStatus> status;
+    Dictionary<PlayerStatus, TimerData> startTimers;
     SpriteRenderer sr;
+    string currentAnim;
     public GameObject fadeScreen, sleepCanvas;
     public bool swappingScenes;
     public bool allowedToMove;
+
+    public struct TimerData {
+        public float startTime;
+        public float duration;
+
+        public TimerData(float startTime, float duration) {
+            this.startTime = startTime;
+            this.duration = duration;
+        }
+    }
 
     public List<PlayerStatus> Status {
         get {
@@ -38,6 +51,22 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    public Potion LastTaken {
+        get {
+            return lastTaken;
+        }
+
+        set {
+            lastTaken = value;
+        }
+    }
+
+    public Dictionary<PlayerStatus, TimerData> StartTimers {
+        get {
+            return startTimers;
+        }
+    }
+
     public void Awake() {
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1) {
@@ -47,12 +76,15 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
     public void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
-        anim = GetComponentInChildren<Animator>();
+        playerAnim = GetComponent<Animator>();
+        effectAnim = GetComponentsInChildren<Animator>()[1];
         Status = new List<PlayerStatus>();
+        startTimers = new Dictionary<PlayerStatus, TimerData>();
         Speed = defaultSpeed;
         sr = GetComponent<SpriteRenderer>();
         swappingScenes = false;
         allowedToMove = true;
+        currentAnim = "Idle";
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -72,19 +104,49 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     private void FixedUpdate() {
         if (!allowedToMove) { return; }
         Vector3 pos = transform.position;
+        playerAnim.speed = speed / 7.5f;
         x = y = 0;
         if (Input.GetKey("w")) {
+            if (!status.Contains(PlayerStatus.transformed)) {
+                playerAnim.SetBool(currentAnim, false);
+                playerAnim.SetBool("Backward", true);
+                currentAnim = "Backward";
+            }
             y = 1;
         } else if (Input.GetKey("s")) {
+            if (!status.Contains(PlayerStatus.transformed)) {
+                playerAnim.SetBool(currentAnim, false);
+                playerAnim.SetBool("Forward", true);
+                currentAnim = "Forward";
+            }
             y = -1;
         } else if (Input.GetKey("a")) {
+            if (!status.Contains(PlayerStatus.transformed)) {
+                playerAnim.SetBool(currentAnim, false);
+                playerAnim.SetBool("Left", true);
+                currentAnim = "Left";
+            }
             x = -1;
         } else if (Input.GetKey("d")) {
+            if (!status.Contains(PlayerStatus.transformed)) {
+                playerAnim.SetBool(currentAnim, false);
+                playerAnim.SetBool("Right", true);
+                currentAnim = "Right";
+            }
             x = 1;
+        } else {
+            if (!status.Contains(PlayerStatus.transformed) && playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.70f) {
+                playerAnim.Play(currentAnim, 0, 0);
+                playerAnim.SetBool(currentAnim, false);
+            }
         }
+
+
+
         pos.x += x * Speed * Time.deltaTime;
         pos.y += y * Speed * Time.deltaTime;
         transform.position = pos;
+
     }
 
 
@@ -110,15 +172,14 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
     }
 
-
     IEnumerator HandlePotions(Potion pot) {
-        foreach (AnimatorControllerParameter p in anim.parameters) {
-            anim.SetBool(p.name, false);
+        foreach (AnimatorControllerParameter p in effectAnim.parameters) {
+            effectAnim.SetBool(p.name, false);
         }
-
+        float duration = (pot.Duration / 10) * GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED;
         switch (pot.Primary) {
             case Ingredient.Attributes.healing:
-                anim.SetBool("Healing", true);
+                effectAnim.SetBool("Healing", true);
                 if (Status.Contains(PlayerStatus.poisoned)) {
                     Status.Remove(PlayerStatus.poisoned);
                     Speed = defaultSpeed;
@@ -126,29 +187,31 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 //TODO:Maybe add more use for this potion
                 break;
             case Ingredient.Attributes.invisibility:
-                anim.SetBool("Invisible", true);
-                anim.Play("Invisible", 0, 0);
+                effectAnim.SetBool("Invisible", true);
+                effectAnim.Play("Invisible", 0, 0);
                 Status.Add(PlayerStatus.invisible);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.5f;
                 GetComponent<SpriteRenderer>().color = c;
+                startTimers.Add(PlayerStatus.invisible, new TimerData(Time.time, duration));
                 break;
             case Ingredient.Attributes.mana:
-                anim.SetBool("Mana", true);            
+                effectAnim.SetBool("Mana", true);
                 GameObject.FindObjectOfType<Mana>().UpdateMana(-50);
                 break;
             case Ingredient.Attributes.poison:
-                anim.SetBool("Poison", true);
+                effectAnim.SetBool("Poison", true);
                 Status.Add(PlayerStatus.poisoned);
                 if (Status.Contains(PlayerStatus.fast)) {
                     Speed = defaultSpeed;
                 } else {
                     Speed = poisonedSpeed;
                 }
+                startTimers.Add(PlayerStatus.poisoned, new TimerData(Time.time, duration));
                 break;
             case Ingredient.Attributes.sleep:
-                anim.SetBool("Sleep", true);
-                Status.Add(PlayerStatus.asleep);          
+                effectAnim.SetBool("Sleep", true);
+                Status.Add(PlayerStatus.asleep);
                 GameObject.FindObjectOfType<Mana>().UpdateMana(-(pot.Duration / 60) * 10);
                 Speed = 0;
                 sleepCanvas.SetActive(true);
@@ -157,18 +220,20 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 Time.timeScale = Time.timeScale / (0.1f / GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
                 break;
             case Ingredient.Attributes.speed:
-                anim.SetBool("Speed", true);
+                effectAnim.SetBool("Speed", true);
                 Status.Add(PlayerStatus.fast);
                 if (Status.Contains(PlayerStatus.poisoned)) {
                     Speed = defaultSpeed;
                 } else {
                     Speed = fastSpeed;
                 }
+                startTimers.Add(PlayerStatus.fast, new TimerData(Time.time, duration));
                 break;
             case Ingredient.Attributes.transformation:
                 Status.Add(PlayerStatus.transformed);
-                anim.SetBool("Transformation", true);
-                anim.Play("Transformation", 0, 0);
+                playerAnim.enabled = false;
+                effectAnim.SetBool("Transformation", true);
+                effectAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
                 GetComponent<BoxCollider2D>().size = new Vector2(0.6f, 0.2f);
@@ -176,6 +241,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
                 GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
                 Speed = defaultSpeed + 1;
+                startTimers.Add(PlayerStatus.transformed, new TimerData(Time.time, duration));
                 break;
             case Ingredient.Attributes.none:
                 break;
@@ -183,31 +249,33 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
         }
 
-        yield return new WaitForSeconds((pot.Duration / 10) * GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
-        foreach (AnimatorControllerParameter p in anim.parameters) {
-            anim.SetBool(p.name, false);
+        yield return new WaitForSeconds(duration);
+        foreach (AnimatorControllerParameter p in effectAnim.parameters) {
+            effectAnim.SetBool(p.name, false);
         }
 
         switch (pot.Primary) {
             case Ingredient.Attributes.healing:
-                anim.SetBool("Healing", false);
+                effectAnim.SetBool("Healing", false);
                 break;
             case Ingredient.Attributes.invisibility:
-                anim.SetBool("Invisible", true);
-                anim.Play("Invisible", 0, 0);
+                effectAnim.SetBool("Invisible", true);
+                effectAnim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.833f);
-                anim.SetBool("Invisible", false);
+                effectAnim.SetBool("Invisible", false);
                 Status.Remove(PlayerStatus.invisible);
+                startTimers.Remove(PlayerStatus.invisible);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 1f;
                 GetComponent<SpriteRenderer>().color = c;
                 break;
             case Ingredient.Attributes.mana:
-                anim.SetBool("Mana", false);
+                effectAnim.SetBool("Mana", false);
                 break;
             case Ingredient.Attributes.poison:
-                anim.SetBool("Poison", false);
+                effectAnim.SetBool("Poison", false);
                 Status.Remove(PlayerStatus.poisoned);
+                startTimers.Remove(PlayerStatus.poisoned);
                 if (Status.Contains(PlayerStatus.fast)) {
                     Speed = fastSpeed;
                 } else {
@@ -215,7 +283,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 }
                 break;
             case Ingredient.Attributes.sleep:
-                anim.SetBool("Sleep", false);
+                effectAnim.SetBool("Sleep", false);
                 Status.Remove(PlayerStatus.asleep);
                 Speed = defaultSpeed;
                 Time.timeScale = Time.timeScale * (0.1f / GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
@@ -225,8 +293,9 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 sleepCanvas.SetActive(false);
                 break;
             case Ingredient.Attributes.speed:
-                anim.SetBool("Speed", false);
+                effectAnim.SetBool("Speed", false);
                 Status.Remove(PlayerStatus.fast);
+                startTimers.Remove(PlayerStatus.fast);
                 if (Status.Contains(PlayerStatus.poisoned)) {
                     Speed = poisonedSpeed;
                 } else {
@@ -234,17 +303,20 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 }
                 break;
             case Ingredient.Attributes.transformation:
-                anim.SetBool("Transformation", true);
-                anim.Play("Transformation", 0, 0);
+                effectAnim.SetBool("Transformation", true);
+                effectAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/witch");
+                playerAnim.enabled = true;
+                Status.Remove(PlayerStatus.transformed);
+                startTimers.Remove(PlayerStatus.transformed);
                 GetComponent<BoxCollider2D>().size = new Vector2(1, 0.5f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.8f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2.1f);
                 GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
                 yield return new WaitForSeconds(0.43f);
-                anim.SetBool("Transformation", false);
-                Status.Remove(PlayerStatus.transformed);
+                effectAnim.SetBool("Transformation", false);
+
                 Speed = defaultSpeed;
                 if (Status.Contains(PlayerStatus.fast) && Status.Contains(PlayerStatus.poisoned)) {
                     Speed = defaultSpeed;
@@ -263,15 +335,144 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
 
         if (Status.Contains(PlayerStatus.fast)) {
-            anim.SetBool("Speed", true);
+            effectAnim.SetBool("Speed", true);
         }
         if (Status.Contains(PlayerStatus.poisoned)) {
-            anim.SetBool("Poison", true);
+            effectAnim.SetBool("Poison", true);
         }
 
-        lastTaken = null;
+        if (status.Count == 0) {
+            lastTaken = null;
+        }
     }
 
+    public void RestartTimers(PlayerStatus s, float d) {
+        StartCoroutine(RestartPotions(s, d));
+    }
+
+    IEnumerator RestartPotions(PlayerStatus type, float duration) {
+        foreach (AnimatorControllerParameter p in effectAnim.parameters) {
+            effectAnim.SetBool(p.name, false);
+        }
+
+        switch (type) {
+            case PlayerStatus.invisible:
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = 0.5f;
+                GetComponent<SpriteRenderer>().color = c;
+                break;
+            case PlayerStatus.poisoned:
+                effectAnim.SetBool("Poison", true);
+                if (Status.Contains(PlayerStatus.fast)) {
+                    Speed = defaultSpeed;
+                } else {
+                    Speed = poisonedSpeed;
+                }
+                break;
+            case PlayerStatus.fast:
+                effectAnim.SetBool("Speed", true);
+                if (Status.Contains(PlayerStatus.poisoned)) {
+                    Speed = defaultSpeed;
+                } else {
+                    Speed = fastSpeed;
+                }
+                break;
+            case PlayerStatus.transformed:
+                playerAnim.enabled = false;
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
+                GetComponent<BoxCollider2D>().size = new Vector2(0.6f, 0.2f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.2f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                Speed++;
+                break;
+            default:
+                break;
+        }
+
+        yield return new WaitForSeconds(duration);
+        foreach (AnimatorControllerParameter p in effectAnim.parameters) {
+            effectAnim.SetBool(p.name, false);
+        }
+
+        switch (type) {
+            case PlayerStatus.invisible:
+                effectAnim.SetBool("Invisible", true);
+                effectAnim.Play("Invisible", 0, 0);
+                yield return new WaitForSeconds(0.833f);
+                effectAnim.SetBool("Invisible", false);
+                Status.Remove(PlayerStatus.invisible);
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = 1f;
+                GetComponent<SpriteRenderer>().color = c;
+                break;
+            case PlayerStatus.poisoned:
+                effectAnim.SetBool("Poison", false);
+                Status.Remove(PlayerStatus.poisoned);
+                if (Status.Contains(PlayerStatus.fast)) {
+                    Speed = fastSpeed;
+                } else {
+                    Speed = defaultSpeed;
+                }
+
+                if (Status.Contains(PlayerStatus.transformed)) {
+                    speed++;
+                }
+                break;
+            case PlayerStatus.fast:
+                effectAnim.SetBool("Speed", false);
+                Status.Remove(PlayerStatus.fast);
+                if (Status.Contains(PlayerStatus.poisoned)) {
+                    Speed = poisonedSpeed;
+                } else {
+                    Speed = defaultSpeed;
+                }
+
+                if (Status.Contains(PlayerStatus.transformed)) {
+                    Speed++;
+                }
+                break;
+            case PlayerStatus.transformed:
+                effectAnim.SetBool("Transformation", true);
+                effectAnim.Play("Transformation", 0, 0);
+                yield return new WaitForSeconds(0.5f);
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/witch");
+                playerAnim.enabled = true;
+                Status.Remove(PlayerStatus.transformed);
+                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.5f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.8f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2.1f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                yield return new WaitForSeconds(0.43f);
+                effectAnim.SetBool("Transformation", false);
+
+                Speed = defaultSpeed;
+                if (Status.Contains(PlayerStatus.fast) && Status.Contains(PlayerStatus.poisoned)) {
+                    Speed = defaultSpeed;
+                } else if (Status.Contains(PlayerStatus.fast)) {
+                    Speed = fastSpeed;
+                } else if (Status.Contains(PlayerStatus.poisoned)) {
+                    Speed = poisonedSpeed;
+                } else {
+                    Speed = defaultSpeed;
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (Status.Contains(PlayerStatus.fast)) {
+            effectAnim.SetBool("Speed", true);
+        }
+        if (Status.Contains(PlayerStatus.poisoned)) {
+            effectAnim.SetBool("Speed", false);
+            effectAnim.SetBool("Poison", true);
+        }
+
+        if (status.Count == 0) {
+            lastTaken = null;
+        }
+    }
 
     IEnumerator FadeScreen(int i) {
         CanvasGroup cg = fadeScreen.GetComponent<CanvasGroup>();

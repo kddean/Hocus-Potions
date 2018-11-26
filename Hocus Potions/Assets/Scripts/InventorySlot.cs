@@ -27,6 +27,21 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     Vector3 offset = new Vector3(50, 0, 0);
     Image first, second, third, firstIcon, secondIcon, thirdIcon;
 
+    [Serializable]
+    public class SlotData {
+        public float x, y, z;
+        public int siblingIndex;
+        public Inventory.InventoryItem item;
+
+        public SlotData(float x, float y, float z, int siblingIndex, Inventory.InventoryItem item) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.siblingIndex = siblingIndex;
+            this.item = item;
+        }
+    }
+
     void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
     }
@@ -196,7 +211,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                         s.item = item.item;
                         s.count = item.count;
                         s.gameObject.GetComponent<Image>().enabled = true;
-                        s.gameObject.GetComponent<Image>().sprite = item.item.image;
+                        s.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.item.imagePath);
                         s.UpdateDict();
                         if (item.count > 1) {
                             s.gameObject.GetComponentInChildren<Text>().text = item.count.ToString();
@@ -212,8 +227,8 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                         s.item = tempItem;
                         s.count = tempCount;
 
-                        s.gameObject.GetComponent<Image>().sprite = s.item.image;
-                        gameObject.GetComponent<Image>().sprite = item.item.image;
+                        s.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(s.item.imagePath);
+                        gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.item.imagePath);
                         if (s.count > 1) {
                             s.gameObject.GetComponentInChildren<Text>().text = s.count.ToString();
                         } else {
@@ -260,7 +275,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (ings[i] != null) {
                 if (Inventory.Add(ings[i], 1)) {
                     ings[i] = temp;
-                    icon.sprite = temp.image;
+                    icon.sprite = Resources.Load<Sprite>(temp.imagePath);
                     Text[] text = slot.GetComponentsInChildren<Text>();
                     text[0].text = temp.name;
                 } else {
@@ -269,7 +284,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             } else {
                 ings[i] = temp;
                 icon.GetComponent<Image>().enabled = true;
-                icon.sprite = temp.image;
+                icon.sprite = Resources.Load<Sprite>(temp.imagePath);
                 Text[] text = slot.GetComponentsInChildren<Text>();
                 text[0].text = temp.name;
                 slot.GetComponentInChildren<CanvasGroup>().alpha = 1;

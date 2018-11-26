@@ -23,8 +23,9 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         invPanel = GameObject.FindGameObjectWithTag("inventory");
         sm = GameObject.Find("StorageManager").GetComponent<StorageManager>();
         StorageManager.StoreageData temp;
+        item = null;
         if (!sm.storageChest.TryGetValue(gameObject.name, out temp)) {
-            sm.storageChest.Add(gameObject.name, new StorageManager.StoreageData(null, 0, transform.GetSiblingIndex(), transform.localPosition));
+            sm.storageChest.Add(gameObject.name, new StorageManager.StoreageData(null, 0, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z));
         }
     }
 
@@ -80,7 +81,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     //Update inventory slot
                     im.gameObject.GetComponentInChildren<Text>().text = im.item.count.ToString();
 
-                    sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+                    sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
                     filledStack = true;
                     break;
                 }
@@ -94,7 +95,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         if (im.item == null) {
                             im.item = new Inventory.InventoryItem(item, count);
                             im.gameObject.GetComponent<Image>().enabled = true;
-                            im.gameObject.GetComponent<Image>().sprite = item.image;
+                            im.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.imagePath);
                             if (count > 1) {
                                 im.gameObject.GetComponentInChildren<Text>().text = count.ToString();
                             } else {
@@ -105,7 +106,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                             gameObject.GetComponent<Image>().enabled = false;
                             gameObject.GetComponentInChildren<Text>().text = "";
 
-                            sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+                            sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
                         } else {
                             Item tempItem = item;
                             int tempCount = count;
@@ -113,20 +114,20 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                             count = im.item.count;
                             im.item.item = tempItem;
                             im.item.count = tempCount;
-                            im.gameObject.GetComponent<Image>().sprite = tempItem.image;
+                            im.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(tempItem.imagePath);
                             if (tempCount > 1) {
                                 im.gameObject.GetComponentInChildren<Text>().text = tempCount.ToString();
                             } else {
                                 im.gameObject.GetComponentInChildren<Text>().text = "";
                             }
 
-                            gameObject.GetComponent<Image>().sprite = item.image;
+                            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.imagePath);
                             if (count > 1) {
                                 gameObject.GetComponentInChildren<Text>().text = count.ToString();
                             } else {
                                 gameObject.GetComponentInChildren<Text>().text = "";
                             }
-                            sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+                            sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
                         }
                         break;
                     }
@@ -145,8 +146,8 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     transform.SetSiblingIndex(s.transform.GetSiblingIndex());
                     s.transform.localPosition = temp;
                     s.transform.SetSiblingIndex(index);
-                    sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
-                    sm.storageChest[s.name] = new StorageManager.StoreageData(s.GetComponent<StorageSlot>().item, s.GetComponent<StorageSlot>().count, s.transform.GetSiblingIndex(), s.transform.localPosition);
+                    sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+                    sm.storageChest[s.name] = new StorageManager.StoreageData(s.GetComponent<StorageSlot>().item, s.GetComponent<StorageSlot>().count, s.transform.GetSiblingIndex(), s.transform.localPosition.x, s.transform.localPosition.y, s.transform.localPosition.z);
                     return;
                 }
             }
@@ -162,6 +163,6 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     public void UpdateDict() {
-        sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition);
+        sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
     }
 }

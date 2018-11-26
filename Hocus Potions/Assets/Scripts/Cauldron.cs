@@ -47,21 +47,21 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
         if (rl.ingredientCount != 0) {
             try {
-                first.GetComponentsInChildren<Image>()[1].sprite = rl.brewingIngredients[0].image;
+                first.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[0].imagePath);
                 first.GetComponentsInChildren<Image>()[1].enabled = true;
                 first.GetComponentInChildren<Text>().text = rl.brewingIngredients[0].name;
                 first.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
 
             try {
-                second.GetComponentsInChildren<Image>()[1].sprite = rl.brewingIngredients[1].image;
+                second.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[1].imagePath);
                 second.GetComponentsInChildren<Image>()[1].enabled = true;
                 second.GetComponentInChildren<Text>().text = rl.brewingIngredients[1].name;
                 second.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
 
             try {
-                third.GetComponentsInChildren<Image>()[1].sprite = rl.brewingIngredients[2].image;
+                third.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[2].imagePath);
                 third.GetComponentsInChildren<Image>()[1].enabled = true;
                 third.GetComponentInChildren<Text>().text = rl.brewingIngredients[2].name;
                 third.GetComponentInChildren<CanvasGroup>().alpha = 1;
@@ -111,7 +111,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
             pot = manager.Pot;
             potionName.text = pot.name;
-            potionImage.sprite = pot.image;
+            potionImage.sprite = Resources.Load<Sprite>(pot.imagePath);
             potionImage.GetComponent<CanvasGroup>().alpha = 1;
             done = true;
         }
@@ -131,9 +131,9 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.0f) {
             return;
         }
-        player.allowedToMove = false;
 
         if (eventData.button == PointerEventData.InputButton.Left) {
+            player.allowedToMove = false;
             canvas.SetActive(true);
             active = true;
             if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
@@ -198,6 +198,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             bubbles.GetComponent<SpriteRenderer>().enabled = false;
 
             manager.Brewing = 0;
+            manager.Pot = null;
             done = false;
         }
     }

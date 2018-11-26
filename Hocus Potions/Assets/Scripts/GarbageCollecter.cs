@@ -6,21 +6,24 @@ using UnityEngine.SceneManagement;
 public class GarbageCollecter : MonoBehaviour {
 
     public static int MAX_LIFE_TIME = 360; // In Minutes
+
+    [System.Serializable]
     public struct DroppedItemData {
         public Item item;
         public int count;
         public int lifeTime;
-        public Vector3 position;
+        public float x, y, z;
         public string scene;
-        public GameObject go;
+  
 
-        public DroppedItemData(Item item, int count, Vector3 position, string scene, GameObject go) {
+        public DroppedItemData(Item item, int count, float x, float y, float z, string scene) {
             this.item = item;
             this.count = count;
-            this.position = position;
+            this.x = x;
+            this.y = y;
+            this.z = z;
             this.scene = scene;
             this.lifeTime = MAX_LIFE_TIME;
-            this.go = go;
         }
     }
 
@@ -44,7 +47,8 @@ public class GarbageCollecter : MonoBehaviour {
 
     public void RemoveItem(Item i, Vector3 pos, string scene) {
         foreach(DroppedItemData d in droppedItems) {
-            if(d.item == i && d.position == pos && d.scene.Equals(scene)) {
+            Vector3 temp = new Vector3(d.x, d.y, d.z);
+            if (d.item == i && temp == pos && d.scene.Equals(scene)) {
                 droppedItems.Remove(d);
                 break;
             }
@@ -57,7 +61,16 @@ public class GarbageCollecter : MonoBehaviour {
             DroppedItemData temp = d;
             temp.lifeTime -= 10;
             if(temp.lifeTime <= 0) {
-                Destroy(temp.go);
+                if (temp.scene.Equals(SceneManager.GetActiveScene().name)) {
+                    Pickups[] items = GameObject.FindObjectsOfType<Pickups>();
+                    Vector3 pos = new Vector3(temp.x, temp.y, temp.z);
+
+                    foreach (Pickups p in items) {
+                        if (p.transform.position == pos && p.Item == temp.item) {
+                            Destroy(p.gameObject);
+                        }
+                    }
+                }
             } else {
                 junk.Add(temp);
             }
@@ -73,10 +86,9 @@ public class GarbageCollecter : MonoBehaviour {
             if(d.scene.Equals(SceneManager.GetActiveScene().name)) {
                 DroppedItemData temp = d;
                 GameObject go = new GameObject { name = d.item.name };
-                temp.go = go;
                 SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-                sr.sprite = d.item.image;
-                go.transform.position = d.position;
+                sr.sprite = Resources.Load<Sprite>(d.item.imagePath);
+                go.transform.position = new Vector3(d.x, d.y, d.z);
                 Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
                 BoxCollider2D c = go.AddComponent<BoxCollider2D>();
                 c.size = bounds;

@@ -15,6 +15,9 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
         set {
             item = value;
         }
+        get {
+            return item;
+        }
     }
 
     public int Count {
@@ -37,7 +40,8 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
         if(player.Status.Contains(Player.PlayerStatus.asleep) || Vector3.Distance(player.transform.position, transform.position) > 1.5f) { return; }
 
         if (Inventory.Add(item, count)) {
-            gc.RemoveItem(item, data.position, data.scene);
+            Vector3 temp = new Vector3(data.x, data.y, data.z);
+            gc.RemoveItem(item, temp, data.scene);
             Destroy(this.gameObject);
         } else {
             //TODO: probably play an animation or something to show you can't pick it up

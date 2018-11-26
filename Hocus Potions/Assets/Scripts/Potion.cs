@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Potion : Item {
     public int brewingTime; //in minutes
 
@@ -10,9 +12,9 @@ public class Potion : Item {
     Ingredient.Attributes? secondary;
     Ingredient.Modifiers? modifier;
 
-    public Potion(string name, Sprite image, int duration, Ingredient.Attributes? primary, Ingredient.Attributes? secondary, Ingredient.Modifiers? modifier, int brewingTime) {
+    public Potion(string name, string imagePath, int duration, Ingredient.Attributes? primary, Ingredient.Attributes? secondary, Ingredient.Modifiers? modifier, int brewingTime) {
         this.name = name;
-        this.image = image;
+        this.imagePath = imagePath;
         this.Duration = duration;
         this.primary = primary;
         this.secondary = secondary;
