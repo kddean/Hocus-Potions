@@ -15,6 +15,8 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     List<PlayerStatus> status;
     SpriteRenderer sr;
     public GameObject fadeScreen, sleepCanvas;
+    public bool swappingScenes;
+    public bool allowedToMove;
 
     public List<PlayerStatus> Status {
         get {
@@ -49,6 +51,8 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         Status = new List<PlayerStatus>();
         Speed = defaultSpeed;
         sr = GetComponent<SpriteRenderer>();
+        swappingScenes = false;
+        allowedToMove = true;
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -66,6 +70,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     }
 
     private void FixedUpdate() {
+        if (!allowedToMove) { return; }
         Vector3 pos = transform.position;
         x = y = 0;
         if (Input.GetKey("w")) {
@@ -85,18 +90,23 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        switch (collision.gameObject.name) {
-            case "ToWorld":
-                GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToWorld");
-                break;
-            case "ToHouse":
-                GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToHouse");
-                break;
-            case "ToGarden":
-                GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToGarden");
-                break;
-            default:
-                break;
+        if (!swappingScenes && GetComponent<BoxCollider2D>().IsTouching(collision)) {
+            switch (collision.gameObject.name) {
+                case "ToWorld":
+                    GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToWorld");
+                    swappingScenes = true;
+                    break;
+                case "ToHouse":
+                    GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToHouse");
+                    swappingScenes = true;
+                    break;
+                case "ToGarden":
+                    GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToGarden");
+                    swappingScenes = true;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -161,9 +171,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 anim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
-                Vector2 temp = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
-                GetComponent<BoxCollider2D>().size = temp;
-
+                GetComponent<BoxCollider2D>().size = new Vector2(0.6f, 0.2f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.2f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
                 Speed = defaultSpeed + 1;
                 break;
             case Ingredient.Attributes.none:
@@ -227,8 +238,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 anim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/witch");
-                Vector2 temp = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
-                GetComponent<BoxCollider2D>().size = temp;
+                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.5f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.8f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2.1f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
                 yield return new WaitForSeconds(0.43f);
                 anim.SetBool("Transformation", false);
                 Status.Remove(PlayerStatus.transformed);

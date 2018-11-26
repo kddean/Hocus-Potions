@@ -86,8 +86,12 @@ public class NPCManager : MonoBehaviour {
                 SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
                 sr.sprite = rl.charSpriteList[key];
                 BoxCollider2D col = go.AddComponent<BoxCollider2D>();
-                Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
-                col.size = bounds;
+                BoxCollider2D col2 = go.AddComponent<BoxCollider2D>();
+                col.size = new Vector2(1.0f, 0.5f);
+                col.offset = new Vector2(0, -0.8f);
+                col2.size = new Vector2(1, 2.1f);
+                col2.offset = new Vector2(0, 0);
+                col2.isTrigger = true;
                 go.name = key;
                 GameObject effects = new GameObject();
                 effects.AddComponent<SpriteRenderer>();

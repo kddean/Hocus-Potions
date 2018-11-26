@@ -47,7 +47,7 @@ public class SceneSwitcher : MonoBehaviour {
     IEnumerator SceneLoader(int index) {
         scene = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
         while (!scene.isDone) {
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
         OnSceneLoaded(index);
     }
@@ -55,10 +55,11 @@ public class SceneSwitcher : MonoBehaviour {
     void OnSceneLoaded(int index) {
         Scene loadingScene = SceneManager.GetSceneByBuildIndex(index);
         if (loadingScene.IsValid()) {
-            SceneManager.SetActiveScene(loadingScene);
             GameObject spawnPoint = GameObject.Find("SpawnPoint");
             GameObject.FindGameObjectWithTag("Player").transform.position = spawnPoint.transform.position;
             GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().SpawnDropped();
+            SceneManager.SetActiveScene(loadingScene);         
         }
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().swappingScenes = false;
     }
 }

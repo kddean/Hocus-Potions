@@ -128,9 +128,10 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
 
    public void OnPointerDown(PointerEventData eventData) {
-        if(player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed)) {
+        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.0f) {
             return;
         }
+        player.allowedToMove = false;
 
         if (eventData.button == PointerEventData.InputButton.Left) {
             canvas.SetActive(true);
@@ -223,6 +224,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         visible = false;
         canvas.SetActive(false);
         active = false;
+        player.allowedToMove = true;
     }
 
     void SwapVisible(CanvasGroup cg) {

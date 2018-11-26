@@ -34,7 +34,7 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if(player.Status.Contains(Player.PlayerStatus.asleep)) { return; }
+        if(player.Status.Contains(Player.PlayerStatus.asleep) || Vector3.Distance(player.transform.position, transform.position) > 1.5f) { return; }
 
         if (Inventory.Add(item, count)) {
             gc.RemoveItem(item, data.position, data.scene);

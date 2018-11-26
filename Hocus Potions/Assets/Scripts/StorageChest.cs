@@ -9,6 +9,7 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
     Player player;
     public bool active;
     StorageManager sm;
+    float temp;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -19,14 +20,16 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed)) { return; }
+        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.0f) { return; }
         canvas.SetActive(true);
         active = true;
         sm.OpenChest();
+        player.allowedToMove = false;
     }
 
     public void Close() {
         canvas.SetActive(false);
         active = false;
+        player.allowedToMove = true;
     }
 }

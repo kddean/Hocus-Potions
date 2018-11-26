@@ -326,6 +326,7 @@
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\LayerSwapping.cs" />
     <Compile Include="Assets\Scripts\Mana.cs" />
     <Compile Include="Assets\Scripts\MoonCycle.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
