@@ -76,20 +76,7 @@ public class GatheringManager : MonoBehaviour {
         }
 
         if(spawnerReset.TryGetValue(gatherer.gameObject.name, out sRT))
-        {
-           /*if(sRT.numberOfDaysLeft > 0)
-            {
-                if(spawnerData.TryGetValue(gatherer.gameObject.name, out sD))
-                {
-                    if(sD.hasSpawnedItem == true)
-                    {
-                        gatherer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[sD.spawnedItem.name].imagePath);
-                    }
-                    else { return; }
-                }
-                else { return; }
-            }          
-            else*/
+        {           
             if(sRT.numberOfDaysLeft > 0)
             {
                 return;
@@ -112,7 +99,8 @@ public class GatheringManager : MonoBehaviour {
                 newTime.numberOfDaysLeft = defaultResetTime;
                 spawnerReset[gatherer.gameObject.name] =  newTime;
 
-                gatherer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(newData.spawnedItem.imagePath);
+                Sprite[] plantSprites = Resources.LoadAll<Sprite>("Plants/" + newData.spawnedItem.name);
+                gatherer.GetComponent<SpriteRenderer>().sprite = plantSprites[plantSprites.Length - 1];
             }
         }
         else
@@ -123,9 +111,7 @@ public class GatheringManager : MonoBehaviour {
 
     IEnumerator Spawn()
     {
-        //Debug.Log("Spawn");
-        
-        //Debug.Log(mc.Days);
+       
         if (mc.Days > daystrack)
         {
             Debug.Log("hello, it's me");
@@ -156,7 +142,8 @@ public class GatheringManager : MonoBehaviour {
                     {
                         if (sD.hasSpawnedItem == true)
                         {
-                            GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[sD.spawnedItem.name].imagePath);
+                            Sprite[] plantSprites = Resources.LoadAll<Sprite>("Plants/" + sD.spawnedItem.name);
+                            GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = plantSprites[plantSprites.Length - 1];
                         }
                         else
                         {

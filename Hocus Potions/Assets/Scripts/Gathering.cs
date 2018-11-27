@@ -6,7 +6,7 @@ using System.Linq;
 public class Gathering : MonoBehaviour {
 
 	ResourceLoader rl;
-	public List<string> plants;
+    public Sprite[] plants;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +25,8 @@ public class Gathering : MonoBehaviour {
                 //Display plant if spawner has one else do nothing
                 if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp))
                 {
-                    this.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(temp.spawnedItem.imagePath);
+                    plants = Resources.LoadAll<Sprite>("Plants/" + temp.spawnedItem.name);
+                    this.GetComponent<SpriteRenderer>().sprite = plants[plants.Length - 1];
                 }
                 else { return; }
             }          
