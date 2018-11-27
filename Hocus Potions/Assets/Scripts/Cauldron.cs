@@ -68,8 +68,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             } catch (System.NullReferenceException e) { }
         }
 
-
-        switch (GameObject.Find("BrewingManager").GetComponent<BrewingManager>().Brewing) {
+        switch (manager.Brewing) {
             case 0:
                 foreach (Animator a in anims) {
                     a.SetBool("idle", true);

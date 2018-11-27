@@ -112,17 +112,12 @@ public class MainMenu : MonoBehaviour {
         SaveData data = (SaveData)bf.Deserialize(file);
 
         //TODO:This is going to require a ton of setup to make sure all these objects/scripts exist before their data is set
-        SceneManager.LoadScene(data.currentScene, LoadSceneMode.Single);
-        player.transform.position = new Vector3(data.x, data.y, data.z);
+        StartCoroutine(SceneLoader(data));
 
-        player.Status = data.playerStatus;
+        player.transform.position = new Vector3(data.x, data.y, data.z);
         player.LastTaken = data.lastTaken;
 
-        if(player.Status.Count > 0) {
-            for(int i = 0; i < player.Status.Count(); i++) {
-                player.RestartTimers(player.Status[i], data.timers[i]);
-            }
-        }
+        bm.Brewing = data.brewingStatus;
 
         mana.MaxMana = data.maxMana;
         mana.CurrentMana = data.currentMana;
@@ -154,37 +149,7 @@ public class MainMenu : MonoBehaviour {
 
 
         rl.brewingIngredients = data.cauldronContents;
-        rl.ingredientCount = data.ingredientCount;
-        bm.Pot = data.brewingPotion;
-
-        bm.Brewing = data.brewingStatus;
-        bm.BrewTime = data.brewingTime;
-        bm.CurrentTime = data.currentTime;
-        if(bm.Brewing == 1) {
-            bm.Begin(bm.BrewTime, bm.Pot);
-        }
-
-        garden.plots.Clear();
-        for(int i = 0; i < data.gardenPlots.Count; i++) {
-            garden.plots.Add(data.gardenPlots[i], data.gardenData[i]);
-        }
-
-        gc.droppedItems = data.droppedItems;
-
-        mc.Hour = data.hour;
-        mc.Minutes = data.minute;
-        mc.Days = data.day;
-        mc.CurrentMoonPhase = mc.Days % 6;
-        mc.moonPhase.sprite = mc.moonCycleSprites[mc.CurrentMoonPhase];
-        if(mc.Hour >= 18 || mc.Hour < 6) {
-            mc.timeImage.sprite = mc.timeOfDay[3];
-        } else if( mc.Hour >= 6 && mc.Hour < 10) {
-            mc.timeImage.sprite = mc.timeOfDay[0];
-        } else if(mc.Hour >= 10 && mc.Hour < 14) {
-            mc.timeImage.sprite = mc.timeOfDay[1];
-        } else if(mc.Hour >= 14 && mc.Hour < 18) {
-            mc.timeImage.sprite = mc.timeOfDay[2];
-        }
+        rl.ingredientCount = data.ingredientCount;      
 
         npcs.data.Clear();
         for(int i = 0; i < data.npcNames.Count; i++) {
@@ -194,10 +159,61 @@ public class MainMenu : MonoBehaviour {
         npcs.Spawned = data.spawned;
 
         file.Close();
-        gameObject.SetActive(false);
+
     }
 
     public void QuitGame() {
         Application.Quit();
     }
+
+     IEnumerator SceneLoader(SaveData data) {
+        AsyncOperation scene = SceneManager.LoadSceneAsync(data.currentScene, LoadSceneMode.Single);
+        while (!scene.isDone) {
+            yield return null;
+        }
+
+        Scene check = SceneManager.GetSceneByName(data.currentScene);
+        if (check.IsValid()) {
+            player.Status = data.playerStatus;
+            if (player.Status.Count > 0) {
+                for (int i = 0; i < player.Status.Count(); i++) {
+                    player.RestartTimers(player.Status[i], data.timers[i]);
+                }
+            }
+
+
+            bm.Pot = data.brewingPotion;
+            bm.BrewTime = data.brewingTime;
+            bm.CurrentTime = data.currentTime;
+            if (bm.Brewing == 1) {
+                bm.Begin(bm.BrewTime, bm.Pot);
+            }
+
+            garden.plots.Clear();
+            for (int i = 0; i < data.gardenPlots.Count; i++) {
+                garden.plots.Add(data.gardenPlots[i], data.gardenData[i]);
+            }
+
+            mc.Hour = data.hour;
+            mc.Minutes = data.minute;
+            mc.Days = data.day;
+            mc.CurrentMoonPhase = mc.Days % 6;
+            mc.moonPhase.sprite = mc.moonCycleSprites[mc.CurrentMoonPhase];
+            if (mc.Hour >= 18 || mc.Hour < 6) {
+                mc.timeImage.sprite = mc.timeOfDay[3];
+            } else if (mc.Hour >= 6 && mc.Hour < 10) {
+                mc.timeImage.sprite = mc.timeOfDay[0];
+            } else if (mc.Hour >= 10 && mc.Hour < 14) {
+                mc.timeImage.sprite = mc.timeOfDay[1];
+            } else if (mc.Hour >= 14 && mc.Hour < 18) {
+                mc.timeImage.sprite = mc.timeOfDay[2];
+            }
+
+            gc.droppedItems = data.droppedItems;
+            GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().SpawnDropped();
+            SceneManager.SetActiveScene(check);
+            gameObject.SetActive(false);
+        }
+    }
+
 }
