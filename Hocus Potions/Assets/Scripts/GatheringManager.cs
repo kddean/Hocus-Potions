@@ -171,4 +171,17 @@ public class GatheringManager : MonoBehaviour {
             spawnerReset.Add(spawners[i].name, newTime);
         }
     }
+
+   public void SeedDrop(Gathering gatherer)
+    {
+        // 0 and 1
+        int ran = Random.Range(0, 1);
+
+        SpawnerData temp3;
+        spawnerData.TryGetValue(gatherer.name, out temp3);
+        Seed droppedSeed = rl.seeds[temp3.spawnedItem.name];
+
+        Inventory.Add(droppedSeed, ran);
+
+    }
 }

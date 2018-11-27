@@ -61,7 +61,9 @@ public class Gathering : MonoBehaviour {
 
 		if (Inventory.Add (temp.spawnedItem, 1)) {
 			this.GetComponent<SpriteRenderer> ().sprite = null;
-			rl.gatheringManager.spawnerData.Remove (gameObject.name);
+            rl.gatheringManager.SeedDrop(this);
+            rl.gatheringManager.spawnerData.Remove (gameObject.name);
+            
 		}
 	}
 }
