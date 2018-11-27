@@ -6,7 +6,7 @@ using System.Linq;
 public class Gathering : MonoBehaviour {
 
 	ResourceLoader rl;
-	public List<string> plants;
+    public Sprite[] plants;
 
 	// Use this for initialization
 	void Start () {
@@ -16,19 +16,36 @@ public class Gathering : MonoBehaviour {
         GatheringManager.SpawnerResetTime temp2;
         if (rl.gatheringManager.spawnerReset.TryGetValue(gameObject.name, out temp2))
         {
+            Debug.Log(gameObject.name);
+            Debug.Log(temp2.numberOfDaysLeft);
             // Check how many days are left
             if (temp2.numberOfDaysLeft > 0)
             {
+
                 //Display plant if spawner has one else do nothing
                 if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp))
                 {
-                    this.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(temp.spawnedItem.imagePath);
+                    plants = Resources.LoadAll<Sprite>("Plants/" + temp.spawnedItem.name);
+                    this.GetComponent<SpriteRenderer>().sprite = plants[plants.Length - 1];
                 }
                 else { return; }
             }          
             else
             {
+                if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp)) {
+
+                    if (temp.hasSpawnedItem == true)
+                    {
+                        rl.gatheringManager.spawnerData.Remove(gameObject.name);
+                        Debug.Log("Plant removed");
+                    }
+  
+                }
+
+               // Debug.Log("Generate");
                 rl.gatheringManager.Populate(this);
+                Debug.Log("Plant added");
+
             }
         }
 	}
@@ -44,7 +61,9 @@ public class Gathering : MonoBehaviour {
 
 		if (Inventory.Add (temp.spawnedItem, 1)) {
 			this.GetComponent<SpriteRenderer> ().sprite = null;
-			rl.gatheringManager.spawnerData.Remove (gameObject.name);
+            rl.gatheringManager.SeedDrop(this);
+            rl.gatheringManager.spawnerData.Remove (gameObject.name);
+            
 		}
 	}
 }

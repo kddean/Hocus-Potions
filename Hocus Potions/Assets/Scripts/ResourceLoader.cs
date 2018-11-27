@@ -69,7 +69,9 @@ public class ResourceLoader : MonoBehaviour {
             { "lambsgrass", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.healing, Ingredient.Attributes.speed }, "lambsgrass", "Plants/lambsgrass_inv") },
             { "poppy", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", "Plants/poppy_inv") },
             { "thistle", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.speed, Ingredient.Attributes.mana }, "thistle", "Plants/thistle_inv") },
-            { "lily", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.transformation, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lily", "Plants/lily_inv") }
+            { "lily", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.transformation, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lily", "Plants/lily_inv") },
+            { "morel", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.none, Ingredient.Attributes.none }, "morel", "Plants/morel") },
+            { "fly_agaric", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.none, Ingredient.Attributes.none }, "fly_agaric", "Plants/fly_agaric") }
         };
     }
 
