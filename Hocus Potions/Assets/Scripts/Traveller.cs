@@ -54,7 +54,7 @@ public class Traveller : NPC, IPointerDownHandler {
         spawnHour = mc.Hour;
         spawnMinute = mc.Minutes;
         chosen = false;
-       // effects.SetActive(false);
+        //effects.SetActive(false);
         //set flags
         visible = false;
         move = true;
@@ -72,9 +72,15 @@ public class Traveller : NPC, IPointerDownHandler {
             data.timesInteracted = 0;
             data.given = new List<Item>();
             data.affinity = 0;
+            data.request = null;
             manager.data.Add(CharacterName, data);
         }
-        data.returning = false;
+        if(data.returning && data.request != null) {
+            requested = true;
+            rl.requestList.TryGetValue(CharacterName, out requests);
+            dialoguePieces = Dialogue[data.request][0].Split('*');
+            currentDialogue = dialoguePieces.Length - 1;
+        }
         //set onclick functions for dialogue
         panel.transform.Find("Next").GetComponent<Button>().onClick.AddListener(NextDialogue);
         panel.transform.Find("Exit").GetComponent<Button>().onClick.AddListener(ExitDialogue);
@@ -99,8 +105,11 @@ public class Traveller : NPC, IPointerDownHandler {
                 transform.position = temp;
 
                 if (transform.position.x == GameObject.Find("SpawnPoint").transform.position.x && transform.position.y == GameObject.Find("SpawnPoint").transform.position.y) {
-                    Destroy(this.gameObject);
+                    if (visible) {
+                        ExitDialogue();
+                    }
                     manager.Spawned = false;
+                    Destroy(this.gameObject);
                 }
             }
         }
@@ -136,7 +145,8 @@ public class Traveller : NPC, IPointerDownHandler {
                     dialoguePieces = Dialogue["intro"][0].Split('*');
                 }
                 panel.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
-                if ((dialoguePieces.Length <= 1 || (currentDialogue == dialoguePieces.Length - 1)) && (requests == null || chosen)) {
+
+                if (!data.returning && ((dialoguePieces.Length <= 1 || (currentDialogue == dialoguePieces.Length - 1)) && (requests == null || chosen))) {
                     panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
                     panel.transform.Find("Next").GetComponent<CanvasGroup>().interactable = false;
                     panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -238,6 +248,7 @@ public class Traveller : NPC, IPointerDownHandler {
                 type = temp.Primary.ToString();
             }
             data.affinity += (requests[choice].GetValue(type) * requests[choice].Strength);
+            data.request = null;
             manager.data[CharacterName] = data;
         } else {  //handle trying to give people the wrong item type
             SwapVisibile(panelCG);
@@ -283,6 +294,8 @@ public class Traveller : NPC, IPointerDownHandler {
                         affinity = "_neutral";
                     }
                     string key = requests[choice].Key + affinity;
+                    data.request = key;
+                    manager.data[CharacterName] = data;
                     dialoguePieces = Dialogue[key][0].Split('*');
                     currentDialogue = 0;
                     panel.GetComponentInChildren<Text>().text = dialoguePieces[0];
@@ -300,6 +313,7 @@ public class Traveller : NPC, IPointerDownHandler {
         panel.transform.Find("Next").GetComponent<CanvasGroup>().interactable = true;
         panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = true;
         panel.transform.Find("Next").GetComponent<CanvasGroup>().alpha = 1.0f;
+        manager.data[CharacterName] = data;
         visible = false;
         move = true;
     }
@@ -310,6 +324,7 @@ public class Traveller : NPC, IPointerDownHandler {
         requested = true;
         SwapButtonsAndText();
         ExitDialogue();
+        data.returning = false;
         manager.data[CharacterName] = data;
         showButtons = false;
         chosen = true;
@@ -320,6 +335,7 @@ public class Traveller : NPC, IPointerDownHandler {
         SwapButtonsAndText();
         move = true;
         wait = false;
+        data.returning = false;
         manager.data[CharacterName] = data;
         showButtons = false;
         chosen = true;
@@ -350,7 +366,13 @@ public class Traveller : NPC, IPointerDownHandler {
     void SwapButtonsAndText() {
         SwapVisibile(panel.GetComponentInChildren<Text>().GetComponent<CanvasGroup>());
         SwapVisibile(panel.transform.Find("Yes").GetComponent<CanvasGroup>());
-        SwapVisibile(panel.transform.Find("Wait").GetComponent<CanvasGroup>());
+        if (!data.returning) {
+            SwapVisibile(panel.transform.Find("Wait").GetComponent<CanvasGroup>());
+        } else {
+            panel.transform.Find("Wait").GetComponent<CanvasGroup>().alpha = 0;
+            panel.transform.Find("Wait").GetComponent<CanvasGroup>().interactable = false;
+            panel.transform.Find("Wait").GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
         SwapVisibile(panel.transform.Find("No").GetComponent<CanvasGroup>());
         panel.transform.Find("Next").GetComponent<CanvasGroup>().interactable = false;
         panel.transform.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;

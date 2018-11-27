@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -49,21 +50,21 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             try {
                 first.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[0].imagePath);
                 first.GetComponentsInChildren<Image>()[1].enabled = true;
-                first.GetComponentInChildren<Text>().text = rl.brewingIngredients[0].name;
+                first.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[0].name, "_", " ");
                 first.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
 
             try {
                 second.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[1].imagePath);
                 second.GetComponentsInChildren<Image>()[1].enabled = true;
-                second.GetComponentInChildren<Text>().text = rl.brewingIngredients[1].name;
+                second.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[1].name, "_", " ");
                 second.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
 
             try {
                 third.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[2].imagePath);
                 third.GetComponentsInChildren<Image>()[1].enabled = true;
-                third.GetComponentInChildren<Text>().text = rl.brewingIngredients[2].name;
+                third.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[2].name, "_", " ");
                 third.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
         }
@@ -116,6 +117,10 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         if (visible && player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed)) {
             Close();
         }
+
+        if (anims[2].GetCurrentAnimatorStateInfo(0).IsName("Ignite") && anims[2].GetCurrentAnimatorStateInfo(0).normalizedTime >= 1) {
+            anims[2].SetBool("Ignite", false);
+        }
     }
 
 
@@ -152,8 +157,9 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
                 }
             }
         } else {
-            if(manager.Brewing == 1 && rl.activeSpell == rl.spells[0] && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.spells[0].Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
+            if(manager.Brewing == 1 && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Ignite") && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.activeSpell.Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
                 manager.BrewTime = manager.BrewTime * speedUp;
+                anims[2].SetBool("Ignite", true);
                 if(manager.CurrentTime >= manager.BrewTime) {
                     manager.Brewing = 2;
                 }

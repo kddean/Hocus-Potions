@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -69,7 +70,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     void displayTooltip() {
         text = tooltip.GetComponentsInChildren<Text>();
-        text[0].text = item.item.name;
+        text[0].text = Regex.Replace(item.item.name, "_", " ");
         //text[1].text = item.flavorText;
         //text[2].text = item.attributes;
         tooltip.GetComponent<CanvasGroup>().alpha = 1;
@@ -277,7 +278,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     ings[i] = temp;
                     icon.sprite = Resources.Load<Sprite>(temp.imagePath);
                     Text[] text = slot.GetComponentsInChildren<Text>();
-                    text[0].text = temp.name;
+                    text[0].text = Regex.Replace(temp.name, "_", " ");
                 } else {
                    Inventory.Add(temp, 1);
                 }
@@ -286,7 +287,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 icon.GetComponent<Image>().enabled = true;
                 icon.sprite = Resources.Load<Sprite>(temp.imagePath);
                 Text[] text = slot.GetComponentsInChildren<Text>();
-                text[0].text = temp.name;
+                text[0].text = Regex.Replace(temp.name, "_", " "); ;
                 slot.GetComponentInChildren<CanvasGroup>().alpha = 1;
                 rl.ingredientCount++;
             }

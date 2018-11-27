@@ -89,9 +89,8 @@ public class ResourceLoader : MonoBehaviour {
 
     void CreateSpells() {
         spells = new List<Spell>();
-        spells.Add(new Spell("Ignite", 20, null));
         spells.Add(new Spell("Wild Growth", 50, null));
-       
+        spells.Add(new Spell("Ignite", 20, null));
     }
 
     void CreateInventory() {
@@ -99,10 +98,6 @@ public class ResourceLoader : MonoBehaviour {
         foreach(InventorySlot s in slots) {
             s.item = null;
         }
-
-        /*if(save file exists){
-             pull data from that to fill inventory
-          } */
     }
 
 

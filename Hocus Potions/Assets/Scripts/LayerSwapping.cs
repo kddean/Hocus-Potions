@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LayerSwapping : MonoBehaviour {
-    string startingLayer;
+    List<string> startingLayer;
     GameObject player;
     bool set;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
-        startingLayer = gameObject.GetComponent<SpriteRenderer>().sortingLayerName;
+        startingLayer = new List<string>();
         set = false;
     }
 
@@ -17,6 +17,7 @@ public class LayerSwapping : MonoBehaviour {
         if (!set && !collision.isTrigger && player.transform.position.y > transform.position.y) {     
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
             foreach(SpriteRenderer sr in children) {
+                startingLayer.Add(sr.sortingLayerName);
                 sr.sortingLayerName = "InFrontOfPlayer";
             }
             set = true;
@@ -28,10 +29,11 @@ public class LayerSwapping : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision) {
         if (set && !collision.isTrigger && player.transform.position.y > transform.position.y) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
-            foreach (SpriteRenderer sr in children) {
-                sr.sortingLayerName = startingLayer;
+            for(int i = 0; i < children.Length; i++){
+                children[i].sortingLayerName = startingLayer[i];
             }
             set = false;
+            startingLayer.Clear();
         }
     }
 }

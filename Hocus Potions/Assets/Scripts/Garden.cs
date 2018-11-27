@@ -93,9 +93,6 @@ public class Garden : MonoBehaviour {
         if(data.stage == Status.harvestable) {
             return;
         }
-        if (GameObject.FindObjectOfType<Mana>().InUse) {
-            return;
-        }
 
         data.index++;
         if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {

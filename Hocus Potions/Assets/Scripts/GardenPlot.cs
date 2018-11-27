@@ -28,7 +28,7 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
         if (eventData.button == PointerEventData.InputButton.Left) {
             rl.garden.Farm(this);
         } else if (eventData.button == PointerEventData.InputButton.Right) {
-            if(rl.activeSpell != null && rl.activeSpell.SpellName == "Wild Growth") {
+            if(rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Wild Growth") && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.activeSpell.Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
                 rl.garden.SpellCast(this);
             }
         }
