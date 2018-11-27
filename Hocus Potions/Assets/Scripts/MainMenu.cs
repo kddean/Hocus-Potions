@@ -193,6 +193,15 @@ public class MainMenu : MonoBehaviour {
             for (int i = 0; i < data.gardenPlots.Count; i++) {
                 garden.plots.Add(data.gardenPlots[i], data.gardenData[i]);
             }
+            List<string> keys = garden.plots.Keys.ToList();
+            foreach (string s in keys) {
+                if (SceneManager.GetActiveScene().name.Equals(garden.plots[s].plotScene)) {
+                    SpriteRenderer[] renderers = GameObject.Find(s).GetComponentsInChildren<SpriteRenderer>();
+                    for (int i = 1; i < 4; i++) {
+                        renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + garden.plots[s].type)[garden.plots[s].index];
+                    }
+                }
+            }
 
             mc.Hour = data.hour;
             mc.Minutes = data.minute;

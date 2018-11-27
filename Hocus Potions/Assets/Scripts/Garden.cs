@@ -107,6 +107,7 @@ public class Garden : MonoBehaviour {
                 renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + data.type)[data.index];
             }
         }
+        plots[plot.gameObject.name] = data;
         GameObject.FindObjectOfType<Mana>().UpdateMana(rl.activeSpell.Cost);
     }
 
