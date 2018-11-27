@@ -99,21 +99,14 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
     private void Update() {
         if (manager.Brewing == 2 && !done) {
-            SwapVisible(brew.GetComponent<CanvasGroup>());
-            SwapVisible(take.GetComponent<CanvasGroup>());
-
             foreach (Animator a in anims) {
                 a.SetBool("idle", true);
             }
             bubbles.GetComponent<Animator>().SetBool("full", true);
             sparkles.GetComponent<SpriteRenderer>().enabled = false;
-
-            pot = manager.Pot;
-            potionName.text = pot.name;
-            potionImage.sprite = Resources.Load<Sprite>(pot.imagePath);
-            potionImage.GetComponent<CanvasGroup>().alpha = 1;
             done = true;
         }
+
         if (visible && !brewVisible && (rl.ingredientCount == 3 || manager.Brewing == 2)) {
             brewPanel.GetComponent<CanvasGroup>().alpha = 1;
             brewPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -141,6 +134,13 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
                 if (manager.Brewing == 2) {
                     SetVisible(brewPanel.GetComponent<CanvasGroup>());
                     brewVisible = true;
+
+                    SwapVisible(brew.GetComponent<CanvasGroup>());
+                    SwapVisible(take.GetComponent<CanvasGroup>());
+                    pot = manager.Pot;
+                    potionName.text = pot.name;
+                    potionImage.sprite = Resources.Load<Sprite>(pot.imagePath);
+                    potionImage.GetComponent<CanvasGroup>().alpha = 1;
                 }
 
                 foreach (Button b in invButtons) {
