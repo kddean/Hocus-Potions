@@ -20,7 +20,6 @@ public class BrewingManager : MonoBehaviour {
         StartCoroutine(StartBrewing(t, p));
     }
     IEnumerator StartBrewing(float time, Potion p) {
-        currentTime = 0;
         brewTime = time;
         pot = p;
         Brewing = 1;
@@ -30,6 +29,7 @@ public class BrewingManager : MonoBehaviour {
         }
        
         Brewing = 2;
+        currentTime = 0;
     }
 
     public int Brewing {

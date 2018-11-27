@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StorageManager : MonoBehaviour {
+    
+    public Dictionary<string, StoreageData> storageChest;
 
     public void Awake() {
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1) {
             Destroy(gameObject);
         }
+        storageChest = new Dictionary<string, StoreageData>();
     }
+
     [System.Serializable]
     public struct StoreageData {
         public Item item;
@@ -28,12 +32,6 @@ public class StorageManager : MonoBehaviour {
         }
     }
 
-
-    public Dictionary<string, StoreageData> storageChest;
-    // Use this for initialization
-    void Start () {
-        storageChest = new Dictionary<string, StoreageData>();
-	}
 
     public void OpenChest() {
         foreach (string key in storageChest.Keys) {

@@ -18,10 +18,11 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     StorageManager sm;
 
 
-    private void Start() {
+    private void Awake() {
+        sm = GameObject.Find("StorageManager").GetComponent<StorageManager>();
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         invPanel = GameObject.FindGameObjectWithTag("inventory");
-        sm = GameObject.Find("StorageManager").GetComponent<StorageManager>();
+
         StorageManager.StoreageData temp;
         item = null;
         if (!sm.storageChest.TryGetValue(gameObject.name, out temp)) {
