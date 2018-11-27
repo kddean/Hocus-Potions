@@ -68,15 +68,16 @@ public class GatheringManager : MonoBehaviour {
         SpawnerData sD;
         SpawnerResetTime sRT;
 
+        //Debug.Log(spawnerReset.Count);
         if(spawnerReset.Count == 0)
         {
             SetResetDictionary();
-            Debug.Log("Dictionary Set");
+            
         }
 
         if(spawnerReset.TryGetValue(gatherer.gameObject.name, out sRT))
         {
-            if(sRT.numberOfDaysLeft > 0)
+           /*if(sRT.numberOfDaysLeft > 0)
             {
                 if(spawnerData.TryGetValue(gatherer.gameObject.name, out sD))
                 {
@@ -87,6 +88,11 @@ public class GatheringManager : MonoBehaviour {
                     else { return; }
                 }
                 else { return; }
+            }          
+            else*/
+            if(sRT.numberOfDaysLeft > 0)
+            {
+                return;
             }
             else
             {
@@ -104,6 +110,7 @@ public class GatheringManager : MonoBehaviour {
 
                 spawnerReset.TryGetValue(gatherer.gameObject.name, out newTime);
                 newTime.numberOfDaysLeft = defaultResetTime;
+                spawnerReset[gatherer.gameObject.name] =  newTime;
 
                 gatherer.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(newData.spawnedItem.imagePath);
             }
@@ -116,44 +123,54 @@ public class GatheringManager : MonoBehaviour {
 
     IEnumerator Spawn()
     {
-        List<string> keys = spawnerData.Keys.ToList();
+        //Debug.Log("Spawn");
+        
+        //Debug.Log(mc.Days);
         if (mc.Days > daystrack)
         {
-            foreach(string spawner in keys)
+            Debug.Log("hello, it's me");
+            List<string> resetKeys = spawnerReset.Keys.ToList();
+            foreach (string spawner in resetKeys)
             {
                 SpawnerResetTime sRT;
                 spawnerReset.TryGetValue(spawner, out sRT);
                 sRT.numberOfDaysLeft -= 1;
+                spawnerReset[spawner] = sRT;
             }
             daystrack = mc.Days;
         }
         if(spawnerReset.Count == 0 && spawners.Length > 0)
         {
             SetResetDictionary();
+            Debug.Log("Dictionary Set");
         }
         else
         {
-            
-            foreach(string spawner in keys)
+            if (SceneManager.GetActiveScene().name.Equals("SampleGameArea"))
             {
-                SpawnerData sD;
-                if(spawnerData.TryGetValue(spawner, out sD))
+                List<string> keys = spawnerData.Keys.ToList();
+                foreach (string spawner in keys)
                 {
-                    if(sD.hasSpawnedItem == true)
+                    SpawnerData sD;
+                    if (spawnerData.TryGetValue(spawner, out sD))
                     {
-                        GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[sD.spawnedItem.name].imagePath);
-                    }
-                    else
-                    {
-                        yield return new WaitForSeconds(mc.CLOCK_SPEED);
-                        StartCoroutine(Spawn());
+                        if (sD.hasSpawnedItem == true)
+                        {
+                            GameObject.Find(spawner).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[sD.spawnedItem.name].imagePath);
+                        }
+                        else
+                        {
+                            yield return new WaitForSeconds(mc.CLOCK_SPEED);
+                            StartCoroutine(Spawn());
+                        }
                     }
                 }
             }
 
             yield return new WaitForSeconds(mc.CLOCK_SPEED);
-            StartCoroutine(Spawn());
+            
         }
+        StartCoroutine(Spawn());
     }
 
     void SetResetDictionary()
