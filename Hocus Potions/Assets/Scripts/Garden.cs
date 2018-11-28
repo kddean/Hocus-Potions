@@ -90,21 +90,32 @@ public class Garden : MonoBehaviour {
         if (!plots.TryGetValue(plot.gameObject.name, out data)) {
             return;
         }      
-        if(data.stage == Status.harvestable) {
+        if(rl.activeSpell.SpellName.Equals("Wild Growth") && data.stage == Status.harvestable) {
             return;
         }
 
-        data.index++;
-        if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {
-            data.stage = Status.harvestable;
-        }
-        if (SceneManager.GetActiveScene().name.Equals(data.plotScene)) {
+        if (rl.activeSpell.SpellName.Equals("Wild Growth")) {
+            data.index++;
+            if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {
+                data.stage = Status.harvestable;
+            }
+
             SpriteRenderer[] renderers = GameObject.Find(plot.gameObject.name).GetComponentsInChildren<SpriteRenderer>();
             for (int i = 1; i < 4; i++) {
                 renderers[i].sprite = Resources.LoadAll<Sprite>("Plants/" + data.type)[data.index];
             }
+
+            plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Growth");
+            plots[plot.gameObject.name] = data;
+        } else if (rl.activeSpell.SpellName.Equals("Ignite")) {
+            plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Ignite");
+            SpriteRenderer[] renderers = GameObject.Find(plot.gameObject.name).GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 1; i < 4; i++) {
+                renderers[i].sprite = null;
+            }
+            plots.Remove(plot.gameObject.name);
         }
-        plots[plot.gameObject.name] = data;
+
         GameObject.FindObjectOfType<Mana>().UpdateMana(rl.activeSpell.Cost);
     }
 
