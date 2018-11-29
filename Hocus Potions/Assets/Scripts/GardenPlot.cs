@@ -21,7 +21,7 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
         }
     }
     public void OnPointerDown(PointerEventData eventData) {
-        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.6f) {
+        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) {
             return;
         }
 

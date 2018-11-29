@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceLoader : MonoBehaviour {
 
@@ -99,6 +100,8 @@ public class ResourceLoader : MonoBehaviour {
         InventorySlot[] slots = GameObject.FindObjectsOfType<InventorySlot>();
         foreach(InventorySlot s in slots) {
             s.item = null;
+            s.gameObject.GetComponentsInChildren<Image>()[1].enabled = false;
+
         }
     }
 

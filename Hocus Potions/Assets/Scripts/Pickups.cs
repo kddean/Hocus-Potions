@@ -37,7 +37,7 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if(player.Status.Contains(Player.PlayerStatus.asleep) || Vector3.Distance(player.transform.position, transform.position) > 1.5f) { return; }
+        if(player.Status.Contains(Player.PlayerStatus.asleep) || Vector3.Distance(player.transform.position, transform.position) > 2f) { return; }
 
         if (Inventory.Add(item, count)) {
             Vector3 temp = new Vector3(data.x, data.y, data.z);

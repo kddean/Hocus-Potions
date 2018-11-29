@@ -36,12 +36,14 @@ public class InputManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.I)) {
             if (invToggle) {
+                invGroup.gameObject.GetComponentsInChildren<AudioSource>()[1].Play();
                 invToggle = false;
                 invGroup.alpha = 0;
                 invGroup.interactable = false;
                 invGroup.blocksRaycasts = false;
             } else {
                 invToggle = true;
+                invGroup.gameObject.GetComponentsInChildren<AudioSource>()[0].Play();
                 invGroup.alpha = 1;
                 invGroup.interactable = true;
                 invGroup.blocksRaycasts = true;

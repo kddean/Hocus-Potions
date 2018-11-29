@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class Sleep : MonoBehaviour {
     MoonCycle mc;
     Mana mana;
-    public GameObject canvas;
-    public GameObject fadeScreen;
+    GameObject canvas;
+    GameObject fadeScreen;
     Player player;
     bool done, sleeping;
     float temp;
@@ -18,15 +18,21 @@ public class Sleep : MonoBehaviour {
         mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
         mana = GameObject.FindObjectOfType<Mana>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        canvas = GameObject.FindObjectOfType<SleepCanvas>().gameObject;
         temp = mc.CLOCK_SPEED;
         canvas.SetActive(false);
         done = false;
         sleeping = false;
-	}
+     
+    }
 	
     private void OnTriggerEnter2D(Collider2D collision) {
         if(mc.Hour >= 20 || mc.Hour < 6) {
+            canvas = Resources.FindObjectsOfTypeAll<SleepCanvas>()[0].gameObject;
+            fadeScreen = canvas.GetComponentInChildren<Image>().gameObject;
             canvas.SetActive(true);
+            canvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(FallAsleep);
+            canvas.GetComponentsInChildren<Button>()[1].onClick.AddListener(DontSleep);
             canvas.GetComponentsInChildren<CanvasGroup>()[1].alpha = 1;
         }
     }

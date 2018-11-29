@@ -136,6 +136,7 @@ public class Inventory {
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         if (rl.activeItem == item) {
             rl.activeItem = null;
+            item.gameObject.GetComponentsInChildren<Image>()[1].enabled = false;
         }
         item.gameObject.GetComponentInChildren<Image>().enabled = false;
         item.gameObject.GetComponentInChildren<Text>().text = "";

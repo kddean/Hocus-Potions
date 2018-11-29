@@ -103,6 +103,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             foreach (Animator a in anims) {
                 a.SetBool("idle", true);
             }
+            GetComponent<AudioSource>().Stop();
             bubbles.GetComponent<Animator>().SetBool("full", true);
             sparkles.GetComponent<SpriteRenderer>().enabled = false;
             done = true;
@@ -125,7 +126,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
 
 
    public void OnPointerDown(PointerEventData eventData) {
-        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.0f) {
+        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.5f) {
             return;
         }
 
@@ -140,8 +141,10 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
                     SetVisible(brewPanel.GetComponent<CanvasGroup>());
                     brewVisible = true;
 
-                    SwapVisible(brew.GetComponent<CanvasGroup>());
-                    SwapVisible(take.GetComponent<CanvasGroup>());
+                    brew.GetComponent<CanvasGroup>().alpha = 0;
+                    brew.GetComponent<CanvasGroup>().interactable = false;
+                    brew.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                    SetVisible(take.GetComponent<CanvasGroup>());
                     pot = manager.Pot;
                     potionName.text = pot.name;
                     potionImage.sprite = Resources.Load<Sprite>(pot.imagePath);
@@ -158,6 +161,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             }
         } else {
             if(manager.Brewing == 1 && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Ignite") && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.activeSpell.Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
+                GetComponentsInChildren<AudioSource>()[1].Play();
                 manager.BrewTime = manager.BrewTime * speedUp;
                 anims[2].SetBool("Ignite", true);
                 if(manager.CurrentTime >= manager.BrewTime) {
@@ -169,6 +173,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     }
 
     public void BrewPotion() {
+        GetComponent<AudioSource>().Play();
         Brewing b = new Brewing();
         pot = b.Brew(rl.brewingIngredients[0], rl.brewingIngredients[1], rl.brewingIngredients[2]);
         manager.Begin(pot.brewingTime, pot);

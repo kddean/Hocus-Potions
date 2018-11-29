@@ -25,11 +25,14 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         active = true;
         sm.OpenChest();
         player.allowedToMove = false;
+        GetComponent<AudioSource>().Play();
     }
 
     public void Close() {
+        GetComponents<AudioSource>()[1].Play();
         canvas.SetActive(false);
         active = false;
         player.allowedToMove = true;
+
     }
 }

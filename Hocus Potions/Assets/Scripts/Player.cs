@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IPointerDownHandler {
 
@@ -17,7 +18,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     Dictionary<PlayerStatus, TimerData> startTimers;
     SpriteRenderer sr;
     string currentAnim;
-    public GameObject fadeScreen, sleepCanvas;
+    GameObject fadeScreen, sleepCanvas;
     public bool swappingScenes;
     public bool allowedToMove;
 
@@ -76,6 +77,8 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
     public void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        sleepCanvas = Resources.FindObjectsOfTypeAll<SleepCanvas>()[0].gameObject; ;
+        fadeScreen = sleepCanvas.GetComponentInChildren<Image>().gameObject;
         playerAnim = GetComponent<Animator>();
         effectAnim = GetComponentsInChildren<Animator>()[1];
         Status = new List<PlayerStatus>();
