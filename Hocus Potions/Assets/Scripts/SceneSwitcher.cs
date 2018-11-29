@@ -60,7 +60,8 @@ public class SceneSwitcher : MonoBehaviour {
             GameObject spawnPoint = GameObject.Find("SpawnPoint");
             GameObject.FindGameObjectWithTag("Player").transform.position = spawnPoint.transform.position;
             GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().SpawnDropped();
-            SceneManager.SetActiveScene(loadingScene);         
+            SceneManager.SetActiveScene(loadingScene);
+            GameObject.FindObjectOfType<DoorDontDestroy>().gameObject.GetComponent<AudioSource>().Play();
         }
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().swappingScenes = false;
     }

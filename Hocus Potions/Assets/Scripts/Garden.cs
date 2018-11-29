@@ -49,6 +49,7 @@ public class Garden : MonoBehaviour {
             }
         } else {
             if (rl.activeItem != null && rl.activeItem.item.item is Seed) {
+                plot.gameObject.GetComponent<AudioSource>().Play();
                 PlotData newData = new PlotData();
                 Seed seed = rl.activeItem.item.item as Seed;
                 //Set values for plot
@@ -95,6 +96,7 @@ public class Garden : MonoBehaviour {
         }
 
         if (rl.activeSpell.SpellName.Equals("Wild Growth")) {
+            plot.gameObject.GetComponents<AudioSource>()[2].Play();
             data.index++;
             if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {
                 data.stage = Status.harvestable;
@@ -108,6 +110,7 @@ public class Garden : MonoBehaviour {
             plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Growth");
             plots[plot.gameObject.name] = data;
         } else if (rl.activeSpell.SpellName.Equals("Ignite")) {
+            plot.gameObject.GetComponents<AudioSource>()[1].Play();
             plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Ignite");
             SpriteRenderer[] renderers = GameObject.Find(plot.gameObject.name).GetComponentsInChildren<SpriteRenderer>();
             for (int i = 1; i < 4; i++) {

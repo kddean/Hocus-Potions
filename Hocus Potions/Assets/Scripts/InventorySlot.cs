@@ -56,19 +56,24 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (dragging) { return; }
         if(rl.activeItem == this) {
             rl.activeItem = null;
+            gameObject.GetComponentsInChildren<Image>()[1].enabled = false;
         } else if(item != null){
+            if(rl.activeItem != null) {
+                rl.activeItem.gameObject.GetComponentsInChildren<Image>()[1].enabled = false;
+            }
             rl.activeItem = this;
+            gameObject.GetComponentsInChildren<Image>()[1].enabled = true;
         }
     }
 
 
     public void OnMouseEnter() {
          if (item != null && !dragging) {
-            displayTooltip();
+            DisplayTooltip();
         }
     }
 
-    void displayTooltip() {
+    void DisplayTooltip() {
         text = tooltip.GetComponentsInChildren<Text>();
         text[0].text = Regex.Replace(item.item.name, "_", " ");
         //text[1].text = item.flavorText;
@@ -167,7 +172,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     dragging = false;
                 }
             }
-            displayTooltip();
+            DisplayTooltip();
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(first.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(first, firstIcon, 0);
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(second.transform as RectTransform, Input.mousePosition)) {
