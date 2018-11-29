@@ -47,7 +47,7 @@ public class GatheringManager : MonoBehaviour {
 
         plants = rl.ingredients.Keys.ToList();
         daystrack = mc.Days;
-
+        SetResetDictionary();
         StartCoroutine(Spawn());
 	}
 	
@@ -160,7 +160,7 @@ public class GatheringManager : MonoBehaviour {
         StartCoroutine(Spawn());
     }
 
-    void SetResetDictionary()
+   public void SetResetDictionary()
     {
         spawners = GameObject.FindGameObjectsWithTag("spawner");
 
@@ -169,7 +169,8 @@ public class GatheringManager : MonoBehaviour {
             SpawnerResetTime newTime = new SpawnerResetTime();
             newTime.numberOfDaysLeft = 0;
             spawnerReset.Add(spawners[i].name, newTime);
-        }
+            spawners[i].GetComponent<Gathering>().SpawnPlants();
+        }   
     }
 
    public void SeedDrop(Gathering gatherer)

@@ -11,43 +11,7 @@ public class Gathering : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rl = GameObject.FindGameObjectWithTag ("loader").GetComponent<ResourceLoader> ();
-		
-		GatheringManager.SpawnerData temp;
-        GatheringManager.SpawnerResetTime temp2;
-        if (rl.gatheringManager.spawnerReset.TryGetValue(gameObject.name, out temp2))
-        {
-            Debug.Log(gameObject.name);
-            Debug.Log(temp2.numberOfDaysLeft);
-            // Check how many days are left
-            if (temp2.numberOfDaysLeft > 0)
-            {
-
-                //Display plant if spawner has one else do nothing
-                if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp))
-                {
-                    plants = Resources.LoadAll<Sprite>("Plants/" + temp.spawnedItem.name);
-                    this.GetComponent<SpriteRenderer>().sprite = plants[plants.Length - 1];
-                }
-                else { return; }
-            }          
-            else
-            {
-                if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp)) {
-
-                    if (temp.hasSpawnedItem == true)
-                    {
-                        rl.gatheringManager.spawnerData.Remove(gameObject.name);
-                        Debug.Log("Plant removed");
-                    }
-  
-                }
-
-               // Debug.Log("Generate");
-                rl.gatheringManager.Populate(this);
-                Debug.Log("Plant added");
-
-            }
-        }
+        SpawnPlants();
 	}
 			
 	// Update is called once per frame
@@ -66,4 +30,45 @@ public class Gathering : MonoBehaviour {
             
 		}
 	}
+
+   public void SpawnPlants()
+    {
+        GatheringManager.SpawnerData temp;
+        GatheringManager.SpawnerResetTime temp2;
+        if (rl.gatheringManager.spawnerReset.TryGetValue(gameObject.name, out temp2))
+        {
+            Debug.Log(gameObject.name);
+            Debug.Log(temp2.numberOfDaysLeft);
+            // Check how many days are left
+            if (temp2.numberOfDaysLeft > 0)
+            {
+
+                //Display plant if spawner has one else do nothing
+                if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp))
+                {
+                    plants = Resources.LoadAll<Sprite>("Plants/" + temp.spawnedItem.name);
+                    this.GetComponent<SpriteRenderer>().sprite = plants[plants.Length - 1];
+                }
+                else { return; }
+            }
+            else
+            {
+                if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp))
+                {
+
+                    if (temp.hasSpawnedItem == true)
+                    {
+                        rl.gatheringManager.spawnerData.Remove(gameObject.name);
+                        Debug.Log("Plant removed");
+                    }
+
+                }
+
+                // Debug.Log("Generate");
+                rl.gatheringManager.Populate(this);
+                Debug.Log("Plant added");
+
+            }
+        }
+    }
 }
