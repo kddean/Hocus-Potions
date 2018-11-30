@@ -417,10 +417,10 @@ public class Traveller : NPC, IPointerDownHandler {
                 anim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
-                GetComponent<BoxCollider2D>().size = new Vector2(0.6f, 0.2f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.2f);
+                GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0.3f);
                 anim.SetBool("Transformation", false);
                 break;
             default:
@@ -462,10 +462,10 @@ public class Traveller : NPC, IPointerDownHandler {
                 anim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = rl.charSpriteList[CharacterName];
-                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.5f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.8f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2.1f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 1);
                 anim.SetBool("Transformation", false);
                 break;
             default:

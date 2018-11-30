@@ -90,10 +90,10 @@ public class NPCManager : MonoBehaviour {
                 sr.sprite = rl.charSpriteList[key];
                 BoxCollider2D col = go.AddComponent<BoxCollider2D>();
                 BoxCollider2D col2 = go.AddComponent<BoxCollider2D>();
-                col.size = new Vector2(1.0f, 0.5f);
-                col.offset = new Vector2(0, -0.8f);
-                col2.size = new Vector2(1, 2.1f);
-                col2.offset = new Vector2(0, 0);
+                col.size = new Vector2(1.0f, 0.3f);
+                col.offset = new Vector2(0, 0.15f);
+                col2.size = new Vector2(1, 2f);
+                col2.offset = new Vector2(0, 1);
                 col2.isTrigger = true;
                 go.name = key;
                 GameObject effects = new GameObject();

@@ -75,6 +75,9 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    Pathfinding pathfinder;
+    List<Vector3> path;
+    bool pathset = false;
     public void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         sleepCanvas = Resources.FindObjectsOfTypeAll<SleepCanvas>()[0].gameObject; ;
@@ -105,6 +108,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     }
 
     private void FixedUpdate() {
+        if (pathset) {
+            StartCoroutine(MovePlayer());
+        }
+
         if (!allowedToMove) { return; }
         Vector3 pos = transform.position;
         playerAnim.speed = speed / 7.5f;
@@ -144,7 +151,14 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             }
         }
 
-
+        //TODO: Remove - for pathfinding testing only
+        if (Input.GetKeyDown(KeyCode.G)) {
+            pathfinder = GameObject.FindObjectOfType<Pathfinding>();
+            path = pathfinder.InitializePath(transform.position, new Vector3(-66f, 9f, 0), 1);
+            if (path != null) {
+                pathset = true;
+            }
+        }
 
         pos.x += x * Speed * Time.deltaTime;
         pos.y += y * Speed * Time.deltaTime;
@@ -152,7 +166,30 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
     }
 
+    IEnumerator MovePlayer() {
+        while (path.Count > 0) {
+            Vector3 last = transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, path[0], Time.deltaTime * 0.01f);
+            if (transform.position == path[0]) {
+                path.RemoveAt(0);
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        pathset = false;
+    }
 
+    
+    public void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.collider.isTrigger) {
+            return;
+        }
+
+        pathfinder = GameObject.FindObjectOfType<Pathfinding>();
+        path = pathfinder.InitializePath(transform.position, new Vector3(-66f, 9f, 0), 1);
+        if (path != null) {
+            pathset = true;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!swappingScenes && GetComponent<BoxCollider2D>().IsTouching(collision)) {
@@ -239,10 +276,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 effectAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
-                GetComponent<BoxCollider2D>().size = new Vector2(0.6f, 0.2f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.2f);
+                GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0.3f);
                 Speed = defaultSpeed + 1;
                 startTimers.Add(PlayerStatus.transformed, new TimerData(Time.time, duration));
                 break;
@@ -313,10 +350,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 playerAnim.enabled = true;
                 Status.Remove(PlayerStatus.transformed);
                 startTimers.Remove(PlayerStatus.transformed);
-                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.5f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.8f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2.1f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 1);
                 yield return new WaitForSeconds(0.43f);
                 effectAnim.SetBool("Transformation", false);
 
@@ -486,3 +523,4 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
     }
 }
+
