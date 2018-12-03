@@ -52,6 +52,7 @@ public class ResourceLoader : MonoBehaviour {
         CreateSpells();
         CreateInventory();
         CreateNPCs();
+        LoadNPCData();
 
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
@@ -105,7 +106,19 @@ public class ResourceLoader : MonoBehaviour {
         }
     }
 
+    //TODO: Probably load this from a file at some point
+    void LoadNPCData() {
+        NPCController c = GameObject.FindObjectOfType<NPCController>();
+        c.npcData = new Dictionary<string, NPCController.NPCInfo>();
+        c.npcData.Add("Dante", new NPCController.NPCInfo(0,0,0,1,0,false,null,0,new List<Item>(), new List<NPCController.Schedule> { new NPCController.Schedule(true, 0, 8, "", 1, 0, 0, 0, "Dante") }, false, new List<NPC.Status>()));
+        c.npcData.Add("Franklin", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Amara", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Ralphie", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Bernadette", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Geoff", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+    }
 
+    //TODO: This needs some cleaning up; Probably don't actually need to some of this stuff
     void CreateNPCs() {
         Regex.Replace(npcData.text, "\r", String.Empty);
         string[] characterSegments = npcData.text.Split('\\'); //Split by character

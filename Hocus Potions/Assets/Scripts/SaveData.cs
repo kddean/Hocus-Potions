@@ -44,6 +44,7 @@ public class SaveData {
     public int hour;
     public int minute;
     public int day;
+    public MoonCycle.PartOfDay dayPart;
 
     //TODO:Update this once i rewrite NPC handling to be persistent
     //NPC Data

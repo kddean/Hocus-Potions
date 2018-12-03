@@ -12,10 +12,13 @@ public class NPCManager : MonoBehaviour {
     bool queueLoaded;
     bool spawned;
     string lastSpawned;
+    public Dictionary<string, NPCData> data;
+    public SortedList<NPCData, string> returnQueue;
 
     [System.Serializable]
     public struct NPCData {
         public int timesInteracted;
+        public bool spawned;
         public bool returning;
         public string request;
         public List<Item> given;
@@ -25,16 +28,12 @@ public class NPCManager : MonoBehaviour {
         public float affinity;
     }
 
-    public Dictionary<string, NPCData> data;
-
     public void Awake() {
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1) {
             Destroy(gameObject);
         }
     }
-
-    public SortedList<NPCData, string> returnQueue;
 
     void Start() {
         mc = (MoonCycle)GameObject.FindObjectOfType(typeof(MoonCycle));

@@ -11,10 +11,8 @@ public class MoonCycle : MonoBehaviour {
     // Moon phase is a day of the week
 
 
+    public enum PartOfDay { Morning, Afternoon, Evening, Night }
     static public GameObject Clock;
-    //static public Time time;
-   // public Text hoursUI;
-    //public Text minsUI;
     public float CLOCK_SPEED = 0.5f;
 
     public Sprite[] moonCycleSprites = new Sprite[5];
@@ -26,6 +24,7 @@ public class MoonCycle : MonoBehaviour {
     int days;
     int hour;
     int minutes;
+    PartOfDay dayPart;
 
     public int Hour {
         get {
@@ -67,6 +66,16 @@ public class MoonCycle : MonoBehaviour {
         }
     }
 
+    public PartOfDay DayPart {
+        get {
+            return dayPart;
+        }
+
+        set {
+            dayPart = value;
+        }
+    }
+
 
     // Use this for initialization
     void Start () {
@@ -75,6 +84,7 @@ public class MoonCycle : MonoBehaviour {
         moonPhase.sprite = moonCycleSprites[0];
         StartCoroutine(PassingTime());
         Days = 0;
+        DayPart = PartOfDay.Morning;
     }
 
     public void Awake() {
@@ -99,15 +109,19 @@ public class MoonCycle : MonoBehaviour {
         switch (Hour) {
             case 6:
                 timeImage.sprite = timeOfDay[0];
+                DayPart = PartOfDay.Morning;
                 break;
             case 10:
                 timeImage.sprite = timeOfDay[1];
+                DayPart = PartOfDay.Afternoon;
                 break;
             case 14:
                 timeImage.sprite = timeOfDay[2];
+                DayPart = PartOfDay.Evening;
                 break;
             case 18:
                 timeImage.sprite = timeOfDay[3];
+                DayPart = PartOfDay.Night;
                 break;
             default:
                 break;
@@ -118,6 +132,7 @@ public class MoonCycle : MonoBehaviour {
             currentMoonPhase = (currentMoonPhase + 1) % 6;
             moonPhase.sprite = moonCycleSprites[currentMoonPhase];
             days++;
+            GameObject.FindObjectOfType<NPCController>().SetQueue(days);
         }
 
         if (Minutes == 60)

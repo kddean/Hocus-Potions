@@ -89,6 +89,7 @@ public class MainMenu : MonoBehaviour {
         data.hour = mc.Hour;
         data.minute = mc.Minutes;
         data.day = mc.Days;
+        data.dayPart = mc.DayPart;
 
         data.npcNames = npcs.data.Keys.ToList();
         data.npcData = npcs.data.Values.ToList();
@@ -206,6 +207,7 @@ public class MainMenu : MonoBehaviour {
             mc.Hour = data.hour;
             mc.Minutes = data.minute;
             mc.Days = data.day;
+            mc.DayPart = data.dayPart;
             mc.CurrentMoonPhase = mc.Days % 6;
             mc.moonPhase.sprite = mc.moonCycleSprites[mc.CurrentMoonPhase];
             if (mc.Hour >= 18 || mc.Hour < 6) {

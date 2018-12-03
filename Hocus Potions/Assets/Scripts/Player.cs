@@ -75,9 +75,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
     }
 
-    Pathfinding pathfinder;
-    List<Vector3> path;
-    bool pathset = false;
     public void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         sleepCanvas = Resources.FindObjectsOfTypeAll<SleepCanvas>()[0].gameObject; ;
@@ -108,10 +105,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     }
 
     private void FixedUpdate() {
-        if (pathset) {
-            StartCoroutine(MovePlayer());
-        }
-
         if (!allowedToMove) { return; }
         Vector3 pos = transform.position;
         playerAnim.speed = speed / 7.5f;
@@ -151,45 +144,12 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             }
         }
 
-        //TODO: Remove - for pathfinding testing only
-        if (Input.GetKeyDown(KeyCode.G)) {
-            pathfinder = GameObject.FindObjectOfType<Pathfinding>();
-            path = pathfinder.InitializePath(transform.position, new Vector3(-66f, 9f, 0), 1);
-            if (path != null) {
-                pathset = true;
-            }
-        }
-
         pos.x += x * Speed * Time.deltaTime;
         pos.y += y * Speed * Time.deltaTime;
         transform.position = pos;
 
     }
 
-    IEnumerator MovePlayer() {
-        while (path.Count > 0) {
-            Vector3 last = transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, path[0], Time.deltaTime * 0.01f);
-            if (transform.position == path[0]) {
-                path.RemoveAt(0);
-            }
-            yield return new WaitForEndOfFrame();
-        }
-        pathset = false;
-    }
-
-    
-    public void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.isTrigger) {
-            return;
-        }
-
-        pathfinder = GameObject.FindObjectOfType<Pathfinding>();
-        path = pathfinder.InitializePath(transform.position, new Vector3(-66f, 9f, 0), 1);
-        if (path != null) {
-            pathset = true;
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!swappingScenes && GetComponent<BoxCollider2D>().IsTouching(collision)) {
