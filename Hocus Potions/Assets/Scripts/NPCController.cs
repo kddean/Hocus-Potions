@@ -351,16 +351,38 @@ public class NPCController : MonoBehaviour {
     }
 
     public void SetQueue(int day) {
+        List<string> queued = new List<string>();
         npcQueue.Clear();
         foreach (string key in npcData.Keys.ToList()) {
             List<Schedule> temp = npcData[key].locations;
             foreach (Schedule s in temp) {
                 if ((s.repeating && s.day == (day % 6)) || (!s.repeating && s.day == day)) {
                     npcQueue.Add(s, s.characterName);
+                    queued.Add(s.characterName);
                 }
             }
         }
+
+        List<string> available = new List<string>();
+        foreach (string key in npcData.Keys.ToList()) {
+            if (!queued.Contains(key)) {
+                available.Add(key);
+            }
+        }
+
+        int rand = UnityEngine.Random.Range(0, available.Count - 1);
+        Schedule schedule = new Schedule(false, day, UnityEngine.Random.Range(8, 18), UnityEngine.Random.Range(0, 50), "", 0, -6.5f, 0.5f, 0, available[rand]);
+        npcQueue.Add(schedule, available[rand]);
+        available.RemoveAt(rand);
+        if (available.Count > 0) {
+            rand = UnityEngine.Random.Range(0, available.Count - 1);
+            schedule = new Schedule(false, day, UnityEngine.Random.Range(8, 18), UnityEngine.Random.Range(0, 50), "", 0, -6.5f, 0.5f, 0, available[rand]);
+            npcQueue.Add(schedule, available[rand]);
+            available.RemoveAt(rand);
+        }
+
     }
+
 
 
     [System.Serializable]
