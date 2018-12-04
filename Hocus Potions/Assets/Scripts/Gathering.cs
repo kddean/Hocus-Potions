@@ -36,7 +36,9 @@ public class Gathering : MonoBehaviour {
         GatheringManager.SpawnerData temp;
         GatheringManager.SpawnerResetTime temp2;
         if (rl.gatheringManager.spawnerReset.TryGetValue(gameObject.name, out temp2))
-        {          
+        {
+          //  Debug.Log(gameObject.name);
+          //  Debug.Log(temp2.numberOfDaysLeft);
             // Check how many days are left
             if (temp2.numberOfDaysLeft > 0)
             {
@@ -57,14 +59,14 @@ public class Gathering : MonoBehaviour {
                     if (temp.hasSpawnedItem == true)
                     {
                         rl.gatheringManager.spawnerData.Remove(gameObject.name);
-                       
+                        Debug.Log("Plant removed");
                     }
 
                 }
 
                 // Debug.Log("Generate");
                 rl.gatheringManager.Populate(this);
-               
+                Debug.Log("Plant added");
 
             }
         }
