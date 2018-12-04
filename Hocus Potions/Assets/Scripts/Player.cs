@@ -240,7 +240,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
                 GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0.3f);
-                Speed = defaultSpeed + 1;
+                Speed++;
                 startTimers.Add(PlayerStatus.transformed, new TimerData(Time.time, duration));
                 break;
             case Ingredient.Attributes.none:

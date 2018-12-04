@@ -115,7 +115,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             brewPanel.GetComponent<CanvasGroup>().interactable = true;
             brewVisible = true;
         }
-        if (visible && player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed)) {
+        if (visible && (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed))) {
             Close();
         }
 

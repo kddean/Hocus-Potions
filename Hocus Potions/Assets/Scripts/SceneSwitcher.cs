@@ -28,6 +28,7 @@ public class SceneSwitcher : MonoBehaviour {
     // Update is called once per frame
 
     public void SceneSwap(string s) {
+        GameObject.FindObjectOfType<NPCController>().swapping = true;
         NPC[] npcs = GameObject.FindObjectsOfType<NPC>();
         foreach(NPC n in npcs) {
             n.sceneSwapped = true;
