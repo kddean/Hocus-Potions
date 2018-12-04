@@ -105,6 +105,7 @@ public class NPCController : MonoBehaviour {
 
     void Update() {
         while (npcQueue.Count > 0 && mc.Hour == npcQueue.Keys[0].hour && mc.Minutes == npcQueue.Keys[0].minute) {
+            Debug.Log(mc.Hour + ":" + mc.Minutes);
             HandleMovement(npcQueue.Keys[0], npcQueue.Values[0]);
             npcQueue.RemoveAt(0);
         }
@@ -354,15 +355,23 @@ public class NPCController : MonoBehaviour {
         List<string> queued = new List<string>();
         npcQueue.Clear();
         foreach (string key in npcData.Keys.ToList()) {
-            List<Schedule> temp = npcData[key].locations;
-            foreach (Schedule s in temp) {
+            List<Schedule> temp = new List<Schedule>();
+            foreach (Schedule s in npcData[key].locations) {
                 if ((s.repeating && s.day == (day % 6)) || (!s.repeating && s.day == day)) {
+                    if (s.repeating) {
+                        temp.Add(s);
+                    }
                     npcQueue.Add(s, s.characterName);
                     queued.Add(s.characterName);
+                } else {
+                    temp.Add(s);
                 }
             }
+            NPCInfo tempInfo = npcData[key];
+            tempInfo.locations = temp;
+            npcData[key] = tempInfo;
         }
-
+        
         List<string> available = new List<string>();
         foreach (string key in npcData.Keys.ToList()) {
             if (!queued.Contains(key)) {
@@ -371,16 +380,23 @@ public class NPCController : MonoBehaviour {
         }
 
         int rand = UnityEngine.Random.Range(0, available.Count - 1);
-        Schedule schedule = new Schedule(false, day, UnityEngine.Random.Range(8, 18), UnityEngine.Random.Range(0, 50), "", 0, -6.5f, 0.5f, 0, available[rand]);
+        int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
+        int spawnHour = UnityEngine.Random.Range(8, 13);
+        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
+        npcQueue.Add(schedule, available[rand]);
+        schedule = new Schedule(false, day, spawnHour + 3, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
         available.RemoveAt(rand);
         if (available.Count > 0) {
+            spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
+            spawnHour = UnityEngine.Random.Range(13, 19);
             rand = UnityEngine.Random.Range(0, available.Count - 1);
-            schedule = new Schedule(false, day, UnityEngine.Random.Range(8, 18), UnityEngine.Random.Range(0, 50), "", 0, -6.5f, 0.5f, 0, available[rand]);
+            schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, 0.5f, 0, available[rand]);
+            npcQueue.Add(schedule, available[rand]);
+            schedule = new Schedule(false, day, spawnHour + 3, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
             available.RemoveAt(rand);
         }
-
     }
 
 
