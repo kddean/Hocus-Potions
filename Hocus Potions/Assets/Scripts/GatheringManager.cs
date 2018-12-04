@@ -127,7 +127,7 @@ public class GatheringManager : MonoBehaviour {
         if(spawnerReset.Count == 0 && spawners.Length > 0)
         {
             SetResetDictionary();
-            Debug.Log("Dictionary Set");
+            //Debug.Log("Dictionary Set");
         }
         else
         {
@@ -176,8 +176,17 @@ public class GatheringManager : MonoBehaviour {
     {
         
         // 0 and 1
-        int ran = Random.Range(0, 1);
+        float ran = Random.Range(0.0f, 1.0f);
+        int numOfSeedsToDrop;
         Debug.Log(ran);
+        if(ran <= 0.4)
+        {
+            numOfSeedsToDrop = 0;
+        }
+        else
+        {
+            numOfSeedsToDrop = 1;
+        }
         if(ran == 0) { return; }
 
         SpawnerData temp3;
@@ -187,7 +196,8 @@ public class GatheringManager : MonoBehaviour {
             return;
         }
         Seed droppedSeed = rl.seeds[temp3.spawnedItem.name];
-        Inventory.Add(droppedSeed, ran);
+        Debug.Log(numOfSeedsToDrop);
+        Inventory.Add(droppedSeed, numOfSeedsToDrop);
 
     }
 }
