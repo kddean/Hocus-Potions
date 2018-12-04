@@ -37,8 +37,8 @@ public class Gathering : MonoBehaviour {
         GatheringManager.SpawnerResetTime temp2;
         if (rl.gatheringManager.spawnerReset.TryGetValue(gameObject.name, out temp2))
         {
-            Debug.Log(gameObject.name);
-            Debug.Log(temp2.numberOfDaysLeft);
+          //  Debug.Log(gameObject.name);
+          //  Debug.Log(temp2.numberOfDaysLeft);
             // Check how many days are left
             if (temp2.numberOfDaysLeft > 0)
             {

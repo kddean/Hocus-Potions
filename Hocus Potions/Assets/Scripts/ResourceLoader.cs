@@ -110,7 +110,7 @@ public class ResourceLoader : MonoBehaviour {
     void LoadNPCData() {
         NPCController c = GameObject.FindObjectOfType<NPCController>();
         c.npcData = new Dictionary<string, NPCController.NPCInfo>();
-        c.npcData.Add("Dante", new NPCController.NPCInfo(0,0,0,1,0,false,null,0,new List<Item>(), new List<NPCController.Schedule> { new NPCController.Schedule(true, 0, 8, "", 1, 0, 0, 0, "Dante") }, false, new List<NPC.Status>()));
+        c.npcData.Add("Dante", new NPCController.NPCInfo(0,0,0,1,0,false,null,0,new List<Item>(), new List<NPCController.Schedule> { new NPCController.Schedule(true, 0, 7, "", 0, -5f, -1f, 0, "Dante") }, false, new List<NPC.Status>()));
         c.npcData.Add("Franklin", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
         c.npcData.Add("Amara", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
         c.npcData.Add("Ralphie", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));

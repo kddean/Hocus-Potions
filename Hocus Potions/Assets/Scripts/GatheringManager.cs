@@ -114,7 +114,6 @@ public class GatheringManager : MonoBehaviour {
        
         if (mc.Days > daystrack)
         {
-            Debug.Log("hello, it's me");
             List<string> resetKeys = spawnerReset.Keys.ToList();
             foreach (string spawner in resetKeys)
             {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
@@ -13,7 +11,6 @@ public class Pathfinding : MonoBehaviour {
     Tilemap houseMap, worldMap1, worldMap2;
     bool houseSet, worldSet;
     List<Vector3> houseTiles, worldTiles;
-    Stopwatch st;
 
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -97,12 +94,16 @@ public class Pathfinding : MonoBehaviour {
     }
 
     public void InitializePath(Vector3 pos, Vector3 target, int map, List<Vector3> returnPath) {
-        st = new Stopwatch();
-        st.Start();
+
+        bool playerOnMap = false;
+        Vector3 centeredPlayerPos = new Vector3();
+        if (map == 0 && SceneManager.GetActiveScene().name.Equals("House") || map == 1 && !SceneManager.GetActiveScene().name.Equals("House")) {
+            Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+            centeredPlayerPos = new Vector3(Mathf.Sign(playerPos.x) * (Mathf.Abs((int)playerPos.x) + 0.5f), Mathf.Sign(playerPos.y) * (Mathf.Abs((int)playerPos.y) + 0.5f), 0);
+            playerOnMap = true;
+        }
         Dictionary<Vector3, PathTileData> openList, closedList;
         Vector3 centeredTarget = new Vector3(Mathf.Sign(target.x) * (Mathf.Abs((int)target.x) + 0.5f), Mathf.Sign(target.y) * (Mathf.Abs((int)target.y) + 0.5f), 0);
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-        Vector3 centeredPlayerPos = new Vector3(Mathf.Sign(playerPos.x) * (Mathf.Abs((int)playerPos.x) + 0.5f), Mathf.Sign(playerPos.y) * (Mathf.Abs((int)playerPos.y) + 0.5f), 0);
         openList = new Dictionary<Vector3, PathTileData>();
         closedList = new Dictionary<Vector3, PathTileData>();
         Vector2Int start = new Vector2Int(-999, -999);
@@ -116,106 +117,114 @@ public class Pathfinding : MonoBehaviour {
         PathTileData data = new PathTileData(new Vector3(-9999, -9999, -9999), 0, Vector3.Distance(tempPos, centeredTarget));
         closedList.Add(tempPos, data);
         Vector3 checkTile = new Vector3(tempPos.x + 1, tempPos.y, 0);
-        if (temp.Contains(checkTile) && checkTile != centeredPlayerPos) {
-            PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x + 1, tempPos.y, 0), centeredTarget));
-            openList.Add(new Vector3(tempPos.x + 1, tempPos.y, 0), tile);
+        if (temp.Contains(checkTile)) {
+            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+                PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x + 1, tempPos.y, 0), centeredTarget));
+                openList.Add(new Vector3(tempPos.x + 1, tempPos.y, 0), tile);
+            }
         }
         checkTile = new Vector3(tempPos.x - 1, tempPos.y, 0);
-        if (temp.Contains(checkTile) && checkTile != centeredPlayerPos) {
-            PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x - 1, tempPos.y, 0), centeredTarget));
-            openList.Add(new Vector3(tempPos.x - 1, tempPos.y, 0), tile);
+        if (temp.Contains(checkTile)) {
+            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+                PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x - 1, tempPos.y, 0), centeredTarget));
+                openList.Add(new Vector3(tempPos.x - 1, tempPos.y, 0), tile);
+            }
         }
         checkTile = new Vector3(tempPos.x, tempPos.y + 1, 0);
-        if (temp.Contains(checkTile) && checkTile != centeredPlayerPos) {
-            PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x, tempPos.y + 1, 0), centeredTarget));
-            openList.Add(new Vector3(tempPos.x, tempPos.y + 1, 0), tile);
+        if (temp.Contains(checkTile)) {
+            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+                PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x, tempPos.y + 1, 0), centeredTarget));
+                openList.Add(new Vector3(tempPos.x, tempPos.y + 1, 0), tile);
+            }
         }
         checkTile = new Vector3(tempPos.x, tempPos.y - 1, 0);
-        if (temp.Contains(checkTile) && checkTile != centeredPlayerPos) {
-            PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x, tempPos.y - 1, 0), centeredTarget));
-            openList.Add(new Vector3(tempPos.x, tempPos.y - 1, 0), tile);
+        if (temp.Contains(checkTile)) {
+            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+                PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x, tempPos.y - 1, 0), centeredTarget));
+                openList.Add(new Vector3(tempPos.x, tempPos.y - 1, 0), tile);
+            }
         }
         Thread thread = new Thread(() => FindPath(openList, closedList, centeredTarget, temp, returnPath));
         thread.Start();
     }
 
     void FindPath(Dictionary<Vector3, PathTileData> openList, Dictionary<Vector3, PathTileData> closedList, Vector3 centeredTarget, List<Vector3> tileSet, List<Vector3> path) {
-        PathTileData data = new PathTileData();
-        Vector3 key = new Vector3();
-        bool foundPath = false;
-        while (openList.Count > 0) {
-            key = openList.Keys.ToList()[0];
-            float max = openList[key].totalDistance;
+        lock (path) {
+            PathTileData data = new PathTileData();
+            Vector3 key = new Vector3();
+            bool foundPath = false;
+            while (openList.Count > 0) {
+                key = openList.Keys.ToList()[0];
+                float max = openList[key].totalDistance;
 
-            foreach (Vector3 k in openList.Keys.ToList()) {
-                if (openList[k].totalDistance < max) {
-                    max = openList[k].totalDistance;
-                    key = k;
+                foreach (Vector3 k in openList.Keys.ToList()) {
+                    if (openList[k].totalDistance < max) {
+                        max = openList[k].totalDistance;
+                        key = k;
+                    }
+                }
+                data = openList[key];
+                openList.Remove(key);
+                closedList.Add(key, data);
+                if (key == centeredTarget) {
+                    foundPath = true;
+                    break;
+                }
+                PathTileData junk = new PathTileData();
+                if (tileSet.Contains(new Vector3(key.x + 1, key.y, 0)) && !closedList.TryGetValue(new Vector3(key.x + 1, key.y, 0), out junk)) {
+                    if (openList.TryGetValue(new Vector3(key.x + 1, key.y, 0), out junk)) {
+                        if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x + 1, key.y, 0), centeredTarget)) {
+                            openList[new Vector3(key.x + 1, key.y, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x + 1, key.y, 0), centeredTarget));
+                        }
+                    } else {
+                        PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x + 1, key.y, 0), centeredTarget));
+                        openList.Add(new Vector3(key.x + 1, key.y, 0), tile);
+                    }
+                }
+
+                if (tileSet.Contains(new Vector3(key.x - 1, key.y, 0)) && !closedList.TryGetValue(new Vector3(key.x - 1, key.y, 0), out junk)) {
+                    if (openList.TryGetValue(new Vector3(key.x - 1, key.y, 0), out junk)) {
+                        if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x - 1, key.y, 0), centeredTarget)) {
+                            openList[new Vector3(key.x - 1, key.y, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x - 1, key.y, 0), centeredTarget));
+                        }
+                    } else {
+                        PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x - 1, key.y, 0), centeredTarget));
+                        openList.Add(new Vector3(key.x - 1, key.y, 0), tile);
+                    }
+                }
+
+                if (tileSet.Contains(new Vector3(key.x, key.y + 1, 0)) && !closedList.TryGetValue(new Vector3(key.x, key.y + 1, 0), out junk)) {
+                    if (openList.TryGetValue(new Vector3(key.x, key.y + 1, 0), out junk)) {
+                        if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x, key.y + 1, 0), centeredTarget)) {
+                            openList[new Vector3(key.x, key.y + 1, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y + 1, 0), centeredTarget));
+                        }
+                    } else {
+                        PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y + 1, 0), centeredTarget));
+                        openList.Add(new Vector3(key.x, key.y + 1, 0), tile);
+                    }
+                }
+
+                if (tileSet.Contains(new Vector3(key.x, key.y - 1, 0)) && !closedList.TryGetValue(new Vector3(key.x, key.y - 1, 0), out junk)) {
+                    if (openList.TryGetValue(new Vector3(key.x, key.y - 1, 0), out junk)) {
+                        if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x, key.y - 1, 0), centeredTarget)) {
+                            openList[new Vector3(key.x, key.y - 1, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y - 1, 0), centeredTarget));
+                        }
+                    } else {
+                        PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y - 1, 0), centeredTarget));
+                        openList.Add(new Vector3(key.x, key.y - 1, 0), tile);
+                    }
                 }
             }
-            data = openList[key];
-            openList.Remove(key);
-            closedList.Add(key, data);
-            if (key == centeredTarget) {
-                foundPath = true;
-                break;
-            }
-            PathTileData junk = new PathTileData();
-            if (tileSet.Contains(new Vector3(key.x + 1, key.y, 0)) && !closedList.TryGetValue(new Vector3(key.x + 1, key.y, 0), out junk)) {
-                if (openList.TryGetValue(new Vector3(key.x + 1, key.y, 0), out junk)) {
-                    if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x + 1, key.y, 0), centeredTarget)) {
-                        openList[new Vector3(key.x + 1, key.y, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x + 1, key.y, 0), centeredTarget));
-                    }
-                } else {
-                    PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x + 1, key.y, 0), centeredTarget));
-                    openList.Add(new Vector3(key.x + 1, key.y, 0), tile);
-                }
-            }
 
-            if (tileSet.Contains(new Vector3(key.x - 1, key.y, 0)) && !closedList.TryGetValue(new Vector3(key.x - 1, key.y, 0), out junk)) {
-                if (openList.TryGetValue(new Vector3(key.x - 1, key.y, 0), out junk)) {
-                    if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x - 1, key.y, 0), centeredTarget)) {
-                        openList[new Vector3(key.x - 1, key.y, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x - 1, key.y, 0), centeredTarget));
-                    }
-                } else {
-                    PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x - 1, key.y, 0), centeredTarget));
-                    openList.Add(new Vector3(key.x - 1, key.y, 0), tile);
-                }
-            }
-
-            if (tileSet.Contains(new Vector3(key.x, key.y + 1, 0)) && !closedList.TryGetValue(new Vector3(key.x, key.y + 1, 0), out junk)) {
-                if (openList.TryGetValue(new Vector3(key.x, key.y + 1, 0), out junk)) {
-                    if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x, key.y + 1, 0), centeredTarget)) {
-                        openList[new Vector3(key.x, key.y + 1, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y + 1, 0), centeredTarget));
-                    }
-                } else {
-                    PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y + 1, 0), centeredTarget));
-                    openList.Add(new Vector3(key.x, key.y + 1, 0), tile);
-                }
-            }
-
-            if (tileSet.Contains(new Vector3(key.x, key.y - 1, 0)) && !closedList.TryGetValue(new Vector3(key.x, key.y - 1, 0), out junk)) {
-                if (openList.TryGetValue(new Vector3(key.x, key.y - 1, 0), out junk)) {
-                    if (junk.totalDistance > closedList[key].pathLength + 1 + Vector3.Distance(new Vector3(key.x, key.y - 1, 0), centeredTarget)) {
-                        openList[new Vector3(key.x, key.y - 1, 0)] = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y - 1, 0), centeredTarget));
-                    }
-                } else {
-                    PathTileData tile = new PathTileData(key, closedList[key].pathLength + 1, 1 + closedList[key].pathLength + Vector3.Distance(new Vector3(key.x, key.y - 1, 0), centeredTarget));
-                    openList.Add(new Vector3(key.x, key.y - 1, 0), tile);
+            if (foundPath) {
+                path.Clear();
+                path.Add(key);
+                key = data.parent;
+                while (closedList[key].parent.x > -9000) {
+                    path.Insert(0, key);
+                    key = closedList[key].parent;
                 }
             }
         }
-
-        if (foundPath) {
-            path.Clear();
-            path.Add(key);
-            key = data.parent;
-            while (closedList[key].parent.x > -9000) {
-                path.Insert(0, key);
-                key = closedList[key].parent;
-            }
-        }
-        st.Stop();
-        UnityEngine.Debug.Log(st.ElapsedMilliseconds);
     }
 }
