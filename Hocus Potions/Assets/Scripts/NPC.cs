@@ -86,7 +86,7 @@ public class NPC : MonoBehaviour {
 
 
         if (Monitor.TryEnter(path, 1) && path.Count > 0) {
-            transform.position = Vector3.MoveTowards(transform.position, path[0], Time.timeScale * Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position, path[0], Time.deltaTime * speed);
             if (transform.position == path[0]) {
                 path.RemoveAt(0);
             }
@@ -114,16 +114,6 @@ public class NPC : MonoBehaviour {
             controller.FinishPathData(path, characterName);
             Destroy(this.gameObject);
         }
-
-        if(Monitor.TryEnter(path, 1) && path.Count == 0 && info.map == 1 && transform.position == GameObject.Find("NPCSpawnPoint").transform.position) {
-            info.x = transform.position.x;
-            info.y = transform.position.y;
-            info.z = transform.position.z;
-            info.spawned = false;
-            controller.npcData[characterName] = info;
-            Destroy(this.gameObject);
-        }
-        Monitor.Exit(path);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

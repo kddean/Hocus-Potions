@@ -11,24 +11,26 @@ public class Sleep : MonoBehaviour {
     GameObject fadeScreen;
     Player player;
     bool done, sleeping;
+    float temp;
 
     
     void Start () {
         mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
         mana = GameObject.FindObjectOfType<Mana>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        canvas = Resources.FindObjectsOfTypeAll<SleepCanvas>()[0].gameObject;
+        canvas = GameObject.FindObjectOfType<SleepCanvas>().gameObject;
+        temp = mc.CLOCK_SPEED;
         canvas.SetActive(false);
         done = false;
         sleeping = false;
+     
     }
 	
     private void OnTriggerEnter2D(Collider2D collision) {
         if(mc.Hour >= 20 || mc.Hour < 6) {
+            canvas = Resources.FindObjectsOfTypeAll<SleepCanvas>()[0].gameObject;
             fadeScreen = canvas.GetComponentInChildren<Image>().gameObject;
             canvas.SetActive(true);
-            canvas.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
-            canvas.GetComponentsInChildren<Button>()[1].onClick.RemoveAllListeners();
             canvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(FallAsleep);
             canvas.GetComponentsInChildren<Button>()[1].onClick.AddListener(DontSleep);
             canvas.GetComponentsInChildren<CanvasGroup>()[1].alpha = 1;
@@ -42,7 +44,7 @@ public class Sleep : MonoBehaviour {
 
     private void Update() {
         if (done) {
-            Time.timeScale = 10f;
+            Time.timeScale = Time.timeScale / (0.1f / temp);
             done = false;
             sleeping = true;
             switch (mc.Hour) {
@@ -59,7 +61,7 @@ public class Sleep : MonoBehaviour {
         }
         if (sleeping && mc.Hour == 6) {
             sleeping = false;
-            Time.timeScale = 1f;
+            Time.timeScale = Time.timeScale * (0.1f / temp);
             StartCoroutine(FadeScreen(-1));
             canvas.GetComponentsInChildren<CanvasGroup>()[0].blocksRaycasts = false;
         }
@@ -91,7 +93,6 @@ public class Sleep : MonoBehaviour {
 
         if(cg.alpha == 0) {
             canvas.SetActive(false);
-
             player.Status.Remove(Player.PlayerStatus.asleep);
             player.Speed = player.defaultSpeed;
             player.GetComponentInChildren<Animator>().SetBool("Sleep", false);

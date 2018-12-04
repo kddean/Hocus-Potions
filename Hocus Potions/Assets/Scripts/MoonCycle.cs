@@ -111,15 +111,15 @@ public class MoonCycle : MonoBehaviour {
                 timeImage.sprite = timeOfDay[0];
                 DayPart = PartOfDay.Morning;
                 break;
-            case 12:
+            case 10:
                 timeImage.sprite = timeOfDay[1];
                 DayPart = PartOfDay.Afternoon;
                 break;
-            case 17:
+            case 14:
                 timeImage.sprite = timeOfDay[2];
                 DayPart = PartOfDay.Evening;
                 break;
-            case 20:
+            case 18:
                 timeImage.sprite = timeOfDay[3];
                 DayPart = PartOfDay.Night;
                 break;

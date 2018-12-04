@@ -21,7 +21,6 @@ public class NPCController : MonoBehaviour {
     public bool sceneSwapped;
     Pathfinding pathfinder;
     bool resetting;
-    public bool swapping;
 
     public int CurrentMap {
         get {
@@ -70,18 +69,16 @@ public class NPCController : MonoBehaviour {
     public struct Schedule {
         public bool repeating;
         public int day;
-        public int hour;
-        public int minute;
+        public int time;
         public string dialogueKey;
         public int map;                     // 0 for house, 1 for overworld
         public float x, y, z;
         public string characterName;
 
-        public Schedule(bool repeating, int day, int hour, int minute, string dialogueKey, int map, float x, float y, float z, string characterName) {
+        public Schedule(bool repeating, int day, int time, string dialogueKey, int map, float x, float y, float z, string characterName) {
             this.repeating = repeating;
             this.day = day;
-            this.hour = hour;
-            this.minute = minute;
+            this.time = time;
             this.dialogueKey = dialogueKey;
             this.map = map;
             this.x = x;
@@ -99,16 +96,14 @@ public class NPCController : MonoBehaviour {
         sceneSwapped = false;
         SetQueue(0);
         resetting = false;
-        swapping = false;
     }
 
 
     void Update() {
-        while (npcQueue.Count > 0 && mc.Hour == npcQueue.Keys[0].hour && mc.Minutes == npcQueue.Keys[0].minute) {
+        while (npcQueue.Count > 0 && mc.Hour == npcQueue.Keys[0].time) {
             HandleMovement(npcQueue.Keys[0], npcQueue.Values[0]);
             npcQueue.RemoveAt(0);
         }
-
         if (sceneSwapped && !resetting) {
             resetting = true;
             StartCoroutine(ResetFlag());
@@ -119,7 +114,6 @@ public class NPCController : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         sceneSwapped = false;
-        swapping = false;
         resetting = false;
         foreach (string s in npcData.Keys.ToList()) {
             if (npcData[s].spawned && npcData[s].map == currentMap) {
@@ -241,10 +235,7 @@ public class NPCController : MonoBehaviour {
 
 
     IEnumerator MoveNPC(List<Vector3> path, Vector3 pos, string n) {
-        while (swapping) {
-            yield return new WaitForEndOfFrame();
-        }
-
+        yield return new WaitForSeconds(0.1f);
         Vector3 lastPos = pos;
         //Wait until the path is calculated
         while (!Monitor.TryEnter(path)) {
@@ -253,7 +244,7 @@ public class NPCController : MonoBehaviour {
         }
         NPCInfo temp = npcData[n];
         while (path.Count > 0) {
-            lastPos = Vector3.MoveTowards(lastPos, path[0], Time.timeScale * Time.deltaTime * 4f);
+            lastPos = Vector3.MoveTowards(lastPos, path[0], Time.deltaTime * 4f);
             if (lastPos == path[0]) {
                 path.RemoveAt(0);
             }
@@ -274,7 +265,7 @@ public class NPCController : MonoBehaviour {
         temp.x = lastPos.x;
         temp.y = lastPos.y;
         temp.z = lastPos.z;
-        if (temp.map == 1 && temp.x == 69.5f && temp.y == -12.5f) {
+        if(temp.map == 1 && temp.x == 69.5f && temp.y == -12.5f) {
             temp.spawned = false;
         } else {
             temp.spawned = true;
@@ -286,10 +277,7 @@ public class NPCController : MonoBehaviour {
     }
 
     IEnumerator MoveAndSpawnNPC(List<Vector3> path, Vector3 pos, string n, Vector3 nextTarget) {
-        while (swapping) {
-            yield return new WaitForEndOfFrame();
-        }
-
+        yield return new WaitForSeconds(0.1f);
         Vector3 lastPos = pos;
         bool swapped = false;
         //Wait until the path is calculated
@@ -299,7 +287,7 @@ public class NPCController : MonoBehaviour {
         }
 
         while (path.Count > 0) {
-            lastPos = Vector3.MoveTowards(lastPos, path[0], Time.timeScale * Time.deltaTime * 4f);
+            lastPos = Vector3.MoveTowards(lastPos, path[0], Time.deltaTime * 10f);
             if (lastPos == path[0]) {
                 path.RemoveAt(0);
             }
@@ -352,10 +340,10 @@ public class NPCController : MonoBehaviour {
 
     public void SetQueue(int day) {
         npcQueue.Clear();
-        foreach (string key in npcData.Keys.ToList()) {
+        foreach(string key in npcData.Keys.ToList()) {
             List<Schedule> temp = npcData[key].locations;
-            foreach (Schedule s in temp) {
-                if ((s.repeating && s.day == (day % 6)) || (!s.repeating && s.day == day)) {
+            foreach(Schedule s in temp) {
+                if((s.repeating && s.day == (day % 6)) || (!s.repeating && s.day == day)) {
                     npcQueue.Add(s, s.characterName);
                 }
             }
@@ -366,16 +354,10 @@ public class NPCController : MonoBehaviour {
     [System.Serializable]
     private class CompareTimes : IComparer<Schedule> {
         int IComparer<Schedule>.Compare(Schedule a, Schedule b) {
-            if (a.hour < b.hour) {
-                return -1;
-            } else if (a.hour > b.hour) {
-                return 1;
+            if (a.time < b.time) {
+                return -1;        
             } else {
-                if (a.minute < b.minute) {
-                    return -1;
-                } else {
-                    return 1;
-                }
+                return 1;
             }
         }
     }

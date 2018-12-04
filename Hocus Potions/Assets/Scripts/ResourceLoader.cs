@@ -21,7 +21,7 @@ public class ResourceLoader : MonoBehaviour {
     public Ingredient[] brewingIngredients;
     public List<string> availableNPCs;
     public List<Spell> spells;
-    public TextAsset npcData, npcSchedule;
+    public TextAsset npcData;
     public int givenListMax = 5;
     public float potionStrength = 1;
     public int ingredientCount;
@@ -110,22 +110,12 @@ public class ResourceLoader : MonoBehaviour {
     void LoadNPCData() {
         NPCController c = GameObject.FindObjectOfType<NPCController>();
         c.npcData = new Dictionary<string, NPCController.NPCInfo>();
-        Regex.Replace(npcSchedule.text, "\r", String.Empty);
-        Regex.Replace(npcSchedule.text, " ", String.Empty);
-        string[] characterSegments = npcSchedule.text.Split('*');
-        for (int i = 0; i < characterSegments.Length; i++) {
-            string[] events = characterSegments[i].Split('\n');
-            string characterName = events[0].Split(',')[0];
-            List<NPCController.Schedule> schedule = new List<NPCController.Schedule>();
-            for (int j = 1; j < events.Length; j++) {
-                string[] data = events[j].Split(',');
-                if (data[0].Equals(String.Empty)) { continue; }
-                if (data.Length > 8) {
-                    schedule.Add(new NPCController.Schedule(Boolean.Parse(data[0]), int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), data[4], int.Parse(data[5]), float.Parse(data[6]), float.Parse(data[7]), float.Parse(data[8]), characterName));
-                }
-            }
-            c.npcData.Add(characterName, new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), schedule, false, new List<NPC.Status>()));
-        }
+        c.npcData.Add("Dante", new NPCController.NPCInfo(0,0,0,1,0,false,null,0,new List<Item>(), new List<NPCController.Schedule> { new NPCController.Schedule(true, 0, 7, "", 0, -5f, -1f, 0, "Dante") }, false, new List<NPC.Status>()));
+        c.npcData.Add("Franklin", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Amara", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Ralphie", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Bernadette", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
+        c.npcData.Add("Geoff", new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), new List<NPCController.Schedule>(), false, new List<NPC.Status>()));
     }
 
     //TODO: This needs some cleaning up; Probably don't actually need to some of this stuff
