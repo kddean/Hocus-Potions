@@ -135,6 +135,7 @@ public class NPCController : MonoBehaviour {
     }
     //TODO: these conditions can probably be cleaned up/reordered to be shorter
     void HandleMovement(Schedule s, string n) {
+        Debug.Log(currentMap);
         //Player is outside and the NPC is going somewhere outside
         if (s.map == 1 && currentMap == 1) {
             if (npcData[n].spawned && npcData[n].map == 1) {                //NPC is already outside
@@ -198,8 +199,8 @@ public class NPCController : MonoBehaviour {
                 temp.z = 0;
                 npcData[n] = temp;
                 List<Vector3> path = new List<Vector3>();
-                pathfinder.InitializePath(new Vector3(69.5f, -12.5f, 0), new Vector3(-7.5f, -1.5f, 0), 1, path);
-                StartCoroutine(MoveNPC(path, new Vector3(s.x, s.y, s.z), n));
+                pathfinder.InitializePath(new Vector3(69.5f, -12.5f, 0), new Vector3(s.x,s.y,s.z), 1, path);
+                StartCoroutine(MoveNPC(path, new Vector3(69.5f, -12.5f, 0), n));
             }
         } else if (s.map == 0 && currentMap == 1) {
             if (npcData[n].spawned && npcData[n].map == 1) {

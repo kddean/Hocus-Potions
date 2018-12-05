@@ -22,9 +22,11 @@ public class SceneSwitcher : MonoBehaviour {
     void Start () {
         house = 0;
         world = 1;
-        garden = 2; 
+        garden = 2;
+      
 	}
 
+  
     // Update is called once per frame
 
     public void SceneSwap(string s) {

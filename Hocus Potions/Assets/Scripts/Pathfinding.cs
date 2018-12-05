@@ -11,6 +11,8 @@ public class Pathfinding : MonoBehaviour {
     Tilemap houseMap, worldMap1, worldMap2;
     bool houseSet, worldSet;
     List<Vector3> houseTiles, worldTiles;
+    AsyncOperation scene;
+    AudioListener al;
 
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -32,94 +34,112 @@ public class Pathfinding : MonoBehaviour {
         }
     }
 
-    private void Update() {
-        if (!houseSet && SceneManager.GetActiveScene().name.Equals("House")) {
-            houseMap = GameObject.Find("Tilemap_Floor").GetComponent<Tilemap>();
-            houseMap.CompressBounds();
-            BoundsInt bounds = houseMap.cellBounds;
-            TileBase[] allTiles = houseMap.GetTilesBlock(bounds);
-            houseTiles = new List<Vector3>();
-            int i, j;
-            i = j = 0;
-            for (int y = 2; y > -6f; y--) {
-                for (int x = -9; x < 9; x++) {
-                    if (houseMap.HasTile(new Vector3Int(x, y, 0))) {
-                        RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.5f, y - 0.5f), new Vector2(1, 1f), 0, new Vector2(0, -1), 0, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
-                        if (check.Length == 0 ) {
+    private void Start() {
+        scene = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        al = GameObject.FindObjectOfType<AudioListener>();
+        al.enabled = false;
+        StartCoroutine(Test());
+
+        houseMap = GameObject.Find("Tilemap_Floor").GetComponent<Tilemap>();
+        houseMap.CompressBounds();
+        BoundsInt bounds = houseMap.cellBounds;
+        TileBase[] allTiles = houseMap.GetTilesBlock(bounds);
+        houseTiles = new List<Vector3>();
+        int i, j;
+        i = j = 0;
+        for (int y = 2; y > -6f; y--) {
+            for (int x = -9; x < 9; x++) {
+                if (houseMap.HasTile(new Vector3Int(x, y, 0))) {
+                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.5f, y - 0.5f), new Vector2(1, 1f), 0, new Vector2(0, -1), 0, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    if (check.Length == 0) {
+                        houseTiles.Add(houseMap.GetCellCenterWorld(new Vector3Int(x, y, 0)));
+                    } else {
+                        bool triggers = true;
+                        foreach (RaycastHit2D r in check) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                                triggers = false;
+                                break;
+                            }
+                        }
+                        if (triggers) {
                             houseTiles.Add(houseMap.GetCellCenterWorld(new Vector3Int(x, y, 0)));
-                        } else {
-                            bool triggers = true;
-                            foreach(RaycastHit2D r in check) {
-                                if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
-                                    triggers = false;
-                                    break;
-                                }
-                            }
-                            if (triggers) {
-                                houseTiles.Add(houseMap.GetCellCenterWorld(new Vector3Int(x, y, 0)));
-                            }
                         }
-                    } 
-                    i++;
+                    }
                 }
-                j++;
-                i = 0;
+                i++;
             }
-            houseSet = true;
-        } else if (!worldSet && !SceneManager.GetActiveScene().name.Equals("Garden") && !SceneManager.GetActiveScene().name.Equals("House")) {
-            worldMap1 = GameObject.Find("Ground").GetComponent<Tilemap>();
-            worldMap2 = GameObject.Find("Stairs").GetComponent<Tilemap>();
-            worldMap1.CompressBounds();
-            worldMap2.CompressBounds();
-            BoundsInt bounds1 = worldMap1.cellBounds;
-            BoundsInt bounds2 = worldMap2.cellBounds;
-            worldTiles = new List<Vector3>();
-            int i, j;
-            i = j = 0;
-            for (int y = 35; y > -70f; y--) {
-                for (int x = -80; x < 70; x++) {
-                    if (worldMap1.HasTile(new Vector3Int(x, y, 0))) {
-                        RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x+0.2f, y-0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
-                        if (check.Length == 0) {
-                            worldTiles.Add(worldMap1.GetCellCenterWorld(new Vector3Int(x, y, 0)));
-                        } else {
-                            bool triggers = true;
-                            foreach (RaycastHit2D r in check) {
-                                if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
-                                    triggers = false;
-                                    break;
-                                }
-                            }
-                            if (triggers) {
-                                worldTiles.Add(worldMap1.GetCellCenterWorld(new Vector3Int(x, y, 0)));
-                            }
-                        }
-                      
-                    } else if (worldMap2.HasTile(new Vector3Int(x, y, 0))) {
-                        RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x+0.2f, y - 0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
-                        if (check.Length == 0) {
-                            worldTiles.Add(worldMap2.GetCellCenterWorld(new Vector3Int(x, y, 0)));
-                        } else {
-                            bool triggers = true;
-                            foreach (RaycastHit2D r in check) {
-                                if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
-                                    triggers = false;
-                                    break;
-                                }
-                            }
-                            if (triggers) {
-                                worldTiles.Add(worldMap2.GetCellCenterWorld(new Vector3Int(x, y, 0)));
-                            }
-                        }                   
-                    } 
-                    i++;
-                }
-                j++;
-                i = 0;
-            }
-            worldSet = true;
+            j++;
+            i = 0;
+        }
+       // houseSet = true;
+    }
+
+    IEnumerator Test() {
+        while (!scene.isDone) {
+            yield return null;
         }
 
+        worldMap1 = GameObject.Find("Ground").GetComponent<Tilemap>();
+        worldMap2 = GameObject.Find("Stairs").GetComponent<Tilemap>();
+        worldMap1.CompressBounds();
+        worldMap2.CompressBounds();
+        BoundsInt bounds1 = worldMap1.cellBounds;
+        BoundsInt bounds2 = worldMap2.cellBounds;
+        worldTiles = new List<Vector3>();
+        int i, j;
+        i = j = 0;
+        for (int y = 35; y > -70f; y--) {
+            for (int x = -80; x < 70; x++) {
+                if (worldMap1.HasTile(new Vector3Int(x, y, 0))) {
+                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.2f, y - 0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    if (check.Length == 0) {
+                        worldTiles.Add(worldMap1.GetCellCenterWorld(new Vector3Int(x, y, 0)));
+                    } else {
+                        bool triggers = true;
+                        foreach (RaycastHit2D r in check) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                                triggers = false;
+                                break;
+                            }
+                        }
+                        if (triggers) {
+                            worldTiles.Add(worldMap1.GetCellCenterWorld(new Vector3Int(x, y, 0)));
+                        }
+                    }
+
+                } else if (worldMap2.HasTile(new Vector3Int(x, y, 0))) {
+                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.2f, y - 0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    if (check.Length == 0) {
+                        worldTiles.Add(worldMap2.GetCellCenterWorld(new Vector3Int(x, y, 0)));
+                    } else {
+                        bool triggers = true;
+                        foreach (RaycastHit2D r in check) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                                triggers = false;
+                                break;
+                            }
+                        }
+                        if (triggers) {
+                            worldTiles.Add(worldMap2.GetCellCenterWorld(new Vector3Int(x, y, 0)));
+                        }
+                    }
+                }
+                i++;
+            }
+            j++;
+            i = 0;
+        }
+        //worldSet = true;
+        SceneManager.UnloadSceneAsync(1);
+        al.enabled = true;
+    }
+    private void Update() {
+    /*    if (!houseSet && SceneManager.GetActiveScene().name.Equals("House")) {
+           
+        } else if (!worldSet && !SceneManager.GetActiveScene().name.Equals("Garden") && !SceneManager.GetActiveScene().name.Equals("House")) {
+           
+        }
+        */
     }
 
     public void InitializePath(Vector3 pos, Vector3 target, int map, List<Vector3> returnPath) {
