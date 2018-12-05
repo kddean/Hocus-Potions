@@ -163,7 +163,7 @@ public class ResourceLoader : MonoBehaviour {
             List<Request> questList = new List<Request>();
             foreach (string req in requests) {
                 List<string> r = Regex.Split(req, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)").ToList();
-                if (!r[0].Equals(String.Empty)) {
+                if (!r[0].Equals(String.Empty) && r.Count >= 9) {
                     r.RemoveAll(q => q.Equals(String.Empty));
                     Request newRequest = new Request(r[0], potionStrength, float.Parse(r[1]), float.Parse(r[2]), float.Parse(r[3]), float.Parse(r[4]), float.Parse(r[5]), float.Parse(r[6]), float.Parse(r[7]), float.Parse(r[8]));
                     questList.Add(newRequest);

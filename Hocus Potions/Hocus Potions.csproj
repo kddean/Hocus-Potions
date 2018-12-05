@@ -310,6 +310,7 @@
     <Compile Include="Assets\Scripts\BrewingManager.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Cauldron.cs" />
+    <Compile Include="Assets\Scripts\DialogueCanvas.cs" />
     <Compile Include="Assets\Scripts\DoorDontDestroy.cs" />
     <Compile Include="Assets\Scripts\GarbageCollecter.cs" />
     <Compile Include="Assets\Scripts\Garden.cs" />
@@ -347,7 +348,6 @@
     <Compile Include="Assets\Scripts\Traveller.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\NpcList.txt" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Templates\Alert.uxml" />
