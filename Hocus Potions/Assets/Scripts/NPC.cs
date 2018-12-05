@@ -48,7 +48,7 @@ public class NPC : MonoBehaviour {
         if(!controller.npcData.TryGetValue(CharacterName, out info)) {
             Debug.Log("NPC Data not set");
         }
-        speed = 4f;
+        speed = 10f;
         swapPoint = GameObject.Find("SwapPoint");
         destroying = false;
         if (SceneManager.GetActiveScene().name.Equals("House")) {
@@ -98,30 +98,32 @@ public class NPC : MonoBehaviour {
                 controller.npcData[characterName] = info;
                 Destroy(this.gameObject);
             }
+
+            if (path.Count == 0 && nextTarget.x > -9000 && transform.position == swapPoint.transform.position) {
+                if (info.map == 0) {
+                    GameObject.FindObjectOfType<Pathfinding>().InitializePath(new Vector3(-7.5f, -1.5f, 0), nextTarget, 1, path);
+                    info.map = 1;
+                    info.x = -7.5f;
+                    info.y = -1.5f;
+                    info.z = 0;
+                    info.spawned = true;
+                    controller.npcData[characterName] = info;
+                } else {
+                    GameObject.FindObjectOfType<Pathfinding>().InitializePath(new Vector3(0.5f, -4.5f, 0), nextTarget, 0, path);
+                    info.map = 0;
+                    info.x = 0.5f;
+                    info.y = -4.5f;
+                    info.z = 0;
+                    info.spawned = true;
+                    controller.npcData[characterName] = info;
+                }
+                controller.FinishPathData(path, characterName);
+                Destroy(this.gameObject);
+            }
         }
         Monitor.Exit(path);
 
-        if (nextTarget != null && transform.position == swapPoint.transform.position) {
-            if (info.map == 0) {
-                GameObject.FindObjectOfType<Pathfinding>().InitializePath(new Vector3(-7.5f, -1.5f, 0), nextTarget, 1, path);
-                info.map = 1;
-                info.x = -7.5f;
-                info.y = -1.5f;
-                info.z = 0;
-                info.spawned = true;
-                controller.npcData[characterName] = info;
-            } else {
-                GameObject.FindObjectOfType<Pathfinding>().InitializePath(new Vector3(0.5f, -4.5f, 0), nextTarget, 0, path);
-                info.map = 0;
-                info.x = 0.5f;
-                info.y = -4.5f;
-                info.z = 0;
-                info.spawned = true;
-                controller.npcData[characterName] = info;
-            }
-            controller.FinishPathData(path, characterName);
-            Destroy(this.gameObject);
-        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

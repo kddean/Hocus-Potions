@@ -241,10 +241,10 @@ public class NPCController : MonoBehaviour {
 
 
     IEnumerator MoveNPC(List<Vector3> path, Vector3 pos, string n) {
+        yield return new WaitForSeconds(0.3f);
         while (swapping) {
             yield return new WaitForEndOfFrame();
         }
-
         Vector3 lastPos = pos;
         //Wait until the path is calculated
         while (!Monitor.TryEnter(path)) {
@@ -286,6 +286,7 @@ public class NPCController : MonoBehaviour {
     }
 
     IEnumerator MoveAndSpawnNPC(List<Vector3> path, Vector3 pos, string n, Vector3 nextTarget) {
+        yield return new WaitForSeconds(0.3f);
         while (swapping) {
             yield return new WaitForEndOfFrame();
         }
@@ -297,7 +298,7 @@ public class NPCController : MonoBehaviour {
             Monitor.Exit(path);
             yield return new WaitForEndOfFrame();
         }
-
+      
         while (path.Count > 0) {
             lastPos = Vector3.MoveTowards(lastPos, path[0], Time.timeScale * Time.deltaTime * 4f);
             if (lastPos == path[0]) {
@@ -325,7 +326,6 @@ public class NPCController : MonoBehaviour {
         }
 
         Monitor.Exit(path);
-
         if (!swapped) {
             NPCInfo temp = npcData[n];
             temp.map = Mathf.Abs(temp.map - 1);
@@ -340,13 +340,17 @@ public class NPCController : MonoBehaviour {
             }
             temp.spawned = true;
             npcData[n] = temp;
+            List<Vector3> tempPath = new List<Vector3>();
+            pathfinder.InitializePath(new Vector3(npcData[n].x, npcData[n].y, npcData[n].z), nextTarget, temp.map, tempPath);
+            yield return new WaitForSeconds(0.3f);
             GameObject go = Instantiate(Resources.Load<GameObject>("Characters/" + n));
             go.transform.position = new Vector3(temp.x, temp.y, temp.z);
             NPC npc = go.AddComponent<NPC>();
+            npc.path = tempPath;
             npc.nextTarget = new Vector3(-9999, -9999, -9999);
             npc.CharacterName = n;
             go.name = n;
-            pathfinder.InitializePath(new Vector3(npcData[n].x, npcData[n].y, npcData[n].z), nextTarget, temp.map, npc.path);
+           
         }
     }
 
@@ -381,9 +385,9 @@ public class NPCController : MonoBehaviour {
         int rand = UnityEngine.Random.Range(0, available.Count - 1);
         int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
         int spawnHour = UnityEngine.Random.Range(8, 13);
-        Schedule schedule = new Schedule(false, day, 7, 0, "", 0, -6.5f, 0.5f, 0, available[rand]);
+        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
-        schedule = new Schedule(false, day, 11, 0, "", 1, 69.5f, -12.5f, 0, available[rand]);
+        schedule = new Schedule(false, day, spawnHour + 3, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
         available.RemoveAt(rand);
         if (available.Count > 0) {
