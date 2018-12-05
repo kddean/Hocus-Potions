@@ -105,7 +105,6 @@ public class NPCController : MonoBehaviour {
 
     void Update() {
         while (npcQueue.Count > 0 && mc.Hour == npcQueue.Keys[0].hour && mc.Minutes == npcQueue.Keys[0].minute) {
-            Debug.Log(mc.Hour + ":" + mc.Minutes);
             HandleMovement(npcQueue.Keys[0], npcQueue.Values[0]);
             npcQueue.RemoveAt(0);
         }
@@ -216,7 +215,7 @@ public class NPCController : MonoBehaviour {
                 go.name = n;
                 NPC npc = go.AddComponent<NPC>();
                 npc.CharacterName = n;
-                npc.nextTarget = new Vector3(-9999, -9999, -9999);
+                npc.nextTarget = new Vector3(s.x, s.y, s.z);
                 NPCInfo temp = npcData[n];
                 temp.spawned = true;
                 Vector3 spawnPoint = GameObject.Find("NPCSpawnPoint").transform.position;
@@ -382,9 +381,9 @@ public class NPCController : MonoBehaviour {
         int rand = UnityEngine.Random.Range(0, available.Count - 1);
         int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
         int spawnHour = UnityEngine.Random.Range(8, 13);
-        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
+        Schedule schedule = new Schedule(false, day, 7, 0, "", 0, -6.5f, 0.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
-        schedule = new Schedule(false, day, spawnHour + 3, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
+        schedule = new Schedule(false, day, 11, 0, "", 1, 69.5f, -12.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
         available.RemoveAt(rand);
         if (available.Count > 0) {

@@ -60,8 +60,7 @@ public class NPC : MonoBehaviour {
     }
 
     private void Update() {
-        if(destroying) { return; }
-
+        if (destroying) { return; }
         if (sceneSwapped && nextTarget.x > -9000) {
             info.x = transform.position.x;
             info.y = transform.position.y;
@@ -82,15 +81,24 @@ public class NPC : MonoBehaviour {
             destroying = true;
         }
 
-        if(destroying) { return; }
+        if (destroying) { return; }
 
 
-        if (Monitor.TryEnter(path, 1) && path.Count > 0) {
-            transform.position = Vector3.MoveTowards(transform.position, path[0], Time.timeScale * Time.deltaTime * speed);
-            if (transform.position == path[0]) {
-                path.RemoveAt(0);
+        if (Monitor.TryEnter(path, 1)) {
+            if (path.Count > 0) {
+                transform.position = Vector3.MoveTowards(transform.position, path[0], Time.timeScale * Time.deltaTime * speed);
+                if (transform.position == path[0]) {
+                    path.RemoveAt(0);
+                }
+            } else if (path.Count == 0 && info.map == 1 && transform.position == GameObject.Find("NPCSpawnPoint").transform.position) {
+                info.x = transform.position.x;
+                info.y = transform.position.y;
+                info.z = transform.position.z;
+                info.spawned = false;
+                controller.npcData[characterName] = info;
+                Destroy(this.gameObject);
             }
-        } 
+        }
         Monitor.Exit(path);
 
         if (nextTarget != null && transform.position == swapPoint.transform.position) {
@@ -114,16 +122,6 @@ public class NPC : MonoBehaviour {
             controller.FinishPathData(path, characterName);
             Destroy(this.gameObject);
         }
-
-        if(Monitor.TryEnter(path, 1) && path.Count == 0 && info.map == 1 && transform.position == GameObject.Find("NPCSpawnPoint").transform.position) {
-            info.x = transform.position.x;
-            info.y = transform.position.y;
-            info.z = transform.position.z;
-            info.spawned = false;
-            controller.npcData[characterName] = info;
-            Destroy(this.gameObject);
-        }
-        Monitor.Exit(path);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
