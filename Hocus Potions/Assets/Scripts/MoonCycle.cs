@@ -11,7 +11,7 @@ public class MoonCycle : MonoBehaviour {
     // Moon phase is a day of the week
 
 
-    public enum PartOfDay { Morning, Afternoon, Evening, Night }
+    public enum PartOfDay { morning, afternoon, evening, night }
     static public GameObject Clock;
     public float CLOCK_SPEED = 0.5f;
 
@@ -84,7 +84,7 @@ public class MoonCycle : MonoBehaviour {
         moonPhase.sprite = moonCycleSprites[0];
         StartCoroutine(PassingTime());
         Days = 0;
-        DayPart = PartOfDay.Morning;
+        DayPart = PartOfDay.morning;
     }
 
     public void Awake() {
@@ -109,19 +109,19 @@ public class MoonCycle : MonoBehaviour {
         switch (Hour) {
             case 6:
                 timeImage.sprite = timeOfDay[0];
-                DayPart = PartOfDay.Morning;
+                DayPart = PartOfDay.morning;
                 break;
             case 12:
                 timeImage.sprite = timeOfDay[1];
-                DayPart = PartOfDay.Afternoon;
+                DayPart = PartOfDay.afternoon;
                 break;
             case 17:
                 timeImage.sprite = timeOfDay[2];
-                DayPart = PartOfDay.Evening;
+                DayPart = PartOfDay.evening;
                 break;
             case 20:
                 timeImage.sprite = timeOfDay[3];
-                DayPart = PartOfDay.Night;
+                DayPart = PartOfDay.night;
                 break;
             default:
                 break;

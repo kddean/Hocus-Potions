@@ -333,6 +333,7 @@
     <Compile Include="Assets\Scripts\Pickups.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Potion.cs" />
+    <Compile Include="Assets\Scripts\RegionCheck.cs" />
     <Compile Include="Assets\Scripts\Request.cs" />
     <Compile Include="Assets\Scripts\ResourceLoader.cs" />
     <Compile Include="Assets\Scripts\SaveData.cs" />

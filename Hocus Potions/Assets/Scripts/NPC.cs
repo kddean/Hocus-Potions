@@ -21,7 +21,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     CanvasGroup buttonCG;
     string[] dialoguePieces;
     int currentDialogue;
-    bool requested, responding, gavePot, done, buttonsSet;
+    bool requested, responding, gavePot, done, buttonsSet, intro;
+    public string region;
 
     float speed;
     GameObject swapPoint;
@@ -68,6 +69,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         gavePot = false;
         done = false;
         buttonsSet = false;
+        intro = false;
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
             Debug.Log("NPC Data not set");
         }
@@ -171,23 +173,41 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         //Left click
         if (eventData.button.Equals(PointerEventData.InputButton.Left)) {
             if (dialogueCanvas.GetComponent<DialogueCanvas>().active) { return; }
-            //Set dialogue list if it isn't already set
+            //Set speed to 0 so they dont wander off
             speed = 0;
+
+            //Set dialogue list if it isn't already set
             if (dialogue.Count == 0) {
                 dialogue = rl.dialogueList[characterName];
             }
+
             if (dialoguePieces == null) {
                 currentDialogue = 0;
-                if (info.timesInteracted == 0) {
+                if (info.timesInteracted == 0) {        //First interaction
                     dialoguePieces = dialogue["intro"][0].Split('*');
-                } else if (!SceneManager.GetActiveScene().name.Equals("House")) {
-                    //Find dialogue for outside
-                } else {
+                    intro = true;
+                } else if (info.map == 1) {             //Overworld 
+                    intro = false;
+                    string key = GenerateKey();
+                    if (key == null) {
+                        speed = 4;
+                        return;
+                    }
+                    List<string> options = dialogue[key];
+                    if(options.Count == 1) {
+                        Debug.Log("one option");
+                        dialoguePieces = options[0].Split('*');
+                    } else {
+                        int rand = Random.Range(0, options.Count);
+                        dialoguePieces = options[rand].Split('*');
+                    }              
+                } else {        //House
                     if (info.returning) {
                         dialoguePieces = dialogue[info.requestKey][0].Split('*');
                         currentDialogue = dialoguePieces.Length - 1;
                     }
                     if (!rl.requestList.TryGetValue(characterName, out requests)) {
+                        speed = 4;
                         return;
                     } else {
                         GiveQuest();
@@ -202,11 +222,16 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             dialogueCanvas.GetComponent<DialogueCanvas>().active = true;
             dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
             if (!buttonsSet) {
-                dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogue);
+                if (info.map == 0) {
+                    dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogueInside);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.AddListener(AcceptButton);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.AddListener(WaitButton);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[4].onClick.AddListener(DeclineButton);
+                } else {
+                    dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogueOutside);
+                }
+
                 dialogueCanvas.GetComponentsInChildren<Button>()[1].onClick.AddListener(ExitButton);
-                dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.AddListener(AcceptButton);
-                dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.AddListener(WaitButton);
-                dialogueCanvas.GetComponentsInChildren<Button>()[4].onClick.AddListener(DeclineButton);
                 buttonsSet = true;
             }
 
@@ -226,8 +251,48 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    string GenerateKey() {
+        //TODO: remove this once we add dialogue while they're walking to a place
+        if(region == null) { return null; }
+        MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
+        string key = "overworld_" + mc.DayPart.ToString().ToLower();
+        switch(mc.Days % 6) {
+            case 0:
+                key += "_waxcres_";
+                break;
+            case 1:
+                key += "_waxhalf_";
+                break;
+            case 2:
+                key += "_full_";
+                break;
+            case 3:
+                key += "_wanhalf_";
+                break;
+            case 4:
+                key += "_wancres_";
+                break;
+            case 5:
+                key += "_new_";
+                break;
+            default:
+                break;
+        }
 
-    public void NextDialogue() {
+        key += region;
+
+       
+        if (info.affinity < 0) {
+            key += "_bad";
+        } else if (info.affinity > 0) {
+            key += "_good";
+        } else {
+            key += "_neutral";
+        }
+        return key;
+    }
+
+    public void NextDialogueInside() {
         currentDialogue++;
         if (!requested && !info.returning && currentDialogue == dialoguePieces.Length) {
             GiveQuest();
@@ -262,6 +327,19 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             }
         }
 
+    }
+
+    public void NextDialogueOutside() {
+        currentDialogue++;
+        dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+        if (currentDialogue == dialoguePieces.Length - 1) {
+            GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
+            GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
+            GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+            if (intro) {
+                dialoguePieces = null;
+            }
+        }
     }
 
     void GiveQuest() {
@@ -424,8 +502,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 1.0f;
         dialogueCanvas.GetComponent<DialogueCanvas>().active = false;
         dialogueCanvas.SetActive(false);
-        info.returning = false;
-        controller.npcData[CharacterName] = info;
         speed = 4f;
     }
     IEnumerator PotionEffects(Potion pot) {
