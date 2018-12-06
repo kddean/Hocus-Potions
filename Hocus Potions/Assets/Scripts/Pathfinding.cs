@@ -38,7 +38,7 @@ public class Pathfinding : MonoBehaviour {
         scene = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         al = GameObject.FindObjectOfType<AudioListener>();
         al.enabled = false;
-        StartCoroutine(Test());
+        StartCoroutine(PopulateWorlcTiles());
 
         houseMap = GameObject.Find("Tilemap_Floor").GetComponent<Tilemap>();
         houseMap.CompressBounds();
@@ -74,7 +74,7 @@ public class Pathfinding : MonoBehaviour {
        // houseSet = true;
     }
 
-    IEnumerator Test() {
+    IEnumerator PopulateWorlcTiles() {
         while (!scene.isDone) {
             yield return null;
         }
@@ -143,7 +143,6 @@ public class Pathfinding : MonoBehaviour {
     }
 
     public void InitializePath(Vector3 pos, Vector3 target, int map, List<Vector3> returnPath) {
-
         bool playerOnMap = false;
         Vector3 centeredPlayerPos = new Vector3();
         if (map == 0 && SceneManager.GetActiveScene().name.Equals("House") || map == 1 && !SceneManager.GetActiveScene().name.Equals("House")) {
