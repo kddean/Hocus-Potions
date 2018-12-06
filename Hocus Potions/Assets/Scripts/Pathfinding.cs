@@ -38,7 +38,7 @@ public class Pathfinding : MonoBehaviour {
         scene = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         al = GameObject.FindObjectOfType<AudioListener>();
         al.enabled = false;
-        StartCoroutine(PopulateWorlcTiles());
+        StartCoroutine(PopulateWorldTiles());
 
         houseMap = GameObject.Find("Tilemap_Floor").GetComponent<Tilemap>();
         houseMap.CompressBounds();
@@ -50,7 +50,7 @@ public class Pathfinding : MonoBehaviour {
         for (int y = 2; y > -6f; y--) {
             for (int x = -9; x < 9; x++) {
                 if (houseMap.HasTile(new Vector3Int(x, y, 0))) {
-                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.5f, y - 0.5f), new Vector2(1, 1f), 0, new Vector2(0, -1), 0, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.2f, y - 0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
                     if (check.Length == 0) {
                         houseTiles.Add(houseMap.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                     } else {
@@ -74,7 +74,7 @@ public class Pathfinding : MonoBehaviour {
        // houseSet = true;
     }
 
-    IEnumerator PopulateWorlcTiles() {
+    IEnumerator PopulateWorldTiles() {
         while (!scene.isDone) {
             yield return null;
         }

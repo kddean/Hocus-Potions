@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     GameObject fadeScreen, sleepCanvas;
     public bool swappingScenes;
     public bool allowedToMove;
+    public bool layerSwapping;
 
     public struct TimerData {
         public float startTime;
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         sr = GetComponent<SpriteRenderer>();
         swappingScenes = false;
         allowedToMove = true;
+        layerSwapping = false;
         currentAnim = "Idle";
     }
 
@@ -169,6 +171,24 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 default:
                     break;
             }
+        }
+      
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (!layerSwapping && collision.gameObject.GetComponent<Pickups>() != null) {
+            collision.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
+        }
+        if (layerSwapping) {
+            if (collision.gameObject.GetComponent<Pickups>() != null) {
+                collision.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "InFrontOfPlayer";
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.GetComponent<Pickups>() != null) {
+            collision.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "InFrontOfPlayer";
         }
     }
 

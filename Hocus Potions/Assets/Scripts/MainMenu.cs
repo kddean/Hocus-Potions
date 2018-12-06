@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour {
     GarbageCollecter gc;
     MoonCycle mc;
     Mana mana;
-    NPCManager npcs;
+    NPCController npcs;
 
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour {
         gc = GameObject.FindObjectOfType<GarbageCollecter>();
         mc = GameObject.FindObjectOfType<MoonCycle>();
         mana = GameObject.FindObjectOfType<Mana>();
-        npcs = GameObject.FindObjectOfType<NPCManager>();
+        npcs = GameObject.FindObjectOfType<NPCController>();
 	}
 	
 	// Update is called once per frame
@@ -46,6 +46,11 @@ public class MainMenu : MonoBehaviour {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saveData.dat");
         SaveData data = new SaveData();
+        NPC[] activeNPCs = GameObject.FindObjectsOfType<NPC>();
+        foreach(NPC n in activeNPCs) {
+            n.saving = true;
+        }
+        npcs.saving = true;
         Vector3 pos = player.transform.position;
         data.x = pos.x;
         data.y = pos.y;
@@ -91,10 +96,13 @@ public class MainMenu : MonoBehaviour {
         data.day = mc.Days;
         data.dayPart = mc.DayPart;
 
-        data.npcNames = npcs.data.Keys.ToList();
-        data.npcData = npcs.data.Values.ToList();
-        data.returnQueue = npcs.returnQueue;
-        data.spawned = npcs.Spawned;
+
+        data.npcNames = npcs.npcData.Keys.ToList();
+        data.npcInfo = npcs.npcData.Values.ToList();
+        data.schedules = npcs.npcQueue.Keys.ToList();
+        data.scheduleNames = npcs.npcQueue.Values.ToList();
+        data.currentMap = npcs.CurrentMap;
+
 
         bf.Serialize(file, data);
         file.Close();
@@ -150,14 +158,7 @@ public class MainMenu : MonoBehaviour {
 
 
         rl.brewingIngredients = data.cauldronContents;
-        rl.ingredientCount = data.ingredientCount;      
-
-        npcs.data.Clear();
-        for(int i = 0; i < data.npcNames.Count; i++) {
-            npcs.data.Add(data.npcNames[i], data.npcData[i]);
-        }
-        npcs.returnQueue = data.returnQueue;
-        npcs.Spawned = data.spawned;
+        rl.ingredientCount = data.ingredientCount;
 
         file.Close();
 
@@ -219,6 +220,19 @@ public class MainMenu : MonoBehaviour {
             } else if (mc.Hour >= 14 && mc.Hour < 18) {
                 mc.timeImage.sprite = mc.timeOfDay[2];
             }
+
+            npcs.npcData.Clear();
+            for (int i = 0; i < data.npcNames.Count; i++) {
+                npcs.npcData.Add(data.npcNames[i], data.npcInfo[i]);
+            }
+
+            npcs.npcQueue.Clear();
+            for (int i = 0; i < data.schedules.Count; i++) {
+                npcs.npcQueue.Add(data.schedules[i], data.scheduleNames[i]);
+            }
+
+            npcs.CurrentMap = data.currentMap;
+            npcs.LoadNPCS();
 
             gc.droppedItems = data.droppedItems;
             GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().SpawnDropped();

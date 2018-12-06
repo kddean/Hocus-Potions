@@ -17,7 +17,9 @@ public class LayerSwapping : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision) {
         if (!set && !collision.isTrigger && player.transform.position.y > (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
+            GameObject.FindObjectOfType<Player>().layerSwapping = true;
             foreach(SpriteRenderer sr in children) {
+                if(sr.gameObject.name.Equals("runes")) { continue; }
                 startingLayer.Add(sr.sortingLayerName);
                 sr.sortingLayerName = "InFrontOfPlayer";
             }
@@ -26,7 +28,9 @@ public class LayerSwapping : MonoBehaviour {
 
         if (set && !collision.isTrigger && player.transform.position.y < (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
+            GameObject.FindObjectOfType<Player>().layerSwapping = false;
             for (int i = 0; i < children.Length; i++) {
+                if (children[i].gameObject.name.Equals("runes")) { continue; }
                 children[i].sortingLayerName = startingLayer[i];
             }
             set = false;
@@ -39,7 +43,9 @@ public class LayerSwapping : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision) {
         if (set && !collision.isTrigger && player.transform.position.y > (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
-            for(int i = 0; i < children.Length; i++){
+            GameObject.FindObjectOfType<Player>().layerSwapping = false;
+            for (int i = 0; i < children.Length; i++){
+                if (children[i].gameObject.name.Equals("runes")) { continue; }
                 children[i].sortingLayerName = startingLayer[i];
             }
             set = false;
