@@ -47,13 +47,13 @@ public class Sleep : MonoBehaviour {
             sleeping = true;
             switch (mc.Hour) {
                 case 22:
-                    GameObject.FindObjectOfType<Mana>().UpdateMana(-160);             
+                    GameObject.FindObjectOfType<Mana>().UpdateMana(-160f);             
                     break;
                 case 23:
-                    GameObject.FindObjectOfType<Mana>().UpdateMana(-140);
+                    GameObject.FindObjectOfType<Mana>().UpdateMana(-140f);
                     break;
                 default:
-                    GameObject.FindObjectOfType<Mana>().UpdateMana(-((6 - mc.Hour) * 20));  
+                    GameObject.FindObjectOfType<Mana>().UpdateMana(-1 * ((6 - mc.Hour) * 20));  
                     break;
             }
         }

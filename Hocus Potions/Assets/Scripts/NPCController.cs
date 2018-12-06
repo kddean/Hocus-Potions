@@ -135,7 +135,6 @@ public class NPCController : MonoBehaviour {
     }
     //TODO: these conditions can probably be cleaned up/reordered to be shorter
     void HandleMovement(Schedule s, string n) {
-        Debug.Log(currentMap);
         //Player is outside and the NPC is going somewhere outside
         if (s.map == 1 && currentMap == 1) {
             if (npcData[n].spawned && npcData[n].map == 1) {                //NPC is already outside
@@ -388,7 +387,7 @@ public class NPCController : MonoBehaviour {
         int spawnHour = UnityEngine.Random.Range(8, 13);
         Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
-        schedule = new Schedule(false, day, spawnHour + 3, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
+        schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
         available.RemoveAt(rand);
         if (available.Count > 0) {
@@ -397,7 +396,7 @@ public class NPCController : MonoBehaviour {
             rand = UnityEngine.Random.Range(0, available.Count - 1);
             schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, 0.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
-            schedule = new Schedule(false, day, spawnHour + 3, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
+            schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
             available.RemoveAt(rand);
         }

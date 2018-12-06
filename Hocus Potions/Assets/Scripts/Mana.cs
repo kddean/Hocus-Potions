@@ -25,24 +25,32 @@ public class Mana : MonoBehaviour {
 
 
     public void UpdateMana(float amount) {
-        if(currentMana - amount < 0) {
+        if (currentMana - amount < 0) {
             amount = currentMana;
-        } else if( currentMana - amount > maxMana) {
-            amount = maxMana - currentMana;
+        } else if (currentMana - amount > maxMana) {
+            amount = -1 * (maxMana - currentMana);
         }
 
         StartCoroutine(DrainBar(amount));
     }
 
+   
+
     IEnumerator DrainBar(float amount) {
         inUse = true;
         float t = 0;
         while (t < 1) {
-            manaBar.fillAmount = Mathf.Lerp(currentMana, currentMana - amount, t) / maxMana;
-            t += Time.deltaTime * 2;
+            manaBar.fillAmount = (Mathf.Lerp(currentMana, (currentMana - amount), t) / maxMana);
+            t += Time.deltaTime * 2f;
             yield return new WaitForEndOfFrame();
         }
         currentMana -= amount;
+        if (currentMana == 0) {
+            manaBar.fillAmount = 0;
+        } else if( currentMana == MaxMana) {
+            manaBar.fillAmount = 1;
+        }
+
         inUse = false;
     }
     public float CurrentMana {
