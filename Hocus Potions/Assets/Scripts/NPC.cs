@@ -73,7 +73,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
             Debug.Log("NPC Data not set");
         }
-        speed = 10f;
+        speed = 4f;
         swapPoint = GameObject.Find("SwapPoint");
         destroying = false;
         if (SceneManager.GetActiveScene().name.Equals("House")) {
@@ -115,7 +115,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 if (transform.position == path[0]) {
                     path.RemoveAt(0);
                 }
-            } else if (path.Count == 0 && info.map == 1 && transform.position == GameObject.Find("NPCSpawnPoint").transform.position) {
+            } else if (speed != 0 && path.Count == 0 && info.map == 1 && transform.position == GameObject.Find("NPCSpawnPoint").transform.position) {
                 info.x = transform.position.x;
                 info.y = transform.position.y;
                 info.z = transform.position.z;
@@ -124,7 +124,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 Destroy(this.gameObject);
             }
 
-            if (path.Count == 0 && nextTarget.x > -9000 && transform.position == swapPoint.transform.position) {
+            if (speed != 0 && path.Count == 0 && nextTarget.x > -9000 && transform.position == swapPoint.transform.position) {
                 if (info.map == 0) {
                     GameObject.FindObjectOfType<Pathfinding>().InitializePath(new Vector3(-7.5f, -1.5f, 0), nextTarget, 1, path);
                     info.map = 1;
@@ -194,13 +194,13 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         return;
                     }
                     List<string> options = dialogue[key];
-                    if(options.Count == 1) {
+                    if (options.Count == 1) {
                         Debug.Log("one option");
                         dialoguePieces = options[0].Split('*');
                     } else {
                         int rand = Random.Range(0, options.Count);
                         dialoguePieces = options[rand].Split('*');
-                    }              
+                    }
                 } else {        //House
                     if (info.returning) {
                         dialoguePieces = dialogue[info.requestKey][0].Split('*');
@@ -239,7 +239,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
                 GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
                 GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
-            } 
+            }
 
         } else {        //Right click
             if (rl.activeItem != null) {
@@ -253,10 +253,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
     string GenerateKey() {
         //TODO: remove this once we add dialogue while they're walking to a place
-        if(region == null) { return null; }
+        if (region == null) { return null; }
         MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
         string key = "overworld_" + mc.DayPart.ToString().ToLower();
-        switch(mc.Days % 6) {
+        switch (mc.Days % 6) {
             case 0:
                 key += "_waxcres_";
                 break;
@@ -281,7 +281,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
         key += region;
 
-       
+
         if (info.affinity < 0) {
             key += "_bad";
         } else if (info.affinity > 0) {
