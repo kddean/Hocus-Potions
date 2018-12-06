@@ -13,8 +13,9 @@ public class LayerSwapping : MonoBehaviour {
         set = false;
     }
 
+
     private void OnTriggerStay2D(Collider2D collision) {
-        if (!set && !collision.isTrigger && player.transform.position.y > transform.position.y) {     
+        if (!set && !collision.isTrigger && player.transform.position.y > (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
             foreach(SpriteRenderer sr in children) {
                 startingLayer.Add(sr.sortingLayerName);
@@ -22,12 +23,21 @@ public class LayerSwapping : MonoBehaviour {
             }
             set = true;
         }
+
+        if (set && !collision.isTrigger && player.transform.position.y < (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))) {
+            SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 0; i < children.Length; i++) {
+                children[i].sortingLayerName = startingLayer[i];
+            }
+            set = false;
+            startingLayer.Clear();
+        }
     }
 
 
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (set && !collision.isTrigger && player.transform.position.y > transform.position.y) {
+        if (set && !collision.isTrigger && player.transform.position.y > (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
             for(int i = 0; i < children.Length; i++){
                 children[i].sortingLayerName = startingLayer[i];

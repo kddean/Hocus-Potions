@@ -21,8 +21,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     CanvasGroup buttonCG;
     string[] dialoguePieces;
     int currentDialogue;
-    bool requested, responding, gavePot, done, buttonsSet, intro;
+    bool requested, responding, gavePot, done, buttonsSet, intro, allowedToMove;
     public string region;
+    Animator anim;
+    string currentAnim; 
 
     float speed;
     GameObject swapPoint;
@@ -63,6 +65,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogue = new Dictionary<string, List<string>>();
         dialogueCanvas = Resources.FindObjectsOfTypeAll<DialogueCanvas>()[0].gameObject;
         buttonCG = dialogueCanvas.GetComponentsInChildren<CanvasGroup>()[1];
+        anim = GetComponent<Animator>();
         sceneSwapped = false;
         requested = false;
         responding = false;
@@ -70,6 +73,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         done = false;
         buttonsSet = false;
         intro = false;
+        allowedToMove = true;
+        currentAnim = "Forward";
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
             Debug.Log("NPC Data not set");
         }
@@ -82,6 +87,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             info.map = 1;
         }
         info.spawned = true;
+        RestartTimers();
     }
 
     private void Update() {
@@ -110,7 +116,34 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
 
         if (Monitor.TryEnter(path, 1)) {
-            if (path.Count > 0) {
+            if (anim != null) {
+                anim.speed = speed / 7f;
+                if (path.Count == 0) {
+                    anim.SetBool(currentAnim, false);
+                }
+            }
+            if (path.Count > 0 && allowedToMove) {
+                if (anim != null) {
+                    if (transform.position.x < path[0].x) {
+                        anim.SetBool(currentAnim, false);
+                        currentAnim = "Right";
+                        anim.SetBool(currentAnim, true);
+                    } else if (transform.position.x > path[0].x) {
+                        anim.SetBool(currentAnim, false);
+                        currentAnim = "Left";
+                        anim.SetBool(currentAnim, true);
+
+                    } else if (transform.position.y > path[0].y) {
+                        anim.SetBool(currentAnim, false);
+                        currentAnim = "Forward";
+                        anim.SetBool(currentAnim, true);
+
+                    } else if (transform.position.y < path[0].y) {
+                        anim.SetBool(currentAnim, false);
+                        currentAnim = "Backward";
+                        anim.SetBool(currentAnim, true);
+                    }
+                }
                 transform.position = Vector3.MoveTowards(transform.position, path[0], Time.timeScale * Time.deltaTime * speed);
                 if (transform.position == path[0]) {
                     path.RemoveAt(0);
@@ -174,7 +207,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (eventData.button.Equals(PointerEventData.InputButton.Left)) {
             if (dialogueCanvas.GetComponent<DialogueCanvas>().active) { return; }
             //Set speed to 0 so they dont wander off
-            speed = 0;
+            allowedToMove = false;
 
             //Set dialogue list if it isn't already set
             if (dialogue.Count == 0) {
@@ -190,7 +223,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     intro = false;
                     string key = GenerateKey();
                     if (key == null) {
-                        speed = 4;
+                        allowedToMove = true;
                         return;
                     }
                     List<string> options = dialogue[key];
@@ -207,7 +240,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         currentDialogue = dialoguePieces.Length - 1;
                     }
                     if (!rl.requestList.TryGetValue(characterName, out requests)) {
-                        speed = 4;
+                        allowedToMove = true;
                         return;
                     } else {
                         GiveQuest();
@@ -245,6 +278,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             if (rl.activeItem != null) {
                 if (rl.activeItem.item.item is Potion) {
                     if (!requested || gavePot) { return; }
+                    allowedToMove = false;
                     GivePotion();
                 }
             }
@@ -390,8 +424,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             affinity = "_neutral";
         }
 
-        //Choose from possible responses or use default if there is no response(this shouldn't ever happen)
-
         string response;
         string[] keyBits = info.requestKey.Split('_');
         string rKey = keyBits[0] + "_" + keyBits[1];
@@ -431,6 +463,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
         info.requestKey = null;
         controller.npcData[CharacterName] = info;
+        GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
+        nextTarget = new Vector3(69.5f, -12.5f, 0);
     }
 
 
@@ -475,13 +509,15 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
     public void WaitButton() {
         info.returning = true;
-        List<NPCController.Schedule> temp = info.locations;
         MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
-        temp.Add(new NPCController.Schedule(false, mc.Days + 1, mc.Hour, mc.Minutes, "", 0, transform.position.x, transform.position.y, transform.position.z, characterName));
+        List<NPCController.Schedule> temp = info.locations;      
+        temp.Add(new NPCController.Schedule(false, mc.Days + 1, mc.Hour, mc.Minutes, "", 0, -6.5f, 0.5f, 0, characterName));
         controller.npcData[CharacterName] = info;
         dialogueCanvas.GetComponentInChildren<Text>().enabled = true;
         dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["wait"][0];
         HideButtons();
+        GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
+        nextTarget = new Vector3(69.5f, -12.5f, 0);
     }
 
     public void DeclineButton() {
@@ -502,8 +538,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 1.0f;
         dialogueCanvas.GetComponent<DialogueCanvas>().active = false;
         dialogueCanvas.SetActive(false);
-        speed = 4f;
+        allowedToMove = true;
     }
+
     IEnumerator PotionEffects(Potion pot) {
         effects.SetActive(true);
         Ingredient.Attributes? type = pot.Primary;
@@ -522,6 +559,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.25f;
                 GetComponent<SpriteRenderer>().color = c;
+                info.potionTimers.Add(Status.invisible, new NPCController.TimerData(Time.time, pot.Duration));
                 break;
             case Ingredient.Attributes.mana:
                 anim.SetBool("Mana", true);
@@ -531,14 +569,17 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             case Ingredient.Attributes.poison:
                 speed--;
                 info.state.Add(Status.poisoned);
+                info.potionTimers.Add(Status.poisoned, new NPCController.TimerData(Time.time, pot.Duration));
                 anim.SetBool("Poison", true);
                 break;
             case Ingredient.Attributes.sleep:
                 info.state.Add(Status.asleep);
+                info.potionTimers.Add(Status.asleep, new NPCController.TimerData(Time.time, pot.Duration));
                 anim.SetBool("Sleep", true);
                 break;
             case Ingredient.Attributes.speed:
                 info.state.Add(Status.fast);
+                info.potionTimers.Add(Status.fast, new NPCController.TimerData(Time.time, pot.Duration));
                 speed = 8;
                 anim.SetBool("Speed", true);
                 break;
@@ -547,6 +588,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 anim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 info.state.Add(Status.transformed);
+                info.potionTimers.Add(Status.transformed, new NPCController.TimerData(Time.time, pot.Duration));
                 speed++;
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
                 GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
@@ -567,6 +609,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 break;
             case Ingredient.Attributes.invisibility:
                 info.state.Remove(Status.invisible);
+                info.potionTimers.Remove(Status.invisible);
                 anim.SetBool("Invisible", true);
                 anim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.83f);
@@ -583,24 +626,125 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             case Ingredient.Attributes.poison:
                 speed++;
                 info.state.Remove(Status.poisoned);
+                info.potionTimers.Remove(Status.poisoned);
                 anim.SetBool("Poison", false);
                 break;
             case Ingredient.Attributes.sleep:
                 info.state.Remove(Status.asleep);
+                info.potionTimers.Remove(Status.asleep);
                 anim.SetBool("Sleep", false);
                 break;
             case Ingredient.Attributes.speed:
                 info.state.Remove(Status.fast);
+                info.potionTimers.Remove(Status.fast);
                 speed = 4;
                 anim.SetBool("Speed", false);
                 break;
             case Ingredient.Attributes.transformation:
                 info.state.Remove(Status.transformed);
+                info.potionTimers.Remove(Status.transformed);
                 speed--;
                 anim.SetBool("Transformation", true);
                 anim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
-                GetComponent<SpriteRenderer>().sprite = rl.charSpriteList[CharacterName];
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/"+characterName);
+                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 1);
+                anim.SetBool("Transformation", false);
+                break;
+            default:
+                break;
+        }
+        controller.npcData[characterName] = info;
+        effects.SetActive(false);
+    }
+
+    public void RestartTimers() {
+        info = 
+            controller.npcData[characterName];
+        if (info.state.Count > 0) {
+            foreach (Status s in info.state) {
+                StartCoroutine(RestartPotion(s, info.potionTimers[s]));
+            }
+        }
+    }
+
+    IEnumerator RestartPotion(Status s, NPCController.TimerData t) {
+        effects.SetActive(true);
+        Animator anim = GetComponentInChildren<Animator>();
+
+        switch (s) {
+            case Status.invisible:
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = 0.25f;
+                GetComponent<SpriteRenderer>().color = c;
+                break;
+                case Status.poisoned:
+                speed--;
+                anim.SetBool("Poison", true);
+                break;
+            case Status.asleep:
+                anim.SetBool("Sleep", true);
+                break;
+            case Status.fast:
+                speed = 8;
+                anim.SetBool("Speed", true);
+                break;
+            case Status.transformed:
+                speed++;
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
+                GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0.3f);
+                break;
+            default:
+                break;
+        }
+
+        controller.npcData[characterName] = info;
+        float duration = ((t.duration / 10) * GameObject.FindObjectOfType<MoonCycle>().CLOCK_SPEED) - (Time.time - t.startTime);
+        yield return new WaitForSeconds(duration);
+
+        switch (s) {
+            case Status.invisible:
+                info.state.Remove(Status.invisible);
+                info.potionTimers.Remove(Status.invisible);
+                anim.SetBool("Invisible", true);
+                anim.Play("Invisible", 0, 0);
+                yield return new WaitForSeconds(0.83f);
+                anim.SetBool("Invisible", false);
+                Color c = GetComponent<SpriteRenderer>().color;
+                c.a = 0.25f;
+                GetComponent<SpriteRenderer>().color = c;
+                break;
+            case Status.poisoned:
+                speed++;
+                info.state.Remove(Status.poisoned);
+                info.potionTimers.Remove(Status.poisoned);
+                anim.SetBool("Poison", false);
+                break;
+            case Status.asleep:
+                info.state.Remove(Status.asleep);
+                info.potionTimers.Remove(Status.asleep);
+                anim.SetBool("Sleep", false);
+                break;
+            case Status.fast:
+                info.state.Remove(Status.fast);
+                info.potionTimers.Remove(Status.fast);
+                speed = 4;
+                anim.SetBool("Speed", false);
+                break;
+            case Status.transformed:
+                info.state.Remove(Status.transformed);
+                info.potionTimers.Remove(Status.transformed);
+                speed--;
+                anim.SetBool("Transformation", true);
+                anim.Play("Transformation", 0, 0);
+                yield return new WaitForSeconds(0.5f);
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/" + characterName);
                 GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
