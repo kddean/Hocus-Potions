@@ -127,7 +127,7 @@ public class GatheringManager : MonoBehaviour {
         if(spawnerReset.Count == 0 && spawners.Length > 0)
         {
             SetResetDictionary();
-            Debug.Log("Dictionary Set");
+            //Debug.Log("Dictionary Set");
         }
         else
         {
@@ -178,7 +178,7 @@ public class GatheringManager : MonoBehaviour {
         
         // 0 and 1
         float ran = Random.Range(0, 2);
-        Debug.Log(ran);
+        //Debug.Log(ran);
         if(ran <= 0.4) { return; }
         else
         {
