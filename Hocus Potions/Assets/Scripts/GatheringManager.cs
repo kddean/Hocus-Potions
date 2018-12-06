@@ -174,11 +174,16 @@ public class GatheringManager : MonoBehaviour {
 
    public void SeedDrop(Gathering gatherer)
     {
+        int numOfSeedsToDrop = 0;
         
         // 0 and 1
-        int ran = Random.Range(0, 1);
+        float ran = Random.Range(0, 2);
         Debug.Log(ran);
-        if(ran == 0) { return; }
+        if(ran <= 0.4) { return; }
+        else
+        {
+            numOfSeedsToDrop = 1;
+        }
 
         SpawnerData temp3;
         spawnerData.TryGetValue(gatherer.name, out temp3);
@@ -187,7 +192,7 @@ public class GatheringManager : MonoBehaviour {
             return;
         }
         Seed droppedSeed = rl.seeds[temp3.spawnedItem.name];
-        Inventory.Add(droppedSeed, ran);
+        Inventory.Add(droppedSeed, numOfSeedsToDrop);
 
     }
 }

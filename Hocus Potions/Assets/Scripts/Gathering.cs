@@ -59,14 +59,12 @@ public class Gathering : MonoBehaviour {
                     if (temp.hasSpawnedItem == true)
                     {
                         rl.gatheringManager.spawnerData.Remove(gameObject.name);
-                        Debug.Log("Plant removed");
                     }
 
                 }
 
                 // Debug.Log("Generate");
                 rl.gatheringManager.Populate(this);
-                Debug.Log("Plant added");
 
             }
         }
