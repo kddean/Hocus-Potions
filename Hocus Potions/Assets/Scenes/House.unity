@@ -3698,6 +3698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneSwapped: 0
   swapping: 0
+  saving: 0
 --- !u!224 &508857834
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13804,9 +13805,9 @@ GameObject:
   - component: {fileID: 1550247410}
   - component: {fileID: 1550247415}
   - component: {fileID: 1550247414}
-  - component: {fileID: 1550247413}
   - component: {fileID: 1550247416}
   - component: {fileID: 1550247417}
+  - component: {fileID: 1550247413}
   m_Layer: 0
   m_Name: Cauldron
   m_TagString: Untagged
@@ -13900,8 +13901,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1550247413
-CircleCollider2D:
+--- !u!61 &1550247413
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -13912,9 +13913,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006084919, y: -0.04379058}
+  m_Offset: {x: -0.013652563, y: -0.063712776}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.09375, y: 1.96875}
+    newSize: {x: 0.2, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.95981646
+  m_Size: {x: 2.703568, y: 2.296414}
+  m_EdgeRadius: 0
 --- !u!70 &1550247414
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -18102,7 +18113,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.6300858}
+  m_Offset: {x: 0, y: 1.6075158}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -18113,7 +18124,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.375, y: 0.92732835}
+  m_Size: {x: 2.375, y: 0.9724684}
   m_EdgeRadius: 0
 --- !u!114 &1911672020
 MonoBehaviour:

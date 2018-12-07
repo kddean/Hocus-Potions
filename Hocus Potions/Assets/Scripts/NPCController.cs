@@ -15,13 +15,14 @@ public class NPCController : MonoBehaviour {
     }
 
     public Dictionary<string, NPCInfo> npcData;
-    SortedList<Schedule, string> npcQueue;
+    public SortedList<Schedule, string> npcQueue;
     MoonCycle mc;
     int currentMap;
     public bool sceneSwapped;
     Pathfinding pathfinder;
     bool resetting;
     public bool swapping;
+    public bool saving;
 
     public int CurrentMap {
         get {
@@ -33,6 +34,15 @@ public class NPCController : MonoBehaviour {
         }
     }
 
+    public struct Vec3 {
+        public float x, y, z;
+
+        public Vec3(float x, float y, float z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+    }
 
     //Data for each NPC
     [Serializable]
@@ -48,8 +58,9 @@ public class NPCController : MonoBehaviour {
         public bool spawned;
         public List<NPC.Status> state;
         public Dictionary<NPC.Status, TimerData> potionTimers;
+        public List<Vec3> path;
 
-        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers) {
+        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, List<Vec3> path) {
             this.x = x;
             this.y = y;
             this.z = z;
@@ -63,6 +74,7 @@ public class NPCController : MonoBehaviour {
             this.spawned = spawned;
             this.state = state;
             this.potionTimers = potionTimers;
+            this.path = path;
         }
     }
 
@@ -125,7 +137,35 @@ public class NPCController : MonoBehaviour {
             StartCoroutine(ResetFlag());
         }
     }
+    List<Vector3> ConvertPathToVector(List<Vec3> path) {
+        List<Vector3> temp = new List<Vector3>();
+        foreach(Vec3 v in path) {
+            temp.Add(new Vector3(v.x, v.y, v.z));
+        }
+        return temp;
+    }
 
+    public List<Vec3> ConvertPathToVec(List<Vector3> path) {
+        List<Vec3> temp = new List<Vec3>();
+        foreach (Vector3 v in path) {
+            temp.Add(new Vec3(v.x, v.y, v.z));
+        }
+        return temp;
+    }
+
+    public void LoadNPCS() {
+        foreach (string s in npcData.Keys.ToList()) {
+            if (npcData[s].spawned) {
+                if(npcData[s].map == currentMap) {
+                    GameObject go = Instantiate(Resources.Load<GameObject>("Characters/" + s));
+                    go.name = s;
+                    go.transform.position = new Vector3(npcData[s].x, npcData[s].y, npcData[s].z);
+                    NPC npc = go.AddComponent<NPC>();
+                    npc.CharacterName = s;
+                }
+            }
+        }
+    }
     IEnumerator ResetFlag() {
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();

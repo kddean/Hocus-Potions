@@ -109,11 +109,15 @@ public class Inventory {
     }
 
     public static void DropItem(InventorySlot slot) {
+
+        Vector3 tempPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 offset = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
         GameObject go = new GameObject();
         go.name = slot.item.item.name;
         SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = Resources.Load<Sprite>(slot.item.item.imagePath);
-        Vector3 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+        sr.sortingLayerName = "InFrontOfPlayer";
+        sr.sortingOrder = 10;
         go.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + offset;      
         Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
         BoxCollider2D c = go.AddComponent<BoxCollider2D>();

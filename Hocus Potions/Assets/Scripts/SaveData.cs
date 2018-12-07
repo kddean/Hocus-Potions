@@ -46,11 +46,12 @@ public class SaveData {
     public int day;
     public MoonCycle.PartOfDay dayPart;
 
-    //TODO:Update this once i rewrite NPC handling to be persistent
     //NPC Data
     public List<string> npcNames;
-    public List<NPCManager.NPCData> npcData;
-    public SortedList<NPCManager.NPCData, string> returnQueue;
-    public bool spawned;
+    public List<NPCController.NPCInfo> npcInfo;
+    public List<NPCController.Schedule> schedules;
+    public List<string> scheduleNames;
+    public int currentMap;
+
 
 }

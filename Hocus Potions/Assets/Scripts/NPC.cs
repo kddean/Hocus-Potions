@@ -30,6 +30,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     GameObject swapPoint;
     bool destroying;
     public bool sceneSwapped;
+    public bool saving;
 
 
     public enum Status { poisoned, fast, invisible, transformed, asleep }
@@ -91,6 +92,14 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     }
 
     private void Update() {
+
+        if (saving) {
+            info.path = controller.ConvertPathToVec(path);
+            info.x = transform.position.x;
+            info.y = transform.position.y;
+            info.z = transform.position.z;
+            controller.npcData[characterName] = info;
+        }
         if (destroying) { return; }
         if (sceneSwapped && nextTarget.x > -9000) {
             info.x = transform.position.x;
@@ -526,6 +535,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["no"][0];
         info.returning = false;
         controller.npcData[CharacterName] = info;
+        GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
+        nextTarget = new Vector3(69.5f, -12.5f, 0);
     }
 
     public void ExitButton() {
