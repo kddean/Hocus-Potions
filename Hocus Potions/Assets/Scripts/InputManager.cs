@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour {
     GameObject mainMenu;
     bool invToggle = false;
     ResourceLoader rl;
+    bool paused; 
     public void Awake() {
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1) {
@@ -28,12 +29,30 @@ public class InputManager : MonoBehaviour {
         mainMenu = GameObject.Find("MainMenuCanvas");
         mainMenu.SetActive(false);
         spellCanvas.SetActive(false);
+        paused = false;
     }
 
-	void Update () {
+    void Update() {
         if (GameObject.FindObjectOfType<Player>().Status.Contains(Player.PlayerStatus.asleep)) {
             return;
         }
+
+        if (Input.GetKeyDown(KeyCode.P)) {
+            if (!paused) {
+                Time.timeScale = 0;
+                paused = true;
+            } else {
+                paused = false;
+                Time.timeScale = 1;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            mainMenu.SetActive(!mainMenu.activeSelf);
+        }
+    
+        if (paused) { return; }
+
         if (Input.GetKeyDown(KeyCode.I)) {
             if (invToggle) {
                 invGroup.gameObject.GetComponentsInChildren<AudioSource>()[1].Play();
@@ -57,9 +76,5 @@ public class InputManager : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.LeftShift)) {
             spellCanvas.SetActive(false);
         }
-
-        if (Input.GetKeyUp(KeyCode.Escape)) {
-            mainMenu.SetActive(!mainMenu.activeSelf);
-        }
-	}
+    }
 }
