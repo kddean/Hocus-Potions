@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     public bool swappingScenes;
     public bool allowedToMove;
     public bool layerSwapping;
+    public float previousSpeed;
 
     public struct TimerData {
         public float startTime;
@@ -159,14 +160,20 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 case "ToWorld":
                     GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToWorld");
                     swappingScenes = true;
+                    previousSpeed = speed;
+                    speed = 0;
                     break;
                 case "ToHouse":
                     GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToHouse");
                     swappingScenes = true;
+                    previousSpeed = speed;
+                    speed = 0;
                     break;
                 case "ToGarden":
                     GameObject.FindGameObjectWithTag("sceneLoader").GetComponent<SceneSwitcher>().SceneSwap("ToGarden");
                     swappingScenes = true;
+                    previousSpeed = speed;
+                    speed = 0;
                     break;
                 default:
                     break;

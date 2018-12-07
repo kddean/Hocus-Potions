@@ -3177,7 +3177,7 @@ MonoBehaviour:
   activeItem: {fileID: 0}
   brewingIngredients: []
   availableNPCs: []
-  npcData: {fileID: 4900000, guid: 2ac0937e9afbabe4ea83aafd585b53f0, type: 3}
+  npcData: {fileID: 4900000, guid: 5edbb30c68e697b4e8575e24c0cd825e, type: 3}
   npcSchedule: {fileID: 4900000, guid: ce20bc09e42c95148a316d5f8dc949e3, type: 3}
   givenListMax: 5
   potionStrength: 1
@@ -4628,7 +4628,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9091115, y: 0}
+  m_Offset: {x: 0.909111, y: 0.16617113}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4639,7 +4639,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 17.990402, y: 0.9396384}
+  m_Size: {x: 17.990402, y: 0.6072961}
   m_EdgeRadius: 0
 --- !u!4 &614006574
 Transform:
@@ -4648,7 +4648,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 614006572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.932496, z: 0}
+  m_LocalPosition: {x: 0, y: -3.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 187288361}

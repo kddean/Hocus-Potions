@@ -31,19 +31,19 @@ public class Inventory {
         Ingredient ii = rl.ingredients["catnip"];
         Ingredient iii = rl.ingredients["lambsgrass"];
 
-        Add(p, 1);
-        Add(pp, 1);
-        Add(ppp, 1);
-        Add(s, 4);
-        Add(ss, 4);
-        Add(sss, 4);
-        Add(i, 8);
-        Add(ii, 8);
-        Add(iii, 8);    
+        Add(p, 1, false);
+        Add(pp, 1, false);
+        Add(ppp, 1, false);
+        Add(s, 4, false);
+        Add(ss, 4, false);
+        Add(sss, 4, false);
+        Add(i, 8, false);
+        Add(ii, 8, false);
+        Add(iii, 8, false);    
     }
    
 
-    public static bool Add(Item obj, int count) {
+    public static bool Add(Item obj, int count, bool shouldDrop) {
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").transform.parent.GetComponentsInChildren<Button>();
 
         foreach (Button b in invButtons) {
@@ -91,6 +91,9 @@ public class Inventory {
         }
 
         //No empty slots and no partial stacks to add into
+        if (shouldDrop) {
+            Discard(obj, count);
+        }
         return false;
     }
 
@@ -106,6 +109,32 @@ public class Inventory {
                 slot.gameObject.GetComponentInChildren<Text>().text = slot.item.count.ToString();
             }
         }
+    }
+
+    static void Discard(Item item, int count) {
+        Vector3 tempPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 offset = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
+        GameObject go = new GameObject();
+        go.name = item.name;
+        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = Resources.Load<Sprite>(item.imagePath);
+        sr.sortingLayerName = "InFrontOfPlayer";
+        sr.sortingOrder = 10;
+        go.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + offset;
+        Vector2 bounds = new Vector2(sr.bounds.size.x, sr.bounds.size.y);
+        BoxCollider2D c = go.AddComponent<BoxCollider2D>();
+        c.size = bounds;
+        c.isTrigger = true;
+
+        if (item is Seed) {
+            go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+        }
+
+        Pickups p = go.AddComponent<Pickups>();
+        p.Item = item;
+        p.Count = count;
+        p.Data = new GarbageCollecter.DroppedItemData(item, count, go.transform.position.x, go.transform.position.y, go.transform.position.z, UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().droppedItems.Add(p.Data);
     }
 
     public static void DropItem(InventorySlot slot) {

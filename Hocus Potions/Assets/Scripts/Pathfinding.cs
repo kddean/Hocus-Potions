@@ -50,18 +50,32 @@ public class Pathfinding : MonoBehaviour {
         for (int y = 2; y > -6f; y--) {
             for (int x = -9; x < 9; x++) {
                 if (houseMap.HasTile(new Vector3Int(x, y, 0))) {
-                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.2f, y - 0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
-                    if (check.Length == 0) {
+                    RaycastHit2D[] xCheck = Physics2D.RaycastAll(new Vector2(x + 0.1f, y - 0.5f), new Vector2(1, 0), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    RaycastHit2D[] yCheck = Physics2D.RaycastAll(new Vector2(x + 0.5f, y + 0.1f), new Vector2(0, 1), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    if (xCheck.Length == 0 && yCheck.Length == 0) {
                         houseTiles.Add(houseMap.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                     } else {
-                        bool triggers = true;
-                        foreach (RaycastHit2D r in check) {
+                        bool xTriggers = true;
+                        bool yTriggers = true;
+                        foreach (RaycastHit2D r in xCheck) {
                             if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
-                                triggers = false;
+                                if(x == 0 && y == 4) {
+                                    Debug.Log(r.collider.gameObject.name);
+                                }
+                                xTriggers = false;
                                 break;
                             }
                         }
-                        if (triggers) {
+                        foreach (RaycastHit2D r in yCheck) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                                if (x == 0 && y == 4) {
+                                    Debug.Log(r.collider.gameObject.name);
+                                }
+                                yTriggers = false;
+                                break;
+                            }
+                        }
+                        if (xTriggers && yTriggers) {
                             houseTiles.Add(houseMap.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                         }
                     }
@@ -71,7 +85,6 @@ public class Pathfinding : MonoBehaviour {
             j++;
             i = 0;
         }
-       // houseSet = true;
     }
 
     IEnumerator PopulateWorldTiles() {
@@ -88,38 +101,54 @@ public class Pathfinding : MonoBehaviour {
         worldTiles = new List<Vector3>();
         int i, j;
         i = j = 0;
-        for (int y = 35; y > -70f; y--) {
+        for (int y = 34; y > -72f; y--) {
             for (int x = -80; x < 70; x++) {
                 if (worldMap1.HasTile(new Vector3Int(x, y, 0))) {
-                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.2f, y - 0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
-                    if (check.Length == 0) {
+                    RaycastHit2D[] xCheck = Physics2D.RaycastAll(new Vector2(x + 0.1f, y + 0.5f), new Vector2(1, 0), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    RaycastHit2D[] yCheck = Physics2D.RaycastAll(new Vector2(x + 0.5f, y + 0.1f), new Vector2(0, 1), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    if (xCheck.Length == 0 && yCheck.Length == 0) {
                         worldTiles.Add(worldMap1.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                     } else {
-                        bool triggers = true;
-                        foreach (RaycastHit2D r in check) {
+                        bool xTriggers = true;
+                        bool yTriggers = true;
+                        foreach (RaycastHit2D r in xCheck) {
                             if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
-                                triggers = false;
+                                xTriggers = false;
                                 break;
                             }
                         }
-                        if (triggers) {
+                        foreach (RaycastHit2D r in yCheck) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                                yTriggers = false;
+                                break;
+                            }
+                        }
+                        if (xTriggers && yTriggers) {
                             worldTiles.Add(worldMap1.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                         }
                     }
 
                 } else if (worldMap2.HasTile(new Vector3Int(x, y, 0))) {
-                    RaycastHit2D[] check = Physics2D.BoxCastAll(new Vector2(x + 0.2f, y - 0.5f), new Vector2(0.1f, 0.8f), 0, new Vector2(1, 0), 0.7f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
-                    if (check.Length == 0) {
+                    RaycastHit2D[] xCheck = Physics2D.RaycastAll(new Vector2(x + 0.1f, y - 0.5f), new Vector2(1, 0), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    RaycastHit2D[] yCheck = Physics2D.RaycastAll(new Vector2(x + 0.5f, y - 0.1f), new Vector2(0, -1), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+                    if (xCheck.Length == 0 && yCheck.Length == 0) {
                         worldTiles.Add(worldMap2.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                     } else {
-                        bool triggers = true;
-                        foreach (RaycastHit2D r in check) {
+                        bool xTriggers = true;
+                        bool yTriggers = true;
+                        foreach (RaycastHit2D r in xCheck) {
                             if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
-                                triggers = false;
+                                xTriggers = false;
                                 break;
                             }
                         }
-                        if (triggers) {
+                        foreach (RaycastHit2D r in yCheck) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                                yTriggers = false;
+                                break;
+                            }
+                        }
+                        if (xTriggers && yTriggers) {
                             worldTiles.Add(worldMap2.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                         }
                     }

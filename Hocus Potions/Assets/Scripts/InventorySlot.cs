@@ -279,13 +279,13 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             Ingredient temp = item.item as Ingredient;
             Inventory.RemoveItem(this);
             if (ings[i] != null) {
-                if (Inventory.Add(ings[i], 1)) {
+                if (Inventory.Add(ings[i], 1, false)) {
                     ings[i] = temp;
                     icon.sprite = Resources.Load<Sprite>(temp.imagePath);
                     Text[] text = slot.GetComponentsInChildren<Text>();
                     text[0].text = Regex.Replace(temp.name, "_", " ");
                 } else {
-                   Inventory.Add(temp, 1);
+                   Inventory.Add(temp, 1, false);
                 }
             } else {
                 ings[i] = temp;

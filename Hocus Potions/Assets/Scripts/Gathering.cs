@@ -19,17 +19,15 @@ public class Gathering : MonoBehaviour {
 		
 	}
 
-	private void OnMouseDown(){
-		GatheringManager.SpawnerData temp;
-		rl.gatheringManager.spawnerData.TryGetValue (gameObject.name, out temp);
+    private void OnMouseDown() {
+        GatheringManager.SpawnerData temp;
+        rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp);
 
-		if (Inventory.Add (temp.spawnedItem, 1)) {
-			this.GetComponent<SpriteRenderer> ().sprite = null;
-            rl.gatheringManager.SeedDrop(this);
-            rl.gatheringManager.spawnerData.Remove (gameObject.name);
-            
-		}
-	}
+        Inventory.Add(temp.spawnedItem, 1, true);
+        this.GetComponent<SpriteRenderer>().sprite = null;
+        rl.gatheringManager.SeedDrop(this);
+        rl.gatheringManager.spawnerData.Remove(gameObject.name);
+    }
 
    public void SpawnPlants()
     {

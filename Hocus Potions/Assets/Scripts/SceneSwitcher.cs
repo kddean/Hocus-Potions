@@ -10,7 +10,6 @@ public class SceneSwitcher : MonoBehaviour {
     int world;
     AsyncOperation scene;
 
-
     public void Awake() {
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1) {
@@ -23,11 +22,8 @@ public class SceneSwitcher : MonoBehaviour {
         house = 0;
         world = 1;
         garden = 2;
-      
 	}
 
-  
-    // Update is called once per frame
 
     public void SceneSwap(string s) {
         GameObject.FindObjectOfType<NPCController>().swapping = true;
@@ -52,6 +48,7 @@ public class SceneSwitcher : MonoBehaviour {
     }
 
     IEnumerator SceneLoader(int index) {
+        yield return new WaitForSeconds(0.3f);
         scene = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
         while (!scene.isDone) {
             yield return null;
@@ -63,9 +60,11 @@ public class SceneSwitcher : MonoBehaviour {
 
     void OnSceneLoaded(int index) {
         Scene loadingScene = SceneManager.GetSceneByBuildIndex(index);
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (loadingScene.IsValid()) {
             GameObject spawnPoint = GameObject.Find("SpawnPoint");
-            GameObject.FindGameObjectWithTag("Player").transform.position = spawnPoint.transform.position;
+
+            player.transform.position = spawnPoint.transform.position;
             GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().SpawnDropped();
             if (index == 0) {
                 GameObject.FindObjectOfType<NPCController>().CurrentMap = 0;
@@ -76,6 +75,8 @@ public class SceneSwitcher : MonoBehaviour {
             SceneManager.SetActiveScene(loadingScene);
             GameObject.FindObjectOfType<DoorDontDestroy>().gameObject.GetComponent<AudioSource>().Play();
         }
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().swappingScenes = false;
+
+        player.GetComponent<Player>().swappingScenes = false;
+        player.Speed = player.previousSpeed;
     }
 }

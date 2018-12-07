@@ -34,6 +34,7 @@ public class NPCController : MonoBehaviour {
         }
     }
 
+    [Serializable]
     public struct Vec3 {
         public float x, y, z;
 
@@ -58,9 +59,10 @@ public class NPCController : MonoBehaviour {
         public bool spawned;
         public List<NPC.Status> state;
         public Dictionary<NPC.Status, TimerData> potionTimers;
-        public List<Vec3> path;
+        public Vec3 pathEnd;
+        public Vec3 nextTarget;
 
-        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, List<Vec3> path) {
+        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget) {
             this.x = x;
             this.y = y;
             this.z = z;
@@ -74,7 +76,8 @@ public class NPCController : MonoBehaviour {
             this.spawned = spawned;
             this.state = state;
             this.potionTimers = potionTimers;
-            this.path = path;
+            this.pathEnd = pathEnd;
+            this.nextTarget = nextTarget;
         }
     }
 
@@ -137,20 +140,12 @@ public class NPCController : MonoBehaviour {
             StartCoroutine(ResetFlag());
         }
     }
-    List<Vector3> ConvertPathToVector(List<Vec3> path) {
-        List<Vector3> temp = new List<Vector3>();
-        foreach(Vec3 v in path) {
-            temp.Add(new Vector3(v.x, v.y, v.z));
-        }
-        return temp;
+    Vector3 ConvertToVector(Vec3 v) {
+        return new Vector3(v.x, v.y, v.z);
     }
 
-    public List<Vec3> ConvertPathToVec(List<Vector3> path) {
-        List<Vec3> temp = new List<Vec3>();
-        foreach (Vector3 v in path) {
-            temp.Add(new Vec3(v.x, v.y, v.z));
-        }
-        return temp;
+    public Vec3 ConvertToVec(Vector3 v) {
+        return new Vec3(v.x, v.y, v.z);
     }
 
     public void LoadNPCS() {
@@ -162,7 +157,26 @@ public class NPCController : MonoBehaviour {
                     go.transform.position = new Vector3(npcData[s].x, npcData[s].y, npcData[s].z);
                     NPC npc = go.AddComponent<NPC>();
                     npc.CharacterName = s;
+                    npc.nextTarget = ConvertToVector(npcData[s].nextTarget);
+                    if(npcData[s].pathEnd.x > -9000) {
+                        pathfinder.InitializePath(go.transform.position, ConvertToVector(npcData[s].pathEnd), npcData[s].map, npc.path);
+                    }
+                } else {
+                    if (npcData[s].pathEnd.x > -9000) {
+                        if (npcData[s].nextTarget.x > -9000) {
+                            List<Vector3> path = new List<Vector3>();
+                            pathfinder.InitializePath(new Vector3(npcData[s].x, npcData[s].y, npcData[s].z), ConvertToVector(npcData[s].pathEnd), npcData[s].map, path);
+                            StartCoroutine(MoveAndSpawnNPC(path, new Vector3(npcData[s].x, npcData[s].y, npcData[s].z), s, ConvertToVector(npcData[s].nextTarget)));
+                        } else {
+                            List<Vector3> path = new List<Vector3>();
+                            pathfinder.InitializePath(new Vector3(npcData[s].x, npcData[s].y, npcData[s].z), ConvertToVector(npcData[s].pathEnd), npcData[s].map, path);
+                            StartCoroutine(MoveNPC(path, new Vector3(npcData[s].x, npcData[s].y, npcData[s].z), s));
+                        }
+                    }
                 }
+
+
+
             }
         }
     }
@@ -291,22 +305,30 @@ public class NPCController : MonoBehaviour {
 
 
     IEnumerator MoveNPC(List<Vector3> path, Vector3 pos, string n) {
-        yield return new WaitForSeconds(0.3f);
         while (swapping) {
             yield return new WaitForEndOfFrame();
         }
         Vector3 lastPos = pos;
         //Wait until the path is calculated
-        while (!Monitor.TryEnter(path)) {
+        while (!Monitor.TryEnter(path) || path.Count == 0) {
             Monitor.Exit(path);
             yield return new WaitForEndOfFrame();
         }
         NPCInfo temp = npcData[n];
         while (path.Count > 0) {
+            if (saving) {
+                temp.x = lastPos.x;
+                temp.y = lastPos.y;
+                temp.z = lastPos.z;
+                temp.spawned = true;
+                temp.pathEnd = ConvertToVec(path[path.Count - 1]);
+                temp.nextTarget = new Vec3(-9999, -9999, -9999);
+                npcData[n] = temp;
+            }
             lastPos = Vector3.MoveTowards(lastPos, path[0], Time.timeScale * Time.deltaTime * 4f);
             if (lastPos == path[0]) {
                 path.RemoveAt(0);
-            }
+            }         
             if (!sceneSwapped) {
                 yield return new WaitForEndOfFrame();
             } else {
@@ -336,7 +358,7 @@ public class NPCController : MonoBehaviour {
     }
 
     IEnumerator MoveAndSpawnNPC(List<Vector3> path, Vector3 pos, string n, Vector3 nextTarget) {
-        yield return new WaitForSeconds(0.3f);
+
         while (swapping) {
             yield return new WaitForEndOfFrame();
         }
@@ -344,12 +366,21 @@ public class NPCController : MonoBehaviour {
         Vector3 lastPos = pos;
         bool swapped = false;
         //Wait until the path is calculated
-        while (!Monitor.TryEnter(path)) {
+        while (!Monitor.TryEnter(path) || path.Count == 0) {
             Monitor.Exit(path);
             yield return new WaitForEndOfFrame();
         }
-      
+        NPCInfo temp = npcData[n];
         while (path.Count > 0) {
+            if (saving) {
+                temp.x = lastPos.x;
+                temp.y = lastPos.y;
+                temp.z = lastPos.z;
+                temp.spawned = true;
+                temp.pathEnd = ConvertToVec(path[path.Count - 1]);
+                temp.nextTarget = ConvertToVec(nextTarget);
+                npcData[n] = temp;
+            }
             lastPos = Vector3.MoveTowards(lastPos, path[0], Time.timeScale * Time.deltaTime * 4f);
             if (lastPos == path[0]) {
                 path.RemoveAt(0);
@@ -361,7 +392,6 @@ public class NPCController : MonoBehaviour {
                 go.name = n;
                 NPC npc = go.AddComponent<NPC>();
                 npc.CharacterName = n;
-                NPCInfo temp = npcData[n];
                 temp.spawned = true;
                 go.transform.position = lastPos;
                 temp.x = lastPos.x;
@@ -377,7 +407,7 @@ public class NPCController : MonoBehaviour {
 
         Monitor.Exit(path);
         if (!swapped) {
-            NPCInfo temp = npcData[n];
+          
             temp.map = Mathf.Abs(temp.map - 1);
             if (temp.map == 1) {
                 temp.x = -7.5f;
@@ -392,15 +422,18 @@ public class NPCController : MonoBehaviour {
             npcData[n] = temp;
             List<Vector3> tempPath = new List<Vector3>();
             pathfinder.InitializePath(new Vector3(npcData[n].x, npcData[n].y, npcData[n].z), nextTarget, temp.map, tempPath);
-            yield return new WaitForSeconds(0.3f);
-            GameObject go = Instantiate(Resources.Load<GameObject>("Characters/" + n));
-            go.transform.position = new Vector3(temp.x, temp.y, temp.z);
-            NPC npc = go.AddComponent<NPC>();
-            npc.path = tempPath;
-            npc.nextTarget = new Vector3(-9999, -9999, -9999);
-            npc.CharacterName = n;
-            go.name = n;
-           
+            yield return new WaitForEndOfFrame();
+            if (!sceneSwapped) {
+                GameObject go = Instantiate(Resources.Load<GameObject>("Characters/" + n));
+                go.transform.position = new Vector3(temp.x, temp.y, temp.z);
+                NPC npc = go.AddComponent<NPC>();
+                npc.path = tempPath;
+                npc.nextTarget = new Vector3(-9999, -9999, -9999);
+                npc.CharacterName = n;
+                go.name = n;
+            } else {
+                StartCoroutine(MoveNPC(tempPath, new Vector3(npcData[n].x, npcData[n].y, npcData[n].z), n));
+            }
         }
     }
 

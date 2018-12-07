@@ -18,12 +18,12 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     public List<Vector3> path;
     public Vector3 nextTarget;
     GameObject dialogueCanvas;
-    CanvasGroup buttonCG;
+    CanvasGroup buttonCG, nextCG;
     string[] dialoguePieces;
     int currentDialogue;
     bool requested, responding, gavePot, done, buttonsSet, intro, allowedToMove;
     public string region;
-    Animator anim;
+    Animator playerAnim, effectsAnim;
     string currentAnim; 
 
     float speed;
@@ -66,7 +66,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogue = new Dictionary<string, List<string>>();
         dialogueCanvas = Resources.FindObjectsOfTypeAll<DialogueCanvas>()[0].gameObject;
         buttonCG = dialogueCanvas.GetComponentsInChildren<CanvasGroup>()[1];
-        anim = GetComponent<Animator>();
+        nextCG = dialogueCanvas.GetComponentsInChildren<CanvasGroup>()[0];
+        playerAnim = GetComponent<Animator>();
+        effectsAnim = effects.GetComponent<Animator>();
         sceneSwapped = false;
         requested = false;
         responding = false;
@@ -75,6 +77,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         buttonsSet = false;
         intro = false;
         allowedToMove = true;
+        dialoguePieces = new string[0];
         currentAnim = "Forward";
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
             Debug.Log("NPC Data not set");
@@ -94,7 +97,12 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     private void Update() {
 
         if (saving) {
-            info.path = controller.ConvertPathToVec(path);
+            if (path.Count > 0) {
+                info.pathEnd = controller.ConvertToVec(path[path.Count - 1]);
+            } else {
+                info.pathEnd = new NPCController.Vec3(-9999,-9999,-9999);
+            }
+            info.nextTarget = controller.ConvertToVec(nextTarget);
             info.x = transform.position.x;
             info.y = transform.position.y;
             info.z = transform.position.z;
@@ -105,6 +113,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             info.x = transform.position.x;
             info.y = transform.position.y;
             info.z = transform.position.z;
+
             controller.npcData[characterName] = info;
             controller.FinishMoveAndSpawn(path, transform.position, characterName, nextTarget);
             destroying = true;
@@ -125,32 +134,32 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
 
         if (Monitor.TryEnter(path, 1)) {
-            if (anim != null) {
-                anim.speed = speed / 7f;
+            if (playerAnim != null) {
+                playerAnim.speed = speed / 7f;
                 if (path.Count == 0) {
-                    anim.SetBool(currentAnim, false);
+                    playerAnim.SetBool(currentAnim, false);
                 }
             }
             if (path.Count > 0 && allowedToMove) {
-                if (anim != null) {
+                if (playerAnim != null && playerAnim.enabled) {
                     if (transform.position.x < path[0].x) {
-                        anim.SetBool(currentAnim, false);
+                        playerAnim.SetBool(currentAnim, false);
                         currentAnim = "Right";
-                        anim.SetBool(currentAnim, true);
+                        playerAnim.SetBool(currentAnim, true);
                     } else if (transform.position.x > path[0].x) {
-                        anim.SetBool(currentAnim, false);
+                        playerAnim.SetBool(currentAnim, false);
                         currentAnim = "Left";
-                        anim.SetBool(currentAnim, true);
+                        playerAnim.SetBool(currentAnim, true);
 
                     } else if (transform.position.y > path[0].y) {
-                        anim.SetBool(currentAnim, false);
+                        playerAnim.SetBool(currentAnim, false);
                         currentAnim = "Forward";
-                        anim.SetBool(currentAnim, true);
+                        playerAnim.SetBool(currentAnim, true);
 
                     } else if (transform.position.y < path[0].y) {
-                        anim.SetBool(currentAnim, false);
+                        playerAnim.SetBool(currentAnim, false);
                         currentAnim = "Backward";
-                        anim.SetBool(currentAnim, true);
+                        playerAnim.SetBool(currentAnim, true);
                     }
                 }
                 transform.position = Vector3.MoveTowards(transform.position, path[0], Time.timeScale * Time.deltaTime * speed);
@@ -215,7 +224,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         //Left click
         if (eventData.button.Equals(PointerEventData.InputButton.Left)) {
             if (dialogueCanvas.GetComponent<DialogueCanvas>().active) { return; }
-            //Set speed to 0 so they dont wander off
+            //DOnt let them dont wander off
             allowedToMove = false;
 
             //Set dialogue list if it isn't already set
@@ -223,7 +232,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 dialogue = rl.dialogueList[characterName];
             }
 
-            if (dialoguePieces == null) {
+            if (dialoguePieces.Length == 0) {
                 currentDialogue = 0;
                 if (info.timesInteracted == 0) {        //First interaction
                     dialoguePieces = dialogue["intro"][0].Split('*');
@@ -235,9 +244,20 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         allowedToMove = true;
                         return;
                     }
-                    List<string> options = dialogue[key];
+                    List<string> initial;
+                    try {
+                        initial = dialogue[key];
+                    } catch (KeyNotFoundException e) {
+                        allowedToMove = true;
+                        return;
+                    }
+                    List<string> options = new List<string>();
+                    foreach (string s in initial) {
+                        if(s.Length > 5) {
+                            options.Add(s);
+                        }
+                    }
                     if (options.Count == 1) {
-                        Debug.Log("one option");
                         dialoguePieces = options[0].Split('*');
                     } else {
                         int rand = Random.Range(0, options.Count);
@@ -278,11 +298,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             }
 
             if (!info.returning && !requested && currentDialogue == dialoguePieces.Length - 1) {
-                GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+                nextCG.alpha = 0;
+                nextCG.interactable = false;
+                nextCG.blocksRaycasts = false;
             }
-
         } else {        //Right click
             if (rl.activeItem != null) {
                 if (rl.activeItem.item.item is Potion) {
@@ -294,7 +313,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         }
     }
 
-    string GenerateKey() {
+    private string GenerateKey() {
         //TODO: remove this once we add dialogue while they're walking to a place
         if (region == null) { return null; }
         MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
@@ -343,18 +362,18 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         }
 
         if ((info.returning || requested) && currentDialogue == dialoguePieces.Length) {
-            GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-            GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-            GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+            nextCG.alpha = 0;
+            nextCG.interactable = false;
+            nextCG.blocksRaycasts = false;
             ShowButtons();
             return;
         }
 
         if (responding) {
             if (currentDialogue == dialoguePieces.Length - 2) {
-                GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+                nextCG.alpha = 0;
+                nextCG.interactable = false;
+                nextCG.blocksRaycasts = false;
                 dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
             } else if (currentDialogue == dialoguePieces.Length - 1) {
                 done = true;
@@ -364,9 +383,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
         if (currentDialogue == dialoguePieces.Length - 1) {
             if (!rl.requestList.TryGetValue(characterName, out requests)) {
-                GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+                nextCG.GetComponent<CanvasGroup>().alpha = 0;
+                nextCG.GetComponent<CanvasGroup>().interactable = false;
+                nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
             }
         }
 
@@ -376,16 +395,17 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         currentDialogue++;
         dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
         if (currentDialogue == dialoguePieces.Length - 1) {
-            GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-            GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-            GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+            nextCG.GetComponent<CanvasGroup>().alpha = 0;
+            nextCG.GetComponent<CanvasGroup>().interactable = false;
+            nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
             if (intro) {
-                dialoguePieces = null;
+                dialoguePieces = new string[0];
+                currentDialogue = 0;
             }
         }
     }
 
-    void GiveQuest() {
+    private void GiveQuest() {
         int choice = Random.Range(0, requests.Count - 1);
         string affinity;
         if (info.affinity < 0) {
@@ -441,11 +461,30 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         } else {
             response = rKey + "_" + temp.Primary.ToString() + affinity;
         }
-        List<string> dia;
+        List<string> initial;
         currentDialogue = 0;
-        if (Dialogue.TryGetValue(response, out dia)) {
+        if (Dialogue.TryGetValue(response, out initial)) {
             dialogueCanvas.SetActive(true);
+            if (!buttonsSet) {
+                if (info.map == 0) {
+                    dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogueInside);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.AddListener(AcceptButton);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.AddListener(WaitButton);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[4].onClick.AddListener(DeclineButton);
+                } else {
+                    dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogueOutside);
+                }
+
+                dialogueCanvas.GetComponentsInChildren<Button>()[1].onClick.AddListener(ExitButton);
+                buttonsSet = true;
+            }
             responding = true;
+            List<string> dia = new List<string>();
+            foreach(string s in initial) {
+                if(s.Length > 5) {
+                    dia.Add(s);
+                }
+            }
             if (dia.Count > 1) {
                 int i = Random.Range(0, dia.Count - 1);
                 dialoguePieces = dia[i].Split('*');
@@ -455,9 +494,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[0];
             }
             if (dialoguePieces.Length == 1) {
-                GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-                GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+                nextCG.alpha = 0;
+                nextCG.interactable = false;
+                nextCG.blocksRaycasts = false;
             }
         } else {
             dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["default"][0];
@@ -505,15 +544,16 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         buttonCG.alpha = 0;
         buttonCG.interactable = false;
         buttonCG.blocksRaycasts = false;
-        GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 0;
-        GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = false;
-        GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = false;
+        nextCG.alpha = 0;
+        nextCG.interactable = false;
+        nextCG.blocksRaycasts = false;
     }
 
     public void AcceptButton() {
         ExitButton();
         info.returning = false;
         controller.npcData[CharacterName] = info;
+        allowedToMove = true;
     }
 
     public void WaitButton() {
@@ -527,6 +567,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         HideButtons();
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
+        done = true;
     }
 
     public void DeclineButton() {
@@ -537,6 +578,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
+        done = true;
     }
 
     public void ExitButton() {
@@ -544,12 +586,17 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         buttonCG.alpha = 0;
         buttonCG.interactable = false;
         buttonCG.blocksRaycasts = false;
-        GameObject.Find("Next").GetComponent<CanvasGroup>().interactable = true;
-        GameObject.Find("Next").GetComponent<CanvasGroup>().blocksRaycasts = true;
-        GameObject.Find("Next").GetComponent<CanvasGroup>().alpha = 1.0f;
+        nextCG.interactable = true;
+        nextCG.blocksRaycasts = true;
+        nextCG.alpha = 1.0f;
         dialogueCanvas.GetComponent<DialogueCanvas>().active = false;
         dialogueCanvas.SetActive(false);
         allowedToMove = true;
+        dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
+        dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.RemoveAllListeners();
+        dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.RemoveAllListeners();
+        dialogueCanvas.GetComponentsInChildren<Button>()[4].onClick.RemoveAllListeners();
+        buttonsSet = false;
     }
 
     IEnumerator PotionEffects(Potion pot) {
@@ -559,21 +606,21 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
         switch (type) {
             case Ingredient.Attributes.healing:
-                anim.SetBool("Healing", true);
+                effectsAnim.SetBool("Healing", true);
                 break;
             case Ingredient.Attributes.invisibility:
                 info.state.Add(Status.invisible);
-                anim.SetBool("Invisible", true);
-                anim.Play("Invisible", 0, 0);
+                effectsAnim.SetBool("Invisible", true);
+                effectsAnim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.83f);
-                anim.SetBool("Invisible", false);
+                effectsAnim.SetBool("Invisible", false);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.25f;
                 GetComponent<SpriteRenderer>().color = c;
                 info.potionTimers.Add(Status.invisible, new NPCController.TimerData(Time.time, pot.Duration));
                 break;
             case Ingredient.Attributes.mana:
-                anim.SetBool("Mana", true);
+                effectsAnim.SetBool("Mana", true);
                 break;
             case Ingredient.Attributes.none:
                 break;
@@ -581,22 +628,25 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 speed--;
                 info.state.Add(Status.poisoned);
                 info.potionTimers.Add(Status.poisoned, new NPCController.TimerData(Time.time, pot.Duration));
-                anim.SetBool("Poison", true);
+                effectsAnim.SetBool("Poison", true);
                 break;
             case Ingredient.Attributes.sleep:
                 info.state.Add(Status.asleep);
                 info.potionTimers.Add(Status.asleep, new NPCController.TimerData(Time.time, pot.Duration));
-                anim.SetBool("Sleep", true);
+                effectsAnim.SetBool("Sleep", true);
                 break;
             case Ingredient.Attributes.speed:
                 info.state.Add(Status.fast);
                 info.potionTimers.Add(Status.fast, new NPCController.TimerData(Time.time, pot.Duration));
                 speed = 8;
-                anim.SetBool("Speed", true);
+                effectsAnim.SetBool("Speed", true);
                 break;
             case Ingredient.Attributes.transformation:
-                anim.SetBool("Transformation", true);
-                anim.Play("Transformation", 0, 0);
+                if (playerAnim != null) {
+                    playerAnim.enabled = false;
+                }
+                effectsAnim.SetBool("Transformation", true);
+                effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 info.state.Add(Status.transformed);
                 info.potionTimers.Add(Status.transformed, new NPCController.TimerData(Time.time, pot.Duration));
@@ -606,7 +656,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
                 GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0.3f);
-                anim.SetBool("Transformation", false);
+                effectsAnim.SetBool("Transformation", false);
                 break;
             default:
                 break;
@@ -616,21 +666,21 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
         switch (type) {
             case Ingredient.Attributes.healing:
-                anim.SetBool("Healing", false);
+                effectsAnim.SetBool("Healing", false);
                 break;
             case Ingredient.Attributes.invisibility:
                 info.state.Remove(Status.invisible);
                 info.potionTimers.Remove(Status.invisible);
-                anim.SetBool("Invisible", true);
-                anim.Play("Invisible", 0, 0);
+                effectsAnim.SetBool("Invisible", true);
+                effectsAnim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.83f);
-                anim.SetBool("Invisible", false);
+                effectsAnim.SetBool("Invisible", false);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.25f;
                 GetComponent<SpriteRenderer>().color = c;
                 break;
             case Ingredient.Attributes.mana:
-                anim.SetBool("Mana", false);
+                effectsAnim.SetBool("Mana", false);
                 break;
             case Ingredient.Attributes.none:
                 break;
@@ -638,32 +688,36 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 speed++;
                 info.state.Remove(Status.poisoned);
                 info.potionTimers.Remove(Status.poisoned);
-                anim.SetBool("Poison", false);
+                effectsAnim.SetBool("Poison", false);
                 break;
             case Ingredient.Attributes.sleep:
                 info.state.Remove(Status.asleep);
                 info.potionTimers.Remove(Status.asleep);
-                anim.SetBool("Sleep", false);
+                effectsAnim.SetBool("Sleep", false);
                 break;
             case Ingredient.Attributes.speed:
                 info.state.Remove(Status.fast);
                 info.potionTimers.Remove(Status.fast);
                 speed = 4;
-                anim.SetBool("Speed", false);
+                effectsAnim.SetBool("Speed", false);
                 break;
             case Ingredient.Attributes.transformation:
                 info.state.Remove(Status.transformed);
                 info.potionTimers.Remove(Status.transformed);
                 speed--;
-                anim.SetBool("Transformation", true);
-                anim.Play("Transformation", 0, 0);
+                effectsAnim.SetBool("Transformation", true);
+                effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/"+characterName);
+                if (playerAnim != null) {
+                    playerAnim.enabled = true;
+                } else {
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/" + characterName);
+                }
                 GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
                 GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 1);
-                anim.SetBool("Transformation", false);
+                effectsAnim.SetBool("Transformation", false);
                 break;
             default:
                 break;
@@ -684,8 +738,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
     IEnumerator RestartPotion(Status s, NPCController.TimerData t) {
         effects.SetActive(true);
-        Animator anim = GetComponentInChildren<Animator>();
-
         switch (s) {
             case Status.invisible:
                 Color c = GetComponent<SpriteRenderer>().color;
@@ -694,17 +746,20 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 break;
                 case Status.poisoned:
                 speed--;
-                anim.SetBool("Poison", true);
+                effectsAnim.SetBool("Poison", true);
                 break;
             case Status.asleep:
-                anim.SetBool("Sleep", true);
+                effectsAnim.SetBool("Sleep", true);
                 break;
             case Status.fast:
                 speed = 8;
-                anim.SetBool("Speed", true);
+                effectsAnim.SetBool("Speed", true);
                 break;
             case Status.transformed:
                 speed++;
+                if (playerAnim != null) {
+                    playerAnim.enabled = false;
+                }
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
                 GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
@@ -723,10 +778,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             case Status.invisible:
                 info.state.Remove(Status.invisible);
                 info.potionTimers.Remove(Status.invisible);
-                anim.SetBool("Invisible", true);
-                anim.Play("Invisible", 0, 0);
+                effectsAnim.SetBool("Invisible", true);
+                effectsAnim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.83f);
-                anim.SetBool("Invisible", false);
+                effectsAnim.SetBool("Invisible", false);
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.25f;
                 GetComponent<SpriteRenderer>().color = c;
@@ -735,32 +790,36 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 speed++;
                 info.state.Remove(Status.poisoned);
                 info.potionTimers.Remove(Status.poisoned);
-                anim.SetBool("Poison", false);
+                effectsAnim.SetBool("Poison", false);
                 break;
             case Status.asleep:
                 info.state.Remove(Status.asleep);
                 info.potionTimers.Remove(Status.asleep);
-                anim.SetBool("Sleep", false);
+                effectsAnim.SetBool("Sleep", false);
                 break;
             case Status.fast:
                 info.state.Remove(Status.fast);
                 info.potionTimers.Remove(Status.fast);
                 speed = 4;
-                anim.SetBool("Speed", false);
+                effectsAnim.SetBool("Speed", false);
                 break;
             case Status.transformed:
                 info.state.Remove(Status.transformed);
                 info.potionTimers.Remove(Status.transformed);
                 speed--;
-                anim.SetBool("Transformation", true);
-                anim.Play("Transformation", 0, 0);
+                effectsAnim.SetBool("Transformation", true);
+                effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/" + characterName);
+                if (playerAnim != null) {
+                    playerAnim.enabled = true;
+                } else {
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/" + characterName);
+                }
                 GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
                 GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 1);
-                anim.SetBool("Transformation", false);
+                effectsAnim.SetBool("Transformation", false);
                 break;
             default:
                 break;

@@ -77,13 +77,12 @@ public class Garden : MonoBehaviour {
     //Handles harvesting plots and adding ingredients to inventory
     void Harvest(GardenPlot plot) {
         PlotData data = plots[plot.gameObject.name];
-        if (Inventory.Add(rl.ingredients[data.type], 1)) {
-            SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
-            for (int i = 1; i < 4; i++) {
-                sr[i].sprite = null;
-            }
-            plots.Remove(plot.gameObject.name);
+        Inventory.Add(rl.ingredients[data.type], 1, true);
+        SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
+        for (int i = 1; i < 4; i++) {
+            sr[i].sprite = null;
         }
+        plots.Remove(plot.gameObject.name);
     }
 
     public void SpellCast(GardenPlot plot) {

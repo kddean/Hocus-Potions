@@ -192,7 +192,7 @@ public class GatheringManager : MonoBehaviour {
             return;
         }
         Seed droppedSeed = rl.seeds[temp3.spawnedItem.name];
-        Inventory.Add(droppedSeed, numOfSeedsToDrop);
+        Inventory.Add(droppedSeed, numOfSeedsToDrop, true);
 
     }
 }

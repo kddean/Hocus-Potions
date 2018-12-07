@@ -124,7 +124,7 @@ public class ResourceLoader : MonoBehaviour {
                     schedule.Add(new NPCController.Schedule(Boolean.Parse(data[0]), int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), data[4], int.Parse(data[5]), float.Parse(data[6]), float.Parse(data[7]), float.Parse(data[8]), characterName));
                 }
             }
-            c.npcData.Add(characterName, new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), schedule, false, new List<NPC.Status>(), new Dictionary<NPC.Status, NPCController.TimerData>(), new List<NPCController.Vec3>()));
+            c.npcData.Add(characterName, new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), schedule, false, new List<NPC.Status>(), new Dictionary<NPC.Status, NPCController.TimerData>(), new NPCController.Vec3(), new NPCController.Vec3()));
         }
     }
 
@@ -133,7 +133,6 @@ public class ResourceLoader : MonoBehaviour {
         Regex.Replace(npcData.text, "\r", String.Empty);
         string[] characterSegments = npcData.text.Split('\\'); //Split by character
         for (int i = 0; i < characterSegments.Length; i++) {
-
             string[] dataSegments = characterSegments[i].Split('@');       //split by segment
             string[] first = dataSegments[0].Split('\n');                  //populate name and sprites
             string key = first[0].Split(',')[0];
@@ -144,6 +143,7 @@ public class ResourceLoader : MonoBehaviour {
             //Fill dialogue dictionary
             Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();
             string[] dialogue = dataSegments[1].Split('\n');
+
             foreach (string s in dialogue) {
                 List<string> dialogueSplit = Regex.Split(s, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)").ToList();
                 if (!dialogueSplit[0].Equals(String.Empty)) {

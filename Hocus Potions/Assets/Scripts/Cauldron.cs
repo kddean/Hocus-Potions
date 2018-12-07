@@ -196,7 +196,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     }
 
     public void TakePotion() {
-        if (Inventory.Add(pot, 1)) {
+        if (Inventory.Add(pot, 1, false)) {
             potionName.text = "";
             potionImage.GetComponent<CanvasGroup>().alpha = 0;
 
@@ -251,7 +251,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     }
 
     public void RemoveIngredient(int i) {
-        if (rl.brewingIngredients[i] != null && Inventory.Add(rl.brewingIngredients[i], 1)) {
+        if (rl.brewingIngredients[i] != null && Inventory.Add(rl.brewingIngredients[i], 1, false)) {
             rl.ingredientCount--;
             switch (i) {
                 case 0:

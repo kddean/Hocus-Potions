@@ -43,14 +43,23 @@ public class MainMenu : MonoBehaviour {
 	}
 
     public void SaveGame() {
+        StartCoroutine(PopulateSaveData());
+
+    }
+
+     IEnumerator PopulateSaveData() {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saveData.dat");
         SaveData data = new SaveData();
         NPC[] activeNPCs = GameObject.FindObjectsOfType<NPC>();
-        foreach(NPC n in activeNPCs) {
+
+        foreach (NPC n in activeNPCs) {
             n.saving = true;
         }
         npcs.saving = true;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
         Vector3 pos = player.transform.position;
         data.x = pos.x;
         data.y = pos.y;
@@ -60,7 +69,7 @@ public class MainMenu : MonoBehaviour {
         data.playerStatus = player.Status;
         data.lastTaken = player.LastTaken;
         data.timers = new List<float>();
-        foreach(Player.PlayerStatus status in player.Status) {
+        foreach (Player.PlayerStatus status in player.Status) {
             data.timers.Add(player.StartTimers[status].duration - (Time.time - player.StartTimers[status].startTime));
         }
 
@@ -73,7 +82,7 @@ public class MainMenu : MonoBehaviour {
         data.inventorySlots = new List<string>();
         data.inventoryContents = new List<InventorySlot.SlotData>();
         InventorySlot[] slots = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<InventorySlot>();
-        foreach(InventorySlot s in slots) {
+        foreach (InventorySlot s in slots) {
             data.inventorySlots.Add(s.gameObject.name);
             data.inventoryContents.Add(new InventorySlot.SlotData(s.transform.localPosition.x, s.transform.localPosition.y, s.transform.localPosition.z, s.transform.GetSiblingIndex(), s.item));
         }
@@ -96,19 +105,18 @@ public class MainMenu : MonoBehaviour {
         data.day = mc.Days;
         data.dayPart = mc.DayPart;
 
-
+        Debug.Log(npcs.npcData["Ralphie"].pathEnd.x);
         data.npcNames = npcs.npcData.Keys.ToList();
         data.npcInfo = npcs.npcData.Values.ToList();
         data.schedules = npcs.npcQueue.Keys.ToList();
         data.scheduleNames = npcs.npcQueue.Values.ToList();
         data.currentMap = npcs.CurrentMap;
 
-
         bf.Serialize(file, data);
         file.Close();
         gameObject.SetActive(false);
-
     }
+
 
     public void LoadGame() {
         BinaryFormatter bf = new BinaryFormatter();
