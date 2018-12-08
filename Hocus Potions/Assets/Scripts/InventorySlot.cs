@@ -105,43 +105,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData) {
         //TODO: Expand this to cover dragging all objects
-        Camera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        Vector3 mouse = Input.mousePosition;
-        mouse.z = cam.transform.position.z;
-        mouse = cam.ScreenToWorldPoint(mouse);
-        RaycastHit2D[] hit = Physics2D.RaycastAll(new Vector2(mouse.x + 5, mouse.y), new Vector2(-1,0), Mathf.Infinity, Physics.AllLayers, -Mathf.Infinity, Mathf.Infinity );
-        foreach(RaycastHit2D ray in hit) {
-            //Use potion on self
-            if (item.item is Potion && ray.collider.gameObject.tag.Equals("Player") && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y))) {
-                ray.collider.gameObject.GetComponent<Player>().UsePotion(item.item as Potion, this);
-                transform.SetParent(startingParent);
-                transform.localPosition = temp;
-                transform.SetSiblingIndex(index);
-                dragging = false;
-                return;
-            }
-
-            //Plant seed
-            if(item.item is Seed && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y)) && ray.collider.gameObject.GetComponent<GardenPlot>() != null) {
-                ray.collider.gameObject.GetComponent<GardenPlot>().PlantSeed(item.item as Seed, this);
-                transform.SetParent(startingParent);
-                transform.localPosition = temp;
-                transform.SetSiblingIndex(index);
-                dragging = false;
-                return;
-            }
-
-            //Use potion on NPC
-            if (item.item is Potion && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y)) && ray.collider.gameObject.GetComponent<NPC>() != null) {
-                ray.collider.gameObject.GetComponent<NPC>().GivePotion(this);
-                transform.SetParent(startingParent);
-                transform.localPosition = temp;
-                transform.SetSiblingIndex(index);
-                dragging = false;
-                return;
-            }
-        }
-
+     
         canvas.GetComponent<Canvas>().sortingOrder = 0;
         if (item == null) {
             transform.SetParent(startingParent);
@@ -290,7 +254,44 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
 
           //if player drags it out of inventory
-        } else { 
+        } else {
+            Camera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            Vector3 mouse = Input.mousePosition;
+            mouse.z = cam.transform.position.z;
+            mouse = cam.ScreenToWorldPoint(mouse);
+            RaycastHit2D[] hit = Physics2D.RaycastAll(new Vector2(mouse.x + 5, mouse.y), new Vector2(-1, 0), Mathf.Infinity, Physics.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+            foreach (RaycastHit2D ray in hit) {
+                Debug.Log(ray.collider.gameObject.name);
+                //Use potion on self
+                if (item.item is Potion && ray.collider.gameObject.tag.Equals("Player") && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y))) {
+                    ray.collider.gameObject.GetComponent<Player>().UsePotion(item.item as Potion, this);
+                    transform.SetParent(startingParent);
+                    transform.localPosition = temp;
+                    transform.SetSiblingIndex(index);
+                    dragging = false;
+                    return;
+                }
+
+                //Plant seed
+                if (item.item is Seed && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y)) && ray.collider.gameObject.GetComponent<GardenPlot>() != null) {
+                    ray.collider.gameObject.GetComponent<GardenPlot>().PlantSeed(item.item as Seed, this);
+                    transform.SetParent(startingParent);
+                    transform.localPosition = temp;
+                    transform.SetSiblingIndex(index);
+                    dragging = false;
+                    return;
+                }
+
+                //Use potion on NPC
+                if (item.item is Potion && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y)) && ray.collider.gameObject.GetComponent<NPC>() != null) {
+                    ray.collider.gameObject.GetComponent<NPC>().GivePotion(this);
+                    transform.SetParent(startingParent);
+                    transform.localPosition = temp;
+                    transform.SetSiblingIndex(index);
+                    dragging = false;
+                    return;
+                }
+            }
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
