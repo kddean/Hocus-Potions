@@ -4358,6 +4358,21 @@ Prefab:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114057888139039940, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114057888139039940, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114358328558723292, guid: a2d4fecde027566448e92e0d48322629,
+        type: 2}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2d4fecde027566448e92e0d48322629, type: 2}
   m_IsPrefabAsset: 0
@@ -10566,6 +10581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1114802087}
   - component: {fileID: 1114802086}
+  - component: {fileID: 1114802088}
   m_Layer: 0
   m_Name: furniture_snakeplant
   m_TagString: Untagged
@@ -10632,6 +10648,31 @@ Transform:
   m_Father: {fileID: 835619776}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1114802088
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114802085}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.15625, y: 2.1875}
+    newSize: {x: 0.37, y: 0.7}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.15625, y: 2.1875}
+  m_EdgeRadius: 0
 --- !u!1 &1115983966
 GameObject:
   m_ObjectHideFlags: 0
@@ -15180,7 +15221,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1626374219
 RectTransform:
@@ -16961,7 +17002,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.0126762
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -16991,7 +17032,7 @@ MonoBehaviour:
   m_EventMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_MaxRayIntersections: 0
+  m_MaxRayIntersections: 1
 --- !u!224 &1778092920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19672,6 +19713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2069789737}
   - component: {fileID: 2069789736}
+  - component: {fileID: 2069789738}
   m_Layer: 0
   m_Name: furniture_bookshelf
   m_TagString: Untagged
@@ -19738,6 +19780,31 @@ Transform:
   m_Father: {fileID: 835619776}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2069789738
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2069789735}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.038378477, y: -0.007675171}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.40625, y: 4.96875}
+    newSize: {x: 3.40625, y: 4.96875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.0224662, y: 4.554262}
+  m_EdgeRadius: 0
 --- !u!1 &2083279075
 GameObject:
   m_ObjectHideFlags: 0

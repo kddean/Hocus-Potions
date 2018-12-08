@@ -39,7 +39,7 @@ public class Garden : MonoBehaviour {
 
 
     //Handles clicking on garden plots
-    public void Farm(GardenPlot plot) {
+    public void Farm(GardenPlot plot, Seed seed, InventorySlot slot) {
         PlotData data;
         if (plots.TryGetValue(plot.gameObject.name, out data)) {
             if (data.stage == Status.harvestable) {
@@ -48,26 +48,23 @@ public class Garden : MonoBehaviour {
                 return;
             }
         } else {
-            if (rl.activeItem != null && rl.activeItem.item.item is Seed) {
-                plot.gameObject.GetComponent<AudioSource>().Play();
-                PlotData newData = new PlotData();
-                Seed seed = rl.activeItem.item.item as Seed;
-                //Set values for plot
-                newData.stage = Status.growing;
-                newData.type = seed.SeedType;
-                newData.growthTime = seed.GrowthTime;
-                newData.currentTime = 0;
-                newData.index = 0;
-                newData.plotScene = SceneManager.GetActiveScene().name;
-                //Add plot to dict
-                plots.Add(plot.gameObject.name, newData);
-                //Remove seed from inv
-                Inventory.RemoveItem(rl.activeItem);
-                //Set plot sprite
-                SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
-                for (int i = 1; i < 4; i++) {
-                    sr[i].sprite = Resources.Load<Sprite>("Plants/" + seed.SeedType);
-                }
+            plot.gameObject.GetComponent<AudioSource>().Play();
+            PlotData newData = new PlotData();
+            //Set values for plot
+            newData.stage = Status.growing;
+            newData.type = seed.SeedType;
+            newData.growthTime = seed.GrowthTime;
+            newData.currentTime = 0;
+            newData.index = 0;
+            newData.plotScene = SceneManager.GetActiveScene().name;
+            //Add plot to dict
+            plots.Add(plot.gameObject.name, newData);
+            //Remove seed from inv
+            Inventory.RemoveItem(slot);
+            //Set plot sprite
+            SpriteRenderer[] sr = plot.gameObject.GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 1; i < 4; i++) {
+                sr[i].sprite = Resources.Load<Sprite>("Plants/" + seed.SeedType);
             }
         }
     }

@@ -21,17 +21,23 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
         }
     }
     public void OnPointerDown(PointerEventData eventData) {
-        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) {
-            return;
-        }
-
         if (eventData.button == PointerEventData.InputButton.Left) {
-            rl.garden.Farm(this);
+            if (rl.activeItem.item.item is Seed) {
+                PlantSeed(rl.activeItem.item.item as Seed, rl.activeItem);
+            }
         } else if (eventData.button == PointerEventData.InputButton.Right) {
-            if(rl.activeSpell != null && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.activeSpell.Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
+            if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) {
+                return;
+            }
+
+            if (rl.activeSpell != null && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.activeSpell.Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
                 rl.garden.SpellCast(this);
             }
         }
     }
 
+    public void PlantSeed(Seed s, InventorySlot slot) {
+        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) { return; }
+        rl.garden.Farm(this, s, slot);
+    }
 }

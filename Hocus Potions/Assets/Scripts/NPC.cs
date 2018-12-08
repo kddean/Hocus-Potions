@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -226,6 +227,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             if (dialogueCanvas.GetComponent<DialogueCanvas>().active) { return; }
             //DOnt let them dont wander off
             allowedToMove = false;
+            player.allowedToMove = false;
 
             //Set dialogue list if it isn't already set
             if (dialogue.Count == 0) {
@@ -242,6 +244,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     string key = GenerateKey();
                     if (key == null) {
                         allowedToMove = true;
+                        player.allowedToMove = true;
                         return;
                     }
                     List<string> initial;
@@ -249,6 +252,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         initial = dialogue[key];
                     } catch (KeyNotFoundException e) {
                         allowedToMove = true;
+                        player.allowedToMove = true;
                         return;
                     }
                     List<string> options = new List<string>();
@@ -270,6 +274,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     }
                     if (!rl.requestList.TryGetValue(characterName, out requests)) {
                         allowedToMove = true;
+                        player.allowedToMove = true;
                         return;
                     } else {
                         GiveQuest();
@@ -305,9 +310,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         } else {        //Right click
             if (rl.activeItem != null) {
                 if (rl.activeItem.item.item is Potion) {
-                    if (!requested || gavePot) { return; }
-                    allowedToMove = false;
-                    GivePotion();
+                    GivePotion(rl.activeItem);
                 }
             }
         }
@@ -424,22 +427,25 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         requested = true;
     }
 
-    void GivePotion() {
-        info.given.Add(rl.activeItem.item.item);
+    public void GivePotion(InventorySlot slot) {
+        if (!requested || gavePot) { return; }
+        allowedToMove = false;
+        player.allowedToMove = false;
+        info.given.Add(slot.item.item);
         info.returning = false;
         requested = false;
 
         gavePot = true;
 
         if (info.given.Count < 5) {
-            info.given.Add(rl.activeItem.item.item);
+            info.given.Add(slot.item.item);
         } else {
             info.given.RemoveAt(0);
-            info.given.Add(rl.activeItem.item.item);
+            info.given.Add(slot.item.item);
         }
         controller.npcData[characterName] = info;
-        Potion temp = rl.activeItem.item.item as Potion;
-        Inventory.RemoveItem(rl.activeItem);
+        Potion temp = slot.item.item as Potion;
+        Inventory.RemoveItem(slot);
 
         //Handle VFX and sprite swaps
         StartCoroutine(PotionEffects(temp));
@@ -553,7 +559,14 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         ExitButton();
         info.returning = false;
         controller.npcData[CharacterName] = info;
+        List<string> queueList = controller.npcQueue.Values.ToList();
+        int index = queueList.FindIndex(item => item.Equals(characterName));
+        controller.npcQueue.RemoveAt(index);
+        MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
+        NPCController.Schedule s = new NPCController.Schedule(false, mc.Days, mc.Hour + 2, mc.Minutes, "", 1, 69.5f, -12.5f, 0, characterName);
+        controller.npcQueue.Add(s, characterName);
         allowedToMove = true;
+        player.allowedToMove = true;
     }
 
     public void WaitButton() {
@@ -592,6 +605,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponent<DialogueCanvas>().active = false;
         dialogueCanvas.SetActive(false);
         allowedToMove = true;
+        player.allowedToMove = true;
         dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
         dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.RemoveAllListeners();
         dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.RemoveAllListeners();

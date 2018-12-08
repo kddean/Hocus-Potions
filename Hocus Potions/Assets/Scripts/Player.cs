@@ -100,11 +100,15 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
         if (eventData.button == PointerEventData.InputButton.Right) {
             if (rl.activeItem.item.item is Potion && (rl.activeItem.item.item != lastTaken)) {
-                lastTaken = rl.activeItem.item.item as Potion;
-                StartCoroutine(HandlePotions(rl.activeItem.item.item as Potion));
-                Inventory.RemoveItem(rl.activeItem);
+                UsePotion(rl.activeItem.item.item as Potion, rl.activeItem);
             }
         }
+    }
+
+    public void UsePotion(Potion pot, InventorySlot slot ) {
+        lastTaken = pot;
+        StartCoroutine(HandlePotions(pot));
+        Inventory.RemoveItem(slot);
     }
 
     private void FixedUpdate() {
