@@ -106,6 +106,7 @@ public class Pathfinding : MonoBehaviour {
                 if (worldMap1.HasTile(new Vector3Int(x, y, 0))) {
                     RaycastHit2D[] xCheck = Physics2D.RaycastAll(new Vector2(x + 0.1f, y + 0.5f), new Vector2(1, 0), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
                     RaycastHit2D[] yCheck = Physics2D.RaycastAll(new Vector2(x + 0.5f, y + 0.1f), new Vector2(0, 1), 0.8f, Physics2D.AllLayers, -Mathf.Infinity, Mathf.Infinity);
+
                     if (xCheck.Length == 0 && yCheck.Length == 0) {
                         worldTiles.Add(worldMap1.GetCellCenterWorld(new Vector3Int(x, y, 0)));
                     } else {
@@ -161,14 +162,6 @@ public class Pathfinding : MonoBehaviour {
         //worldSet = true;
         SceneManager.UnloadSceneAsync(1);
         al.enabled = true;
-    }
-    private void Update() {
-    /*    if (!houseSet && SceneManager.GetActiveScene().name.Equals("House")) {
-           
-        } else if (!worldSet && !SceneManager.GetActiveScene().name.Equals("Garden") && !SceneManager.GetActiveScene().name.Equals("House")) {
-           
-        }
-        */
     }
 
     public void InitializePath(Vector3 pos, Vector3 target, int map, List<Vector3> returnPath) {
