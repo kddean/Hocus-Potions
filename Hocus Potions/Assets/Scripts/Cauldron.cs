@@ -22,6 +22,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     Animator[] anims;
     GameObject sparkles;
     GameObject bubbles;
+    GameObject inv;
     ResourceLoader rl;
     Button[] invButtons;
     Player player;
@@ -37,6 +38,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         sparkles = GameObject.Find("sparkles");
         bubbles = GameObject.Find("bubbles");
+        inv = GameObject.FindGameObjectWithTag("inventory");
         anims = GetComponentsInChildren<Animator>();
         invButtons = GameObject.FindGameObjectWithTag("inventory").GetComponentsInChildren<Button>();
         canvas = brewPanel.transform.parent.gameObject;
@@ -136,6 +138,9 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             active = true;
             if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
                 SetVisible(ingredientPanel.GetComponent<CanvasGroup>());
+                inv.GetComponent<CanvasGroup>().alpha = 1;
+                inv.GetComponent<CanvasGroup>().interactable = true;
+                inv.GetComponent<CanvasGroup>().blocksRaycasts = true;
                 visible = true;
                 if (manager.Brewing == 2) {
                     SetVisible(brewPanel.GetComponent<CanvasGroup>());
@@ -232,6 +237,10 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             c.a = 1f;
             b.image.color = c;
         }
+
+        inv.GetComponent<CanvasGroup>().alpha = 0;
+        inv.GetComponent<CanvasGroup>().interactable = false;
+        inv.GetComponent<CanvasGroup>().blocksRaycasts = false;
         visible = false;
         canvas.SetActive(false);
         active = false;

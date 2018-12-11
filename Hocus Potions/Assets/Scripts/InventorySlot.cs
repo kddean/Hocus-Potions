@@ -261,7 +261,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             mouse = cam.ScreenToWorldPoint(mouse);
             RaycastHit2D[] hit = Physics2D.RaycastAll(new Vector2(mouse.x + 5, mouse.y), new Vector2(-1, 0), Mathf.Infinity, Physics.AllLayers, -Mathf.Infinity, Mathf.Infinity);
             foreach (RaycastHit2D ray in hit) {
-                Debug.Log(ray.collider.gameObject.name);
                 //Use potion on self
                 if (item.item is Potion && ray.collider.gameObject.tag.Equals("Player") && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y))) {
                     ray.collider.gameObject.GetComponent<Player>().UsePotion(item.item as Potion, this);

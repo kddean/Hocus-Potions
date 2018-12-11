@@ -10,11 +10,13 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
     public bool active;
     StorageManager sm;
     float temp;
+    GameObject inv;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         canvas = GameObject.FindGameObjectWithTag("storage").transform.parent.gameObject;
         sm = GameObject.Find("StorageManager").GetComponent<StorageManager>();
+        inv = GameObject.FindGameObjectWithTag("inventory");
         canvas.SetActive(false);
         active = false;
     }
@@ -24,6 +26,9 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         canvas.SetActive(true);
         active = true;
         sm.OpenChest();
+        inv.GetComponent<CanvasGroup>().alpha = 1;
+        inv.GetComponent<CanvasGroup>().interactable = true;
+        inv.GetComponent<CanvasGroup>().blocksRaycasts = true;
         player.allowedToMove = false;
         GetComponent<AudioSource>().Play();
     }
@@ -32,6 +37,9 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         GetComponents<AudioSource>()[1].Play();
         canvas.SetActive(false);
         active = false;
+        inv.GetComponent<CanvasGroup>().alpha = 0;
+        inv.GetComponent<CanvasGroup>().interactable = false;
+        inv.GetComponent<CanvasGroup>().blocksRaycasts = false;
         player.allowedToMove = true;
 
     }

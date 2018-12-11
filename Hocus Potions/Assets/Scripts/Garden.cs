@@ -48,6 +48,7 @@ public class Garden : MonoBehaviour {
                 return;
             }
         } else {
+            if(seed == null) { return; }
             plot.gameObject.GetComponent<AudioSource>().Play();
             PlotData newData = new PlotData();
             //Set values for plot

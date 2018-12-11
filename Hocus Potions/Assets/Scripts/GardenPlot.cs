@@ -22,8 +22,10 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
     }
     public void OnPointerDown(PointerEventData eventData) {
         if (eventData.button == PointerEventData.InputButton.Left) {
-            if (rl.activeItem.item.item is Seed) {
+            if (rl.activeItem != null && rl.activeItem.item.item is Seed) {
                 PlantSeed(rl.activeItem.item.item as Seed, rl.activeItem);
+            } else {
+                PlantSeed(null, rl.activeItem);
             }
         } else if (eventData.button == PointerEventData.InputButton.Right) {
             if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) {
