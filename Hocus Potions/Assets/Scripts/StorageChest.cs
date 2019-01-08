@@ -25,6 +25,7 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.0f) { return; }
         canvas.SetActive(true);
         active = true;
+        GameObject.FindGameObjectWithTag("storage").GetComponent<GridLayoutGroup>().enabled = true;
         sm.OpenChest();
         inv.GetComponent<CanvasGroup>().alpha = 1;
         inv.GetComponent<CanvasGroup>().interactable = true;

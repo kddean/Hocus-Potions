@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 61197590516978324}
   - component: {fileID: 114053486096620976}
   - component: {fileID: 50828359018141290}
+  - component: {fileID: 95142167007760566}
   m_Layer: 0
   m_Name: Dante
   m_TagString: Untagged
@@ -145,6 +146,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.70671463, y: 0.28905678}
   m_EdgeRadius: 0
+--- !u!95 &95142167007760566
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581351417985542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b8369eee2d5feb43ab8d410757ff502, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95752045747814970
 Animator:
   serializedVersion: 3

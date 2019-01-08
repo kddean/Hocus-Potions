@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61383306640320070}
   - component: {fileID: 114017707986734574}
   - component: {fileID: 50662054577371482}
+  - component: {fileID: 95226442564076654}
   m_Layer: 0
   m_Name: Geoff
   m_TagString: Untagged
@@ -145,6 +146,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.90625, y: 2.09375}
   m_EdgeRadius: 0
+--- !u!95 &95226442564076654
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586854658934218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3a3782c896a27b548b58413d44991582, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95669331702031956
 Animator:
   serializedVersion: 3

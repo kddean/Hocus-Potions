@@ -182,6 +182,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("Cauldron").GetComponent<Cauldron>().active && RectTransformUtility.RectangleContainsScreenPoint(third.transform as RectTransform, Input.mousePosition)) {
             SetIngredient(third, thirdIcon, 2);
         } else if (SceneManager.GetActiveScene().name.Equals("House") && GameObject.Find("StorageChest").GetComponent<StorageChest>().active && RectTransformUtility.RectangleContainsScreenPoint(GameObject.FindGameObjectWithTag("storage").transform as RectTransform, Input.mousePosition)) {
+            GameObject.FindGameObjectWithTag("storage").GetComponent<GridLayoutGroup>().enabled = false;
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);

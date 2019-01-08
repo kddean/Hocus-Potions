@@ -52,6 +52,6 @@ public class StorageManager : MonoBehaviour {
                 obj.GetComponent<Image>().enabled = false;
                 obj.GetComponentInChildren<Text>().text = "";
             }
-        }
+        }      
     }
 }

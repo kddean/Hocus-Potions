@@ -31,6 +31,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
+        GameObject.FindGameObjectWithTag("storage").GetComponent<GridLayoutGroup>().enabled = false;
         temp = transform.localPosition;
         index = transform.GetSiblingIndex();
         startingParent = transform.parent;
