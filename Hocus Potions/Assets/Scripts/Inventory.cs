@@ -24,7 +24,7 @@ public class Inventory {
         Potion p = b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]);
         Potion pp = b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]);
         Potion ppp = b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]);
-        Seed s = rl.seeds["lavender"];
+        Seed s = rl.seeds["thistle"];
         Seed ss = rl.seeds["poppy"];
         Seed sss = rl.seeds["nightshade"];
         Ingredient i = rl.ingredients["thistle"];
