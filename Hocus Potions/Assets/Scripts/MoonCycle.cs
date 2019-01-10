@@ -21,9 +21,9 @@ public class MoonCycle : MonoBehaviour {
     public Image timeImage;
     int currentMoonPhase = 0;
 
-    int days;
-    int hour;
-    int minutes;
+    public int days;
+    public int hour;
+    public int minutes;
     PartOfDay dayPart;
 
     public int Hour {
@@ -78,7 +78,7 @@ public class MoonCycle : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         Hour = 6;
         Minutes = 00;
         moonPhase.sprite = moonCycleSprites[0];
@@ -94,16 +94,14 @@ public class MoonCycle : MonoBehaviour {
         }
     }
 
-    IEnumerator PassingTime()
-    {
+    IEnumerator PassingTime() {
         //Every 2 mins real time is 10 mins game time - 120 for actual time scale
         yield return new WaitForSeconds(CLOCK_SPEED);
         ChangeTime();
         StartCoroutine(PassingTime());
     }
 
-    void ChangeTime()
-    {
+    void ChangeTime() {
         Minutes = Minutes + 10;
 
         switch (Hour) {
@@ -127,16 +125,14 @@ public class MoonCycle : MonoBehaviour {
                 break;
         }
 
-        if (Hour == 23 && Minutes == 60)
-        {
+        if (Hour == 23 && Minutes == 60) {
             currentMoonPhase = (currentMoonPhase + 1) % 6;
             moonPhase.sprite = moonCycleSprites[currentMoonPhase];
             days++;
             GameObject.FindObjectOfType<NPCController>().SetQueue(days);
         }
 
-        if (Minutes == 60)
-        {
+        if (Minutes == 60) {
             Hour = (Hour + 1) % 24;
             Minutes = 00;
 

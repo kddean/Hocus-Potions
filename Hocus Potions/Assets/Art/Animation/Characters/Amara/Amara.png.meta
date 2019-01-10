@@ -505,7 +505,7 @@ TextureImporter:
         x: 19
         y: 114
         width: 29
-        height: 69
+        height: 72
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -545,7 +545,7 @@ TextureImporter:
         x: 22
         y: 33
         width: 29
-        height: 69
+        height: 72
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
