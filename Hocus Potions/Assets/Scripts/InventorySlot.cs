@@ -27,6 +27,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     bool triedBrewing = false;
     Vector3 offset = new Vector3(50, 0, 0);
     Image first, second, third, firstIcon, secondIcon, thirdIcon;
+    PointerEventData.InputButton clickedButton;
 
     [Serializable]
     public class SlotData {
@@ -88,6 +89,8 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
+        if(dragging) { return; }
+        clickedButton = eventData.button;
         temp = transform.localPosition;
         startingParent = transform.parent;
         index = transform.GetSiblingIndex();
@@ -104,8 +107,8 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     public void OnEndDrag(PointerEventData eventData) {
+        if(eventData.button != clickedButton) { return; }
         //TODO: Expand this to cover dragging all objects
-     
         canvas.GetComponent<Canvas>().sortingOrder = 0;
         if (item == null) {
             transform.SetParent(startingParent);

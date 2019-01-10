@@ -25,6 +25,7 @@ public class Mana : MonoBehaviour {
 
 
     public void UpdateMana(float amount) {
+        Debug.Log(amount);
         if (currentMana - amount < 0) {
             amount = currentMana;
         } else if (currentMana - amount > maxMana) {

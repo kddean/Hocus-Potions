@@ -142,6 +142,51 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
             }
             if (path.Count > 0 && allowedToMove) {
+
+                //Adjusting colliders
+                if (playerAnim.GetBool("Transform")) {
+                    GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                    switch (characterName) {
+                        case "Amara":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0.02f, 0.1f);
+                            break;
+                        case "Bernadette":                        
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.08f);
+                            break;
+                        case "Black_Robed_Traveler":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.05f);
+                            break;
+                        case "Franklin":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.1f);
+                            break;
+                        case "Dante":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
+                            break;
+                        case "Geoff":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.1f);
+                            break;
+                        case "Ralphie":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.1f);
+                            break;
+                        case "Red_Robed_Traveler":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.05f);
+                            break;
+                        case "White_Robed_Travler":
+                            GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.05f);
+                            break;
+                        default:
+                            Debug.Log("Invalid character name: " + characterName);
+                            break;
+                    } 
+                } else {
+                    GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 2, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                    GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                }
+
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
+
+                //Movement
                 if (playerAnim != null && playerAnim.enabled) {
                     if (transform.position.x < path[0].x) {
                         playerAnim.SetBool(currentAnim, false);
@@ -660,16 +705,13 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 effectsAnim.SetBool("Speed", true);
                 break;
             case Ingredient.Attributes.transformation:
-                if (playerAnim != null) {
-                    playerAnim.enabled = false;
-                }
                 effectsAnim.SetBool("Transformation", true);
                 effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 info.state.Add(Status.transformed);
                 info.potionTimers.Add(Status.transformed, new NPCController.TimerData(Time.time, pot.Duration));
                 speed++;
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
+                playerAnim.SetBool("Transform", true);
                 GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
@@ -726,11 +768,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 effectsAnim.SetBool("Transformation", true);
                 effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
-                if (playerAnim != null) {
-                    playerAnim.enabled = true;
-                } else {
-                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/" + characterName);
-                }
+                playerAnim.SetBool("Transform", false);
                 GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
@@ -775,9 +813,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 break;
             case Status.transformed:
                 speed++;
-                if (playerAnim != null) {
-                    playerAnim.enabled = false;
-                }
+                playerAnim.SetBool("Transform", true);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
                 GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
@@ -828,11 +864,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 effectsAnim.SetBool("Transformation", true);
                 effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
-                if (playerAnim != null) {
-                    playerAnim.enabled = true;
-                } else {
-                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/" + characterName);
-                }
+                playerAnim.SetBool("Transform", false);
                 GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
