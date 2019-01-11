@@ -346,6 +346,7 @@
     <Compile Include="Assets\Scripts\StorageChest.cs" />
     <Compile Include="Assets\Scripts\StorageManager.cs" />
     <Compile Include="Assets\Scripts\StorageSlot.cs" />
+    <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\Traveller.cs" />
   </ItemGroup>
   <ItemGroup>
