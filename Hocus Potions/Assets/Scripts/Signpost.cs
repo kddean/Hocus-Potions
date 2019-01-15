@@ -11,7 +11,7 @@ public class Signpost : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        toolTip = GameObject.Find("Tooltip");
 	}
 	
 	// Update is called once per frame
