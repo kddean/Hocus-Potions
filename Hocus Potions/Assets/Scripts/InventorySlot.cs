@@ -89,7 +89,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
-        if(dragging) { return; }
+        if (dragging) { return; }
         clickedButton = eventData.button;
         temp = transform.localPosition;
         startingParent = transform.parent;
@@ -103,7 +103,9 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     public void OnDrag(PointerEventData eventData) {
-        transform.position = Input.mousePosition;
+        if (dragging) {
+            transform.position = Input.mousePosition;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData) {

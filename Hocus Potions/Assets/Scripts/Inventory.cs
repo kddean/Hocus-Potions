@@ -17,7 +17,7 @@ public class Inventory {
         }
     }
 
-    //Just for testing stack combining
+    //Just for populating inv to start
     public static void Testing() {
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         Brewing b = new Brewing();
@@ -140,7 +140,7 @@ public class Inventory {
     public static void DropItem(InventorySlot slot) {
 
         Vector3 tempPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-        Vector3 offset = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
+        Vector3 offset = new Vector3(Random.Range(-1, 1), Random.Range(-1, 0.3f), 0);
         GameObject go = new GameObject();
         go.name = slot.item.item.name;
         SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
@@ -174,10 +174,5 @@ public class Inventory {
         item.gameObject.GetComponentInChildren<Image>().enabled = false;
         item.gameObject.GetComponentInChildren<Text>().text = "";
         item.item = null;
-    }
-
-    //TODO: function to allow items to be used from inventory
-    void UseItem() {
-
     }
 }

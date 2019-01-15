@@ -15,6 +15,8 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     Transform startingParent;
     int index;
     bool done;
+    bool dragging;
+    PointerEventData.InputButton clickedButton;
     StorageManager sm;
 
 
@@ -31,6 +33,9 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
+        if (dragging) { return; }
+        clickedButton = eventData.button;
+        dragging = true;
         GameObject.FindGameObjectWithTag("storage").GetComponent<GridLayoutGroup>().enabled = false;
         temp = transform.localPosition;
         index = transform.GetSiblingIndex();
@@ -40,15 +45,19 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     public void OnDrag(PointerEventData eventData) {
-        transform.position = Input.mousePosition;
+        if (dragging) {
+            transform.position = Input.mousePosition;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData) {
+        if (eventData.button != clickedButton) { return; }
         transform.parent.GetComponent<Canvas>().sortingOrder = 0;
         if (item == null) {
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
+            dragging = false;
             return;
         }
         bool filledStack = false;
@@ -57,6 +66,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
+            dragging = false;
             foreach (Button b in invButtons) {
                 InventorySlot im = b.GetComponent<InventorySlot>();
 
@@ -148,6 +158,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     transform.SetSiblingIndex(s.transform.GetSiblingIndex());
                     s.transform.localPosition = temp;
                     s.transform.SetSiblingIndex(index);
+                    dragging = false;
                     sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
                     sm.storageChest[s.name] = new StorageManager.StoreageData(s.GetComponent<StorageSlot>().item, s.GetComponent<StorageSlot>().count, s.transform.GetSiblingIndex(), s.transform.localPosition.x, s.transform.localPosition.y, s.transform.localPosition.z);
                     return;
@@ -156,12 +167,14 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
+            dragging = false;
         } else {                                        //dragging into empty space
             transform.SetParent(startingParent);
             transform.localPosition = temp;
             transform.SetSiblingIndex(index);
+            dragging = false;
         }
-
+        dragging = false;
     }
 
     public void UpdateDict() {

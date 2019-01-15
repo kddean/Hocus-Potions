@@ -32,6 +32,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     bool destroying;
     public bool sceneSwapped;
     public bool saving;
+    public bool closed;
 
 
     public enum Status { poisoned, fast, invisible, transformed, asleep }
@@ -78,6 +79,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         buttonsSet = false;
         intro = false;
         allowedToMove = true;
+        closed = false;
         dialoguePieces = new string[0];
         currentAnim = "Forward";
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
@@ -493,6 +495,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         Inventory.RemoveItem(slot);
 
         //Handle VFX and sprite swaps
+        closed = false;
         StartCoroutine(PotionEffects(temp));
 
         string affinity;    //TODO: This might need to be ranges
@@ -660,6 +663,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.RemoveAllListeners();
         dialogueCanvas.GetComponentsInChildren<Button>()[4].onClick.RemoveAllListeners();
         buttonsSet = false;
+        closed = true;
     }
 
     IEnumerator PotionEffects(Potion pot) {
@@ -712,16 +716,16 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 info.potionTimers.Add(Status.transformed, new NPCController.TimerData(Time.time, pot.Duration));
                 speed++;
                 playerAnim.SetBool("Transform", true);
-                GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0.3f);
                 effectsAnim.SetBool("Transformation", false);
                 break;
             default:
                 break;
         }
         controller.npcData[characterName] = info;
+        while (closed == false) {
+            yield return null;
+        }
+
         yield return new WaitForSeconds((pot.Duration / 10) * GameObject.FindObjectOfType<MoonCycle>().CLOCK_SPEED);
 
         switch (type) {
@@ -769,10 +773,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 playerAnim.SetBool("Transform", false);
-                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 1);
                 effectsAnim.SetBool("Transformation", false);
                 break;
             default:
@@ -814,11 +814,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             case Status.transformed:
                 speed++;
                 playerAnim.SetBool("Transform", true);
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Characters/cat");
-                GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.15f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.075f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0.3f);
                 break;
             default:
                 break;
@@ -865,10 +860,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 playerAnim.SetBool("Transform", false);
-                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.3f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.15f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 1);
                 effectsAnim.SetBool("Transformation", false);
                 break;
             default:
