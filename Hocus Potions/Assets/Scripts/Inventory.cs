@@ -21,7 +21,7 @@ public class Inventory {
     public static void Testing() {
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         Brewing b = new Brewing();
-        Potion p = b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]);
+        Potion p = b.Brew(rl.ingredients["catnip"], rl.ingredients["thistle"], rl.ingredients["lambsgrass"]);
         Potion pp = b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]);
         Potion ppp = b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]);
         Seed s = rl.seeds["thistle"];

@@ -30,7 +30,7 @@ public class Signpost : MonoBehaviour {
     void DisplayTooltip()
     {
         text = toolTip.GetComponentsInChildren<Text>();
-        text[0].text = "Sanity That Direction";
+        text[0].text = "404: Sanity Not Found";
             //"Up: Mountains";
         //text[1].text = "Left: Campsite";
         //text[2].text = "Right: Forest";

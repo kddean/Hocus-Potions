@@ -18,8 +18,8 @@ public class LayerSwapping : MonoBehaviour {
         if (!set && !collision.isTrigger && player.transform.position.y > (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
             GameObject.FindObjectOfType<Player>().layerSwapping = true;
-            foreach(SpriteRenderer sr in children) {
-                if(sr.gameObject.name.Equals("runes")) { continue; }
+            foreach (SpriteRenderer sr in children) {
+                if (sr.gameObject.name.Equals("runes")) { continue; }
                 startingLayer.Add(sr.sortingLayerName);
                 sr.sortingLayerName = "InFrontOfPlayer";
             }
