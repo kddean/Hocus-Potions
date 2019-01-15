@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\SaveData.cs" />
     <Compile Include="Assets\Scripts\SceneSwitcher.cs" />
     <Compile Include="Assets\Scripts\Seed.cs" />
+    <Compile Include="Assets\Scripts\Signpost.cs" />
     <Compile Include="Assets\Scripts\Sleep.cs" />
     <Compile Include="Assets\Scripts\SleepCanvas.cs" />
     <Compile Include="Assets\Scripts\Spell.cs" />
