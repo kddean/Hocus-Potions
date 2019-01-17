@@ -17,8 +17,9 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     List<PlayerStatus> status;
     Dictionary<PlayerStatus, TimerData> startTimers;
     SpriteRenderer sr;
-    string currentAnim;
+    string currentAnim, lastAnim;
     GameObject fadeScreen, sleepCanvas;
+
     public bool swappingScenes;
     public bool allowedToMove;
     public bool layerSwapping;
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         allowedToMove = true;
         layerSwapping = false;
         currentAnim = "Idle";
+        lastAnim = "None";
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -113,22 +115,22 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
     private void FixedUpdate() {
         if (!allowedToMove) { return; }
-        if (playerAnim.GetBool("Transform")) {
-            //  GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
-            //  GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
-
-            GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
-            GetComponent<BoxCollider2D>().offset = new Vector2(0.02f, 0.1f);
-
-            GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
-            GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
-        } else {
-            GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 2, GetComponent<SpriteRenderer>().bounds.size.y / 12);
-            GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23); 
-            GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
-            GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
+        
+        if (!currentAnim.Equals(lastAnim)) {
+            if (playerAnim.GetBool("Transform")) {
+                GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
+            } else {
+                GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 2, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
+            }
+            lastAnim = currentAnim;
         }
-
+        
         Vector3 pos = transform.position;
         playerAnim.speed = speed / 7.5f;
         x = y = 0;
@@ -162,11 +164,37 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 playerAnim.SetBool(currentAnim, false);
             }
         }
-
+       
         pos.x += x * Speed * Time.deltaTime;
         pos.y += y * Speed * Time.deltaTime;
-        transform.position = pos;
 
+        if (currentAnim.Equals("Left")) {
+            Vector3 temp = pos;
+            temp.x -= GetComponent<SpriteRenderer>().bounds.size.x / 3f;
+            RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector3(pos.x - GetComponent<SpriteRenderer>().bounds.size.x / 3f, pos.y + 0.5f, 0), new Vector2(0, -1), 1);
+            foreach (RaycastHit2D ray in hits) {
+                if (ray.collider.gameObject.tag.Equals("tiles")) {
+                    if (ray.collider.bounds.Contains(temp)) {
+                        return;
+                    }
+                }
+
+            }
+        } else if(currentAnim.Equals("Right")) {
+            Vector3 temp = pos;
+            temp.x += GetComponent<SpriteRenderer>().bounds.size.x / 3f;
+            RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector3(pos.x + GetComponent<SpriteRenderer>().bounds.size.x / 3f, pos.y + 0.5f, 0), new Vector2(0, -1), 1);
+            foreach (RaycastHit2D ray in hits) {
+                if (ray.collider.gameObject.tag.Equals("tiles")) {
+                    if (ray.collider.bounds.Contains(temp)) {
+                        return;
+                    }
+                }
+
+            }
+        }
+        
+        transform.position = pos;
     }
 
 
@@ -198,6 +226,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
       
     }
 
+   
     private void OnTriggerStay2D(Collider2D collision) {
         if (!layerSwapping && collision.gameObject.GetComponent<Pickups>() != null) {
             collision.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
@@ -283,6 +312,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 playerAnim.SetBool(currentAnim, false);
                 Speed++;
                 startTimers.Add(PlayerStatus.transformed, new TimerData(Time.time, duration));
+                GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
                 break;
             case Ingredient.Attributes.none:
                 break;
@@ -355,6 +388,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 startTimers.Remove(PlayerStatus.transformed);
                 yield return new WaitForSeconds(0.43f);
                 effectAnim.SetBool("Transformation", false);
+                GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 2, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
 
                 Speed = defaultSpeed;
                 if (Status.Contains(PlayerStatus.fast) && Status.Contains(PlayerStatus.poisoned)) {
@@ -421,10 +458,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 if (currentAnim.Equals("Idle")) { currentAnim = "Forward"; }
                 playerAnim.Play("T_" + currentAnim, 0, 0);
                 playerAnim.SetBool(currentAnim, false);
-                GetComponent<BoxCollider2D>().size = new Vector2(0.6f, 0.2f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.2f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(0.7f, 0.6f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
                 Speed++;
                 break;
             default:
@@ -483,10 +520,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 playerAnim.Play(currentAnim, 0, 0);
                 playerAnim.SetBool(currentAnim, false);
                 Status.Remove(PlayerStatus.transformed);
-                GetComponent<BoxCollider2D>().size = new Vector2(1, 0.5f);
-                GetComponent<BoxCollider2D>().offset = new Vector2(0, -0.8f);
-                GetComponents<BoxCollider2D>()[1].size = new Vector2(1, 2.1f);
-                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, 0);
+                GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 2, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
+                GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
+                GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
                 yield return new WaitForSeconds(0.43f);
                 effectAnim.SetBool("Transformation", false);
 

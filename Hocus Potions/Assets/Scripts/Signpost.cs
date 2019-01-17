@@ -5,20 +5,20 @@ using UnityEngine.UI;
 
 public class Signpost : MonoBehaviour {
 
-    public GameObject toolTip;
-    Text[] text;
+    GameObject toolTip;
+    Text text;
     bool hovered = false;
 
 	// Use this for initialization
 	void Start () {
-        toolTip = GameObject.Find("Tooltip");
+        toolTip = GameObject.Find("SignTooltip");
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (hovered)
         {
-            toolTip.transform.position = Input.mousePosition + new Vector3(50, 0, 0);
+            toolTip.transform.position = Input.mousePosition + new Vector3(30, -50, 0);
         }
     }
 
@@ -29,8 +29,8 @@ public class Signpost : MonoBehaviour {
 
     void DisplayTooltip()
     {
-        text = toolTip.GetComponentsInChildren<Text>();
-        text[0].text = "404: Sanity Not Found";
+        text = toolTip.GetComponentInChildren<Text>();
+        text.text = "404: Sanity Not Found";
             //"Up: Mountains";
         //text[1].text = "Left: Campsite";
         //text[2].text = "Right: Forest";
