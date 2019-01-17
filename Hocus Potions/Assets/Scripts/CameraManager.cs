@@ -17,6 +17,7 @@ public class CameraManager : MonoBehaviour {
         pos.x = Mathf.Clamp(pos.x, xBounds[0], xBounds[1]);
         pos.y = Mathf.Clamp(pos.y, yBounds[0], yBounds[1]);
         pos.z = -10;
+        pos.x = (Mathf.Round(pos.x * 10) / 10) + 0.02f;
         transform.position = pos;
 	}
 }
