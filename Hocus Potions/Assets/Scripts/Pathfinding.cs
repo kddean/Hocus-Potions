@@ -159,7 +159,6 @@ public class Pathfinding : MonoBehaviour {
             j++;
             i = 0;
         }
-        //worldSet = true;
         SceneManager.UnloadSceneAsync(1);
         al.enabled = true;
     }

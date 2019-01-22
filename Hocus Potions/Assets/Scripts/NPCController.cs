@@ -217,13 +217,14 @@ public class NPCController : MonoBehaviour {
                 NPCInfo temp = npcData[n];
                 temp.spawned = true;
                 Vector3 spawnPoint = GameObject.Find("NPCSpawnPoint").transform.position;
+                pathfinder.InitializePath(spawnPoint, new Vector3(s.x, s.y, s.z), 1, npc.path);
                 go.transform.position = spawnPoint;
                 temp.x = spawnPoint.x;
                 temp.y = spawnPoint.y;
                 temp.z = spawnPoint.z;
                 temp.map = currentMap;
                 npcData[n] = temp;
-                pathfinder.InitializePath(npc.transform.position, new Vector3(s.x, s.y, s.z), 1, npc.path);
+               
             }
             //Player is inside and NPC is going somewhere inside
         } else if (s.map == 0 && currentMap == 0) {
@@ -283,14 +284,15 @@ public class NPCController : MonoBehaviour {
                 NPCInfo temp = npcData[n];
                 temp.spawned = true;
                 Vector3 spawnPoint = GameObject.Find("NPCSpawnPoint").transform.position;
+                pathfinder.InitializePath(spawnPoint, new Vector3(-7.5f, -1.5f, 0), 1, npc.GetComponent<NPC>().path);
+                npc.GetComponent<NPC>().nextTarget = new Vector3(s.x, s.y, s.z);
                 go.transform.position = spawnPoint;
                 temp.x = spawnPoint.x;
                 temp.y = spawnPoint.y;
                 temp.z = spawnPoint.z;
                 temp.map = currentMap;
                 npcData[n] = temp;
-                pathfinder.InitializePath(npc.transform.position, new Vector3(-7.5f, -1.5f, 0), 1, npc.GetComponent<NPC>().path);
-                npc.GetComponent<NPC>().nextTarget = new Vector3(s.x, s.y, s.z);
+                
             }
         }
     }

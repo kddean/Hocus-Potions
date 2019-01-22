@@ -53,8 +53,7 @@ public class SceneSwitcher : MonoBehaviour {
         while (!scene.isDone) {
             yield return null;
         }
-        //TODO: This won't be needed once it's re-written
-        GameObject.FindObjectOfType<NPCManager>().Spawned = false;
+
         OnSceneLoaded(index);
     }
 
