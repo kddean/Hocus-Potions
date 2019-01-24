@@ -1,0 +1,257 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OverworldTileAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300104, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300078, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300076, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300022, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300118, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300020, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300116, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300026, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300024, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300176, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300030, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300178, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300028, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300172, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300034, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300174, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300032, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300168, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300170, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300164, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300166, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300160, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300162, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300182, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300084, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300180, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300086, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300186, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300080, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300184, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300082, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300190, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300092, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300188, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300094, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300194, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300088, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300192, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300090, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300198, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300196, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300096, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300098, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300136, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300138, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300128, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300130, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300158, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300132, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300156, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300134, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300154, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300120, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300152, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300122, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300150, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300124, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300148, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300126, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300146, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300144, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300142, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300140, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300206, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300204, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300202, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300200, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300004, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300006, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300000, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300002, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300012, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300014, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300008, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300010, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300016, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300018, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300040, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300042, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300044, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300046, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300066, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300048, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300064, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300050, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300062, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300110, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300052, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300060, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300108, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300054, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300074, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300114, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300056, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300072, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300112, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300058, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300070, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300038, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300102, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300068, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300036, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300100, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  - {fileID: 21300106, guid: 6e0625cd16cbcc9428fbfdfa07b91e5d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - potions_allTiles_v00_52
+  - potions_allTiles_v00_39
+  - potions_allTiles_v00_38
+  - potions_allTiles_v00_11
+  - potions_allTiles_v00_59
+  - potions_allTiles_v00_10
+  - potions_allTiles_v00_58
+  - potions_allTiles_v00_13
+  - potions_allTiles_v00_12
+  - potions_allTiles_v00_88
+  - potions_allTiles_v00_15
+  - potions_allTiles_v00_89
+  - potions_allTiles_v00_14
+  - potions_allTiles_v00_86
+  - potions_allTiles_v00_17
+  - potions_allTiles_v00_87
+  - potions_allTiles_v00_16
+  - potions_allTiles_v00_84
+  - potions_allTiles_v00_85
+  - potions_allTiles_v00_82
+  - potions_allTiles_v00_83
+  - potions_allTiles_v00_80
+  - potions_allTiles_v00_81
+  - potions_allTiles_v00_91
+  - potions_allTiles_v00_42
+  - potions_allTiles_v00_90
+  - potions_allTiles_v00_43
+  - potions_allTiles_v00_93
+  - potions_allTiles_v00_40
+  - potions_allTiles_v00_92
+  - potions_allTiles_v00_41
+  - potions_allTiles_v00_95
+  - potions_allTiles_v00_46
+  - potions_allTiles_v00_94
+  - potions_allTiles_v00_47
+  - potions_allTiles_v00_97
+  - potions_allTiles_v00_44
+  - potions_allTiles_v00_96
+  - potions_allTiles_v00_45
+  - potions_allTiles_v00_99
+  - potions_allTiles_v00_98
+  - potions_allTiles_v00_48
+  - potions_allTiles_v00_49
+  - potions_allTiles_v00_68
+  - potions_allTiles_v00_69
+  - potions_allTiles_v00_64
+  - potions_allTiles_v00_65
+  - potions_allTiles_v00_79
+  - potions_allTiles_v00_66
+  - potions_allTiles_v00_78
+  - potions_allTiles_v00_67
+  - potions_allTiles_v00_77
+  - potions_allTiles_v00_60
+  - potions_allTiles_v00_76
+  - potions_allTiles_v00_61
+  - potions_allTiles_v00_75
+  - potions_allTiles_v00_62
+  - potions_allTiles_v00_74
+  - potions_allTiles_v00_63
+  - potions_allTiles_v00_73
+  - potions_allTiles_v00_72
+  - potions_allTiles_v00_71
+  - potions_allTiles_v00_70
+  - potions_allTiles_v00_103
+  - potions_allTiles_v00_102
+  - potions_allTiles_v00_101
+  - potions_allTiles_v00_100
+  - potions_allTiles_v00_2
+  - potions_allTiles_v00_3
+  - potions_allTiles_v00_0
+  - potions_allTiles_v00_1
+  - potions_allTiles_v00_6
+  - potions_allTiles_v00_7
+  - potions_allTiles_v00_4
+  - potions_allTiles_v00_5
+  - potions_allTiles_v00_8
+  - potions_allTiles_v00_9
+  - potions_allTiles_v00_20
+  - potions_allTiles_v00_21
+  - potions_allTiles_v00_22
+  - potions_allTiles_v00_23
+  - potions_allTiles_v00_33
+  - potions_allTiles_v00_24
+  - potions_allTiles_v00_32
+  - potions_allTiles_v00_25
+  - potions_allTiles_v00_31
+  - potions_allTiles_v00_55
+  - potions_allTiles_v00_26
+  - potions_allTiles_v00_30
+  - potions_allTiles_v00_54
+  - potions_allTiles_v00_27
+  - potions_allTiles_v00_37
+  - potions_allTiles_v00_57
+  - potions_allTiles_v00_28
+  - potions_allTiles_v00_36
+  - potions_allTiles_v00_56
+  - potions_allTiles_v00_29
+  - potions_allTiles_v00_35
+  - potions_allTiles_v00_19
+  - potions_allTiles_v00_51
+  - potions_allTiles_v00_34
+  - potions_allTiles_v00_18
+  - potions_allTiles_v00_50
+  - potions_allTiles_v00_53
+  m_Tag: OverworldTileAtlas
+  m_IsVariant: 0

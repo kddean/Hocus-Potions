@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1283993604407130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29, y: -3.35, z: 0}
+  m_LocalPosition: {x: 0, y: -3.004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4520837657267740}
@@ -199,6 +199,8 @@ MonoBehaviour:
   status: 
   swappingScenes: 0
   allowedToMove: 0
+  layerSwapping: 0
+  previousSpeed: 0
 --- !u!212 &212632303001910162
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -232,7 +234,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1313054769
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c2e867835dda12345ba083061c52e590, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -278,7 +280,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1313054769
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
