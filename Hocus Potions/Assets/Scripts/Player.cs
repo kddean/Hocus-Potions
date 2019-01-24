@@ -135,34 +135,28 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         playerAnim.speed = speed / 7.5f;
         x = y = 0;
         if (Input.GetKey("w")) {
-                playerAnim.SetBool(currentAnim, false);
-                playerAnim.SetBool("Backward", true);
-                currentAnim = "Backward";
+            playerAnim.SetBool(currentAnim, false);
+            playerAnim.SetBool("Backward", true);
+            currentAnim = "Backward";
             y = 1;
         } else if (Input.GetKey("s")) {
-                playerAnim.SetBool(currentAnim, false);
-                playerAnim.SetBool("Forward", true);
-                currentAnim = "Forward";
+            playerAnim.SetBool(currentAnim, false);
+            playerAnim.SetBool("Forward", true);
+            currentAnim = "Forward";
             y = -1;
         } else if (Input.GetKey("a")) {
-                playerAnim.SetBool(currentAnim, false);
-                playerAnim.SetBool("Left", true);
-                currentAnim = "Left";
+            playerAnim.SetBool(currentAnim, false);
+            playerAnim.SetBool("Left", true);
+            currentAnim = "Left";
             x = -1;
         } else if (Input.GetKey("d")) {
-                playerAnim.SetBool(currentAnim, false);
-                playerAnim.SetBool("Right", true);
-                currentAnim = "Right";
+            playerAnim.SetBool(currentAnim, false);
+            playerAnim.SetBool("Right", true);
+            currentAnim = "Right";
             x = 1;
         } else {
-            if (playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.70f) {
-                if (playerAnim.GetBool("Transform")) {
-                    playerAnim.Play("T_" + currentAnim, 0, 0);
-                } else {
-                    playerAnim.Play(currentAnim, 0, 0);
-                }
-                playerAnim.SetBool(currentAnim, false);
-            }
+            playerAnim.SetBool(currentAnim, false);
+            currentAnim = "Idle";
         }
        
         pos.x += x * Speed * Time.deltaTime;
