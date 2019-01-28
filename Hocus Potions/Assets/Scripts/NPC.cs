@@ -64,7 +64,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         controller = GameObject.FindObjectOfType<NPCController>();
         player = GameObject.FindObjectOfType<Player>();
         rl = GameObject.FindObjectOfType<ResourceLoader>();
-        effects = GameObject.Find("effects");
+        effects = gameObject.transform.Find("effects").gameObject;
         dialogue = new Dictionary<string, List<string>>();
         dialogueCanvas = Resources.FindObjectsOfTypeAll<DialogueCanvas>()[0].gameObject;
         buttonCG = dialogueCanvas.GetComponentsInChildren<CanvasGroup>()[1];
