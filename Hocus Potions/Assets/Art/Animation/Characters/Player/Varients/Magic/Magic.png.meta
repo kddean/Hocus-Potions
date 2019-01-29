@@ -1,26 +1,27 @@
 fileFormatVersion: 2
-guid: 8794573b48526804593428c482fbf2fe
+guid: bb25c2f2e2daa7745bb965ee78f86c77
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player_0
-    21300002: Player_1
-    21300004: Player_2
-    21300006: Player_3
-    21300008: Player_4
-    21300010: Player_5
-    21300012: Player_6
-    21300014: Player_7
-    21300016: Player_8
-    21300018: Player_9
-    21300020: Player_10
-    21300022: Player_11
-    21300024: Player_12
-    21300026: Player_13
-    21300028: Player_14
-    21300030: Player_15
-    21300032: Player_16
-    21300034: Player_17
-    21300036: Player_18
+    21300000: Magic_0
+    21300002: Magic_1
+    21300004: Magic_2
+    21300006: Magic_3
+    21300008: Magic_4
+    21300010: Magic_5
+    21300012: Magic_6
+    21300014: Magic_7
+    21300016: Magic_8
+    21300018: Magic_9
+    21300020: Magic_10
+    21300022: Magic_11
+    21300024: Magic_12
+    21300026: Magic_13
+    21300028: Magic_14
+    21300030: Magic_15
+    21300032: Magic_16
+    21300034: Magic_17
+    21300036: Magic_18
+    21300038: Magic_19
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -136,72 +137,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_0
+      name: Magic_0
       rect:
         serializedVersion: 2
         x: 14
         y: 665
-        width: 44
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8fbbe6a28dba912439f22f465c069139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_1
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 665
-        width: 44
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5d2f0ea16fb16594d98780d548baf789
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_2
-      rect:
-        serializedVersion: 2
-        x: 118
-        y: 665
-        width: 44
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 16db1c7b2d67a594da2348f5b594fb71
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_3
-      rect:
-        serializedVersion: 2
-        x: 13
-        y: 577
-        width: 44
+        width: 45
         height: 72
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -210,18 +151,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7c089b49cf01064b908eccede0f7aed
+      spriteID: cbc5610284fe1f3408e90078268e382c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_4
+      name: Magic_1
       rect:
         serializedVersion: 2
         x: 66
-        y: 577
-        width: 44
+        y: 665
+        width: 45
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -230,18 +171,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67bc25e46ba3d8940b7062fbc4632141
+      spriteID: b2911771c8ba06545a7f310c92b708d7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_5
+      name: Magic_2
       rect:
         serializedVersion: 2
-        x: 118
-        y: 577
-        width: 44
+        x: 119
+        y: 665
+        width: 45
         height: 72
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -250,18 +191,78 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 442cf20df1b386043ad0f2f1d9da8c92
+      spriteID: 78ab06db956308947a8c73d177a26008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_6
+      name: Magic_3
       rect:
         serializedVersion: 2
-        x: 21
+        x: 12
+        y: 577
+        width: 45
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5bbc45b162aa064a9912ac778a46e37
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 577
+        width: 45
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71e0b1154d8aede4885fc8c19ca9c5c1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_5
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 577
+        width: 45
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ae6e5c81451e23429cfc1e2141cbaad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_6
+      rect:
+        serializedVersion: 2
+        x: 20
         y: 489
-        width: 29
+        width: 30
         height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -270,19 +271,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 528ba29d10aad874d809488ebc0ff8aa
+      spriteID: 29df4c8103e8a0b418c5d8c8b5384408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_7
+      name: Magic_7
       rect:
         serializedVersion: 2
         x: 74
         y: 489
-        width: 29
-        height: 69
+        width: 30
+        height: 68
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,18 +291,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71764ae269e0eac49886c4aed5016640
+      spriteID: 1387677b1a201434286a09c2a0e3c739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_8
+      name: Magic_8
       rect:
         serializedVersion: 2
         x: 21
         y: 400
-        width: 30
+        width: 31
         height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -310,18 +311,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cc354a9b3a83cd46b24b021234dbffb
+      spriteID: 8b04fca481b2d4c49a64199fae8d8f19
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_9
+      name: Magic_9
       rect:
         serializedVersion: 2
         x: 75
         y: 398
-        width: 30
+        width: 31
         height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -330,38 +331,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe84e4a2ab3d20f4ba9805050a018cb8
+      spriteID: 62c7ef31b5b811c4bbfc6f9cc7e45b03
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_10
-      rect:
-        serializedVersion: 2
-        x: 124
-        y: 396
-        width: 42
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 280a1495be49a1140984d63c7d940ebb
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_11
+      name: Magic_10
       rect:
         serializedVersion: 2
         x: 17
         y: 312
-        width: 42
+        width: 44
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -370,18 +351,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 279513fc504e65c48a133c85aafb07d6
+      spriteID: 1b99fe793c131c946a9610c281bcb52d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_12
+      name: Magic_11
       rect:
         serializedVersion: 2
         x: 70
         y: 312
-        width: 42
+        width: 44
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -390,78 +371,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5599e945ff7d39e499da7bc897f00b0b
+      spriteID: 6250616fea44e17449f02ac6c2fd744a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_13
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 312
-        width: 42
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5cfb3887a9c953a4ba315c85069ad69d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_14
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 230
-        width: 42
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27e32f32d8aec024b9e13d7d81d5f8f5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_15
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 230
-        width: 42
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4f6e91cb726731b41a87bf1fa5a17c0c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_16
+      name: Magic_12
       rect:
         serializedVersion: 2
         x: 126
-        y: 230
-        width: 42
+        y: 312
+        width: 44
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -470,18 +391,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e23d72f88cf1474f9c17467d9c74ecf
+      spriteID: 10266e1450e22c74f94e526bcb568ae1
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_17
+      name: Magic_13
       rect:
         serializedVersion: 2
-        x: 15
-        y: 153
-        width: 42
+        x: 17
+        y: 230
+        width: 44
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -490,18 +411,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31c4d6a91d80f4444b9dab3e771064f5
+      spriteID: 8e9de496db38c9d49832e383758ce238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_18
+      name: Magic_14
       rect:
         serializedVersion: 2
         x: 71
-        y: 153
-        width: 42
+        y: 230
+        width: 44
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -510,7 +431,107 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 855cd1ef78ac6e0418a9b0f00ebc6aa9
+      spriteID: f3d8888220224c0469910b45681a4746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_15
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 230
+        width: 44
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed0b592a5cf8264daf9a361b6ca2f4c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_16
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 154
+        width: 44
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6590c26c900f6d647b0ac486d51bd97e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_17
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 154
+        width: 44
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eb558fb4087111499269414065e567b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_18
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 154
+        width: 44
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd96ab98eeab0454daaba641a7d1ddcd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magic_19
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 78
+        width: 44
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb52626ac59f4824bbf83b0e392237d4
       vertices: []
       indices: 
       edges: []
@@ -518,7 +539,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5026a7f53960ca64c8c509bf4d2c81e0
+    spriteID: 04d18e4030c752344b467f2cd24a82e7
     vertices: []
     indices: 
     edges: []

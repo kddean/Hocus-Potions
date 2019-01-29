@@ -43,9 +43,11 @@ SpriteAtlas:
   - {fileID: 21300004, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
   - {fileID: 21300018, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
   - {fileID: 21300016, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
+  - {fileID: 21300028, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
   - {fileID: 21300020, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
   - {fileID: 21300022, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
   - {fileID: 21300024, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
+  - {fileID: 21300026, guid: fecc65ff91817ec4bab081f7bc25a66f, type: 3}
   m_PackedSpriteNamesToIndex:
   - tiles 2_5
   - tiles 2_4
@@ -57,8 +59,10 @@ SpriteAtlas:
   - tiles 2_2
   - tiles 2_9
   - tiles 2_8
+  - tiles 2_14
   - tiles 2_10
   - tiles 2_11
   - tiles 2_12
+  - tiles 2_13
   m_Tag: HouseTileAtlas
   m_IsVariant: 0

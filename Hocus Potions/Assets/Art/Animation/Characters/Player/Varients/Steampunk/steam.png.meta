@@ -1,22 +1,25 @@
 fileFormatVersion: 2
-guid: fecc65ff91817ec4bab081f7bc25a66f
+guid: d52c1ba3b405b8e41b4a33a07b5efcf3
 TextureImporter:
   fileIDToRecycleName:
-    21300000: tiles 2_0
-    21300002: tiles 2_1
-    21300004: tiles 2_2
-    21300006: tiles 2_3
-    21300008: tiles 2_4
-    21300010: tiles 2_5
-    21300012: tiles 2_6
-    21300014: tiles 2_7
-    21300016: tiles 2_8
-    21300018: tiles 2_9
-    21300020: tiles 2_10
-    21300022: tiles 2_11
-    21300024: tiles 2_12
-    21300026: tiles 2_13
-    21300028: tiles 2_14
+    21300000: steam_0
+    21300002: steam_1
+    21300004: steam_2
+    21300006: steam_3
+    21300008: steam_4
+    21300010: steam_5
+    21300012: steam_6
+    21300014: steam_7
+    21300016: steam_8
+    21300018: steam_9
+    21300020: steam_10
+    21300022: steam_11
+    21300024: steam_12
+    21300026: steam_13
+    21300028: steam_14
+    21300030: steam_15
+    21300032: steam_16
+    21300034: steam_17
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -60,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -95,305 +98,398 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tiles 2_0
+      name: steam_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 282
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 15
+        y: 654
+        width: 41
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65128ead58643344e9e15f432bd9297f
+      spriteID: a497a5b3b377ee343b09bd03157a14c7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_1
+      name: steam_1
       rect:
         serializedVersion: 2
-        x: 227
-        y: 284
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 67
+        y: 654
+        width: 41
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d6381e0b06274a409b2ace885b33c45
+      spriteID: 4225e5168af12e245b1516a8f124877d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_2
+      name: steam_2
       rect:
         serializedVersion: 2
-        x: 328
-        y: 290
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 119
+        y: 654
+        width: 41
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f99bed2f1f3eedc459f5b90bf8960134
+      spriteID: 9d25fcf1fec42f44385258eec3d26fc5
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_3
+      name: steam_3
       rect:
         serializedVersion: 2
-        x: 422
-        y: 290
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 14
+        y: 565
+        width: 41
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35aedb3cdc7d1d24aa92e26c9312c907
+      spriteID: 0747702ce005be349bbdba82414b1194
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_4
+      name: steam_4
       rect:
         serializedVersion: 2
-        x: 8
-        y: 198
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 66
+        y: 565
+        width: 41
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d9fea2979ec7bd42b209e03d2e4050f
+      spriteID: 9ec30058050ebe6448794dd5d4eaae28
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_5
+      name: steam_5
       rect:
         serializedVersion: 2
-        x: 83
-        y: 199
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 118
+        y: 565
+        width: 41
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84d073291a091a5488e4a6e610a55c5e
+      spriteID: a318d995c7484b142ad6e4cfe63d0f3b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_6
+      name: steam_6
       rect:
         serializedVersion: 2
-        x: 154
-        y: 199
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 11
+        y: 477
+        width: 39
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fa1a3bb905a8db4e93d18342aeb0b6f
+      spriteID: c420151a99bef04419643da2f1eac89c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_7
+      name: steam_7
       rect:
         serializedVersion: 2
-        x: 227
-        y: 200
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 70
+        y: 477
+        width: 39
+        height: 55
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a839d80175373e4dac9f5c84b6d0075
+      spriteID: 5152827291880b540828a082a56e5aff
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_8
+      name: steam_8
       rect:
         serializedVersion: 2
-        x: 328
-        y: 206
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 15
+        y: 388
+        width: 39
+        height: 55
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7960937f250f4514c8c74e3079cdcc0c
+      spriteID: 21718d67854b73745a8dc338655fa6ba
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_9
+      name: steam_9
       rect:
         serializedVersion: 2
-        x: 422
-        y: 206
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 75
+        y: 388
+        width: 39
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f0fa52186ae0424db442667afba1776
+      spriteID: fce20dd4ccdf68f45befb4b0ba83db53
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_10
+      name: steam_10
       rect:
         serializedVersion: 2
-        x: 227
-        y: 115
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 20
+        y: 301
+        width: 37
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f821eefb1d23ef4f818023f48496e58
+      spriteID: 59b311fdab0dd4741bae73f4818966b7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_11
+      name: steam_11
       rect:
         serializedVersion: 2
-        x: 318
-        y: 115
-        width: 64
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 70
+        y: 301
+        width: 47
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8213b38a76a68fd42a6d8154152cc573
+      spriteID: e2cded0ebdf4cab40b79f3a835c90305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_12
+      name: steam_12
       rect:
         serializedVersion: 2
-        x: 415
-        y: 115
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 131
+        y: 299
+        width: 35
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bad7570843326b4285b6adde8d7e12d
+      spriteID: 607ef00d16d8b4e46b0560533b6a0414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_13
+      name: steam_13
       rect:
         serializedVersion: 2
-        x: 319
-        y: 41
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 20
+        y: 224
+        width: 37
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8b3d9b6d1ff0ef4c91e2ffeb19faf7a
+      spriteID: ae2b30b7c2cd28a47bcdd482f866f875
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles 2_14
+      name: steam_14
       rect:
         serializedVersion: 2
-        x: 389
-        y: 41
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 76
+        y: 224
+        width: 35
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a6773faaf834804196ece8a962c7449
+      spriteID: 6170f7c114eae2448aee175d55a9cff2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: steam_15
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 222
+        width: 35
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a52f7df0fea5d9942a0b439056449c00
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: steam_16
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 144
+        width: 33
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc20a1c086e16554496cdecc52f2c0be
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: steam_17
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 144
+        width: 31
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e1ef3d1b599494dac61caff2fbf967
       vertices: []
       indices: 
       edges: []
@@ -401,7 +497,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 47cb04eea35755743ad4f1ce961ce795
+    spriteID: 4a052f42d0310964fafbe21a91914244
     vertices: []
     indices: 
     edges: []
