@@ -19,6 +19,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     SpriteRenderer sr;
     string currentAnim, lastAnim;
     GameObject fadeScreen, sleepCanvas;
+    bool idling;
 
     public bool swappingScenes;
     public bool allowedToMove;
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         swappingScenes = false;
         allowedToMove = true;
         layerSwapping = false;
+        idling = false;
         currentAnim = "Idle";
         lastAnim = "None";
     }
@@ -135,28 +137,38 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         playerAnim.speed = speed / 7.5f;
         x = y = 0;
         if (Input.GetKey("w")) {
+            idling = false;
+            playerAnim.Play("Backward");
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Backward", true);
             currentAnim = "Backward";
             y = 1;
         } else if (Input.GetKey("s")) {
+            idling = false;
+            playerAnim.Play("Forward");
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Forward", true);
             currentAnim = "Forward";
             y = -1;
         } else if (Input.GetKey("a")) {
+            idling = false;
+            playerAnim.Play("Left");
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Left", true);
             currentAnim = "Left";
             x = -1;
         } else if (Input.GetKey("d")) {
+            idling = false;
+            playerAnim.Play("Right");
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Right", true);
             currentAnim = "Right";
             x = 1;
         } else {
-            playerAnim.SetBool(currentAnim, false);
-            currentAnim = "Idle";
+            if (!idling) {
+                StartCoroutine(StartIdle());
+                idling = true;
+            }
         }
        
         pos.x += x * Speed * Time.deltaTime;
@@ -191,7 +203,13 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         transform.position = pos;
     }
 
-
+    IEnumerator StartIdle() {
+        yield return new WaitForSeconds(0.1f);
+        if (idling) {
+            playerAnim.SetBool(currentAnim, false);
+            currentAnim = "Idle";
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!swappingScenes && GetComponent<BoxCollider2D>().IsTouching(collision)) {
             switch (collision.gameObject.name) {

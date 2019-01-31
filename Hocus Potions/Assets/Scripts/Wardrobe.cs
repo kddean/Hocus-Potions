@@ -17,7 +17,7 @@ public class Wardrobe : MonoBehaviour {
     }
 
     void Start () {
-        costumes = new[] {"PlayerWalk", "Costume_Cat", "Costume_Magic", "Costume_Steampunk" };
+        costumes = new[] {"PlayerWalk", "Costume_Cat", "Costume_Magic", "Costume_Steampunk", "Costume_Goddess" };
         current = 0;
     }
 
