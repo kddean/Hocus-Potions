@@ -23,6 +23,7 @@ public class LayerSwapping : MonoBehaviour {
                 startingLayer.Add(sr.sortingLayerName);
                 sr.sortingLayerName = "InFrontOfPlayer";
             }
+            Collider2D[] hits = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), gameObject.GetComponent<SpriteRenderer>().bounds.size.y);
             set = true;
         }
 
