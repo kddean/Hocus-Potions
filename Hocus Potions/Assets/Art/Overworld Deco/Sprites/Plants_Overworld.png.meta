@@ -1,17 +1,31 @@
 fileFormatVersion: 2
-guid: 5037c76d5ceac1140a6e939705e78908
+guid: 7e9d0f994d0196b4b91c2f25dded6f2b
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Plants_Overworld_0
-    21300002: Plants_Overworld_1
-    21300004: Plants_Overworld_2
-    21300006: Plants_Overworld_3
-    21300008: Plants_Overworld_4
-    21300010: Plants_Overworld_5
-    21300012: Plants_Overworld_6
-    21300014: Plants_Overworld_7
-    21300016: Plants_Overworld_8
-    21300018: Plants_Overworld_9
+    21300000: plants (4)_0
+    21300002: plants (4)_1
+    21300004: plants (4)_2
+    21300006: plants (4)_3
+    21300008: plants (4)_4
+    21300010: plants (4)_5
+    21300012: plants (4)_6
+    21300014: plants (4)_7
+    21300016: plants (4)_8
+    21300018: plants (4)_9
+    21300020: plants (4)_10
+    21300022: plants (4)_11
+    21300024: Plants_Overworld_0
+    21300026: Plants_Overworld_1
+    21300028: Plants_Overworld_2
+    21300030: Plants_Overworld_3
+    21300032: Plants_Overworld_4
+    21300034: Plants_Overworld_5
+    21300036: Plants_Overworld_6
+    21300038: Plants_Overworld_7
+    21300040: Plants_Overworld_8
+    21300042: Plants_Overworld_9
+    21300044: Plants_Overworld_10
+    21300046: Plants_Overworld_11
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -97,10 +111,10 @@ TextureImporter:
       name: Plants_Overworld_0
       rect:
         serializedVersion: 2
-        x: 117
-        y: 301
+        x: 314
+        y: 298
         width: 69
-        height: 61
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -108,7 +122,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5f596d20dddfe6439eab146d7acadb1
+      spriteID: 087854bbbf36a644babcfe98d6f8d371
       vertices: []
       indices: 
       edges: []
@@ -117,10 +131,10 @@ TextureImporter:
       name: Plants_Overworld_1
       rect:
         serializedVersion: 2
-        x: 209
-        y: 301
+        x: 404
+        y: 297
         width: 70
-        height: 61
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,7 +142,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1b4ba62e3bbc2c49aa6a9c8edb81ea2
+      spriteID: c0b4055fa8b267a4da4e3a2348810eed
       vertices: []
       indices: 
       edges: []
@@ -137,10 +151,10 @@ TextureImporter:
       name: Plants_Overworld_2
       rect:
         serializedVersion: 2
-        x: 297
-        y: 298
+        x: 495
+        y: 297
         width: 64
-        height: 61
+        height: 63
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,7 +162,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb0ab381ce4b2464d9fa53a466c54907
+      spriteID: 35b97936ca340a7488e85bbcd45fe5f1
       vertices: []
       indices: 
       edges: []
@@ -157,10 +171,10 @@ TextureImporter:
       name: Plants_Overworld_3
       rect:
         serializedVersion: 2
-        x: 115
-        y: 227
+        x: 312
+        y: 224
         width: 69
-        height: 61
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,7 +182,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95c3a7955d19fb745a592595666c4be8
+      spriteID: b942e2709179e464685d1d8985bc60df
       vertices: []
       indices: 
       edges: []
@@ -177,10 +191,10 @@ TextureImporter:
       name: Plants_Overworld_4
       rect:
         serializedVersion: 2
-        x: 209
-        y: 229
+        x: 404
+        y: 224
         width: 70
-        height: 61
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,7 +202,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7c8a010dde5970419a2735dc2056bee
+      spriteID: 3a6b14ba281ed25498305d9e7683ffcb
       vertices: []
       indices: 
       edges: []
@@ -197,10 +211,10 @@ TextureImporter:
       name: Plants_Overworld_5
       rect:
         serializedVersion: 2
-        x: 294
-        y: 222
+        x: 492
+        y: 219
         width: 64
-        height: 61
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,7 +222,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dbab64a59c11c643b36b29c0bc625ca
+      spriteID: 119164a0357e6564baab71ce0f66012f
       vertices: []
       indices: 
       edges: []
@@ -217,10 +231,10 @@ TextureImporter:
       name: Plants_Overworld_6
       rect:
         serializedVersion: 2
-        x: 93
-        y: 53
-        width: 95
-        height: 164
+        x: 18
+        y: 28
+        width: 96
+        height: 166
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,7 +242,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b34be76c6087014c97d1b17ceca0f33
+      spriteID: 5f73e612079ce86428f55e74aa33053a
       vertices: []
       indices: 
       edges: []
@@ -237,10 +251,10 @@ TextureImporter:
       name: Plants_Overworld_7
       rect:
         serializedVersion: 2
-        x: 205
-        y: 48
+        x: 148
+        y: 28
         width: 100
-        height: 168
+        height: 162
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,7 +262,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 590d7a2d2eaa66f49b97074237b5c847
+      spriteID: e5efc428e7f2b0f4faac82cdf1851494
       vertices: []
       indices: 
       edges: []
@@ -257,8 +271,48 @@ TextureImporter:
       name: Plants_Overworld_8
       rect:
         serializedVersion: 2
-        x: 307
-        y: 109
+        x: 280
+        y: 32
+        width: 101
+        height: 165
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bdf98c4161996f45883a8cbb9dc5248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plants_Overworld_9
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 32
+        width: 100
+        height: 169
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecf1d935f242aeb45a88955195452015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plants_Overworld_10
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 97
         width: 53
         height: 38
       alignment: 0
@@ -268,17 +322,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b22fe5eeb4a6ded4e9ed4967e3526f94
+      spriteID: 5b59c4474a718204297e135b000fd353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Plants_Overworld_9
+      name: Plants_Overworld_11
       rect:
         serializedVersion: 2
-        x: 308
-        y: 47
+        x: 508
+        y: 35
         width: 52
         height: 47
       alignment: 0
@@ -288,7 +342,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05114b509d7d34a4c8faf006a9d1326b
+      spriteID: 75ef4c8fa1fc2784591ead8e3e294ca1
       vertices: []
       indices: 
       edges: []
@@ -296,7 +350,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ea5eb3c38c1f02f43be64f26fa8ac9ff
+    spriteID: 82bf346ebfd7a6e40a2039d238840092
     vertices: []
     indices: 
     edges: []
