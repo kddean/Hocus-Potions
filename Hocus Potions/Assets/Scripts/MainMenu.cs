@@ -73,6 +73,7 @@ public class MainMenu : MonoBehaviour {
             data.timers.Add(player.StartTimers[status].duration - (Time.time - player.StartTimers[status].startTime));
         }
 
+        data.currentCostume = GameObject.FindObjectOfType<Wardrobe>().Current;
         data.maxMana = mana.MaxMana;
         data.currentMana = mana.CurrentMana;
 
@@ -105,7 +106,6 @@ public class MainMenu : MonoBehaviour {
         data.day = mc.Days;
         data.dayPart = mc.DayPart;
 
-        Debug.Log(npcs.npcData["Ralphie"].pathEnd.x);
         data.npcNames = npcs.npcData.Keys.ToList();
         data.npcInfo = npcs.npcData.Values.ToList();
         data.schedules = npcs.npcQueue.Keys.ToList();
@@ -135,7 +135,7 @@ public class MainMenu : MonoBehaviour {
         player.LastTaken = data.lastTaken;
 
         bm.Brewing = data.brewingStatus;
-
+        GameObject.FindObjectOfType<Wardrobe>().Current = data.currentCostume;
         mana.MaxMana = data.maxMana;
         mana.CurrentMana = data.currentMana;
         mana.UpdateMana(0);
@@ -190,7 +190,7 @@ public class MainMenu : MonoBehaviour {
                     player.RestartTimers(player.Status[i], data.timers[i]);
                 }
             }
-
+            GameObject.FindObjectOfType<Wardrobe>().LoadCostume(data.currentCostume);
 
             bm.Pot = data.brewingPotion;
             bm.BrewTime = data.brewingTime;

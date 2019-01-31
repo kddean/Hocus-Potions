@@ -12,6 +12,7 @@ public class SaveData {
     public List<Player.PlayerStatus> playerStatus;
     public Potion lastTaken;
     public List<float> timers;
+    public int currentCostume;
 
     //Resource Data
     public float maxMana;
