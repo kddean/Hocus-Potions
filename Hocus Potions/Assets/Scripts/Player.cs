@@ -98,7 +98,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if (Status.Contains(PlayerStatus.asleep) || rl.activeItem == null) {
+        if (Status.Contains(PlayerStatus.asleep) || Status.Contains(PlayerStatus.transformed) || rl.activeItem == null) {
             return;
         }
 
@@ -117,7 +117,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
     private void FixedUpdate() {
         if (!allowedToMove) { return; }
-        
         if (!currentAnim.Equals(lastAnim)) {
             if (playerAnim.GetBool("Transform")) {
                 GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
@@ -138,28 +137,44 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         x = y = 0;
         if (Input.GetKey("w")) {
             idling = false;
-            playerAnim.Play("Backward");
+            if (playerAnim.GetBool("Transform")) {
+                playerAnim.Play("T_Backward");
+            } else {
+                playerAnim.Play("Backward");
+            }
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Backward", true);
             currentAnim = "Backward";
             y = 1;
         } else if (Input.GetKey("s")) {
             idling = false;
-            playerAnim.Play("Forward");
+            if (playerAnim.GetBool("Transform")) {
+                playerAnim.Play("T_Forward");
+            } else {
+                playerAnim.Play("Forward");
+            }
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Forward", true);
             currentAnim = "Forward";
             y = -1;
         } else if (Input.GetKey("a")) {
             idling = false;
-            playerAnim.Play("Left");
+            if (playerAnim.GetBool("Transform")) {
+                playerAnim.Play("T_Left");
+            } else {
+                playerAnim.Play("Left");
+            }
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Left", true);
             currentAnim = "Left";
             x = -1;
         } else if (Input.GetKey("d")) {
             idling = false;
-            playerAnim.Play("Right");
+            if (playerAnim.GetBool("Transform")) {
+                playerAnim.Play("T_Right");
+            } else {
+                playerAnim.Play("Right");
+            }
             playerAnim.SetBool(currentAnim, false);
             playerAnim.SetBool("Right", true);
             currentAnim = "Right";
@@ -319,9 +334,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 effectAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 playerAnim.SetBool("Transform", true);
-                if (currentAnim.Equals("Idle")) { currentAnim = "Forward"; }
-                playerAnim.Play("T_" + currentAnim, 0, 0);
-                playerAnim.SetBool(currentAnim, false);
                 Speed++;
                 startTimers.Add(PlayerStatus.transformed, new TimerData(Time.time, duration));
                 GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
@@ -393,9 +405,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 effectAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
                 playerAnim.SetBool("Transform", false);
-                if (currentAnim.Equals("Idle")) { currentAnim = "Forward"; }
-                playerAnim.Play(currentAnim, 0, 0);
-                playerAnim.SetBool(currentAnim, false);
                 Status.Remove(PlayerStatus.transformed);
                 startTimers.Remove(PlayerStatus.transformed);
                 yield return new WaitForSeconds(0.43f);
@@ -467,9 +476,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
             case PlayerStatus.transformed:
                 playerAnim.SetBool("Transform", true);
-                if (currentAnim.Equals("Idle")) { currentAnim = "Forward"; }
-                playerAnim.Play("T_" + currentAnim, 0, 0);
-                playerAnim.SetBool(currentAnim, false);
                 GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
@@ -528,9 +534,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 yield return new WaitForSeconds(0.5f);
                 playerAnim.enabled = true;
                 playerAnim.SetBool("Transform", false);
-                if (currentAnim.Equals("Idle")) { currentAnim = "Forward"; }
-                playerAnim.Play(currentAnim, 0, 0);
-                playerAnim.SetBool(currentAnim, false);
                 Status.Remove(PlayerStatus.transformed);
                 GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 2, GetComponent<SpriteRenderer>().bounds.size.y / 12);
                 GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 23);

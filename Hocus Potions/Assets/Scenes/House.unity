@@ -15101,6 +15101,11 @@ Prefab:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114187325647405822, guid: 4644bfdd3c7d5624eaebd350265c0e43,
+        type: 2}
+      propertyPath: cursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 1bc3fff319dfe654da6f6e7ad373d610, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4644bfdd3c7d5624eaebd350265c0e43, type: 2}
   m_IsPrefabAsset: 0
