@@ -41,7 +41,7 @@ public class LayerSwapping : MonoBehaviour {
 
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (set && !collision.isTrigger && (gameObject.GetComponent<SpriteRenderer>() == null || player.transform.position.y < (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f)))) {
+        if (set && !collision.isTrigger) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
             GameObject.FindObjectOfType<Player>().layerSwapping = false;
             for (int i = 0; i < children.Length; i++){
