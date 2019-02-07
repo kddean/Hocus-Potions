@@ -13,7 +13,6 @@ public class LayerSwapping : MonoBehaviour {
         set = false;
     }
 
-
     private void OnTriggerStay2D(Collider2D collision) {
         if (!set && !collision.isTrigger && (gameObject.GetComponent<SpriteRenderer>() == null || (player.transform.position.y > (transform.position.y - (gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 6.0f))))) {
             SpriteRenderer[] children = gameObject.GetComponentsInChildren<SpriteRenderer>();
@@ -37,8 +36,6 @@ public class LayerSwapping : MonoBehaviour {
             startingLayer.Clear();
         }
     }
-
-
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (set && !collision.isTrigger) {

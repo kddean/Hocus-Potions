@@ -192,26 +192,24 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         if (currentAnim.Equals("Left")) {
             Vector3 temp = pos;
             temp.x -= GetComponent<SpriteRenderer>().bounds.size.x / 3f;
-            RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector3(pos.x - GetComponent<SpriteRenderer>().bounds.size.x / 3f, pos.y + 0.5f, 0), new Vector2(0, -1), 1);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector3(temp.x, pos.y + 0.5f, 0), new Vector2(0, -1), 0.5f);
             foreach (RaycastHit2D ray in hits) {
                 if (ray.collider.gameObject.tag.Equals("tiles")) {
                     if (ray.collider.bounds.Contains(temp)) {
                         return;
                     }
                 }
-
             }
         } else if(currentAnim.Equals("Right")) {
             Vector3 temp = pos;
             temp.x += GetComponent<SpriteRenderer>().bounds.size.x / 3f;
-            RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector3(pos.x + GetComponent<SpriteRenderer>().bounds.size.x / 3f, pos.y + 0.5f, 0), new Vector2(0, -1), 1);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector3(temp.x, pos.y + 0.5f, 0), new Vector2(0, -1), 0.5f);
             foreach (RaycastHit2D ray in hits) {
                 if (ray.collider.gameObject.tag.Equals("tiles")) {
                     if (ray.collider.bounds.Contains(temp)) {
                         return;
                     }
                 }
-
             }
         }
         
