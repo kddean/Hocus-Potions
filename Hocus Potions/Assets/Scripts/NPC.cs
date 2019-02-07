@@ -25,14 +25,14 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     bool requested, responding, gavePot, done, buttonsSet, intro, allowedToMove;
     public string region;
     Animator playerAnim, effectsAnim;
-    string currentAnim; 
-
+    string currentAnim;
     float speed;
     GameObject swapPoint;
     bool destroying;
     public bool sceneSwapped;
     public bool saving;
     public bool closed;
+    
 
 
     public enum Status { poisoned, fast, invisible, transformed, asleep }
@@ -98,7 +98,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     }
 
     private void Update() {
-
         if (saving) {
             if (path.Count > 0) {
                 info.pathEnd = controller.ConvertToVec(path[path.Count - 1]);
@@ -181,8 +180,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                             break;
                     } 
                 } else {
-                    GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 2, GetComponent<SpriteRenderer>().bounds.size.y / 12);
-                    GetComponent<BoxCollider2D>().offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 12);
+                    GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x * 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 2);
+                    GetComponent<BoxCollider2D>().offset = new Vector2(0, 0.25f);
                 }
 
                 GetComponents<BoxCollider2D>()[1].size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x, GetComponent<SpriteRenderer>().bounds.size.y);
@@ -246,27 +245,18 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             }
         }
         Monitor.Exit(path);
-
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.isTrigger) { return; }
-        lock (path) {
-            if (path.Count > 0) {
-                if (SceneManager.GetActiveScene().name.Equals("House")) {
-                    Vector3 temp = path[path.Count - 1];
-                    path.Clear();
-                    GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, temp, 0, path);
-                } else {
-                    Vector3 temp = path[path.Count - 1];
-                    path.Clear();
-                    GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, temp, 1, path);
-                }
-            }
-        }
+        playerAnim.SetBool(currentAnim, false);
+        allowedToMove = false;
     }
 
+    private void OnCollisionExit2D(Collision2D collision) {
+        playerAnim.SetBool(currentAnim, true);
+        allowedToMove = true;
+    }
+   
     public void OnPointerDown(PointerEventData eventData) {
         if (done || player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(transform.position, player.transform.position) > 2) { return; }
         //Left click
