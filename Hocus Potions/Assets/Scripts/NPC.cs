@@ -143,6 +143,15 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
             }
             if (path.Count > 0 && allowedToMove) {
+                NPC[] others = GameObject.FindObjectsOfType<NPC>();
+                foreach(NPC n in others) {
+                    if(n == this) { continue; }
+                    Vector3 otherPos = new Vector3(Mathf.Sign(n.transform.position.x) * (Mathf.Abs((int)n.transform.position.x) + 0.5f), Mathf.Sign(n.transform.position.y) * (Mathf.Abs((int)n.transform.position.y) + 0.5f), 0);
+                    if(path[0] == otherPos) {
+                        playerAnim.SetBool(currentAnim, false);
+                        return;
+                    }
+                }
 
                 //Adjusting colliders
                 if (playerAnim.GetBool("Transform")) {
