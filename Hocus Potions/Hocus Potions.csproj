@@ -306,6 +306,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Art\Animation\Characters\turtle\Turtle.cs" />
     <Compile Include="Assets\Scripts\Brewing.cs" />
     <Compile Include="Assets\Scripts\BrewingManager.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
@@ -348,6 +349,7 @@
     <Compile Include="Assets\Scripts\StorageManager.cs" />
     <Compile Include="Assets\Scripts\StorageSlot.cs" />
     <Compile Include="Assets\Scripts\Traveller.cs" />
+    <Compile Include="Assets\Scripts\Wardrobe.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />

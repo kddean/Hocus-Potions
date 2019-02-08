@@ -130,7 +130,7 @@ public class NPCController : MonoBehaviour {
 
 
     void Update() {
-        while (npcQueue.Count > 0 && mc.Hour == npcQueue.Keys[0].hour && mc.Minutes == npcQueue.Keys[0].minute) {
+        while (npcQueue.Count > 0 && mc.Hour >= npcQueue.Keys[0].hour && mc.Minutes >= npcQueue.Keys[0].minute) {
             HandleMovement(npcQueue.Keys[0], npcQueue.Values[0]);
             npcQueue.RemoveAt(0);
         }
@@ -355,7 +355,6 @@ public class NPCController : MonoBehaviour {
         }
 
         npcData[n] = temp;
-
         Monitor.Exit(path);
     }
 
@@ -470,7 +469,7 @@ public class NPCController : MonoBehaviour {
         int rand = UnityEngine.Random.Range(0, available.Count - 1);
         int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
         int spawnHour = UnityEngine.Random.Range(8, 13);
-        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
+        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, 0.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
         schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
@@ -480,7 +479,7 @@ public class NPCController : MonoBehaviour {
             //TODO: Change the times for this later
             spawnHour = UnityEngine.Random.Range(13, 17);
             rand = UnityEngine.Random.Range(0, available.Count - 1);
-            schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, 0.5f, 0, available[rand]);
+            schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
             schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);

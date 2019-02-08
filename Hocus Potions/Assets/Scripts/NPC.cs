@@ -85,7 +85,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
             Debug.Log("NPC Data not set");
         }
-        speed = 4f;
+        speed = 15f;
         swapPoint = GameObject.Find("SwapPoint");
         destroying = false;
         if (SceneManager.GetActiveScene().name.Equals("House")) {

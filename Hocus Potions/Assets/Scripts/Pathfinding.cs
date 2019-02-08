@@ -62,8 +62,16 @@ public class Pathfinding : MonoBehaviour {
                         bool triggers = true;
                         foreach (RaycastHit2D r in check) {
                             if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player") && !r.collider.gameObject.tag.Equals("tiles")) {
-                                triggers = false;
-                                break;
+                                    Vector3 testPoint = new Vector3(x + 0.1f, y + 0.1f, 0);
+                                    if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                    testPoint = new Vector3(x + 0.9f, y + 0.1f, 0);
+                                    if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                    testPoint = new Vector3(x + 0.1f, y + 0.9f, 0);
+                                    if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                    testPoint = new Vector3(x + 0.9f, y + 0.9f, 0);
+                                    if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                    testPoint = new Vector3(x + 0.5f, y + 0.5f, 0);
+                                    if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
                             }
                         }
                         if (triggers) {
@@ -105,8 +113,16 @@ public class Pathfinding : MonoBehaviour {
                         bool triggers = true;
                         foreach (RaycastHit2D r in check) {
                             if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player") && !r.collider.gameObject.tag.Equals("tiles")) {
-                                triggers = false;
-                                break;
+                                Vector3 testPoint = new Vector3(x + 0.1f, y + 0.1f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.9f, y + 0.1f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.1f, y + 0.9f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.9f, y + 0.9f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.5f, y + 0.5f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
                             }
                         }
                         if (triggers) {
@@ -128,8 +144,16 @@ public class Pathfinding : MonoBehaviour {
                         bool triggers = true;
                         foreach (RaycastHit2D r in check) {
                             if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player") && !r.collider.gameObject.tag.Equals("tiles")) {
-                                triggers = false;
-                                break;
+                                Vector3 testPoint = new Vector3(x + 0.1f, y + 0.1f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.9f, y + 0.1f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.1f, y + 0.9f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.9f, y + 0.9f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
+                                testPoint = new Vector3(x + 0.5f, y + 0.5f, 0);
+                                if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
                             }
                         }
                         if (triggers) {
@@ -144,13 +168,13 @@ public class Pathfinding : MonoBehaviour {
     }
 
     public void InitializePath(Vector3 pos, Vector3 target, int map, List<Vector3> returnPath) {
-        bool playerOnMap = false;
+      /*  bool playerOnMap = false;
         Vector3 centeredPlayerPos = new Vector3();
         if (map == 0 && SceneManager.GetActiveScene().name.Equals("House") || map == 1 && !SceneManager.GetActiveScene().name.Equals("House")) {
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
             centeredPlayerPos = new Vector3(Mathf.Sign(playerPos.x) * (Mathf.Abs((int)playerPos.x) + 0.5f), Mathf.Sign(playerPos.y) * (Mathf.Abs((int)playerPos.y) + 0.5f), 0);
             playerOnMap = true;
-        }
+        }*/
         Dictionary<Vector3, PathTileData> openList, closedList;
         Vector3 centeredTarget = new Vector3(Mathf.Sign(target.x) * (Mathf.Abs((int)target.x) + 0.5f), Mathf.Sign(target.y) * (Mathf.Abs((int)target.y) + 0.5f), 0);
         openList = new Dictionary<Vector3, PathTileData>();
@@ -167,32 +191,33 @@ public class Pathfinding : MonoBehaviour {
         closedList.Add(tempPos, data);
         Vector3 checkTile = new Vector3(tempPos.x + 1, tempPos.y, 0);
         if (temp.Contains(checkTile)) {
-            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+           // if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
                 PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x + 1, tempPos.y, 0), centeredTarget));
                 openList.Add(new Vector3(tempPos.x + 1, tempPos.y, 0), tile);
-            }
+            //}
         }
         checkTile = new Vector3(tempPos.x - 1, tempPos.y, 0);
         if (temp.Contains(checkTile)) {
-            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+           // if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
                 PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x - 1, tempPos.y, 0), centeredTarget));
                 openList.Add(new Vector3(tempPos.x - 1, tempPos.y, 0), tile);
-            }
+           // }
         }
         checkTile = new Vector3(tempPos.x, tempPos.y + 1, 0);
         if (temp.Contains(checkTile)) {
-            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+         //   if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
                 PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x, tempPos.y + 1, 0), centeredTarget));
                 openList.Add(new Vector3(tempPos.x, tempPos.y + 1, 0), tile);
-            }
+         //   }
         }
         checkTile = new Vector3(tempPos.x, tempPos.y - 1, 0);
         if (temp.Contains(checkTile)) {
-            if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
+          //  if ((playerOnMap && checkTile != centeredPlayerPos) || !playerOnMap) {
                 PathTileData tile = new PathTileData(tempPos, 1, 1 + Vector3.Distance(new Vector3(tempPos.x, tempPos.y - 1, 0), centeredTarget));
                 openList.Add(new Vector3(tempPos.x, tempPos.y - 1, 0), tile);
-            }
+           // }
         }
+
         Thread thread = new Thread(() => FindPath(openList, closedList, centeredTarget, temp, returnPath));
         thread.Start();
     }
