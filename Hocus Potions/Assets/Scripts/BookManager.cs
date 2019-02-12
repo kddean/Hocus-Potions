@@ -42,6 +42,8 @@ public class BookManager : MonoBehaviour {
                 BookCanvas.SetActive(false);
             }
         }
+
+        if()
 	}
 
     public void SetCurrentTab(int i)
