@@ -586,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &75903889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 222446848}
+      - m_Target: {fileID: 1663266104}
         m_MethodName: SetCurrentTab
         m_Mode: 3
         m_Arguments:
@@ -1486,7 +1486,7 @@ RectTransform:
   m_Children:
   - {fileID: 187754311}
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1501,10 +1501,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 222446843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b409339a68b61cf47aada870cda34e63, type: 3}
+  m_Script: {fileID: 11500000, guid: 91dd7df7b75d92748b02ca1613f6c342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentTab: 
 --- !u!1 &225537720
 GameObject:
   m_ObjectHideFlags: 0
@@ -4297,7 +4296,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 222446848}
+      - m_Target: {fileID: 1663266104}
         m_MethodName: SetCurrentTab
         m_Mode: 3
         m_Arguments:
@@ -7308,7 +7307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &897201116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7962,7 +7961,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1306837241528176, guid: 2877ef530d2233842b6304816ebef73b, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2877ef530d2233842b6304816ebef73b, type: 2}
@@ -8028,7 +8027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &979337078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15442,7 +15441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1626374216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15882,6 +15881,51 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1656034727}
   m_CullTransparentMesh: 0
+--- !u!1 &1663266103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1663266105}
+  - component: {fileID: 1663266104}
+  m_Layer: 0
+  m_Name: BookManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1663266104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1663266103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b409339a68b61cf47aada870cda34e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BookCanvas: {fileID: 0}
+  PlantTab: {fileID: 0}
+  PotionTab: {fileID: 0}
+  MapTab: {fileID: 0}
+  CurrentTab: 
+--- !u!4 &1663266105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1663266103}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.814853, y: 1.0242885, z: 2.4679897}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1670560828
 GameObject:
   m_ObjectHideFlags: 0
@@ -17607,7 +17651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1809266427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18005,7 +18049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1872030791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18929,7 +18973,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 222446848}
+      - m_Target: {fileID: 1663266104}
         m_MethodName: SetCurrentTab
         m_Mode: 3
         m_Arguments:
@@ -19546,7 +19590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2044334094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20134,7 +20178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2085272112
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class BookManager : MonoBehaviour {
     public void Awake()
     {
         DontDestroyOnLoad(this);
-        if (FindObjectsOfType(GetType()).Length > 1)
+        if (Resources.FindObjectsOfTypeAll(GetType()).Length > 1)
         {
             Destroy(gameObject);
         }
@@ -42,8 +42,6 @@ public class BookManager : MonoBehaviour {
                 BookCanvas.SetActive(false);
             }
         }
-
-        if()
 	}
 
     public void SetCurrentTab(int i)
