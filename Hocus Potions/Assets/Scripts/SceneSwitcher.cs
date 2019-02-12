@@ -73,6 +73,11 @@ public class SceneSwitcher : MonoBehaviour {
             GameObject.FindObjectOfType<NPCController>().sceneSwapped = true;
             SceneManager.SetActiveScene(loadingScene);
             GameObject.FindObjectOfType<DoorDontDestroy>().gameObject.GetComponent<AudioSource>().Play();
+            DialogueCanvas dc = Resources.FindObjectsOfTypeAll<DialogueCanvas>()[0];
+            if (dc.active) {
+                dc.active = false;
+                dc.gameObject.SetActive(false);
+            }
         }
 
         player.GetComponent<Player>().swappingScenes = false;
