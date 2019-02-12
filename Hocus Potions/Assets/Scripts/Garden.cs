@@ -114,6 +114,7 @@ public class Garden : MonoBehaviour {
                 renderers[i].sprite = null;
             }
             plots.Remove(plot.gameObject.name);
+            Inventory.Add(rl.ingredients["ash"], 1, true);
         }
 
         GameObject.FindObjectOfType<Mana>().UpdateMana(rl.activeSpell.Cost);

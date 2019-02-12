@@ -85,10 +85,11 @@ public class GatheringManager : MonoBehaviour {
             {
                 SpawnerResetTime newTime = new SpawnerResetTime();
                 SpawnerData newData = new SpawnerData();
-                int ran = Random.Range(0, rl.ingredients.Count);
                 string newPlant;
-
-                newPlant = plants[ran];
+                do {
+                    int ran = Random.Range(0, rl.ingredients.Count);
+                    newPlant = plants[ran];
+                } while (newPlant == "ash");
 
                 newData.spawnedItem = rl.ingredients[newPlant];
                 newData.hasSpawnedItem = true;

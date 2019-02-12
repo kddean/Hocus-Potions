@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class Ingredient : Item {
-    public enum Attributes { sleep, healing, transformation, mana, speed, poison, invisibility, none};
+    public enum Attributes { sleep, healing, transformation, mana, speed, poison, invisibility, none, dyeBlack, dyeBlue, dyeGreen, dyeRed, dyeWhite, dyeYellow};
     public enum Modifiers { magicPP, magicMM, cat, chicken, sheep };
 
     public Attributes[] attributeList;
