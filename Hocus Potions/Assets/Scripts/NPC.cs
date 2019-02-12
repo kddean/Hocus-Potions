@@ -142,6 +142,11 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     playerAnim.SetBool(currentAnim, false);
                 }
             }
+            if (!allowedToMove) {
+                playerAnim.SetBool(currentAnim, false);
+                currentAnim = "Idle";
+                playerAnim.SetBool(currentAnim, true);
+            }
             if (path.Count > 0 && allowedToMove) {
                 NPC[] others = GameObject.FindObjectsOfType<NPC>();
                 foreach(NPC n in others) {
@@ -216,7 +221,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         playerAnim.SetBool(currentAnim, false);
                         currentAnim = "Backward";
                         playerAnim.SetBool(currentAnim, true);
-                    }
+                    } 
                 }
                 transform.position = Vector3.MoveTowards(transform.position, path[0], Time.timeScale * Time.deltaTime * speed);
                 if (transform.position == path[0]) {
@@ -271,7 +276,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         //Left click
         if (eventData.button.Equals(PointerEventData.InputButton.Left)) {
             if (dialogueCanvas.GetComponent<DialogueCanvas>().active) { return; }
-            //DOnt let them dont wander off
+            //Dont let them dont wander off
             allowedToMove = false;
             player.allowedToMove = false;
 

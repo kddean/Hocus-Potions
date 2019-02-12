@@ -116,7 +116,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     }
 
     private void FixedUpdate() {
-        if (!allowedToMove) { return; }
+        if (!allowedToMove) {
+            StartCoroutine(StartIdle());
+            idling = true;
+            return; }
         if (!currentAnim.Equals(lastAnim)) {
             if (playerAnim.GetBool("Transform")) {
                 GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<SpriteRenderer>().bounds.size.x / 1.5f, GetComponent<SpriteRenderer>().bounds.size.y / 12);
