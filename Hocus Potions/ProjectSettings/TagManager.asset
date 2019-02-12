@@ -12,6 +12,7 @@ TagManager:
   - storage
   - sceneLoader
   - tiles
+  - tab
   layers:
   - Default
   - TransparentFX
