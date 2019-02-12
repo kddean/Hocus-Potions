@@ -32,9 +32,10 @@ public class Brewing {
 
         List<attList> attributes = new List<attList>();
         List<modList> modifiers = new List<modList>();
-        Ingredient.Attributes[] attArray = new Ingredient.Attributes[] { first.attributeList[0], first.attributeList[1], first.attributeList[2],
-                                                                         second.attributeList[0], second.attributeList[1], second.attributeList[2],
-                                                                         third.attributeList[0], third.attributeList[1], third.attributeList[2]};
+        Ingredient.Attributes[] attArray = new Ingredient.Attributes[first.attributeList.Length + second.attributeList.Length + third.attributeList.Length];
+        first.attributeList.CopyTo(attArray, 0);
+        second.attributeList.CopyTo(attArray, first.attributeList.Length);
+        third.attributeList.CopyTo(attArray, first.attributeList.Length + second.attributeList.Length);
 
         Ingredient.Attributes? primary = null;
         Ingredient.Attributes? secondary = null;
@@ -47,7 +48,7 @@ public class Brewing {
         int aCount;
 
         bool add;
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < attArray.Length; i++) {
             add = true;
             if (System.Enum.IsDefined(typeof(Ingredient.Modifiers), attArray[i].ToString())) {
                 Ingredient.Modifiers temp = (Ingredient.Modifiers)System.Enum.Parse(typeof(Ingredient.Modifiers), attArray[i].ToString());
