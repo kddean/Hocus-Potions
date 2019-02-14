@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BookManager : MonoBehaviour {
@@ -9,6 +10,11 @@ public class BookManager : MonoBehaviour {
     public GameObject PotionTab;
     public GameObject MapTab;
     public string CurrentTab;
+
+    public GameObject CurrentPage;
+    public GameObject ButtonPrefab;
+    public GameObject PanelPrefab;
+    public GameObject TextBox;
 
     public void Awake()
     {
@@ -25,6 +31,7 @@ public class BookManager : MonoBehaviour {
         PlantTab = GameObject.Find("PlantTab");
         PotionTab = GameObject.Find("PotionTab");
         MapTab = GameObject.Find("MapTab");
+        CurrentPage = GameObject.Find("CurrentPage");
 
         BookCanvas.SetActive(false);
 	}
@@ -70,5 +77,11 @@ public class BookManager : MonoBehaviour {
             MapTab.transform.localScale *= -1;
             CurrentTab = "MapTab";
         }
+    }
+
+    public void SetUpCurrentPage(int i)
+    {
+        GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+        GameObject.Instantiate(CurrentPage);
     }
 }
