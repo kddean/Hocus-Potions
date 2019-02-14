@@ -58,7 +58,7 @@ public class ResourceLoader : MonoBehaviour {
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
         //Just for force spawning inventory items for testing
         Inventory.Testing();
-
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
     }
 
     //TO DO: Swap sprites to proper inv sprites once we have them

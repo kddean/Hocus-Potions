@@ -19,6 +19,17 @@ public class Gathering : MonoBehaviour {
 		
 	}
 
+    private void OnMouseEnter() {
+        GatheringManager.SpawnerData temp;
+        if (rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp)) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Collect Mouse"), Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+    }
+
     private void OnMouseDown() {
         GatheringManager.SpawnerData temp;
         rl.gatheringManager.spawnerData.TryGetValue(gameObject.name, out temp);
@@ -27,6 +38,7 @@ public class Gathering : MonoBehaviour {
         this.GetComponent<SpriteRenderer>().sprite = null;
         rl.gatheringManager.SeedDrop(this);
         rl.gatheringManager.spawnerData.Remove(gameObject.name);
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
     }
 
    public void SpawnPlants()

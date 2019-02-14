@@ -32,4 +32,14 @@ public class Wardrobe : MonoBehaviour {
         current = c;
         GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Characters/" + costumes[Current]);
     }
+
+    private void OnMouseEnter() {
+        if (!GameObject.FindObjectOfType<Cauldron>().Visible && !GameObject.FindObjectOfType<StorageChest>().active) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Exclaim Mouse"), Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+    }
 }

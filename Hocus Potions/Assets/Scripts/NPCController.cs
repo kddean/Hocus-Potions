@@ -469,7 +469,7 @@ public class NPCController : MonoBehaviour {
         int rand = UnityEngine.Random.Range(0, available.Count - 1);
         int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
         int spawnHour = UnityEngine.Random.Range(8, 13);
-        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, 0.5f, 0, available[rand]);
+        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, -0.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
         schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
@@ -479,15 +479,13 @@ public class NPCController : MonoBehaviour {
             //TODO: Change the times for this later
             spawnHour = UnityEngine.Random.Range(13, 17);
             rand = UnityEngine.Random.Range(0, available.Count - 1);
-            schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
+            schedule = new Schedule(false, day, 14, 0, "", 0, -6.5f, 0.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
             schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
             available.RemoveAt(rand);
         }
     }
-
-
 
     [System.Serializable]
     private class CompareTimes : IComparer<Schedule> {

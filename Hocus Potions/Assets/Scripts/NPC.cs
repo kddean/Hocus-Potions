@@ -85,7 +85,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
             Debug.Log("NPC Data not set");
         }
-        speed = 4f;
+        speed = 15f;
         swapPoint = GameObject.Find("SwapPoint");
         destroying = false;
         if (SceneManager.GetActiveScene().name.Equals("House")) {
@@ -153,8 +153,13 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     if(n == this) { continue; }
                     Vector3 otherPos = new Vector3(Mathf.Sign(n.transform.position.x) * (Mathf.Abs((int)n.transform.position.x) + 0.5f), Mathf.Sign(n.transform.position.y) * (Mathf.Abs((int)n.transform.position.y) + 0.5f), 0);
                     if(path[0] == otherPos) {
-                        playerAnim.SetBool(currentAnim, false);
-                        return;
+                        if (n.path.Count > 0) {
+                            Vector3 temp = new Vector3(Mathf.Sign(transform.position.x) * (Mathf.Abs((int)transform.position.x) + 0.5f), Mathf.Sign(transform.position.y) * (Mathf.Abs((int)transform.position.y) + 0.5f), 0);
+                            if(n.path[0] != temp) {
+                                playerAnim.SetBool(currentAnim, false);
+                                return;
+                            }
+                        }
                     }
                 }
 
@@ -261,7 +266,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         Monitor.Exit(path);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionStay2D(Collision2D collision) {
         playerAnim.SetBool(currentAnim, false);
         allowedToMove = false;
     }
@@ -270,7 +275,16 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         playerAnim.SetBool(currentAnim, true);
         allowedToMove = true;
     }
-   
+
+    public void OnMouseEnter() {
+        if (!dialogueCanvas.GetComponent<DialogueCanvas>().active) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Talk Mouse"), Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    public void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+    }
     public void OnPointerDown(PointerEventData eventData) {
         if (done || player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(transform.position, player.transform.position) > 2) { return; }
         //Left click
@@ -410,7 +424,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
     public void NextDialogueInside() {
         currentDialogue++;
-        if (!requested && !info.returning && currentDialogue == dialoguePieces.Length) {
+        if (!responding && !requested && !info.returning && currentDialogue == dialoguePieces.Length) {
             GiveQuest();
             return;
         }
@@ -431,6 +445,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
             } else if (currentDialogue == dialoguePieces.Length - 1) {
                 done = true;
+                nextCG.GetComponent<CanvasGroup>().alpha = 0;
+                nextCG.GetComponent<CanvasGroup>().interactable = false;
+                nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
             }
         }
 

@@ -32,6 +32,12 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     bool brewVisible;
     public bool active;
 
+    public bool Visible {
+        get {
+            return visible;
+        }
+    }
+
     private void Start() {
         manager = GameObject.Find("BrewingManager").GetComponent<BrewingManager>();
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
@@ -126,8 +132,32 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    public void OnMouseEnter() {
+        if (!visible && !GameObject.FindObjectOfType<StorageChest>().active) {
+            switch (manager.Brewing) {
+                case 0:
+                    Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Exclaim Mouse"), Vector2.zero, CursorMode.Auto);
+                    break;
+                case 1:
+                    if (rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Ignite")) {
+                        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Fire Mouse"), Vector2.zero, CursorMode.Auto);
+                    } else {
+                        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Wait Mouse"), Vector2.zero, CursorMode.Auto);
+                    }
+                    break;
+                case 2:
+                    Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Collect Mouse"), Vector2.zero, CursorMode.Auto);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
-   public void OnPointerDown(PointerEventData eventData) {
+    private void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+    }
+    public void OnPointerDown(PointerEventData eventData) {
         if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.5f) {
             return;
         }
@@ -136,6 +166,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             player.allowedToMove = false;
             canvas.SetActive(true);
             active = true;
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
             if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
                 SetVisible(ingredientPanel.GetComponent<CanvasGroup>());
                 inv.GetComponent<CanvasGroup>().alpha = 1;

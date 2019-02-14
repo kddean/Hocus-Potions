@@ -36,6 +36,13 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    private void OnMouseEnter() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Collect Mouse"), Vector2.zero, CursorMode.Auto);
+    }
+
+    private void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+    }
     public void OnPointerDown(PointerEventData eventData) {
         if (player.Status.Contains(Player.PlayerStatus.asleep) || Vector3.Distance(player.transform.position, transform.position) > 2f) { return; }
 
@@ -43,6 +50,7 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
             Vector3 temp = new Vector3(data.x, data.y, data.z);
             gc.RemoveItem(item, temp, data.scene);
             Destroy(this.gameObject);
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
         }
     }
 

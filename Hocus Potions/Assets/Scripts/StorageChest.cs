@@ -20,11 +20,20 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         canvas.SetActive(false);
         active = false;
     }
+    private void OnMouseEnter() {
+        if (!active && !GameObject.FindObjectOfType<Cauldron>().Visible) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Exclaim Mouse"), Vector2.zero, CursorMode.Auto);
+        }
+    }
 
+    private void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+    }
     public void OnPointerDown(PointerEventData eventData) {
         if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 2.0f) { return; }
         canvas.SetActive(true);
         active = true;
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
         GameObject.FindGameObjectWithTag("storage").GetComponent<GridLayoutGroup>().enabled = true;
         sm.OpenChest();
         inv.GetComponent<CanvasGroup>().alpha = 1;

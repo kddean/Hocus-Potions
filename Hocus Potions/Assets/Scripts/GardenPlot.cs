@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using System.Linq;
 
 public class GardenPlot : MonoBehaviour, IPointerDownHandler {
 
@@ -36,10 +37,35 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
                 rl.garden.SpellCast(this);
             }
         }
+        List<string> keys = FindObjectOfType<Garden>().plots.Keys.ToList();
+        if (keys.Contains(gameObject.name) && FindObjectOfType<Garden>().plots[gameObject.name].stage == Garden.Status.harvestable) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Collect Mouse"), Vector2.zero, CursorMode.Auto);
+        } else if (keys.Contains(gameObject.name) && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Ignite")) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Fire Mouse"), Vector2.zero, CursorMode.Auto);
+        } else if (keys.Contains(gameObject.name) && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Wild Growth")) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Grow Mouse"), Vector2.zero, CursorMode.Auto);
+        } else {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+        }
     }
 
     public void PlantSeed(Seed s, InventorySlot slot) {
         if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) { return; }
         rl.garden.Farm(this, s, slot);
+    }
+
+    private void OnMouseEnter() {
+        List<string> keys = FindObjectOfType<Garden>().plots.Keys.ToList();
+        if (keys.Contains(gameObject.name) && FindObjectOfType<Garden>().plots[gameObject.name].stage == Garden.Status.harvestable) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Collect Mouse"), Vector2.zero, CursorMode.Auto);
+        } else if (keys.Contains(gameObject.name) && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Ignite")) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Fire Mouse"), Vector2.zero, CursorMode.Auto);
+        } else if (keys.Contains(gameObject.name) && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Wild Growth")) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Grow Mouse"), Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    public void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
     }
 }
