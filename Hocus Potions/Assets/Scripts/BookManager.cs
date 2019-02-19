@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System.Linq;
 
 public class BookManager : MonoBehaviour {
+
+    ResourceLoader rl;
 
     public GameObject BookCanvas;
     public GameObject PlantTab;
@@ -12,6 +15,7 @@ public class BookManager : MonoBehaviour {
     public string CurrentTab;
 
     public GameObject CurrentPage;
+    public GameObject KeyPage;
     public GameObject ButtonPrefab;
     public GameObject PanelPrefab;
     public GameObject TextBox;
@@ -27,11 +31,13 @@ public class BookManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+
         BookCanvas = GameObject.Find("BookCanvas");
         PlantTab = GameObject.Find("PlantTab");
         PotionTab = GameObject.Find("PotionTab");
         MapTab = GameObject.Find("MapTab");
-        CurrentPage = GameObject.Find("CurrentPage");
+        //CurrentPage = GameObject.Find("CurrentPage");
 
         BookCanvas.SetActive(false);
 	}
@@ -60,6 +66,7 @@ public class BookManager : MonoBehaviour {
             PlantTab.transform.localPosition = temp;
             PlantTab.transform.localScale *= -1;
             CurrentTab = "PlantTab";
+            SetUpPage(i);
         }
         else if (i == 1)
         {
@@ -79,9 +86,43 @@ public class BookManager : MonoBehaviour {
         }
     }
 
-    public void SetUpCurrentPage(int i)
+    public void SetUpPage(int i)
     {
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-        GameObject.Instantiate(CurrentPage);
+        GameObject newPage = GameObject.Instantiate(CurrentPage);
+        newPage.transform.SetParent(BookBackground.transform);
+        newPage.transform.position = BookBackground.transform.position;
+        Debug.Log("Added newPage");
+        List<string> keys = rl.ingredients.Keys.ToList(); 
+        
+        foreach (string key in keys)
+        {
+            GameObject button = Instantiate(ButtonPrefab);
+            button.transform.SetParent(newPage.transform);
+            button.transform.position = newPage.transform.position;
+            button.GetComponentInChildren<Text>().text = key;
+            button.GetComponent<Button>().onClick.AddListener(PassName);
+            
+        }
+    }
+
+    public void SetUpKeyPage(string name)
+    {
+        GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+        GameObject newPage = GameObject.Instantiate(KeyPage);
+        newPage.transform.SetParent(BookBackground.transform);
+        newPage.transform.position = BookBackground.transform.position;
+
+        GameObject panel = GameObject.Instantiate(PanelPrefab);
+        GameObject textBox = GameObject.Instantiate(TextBox);
+
+        panel.transform.SetParent(newPage.transform);
+        panel.transform.position = newPage.transform.position;
+        panel.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
+    }
+
+    public void PassName()
+    {
+        SetUpKeyPage(gameObject.name);
     }
 }
