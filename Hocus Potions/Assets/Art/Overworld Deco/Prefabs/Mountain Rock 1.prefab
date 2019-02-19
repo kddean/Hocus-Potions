@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212780926833400098}
   - component: {fileID: 114779905871413590}
   - component: {fileID: 61731277545174648}
+  - component: {fileID: 114025805332334710}
   - component: {fileID: 61747463536858790}
   m_Layer: 0
   m_Name: Mountain Rock 1
@@ -93,6 +94,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.28125, y: 1.1196728}
   m_EdgeRadius: 0
+--- !u!114 &114025805332334710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1192917661247050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd94684bfe737a42bbe82568e5e35bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114779905871413590
 MonoBehaviour:
   m_ObjectHideFlags: 1

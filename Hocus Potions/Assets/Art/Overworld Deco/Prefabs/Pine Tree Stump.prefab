@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212135665170388886}
   - component: {fileID: 114000679632815812}
   - component: {fileID: 61452578585564882}
+  - component: {fileID: 114318320695698876}
   - component: {fileID: 61671894466021766}
   m_Layer: 0
   m_Name: Pine Tree Stump
@@ -58,7 +59,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.9982443}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.65625, y: 1.1875}
     newSize: {x: 1.65625, y: 1.1875}
     adaptiveTilingThreshold: 0.5
@@ -83,7 +84,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.40316772}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.65625, y: 1.1875}
     newSize: {x: 1.65625, y: 1.1875}
     adaptiveTilingThreshold: 0.5
@@ -102,6 +103,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d671ed0fd7f55f947862d6d296f23dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114318320695698876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847363293501836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd94684bfe737a42bbe82568e5e35bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212135665170388886

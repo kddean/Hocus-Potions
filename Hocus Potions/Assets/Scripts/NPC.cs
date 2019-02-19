@@ -636,7 +636,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             path = new List<Vector3>();
         }
         MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
-        NPCController.Schedule s = new NPCController.Schedule(false, mc.Days, mc.Hour + 2, mc.Minutes, "", 1, 69.5f, -12.5f, 0, characterName);
+        NPCController.Schedule s = new NPCController.Schedule(false, mc.Days, mc.Hour + 4, mc.Minutes, "", 1, 69.5f, -12.5f, 0, characterName);
         controller.npcQueue.Add(s, characterName);
         allowedToMove = true;
         player.allowedToMove = true;

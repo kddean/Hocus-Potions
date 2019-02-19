@@ -74,7 +74,15 @@ public class ResourceLoader : MonoBehaviour {
             { "lily", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.transformation, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lily", "Plants/lily_inv") },
             { "morel", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.none, Ingredient.Attributes.none }, "morel", "Plants/morel_inv") },
             { "fly_agaric", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.none, Ingredient.Attributes.none }, "fly_agaric", "Plants/fly_agaric_inv") },
-            { "ash", new Ingredient(new Ingredient.Attributes[] {Ingredient.Attributes.dyeBlack, Ingredient.Attributes.dyeBlue, Ingredient.Attributes.dyeGreen, Ingredient.Attributes.dyeRed, Ingredient.Attributes.dyeWhite, Ingredient.Attributes.dyeYellow}, "ash", "Plants/ash_inv") }
+            { "ash", new Ingredient(new Ingredient.Attributes[] {Ingredient.Attributes.dyeBlack, Ingredient.Attributes.dyeBlue, Ingredient.Attributes.dyeGreen, Ingredient.Attributes.dyeRed, Ingredient.Attributes.dyeWhite, Ingredient.Attributes.dyeYellow}, "ash", "Gems/ash_inv") },
+            { "amethyst", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyePurple, Ingredient.Attributes.sleep, Ingredient.Attributes.mana }, "amethyst", "Gems/amethyst_inv") },
+            { "selenite", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeWhite, Ingredient.Attributes.healing, Ingredient.Attributes.endChaos }, "selenite", "Gems/selenite_inv") },
+            { "lapis_lazuli", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeBlue, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lapis_lazuli", "Gems/lapis_inv") },
+            { "emerald", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeGreen, Ingredient.Attributes.endOrder, Ingredient.Attributes.none }, "emerald", "Gems/emerald_inv") },
+            { "amber", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeYellow, Ingredient.Attributes.endSocial, Ingredient.Attributes.transformation }, "amber", "Gems/amber_inv") },
+            { "garnet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeRed, Ingredient.Attributes.none, Ingredient.Attributes.none }, "garnet", "Gems/garnet_inv") },
+            { "jet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeBlack, Ingredient.Attributes.speed, Ingredient.Attributes.transformation }, "jet", "Gems/jet_inv") },
+           
         };
     }
 
@@ -96,6 +104,8 @@ public class ResourceLoader : MonoBehaviour {
         spells = new List<Spell>();
         spells.Add(new Spell("Wild Growth", 50, null));
         spells.Add(new Spell("Ignite", 20, null));
+        spells.Add(new Spell("Smash", 20, null));
+        spells.Add(new Spell("Dredge", 20, null));
     }
 
     void CreateInventory() {
@@ -103,7 +113,6 @@ public class ResourceLoader : MonoBehaviour {
         foreach(InventorySlot s in slots) {
             s.item = null;
             s.gameObject.GetComponentsInChildren<Image>()[1].enabled = false;
-
         }
     }
 

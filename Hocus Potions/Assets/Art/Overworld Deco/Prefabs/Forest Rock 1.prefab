@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4859046108359142}
   - component: {fileID: 212512721508533312}
   - component: {fileID: 61626250855834570}
+  - component: {fileID: 114701026425693540}
   m_Layer: 0
   m_Name: Forest Rock 1
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1480123847971960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 68.46332, y: 10.041208, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,6 +67,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.97535133, y: 0.8138752}
   m_EdgeRadius: 0
+--- !u!114 &114701026425693540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480123847971960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd94684bfe737a42bbe82568e5e35bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212512721508533312
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -89,7 +89,7 @@ public class GatheringManager : MonoBehaviour {
                 do {
                     int ran = Random.Range(0, rl.ingredients.Count);
                     newPlant = plants[ran];
-                } while (newPlant == "ash");
+                } while (!rl.ingredients[newPlant].imagePath.StartsWith("Plants"));
 
                 newData.spawnedItem = rl.ingredients[newPlant];
                 newData.hasSpawnedItem = true;
