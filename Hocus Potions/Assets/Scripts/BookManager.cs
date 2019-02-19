@@ -22,9 +22,11 @@ public class BookManager : MonoBehaviour {
 
     public void Awake()
     {
+        
         DontDestroyOnLoad(this);
         if (Resources.FindObjectsOfTypeAll(GetType()).Length > 1)
         {
+            Debug.Log(this.name);
             Destroy(gameObject);
         }
     }
@@ -40,6 +42,7 @@ public class BookManager : MonoBehaviour {
         //CurrentPage = GameObject.Find("CurrentPage");
 
         BookCanvas.SetActive(false);
+        Debug.Log("Off");
 	}
 	
 	// Update is called once per frame
@@ -101,28 +104,37 @@ public class BookManager : MonoBehaviour {
             button.transform.SetParent(newPage.transform);
             button.transform.position = newPage.transform.position;
             button.GetComponentInChildren<Text>().text = key;
-            button.GetComponent<Button>().onClick.AddListener(PassName);
+            button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
             
         }
     }
 
     public void SetUpKeyPage(string name)
     {
+        Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
         GameObject newPage = GameObject.Instantiate(KeyPage);
         newPage.transform.SetParent(BookBackground.transform);
         newPage.transform.position = BookBackground.transform.position;
-
+        temp = newPage.transform.position;
+        temp.x += 250;
+        temp.y -= 250;
+        newPage.transform.position = temp;
         GameObject panel = GameObject.Instantiate(PanelPrefab);
         GameObject textBox = GameObject.Instantiate(TextBox);
 
         panel.transform.SetParent(newPage.transform);
         panel.transform.position = newPage.transform.position;
-        panel.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
+        //temp = panel.transform.position;
+        //temp.x += 50;
+        panel.transform.position = temp;
+        panel.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
+
+        
     }
 
-    public void PassName()
+    public void PassName(GameObject b)
     {
-        SetUpKeyPage(gameObject.name);
+        SetUpKeyPage(b.GetComponentInChildren<Text>().text);
     }
 }
