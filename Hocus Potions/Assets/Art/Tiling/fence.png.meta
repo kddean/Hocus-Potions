@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e65b0aa24ca98b746b36c60ded153ea5
+guid: 30727beadee0f37409f008e3221a4544
 TextureImporter:
   fileIDToRecycleName:
     21300000: fence_0
@@ -35,7 +35,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -91,9 +91,9 @@ TextureImporter:
       name: fence_0
       rect:
         serializedVersion: 2
-        x: 398
-        y: 96
-        width: 9
+        x: 17
+        y: 80
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -102,7 +102,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfb6216cddb28dd49b2f6eef8ddebd65
+      spriteID: 55027e07f03d74c4cb69d952f4b3c0fa
       vertices: []
       indices: 
       edges: []
@@ -111,9 +111,9 @@ TextureImporter:
       name: fence_1
       rect:
         serializedVersion: 2
-        x: 476
-        y: 95
-        width: 56
+        x: 119
+        y: 80
+        width: 51
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -122,7 +122,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3feb4c4287ae9264b870cb2646fb5a13
+      spriteID: 3c738191a4e02d443b5fbe3949ff1023
       vertices: []
       indices: 
       edges: []
@@ -131,9 +131,9 @@ TextureImporter:
       name: fence_2
       rect:
         serializedVersion: 2
-        x: 575
-        y: 95
-        width: 64
+        x: 73
+        y: 9
+        width: 10
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -142,7 +142,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98abe1b0af7898a4dbf00bf37128b699
+      spriteID: 1e36f91371e19454c8026deae8b0b512
       vertices: []
       indices: 
       edges: []
@@ -151,10 +151,10 @@ TextureImporter:
       name: fence_3
       rect:
         serializedVersion: 2
-        x: 674
-        y: 96
-        width: 64
-        height: 64
+        x: 118
+        y: 23
+        width: 10
+        height: 51
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,7 +162,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 291eba7d241205645b925713ce97bb93
+      spriteID: d71ae955ab701774e93e2ab823f268ce
       vertices: []
       indices: 
       edges: []
@@ -170,7 +170,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4d5293ccc34bd2f4c9f98a98e0b074dc
+    spriteID: 7f2a68db8c50aa24fb75775102ab03ae
     vertices: []
     indices: 
     edges: []
