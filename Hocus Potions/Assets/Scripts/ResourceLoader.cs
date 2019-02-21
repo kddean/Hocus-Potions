@@ -64,17 +64,20 @@ public class ResourceLoader : MonoBehaviour {
     //TO DO: Swap sprites to proper inv sprites once we have them
     void CreateIngredients() {
         ingredients = new Dictionary<string, Ingredient> {
-            { "lavender", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.mana }, "lavender", "Plants/lavender_inv") },
+            { "lavender", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.mana, Ingredient.Attributes.dyePurple }, "lavender", "Plants/lavender_inv") },
             { "catnip", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.sleep, Ingredient.Attributes.transformation, Ingredient.Attributes.speed }, "catnip", "Plants/catnip_inv") },
-            { "nightshade", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing }, "nightshade", "Plants/nightshade_inv") },
-            { "mugwort", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.mana, Ingredient.Attributes.transformation }, "mugwort", "Plants/mugwort_inv") },
-            { "lambsgrass", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.healing, Ingredient.Attributes.speed }, "lambsgrass", "Plants/lambsgrass_inv") },
-            { "poppy", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.poison, Ingredient.Attributes.sleep }, "poppy", "Plants/poppy_inv") },
-            { "thistle", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.speed, Ingredient.Attributes.mana }, "thistle", "Plants/thistle_inv") },
+            { "nightshade", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.healing, Ingredient.Attributes.dyeBlack }, "nightshade", "Plants/nightshade_inv") },
+            { "mugwort", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.mana, Ingredient.Attributes.transformation, Ingredient.Attributes.endChaos }, "mugwort", "Plants/mugwort_inv") },
+            { "lambsgrass", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.healing, Ingredient.Attributes.speed, Ingredient.Attributes.dyeYellow }, "lambsgrass", "Plants/lambsgrass_inv") },
+            { "poppy", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.endOrder }, "poppy", "Plants/poppy_inv") },
+            { "thistle", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.invisibility, Ingredient.Attributes.speed, Ingredient.Attributes.mana, Ingredient.Attributes.dyePurple }, "thistle", "Plants/thistle_inv") },
             { "lily", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.transformation, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lily", "Plants/lily_inv") },
+            { "indigo", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.mana, Ingredient.Attributes.poison, Ingredient.Attributes.sleep, Ingredient.Attributes.dyeBlue }, "indigo", "Plants/indigo_inv") },
+            { "dandylion", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeYellow, Ingredient.Attributes.endOrder, Ingredient.Attributes.healing, Ingredient.Attributes.transformation }, "dandylion", "Plants/dandylion_inv") },
+            { "ghostcap", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeWhite, Ingredient.Attributes.invisibility, Ingredient.Attributes.endSocial, Ingredient.Attributes.poison }, "ghostcap", "Plants/ghostcap_inv") },
             { "morel", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.none, Ingredient.Attributes.none }, "morel", "Plants/morel_inv") },
             { "fly_agaric", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.poison, Ingredient.Attributes.none, Ingredient.Attributes.none }, "fly_agaric", "Plants/fly_agaric_inv") },
-            { "ash", new Ingredient(new Ingredient.Attributes[] {Ingredient.Attributes.dyeBlack, Ingredient.Attributes.dyeBlue, Ingredient.Attributes.dyeGreen, Ingredient.Attributes.dyeRed, Ingredient.Attributes.dyeWhite, Ingredient.Attributes.dyeYellow}, "ash", "Gems/ash_inv") },
+            { "ash", new Ingredient(new Ingredient.Attributes[] {Ingredient.Attributes.dyeBlack, Ingredient.Attributes.dyeBlue, Ingredient.Attributes.dyeGreen, Ingredient.Attributes.dyeRed, Ingredient.Attributes.dyeWhite, Ingredient.Attributes.dyeYellow}, "ash", "Other/ash_inv") },
             { "amethyst", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyePurple, Ingredient.Attributes.sleep, Ingredient.Attributes.mana }, "amethyst", "Gems/amethyst_inv") },
             { "selenite", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeWhite, Ingredient.Attributes.healing, Ingredient.Attributes.endChaos }, "selenite", "Gems/selenite_inv") },
             { "lapis_lazuli", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeBlue, Ingredient.Attributes.mana, Ingredient.Attributes.none }, "lapis_lazuli", "Gems/lapis_inv") },
@@ -82,7 +85,6 @@ public class ResourceLoader : MonoBehaviour {
             { "amber", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeYellow, Ingredient.Attributes.endSocial, Ingredient.Attributes.transformation }, "amber", "Gems/amber_inv") },
             { "garnet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeRed, Ingredient.Attributes.none, Ingredient.Attributes.none }, "garnet", "Gems/garnet_inv") },
             { "jet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeBlack, Ingredient.Attributes.speed, Ingredient.Attributes.transformation }, "jet", "Gems/jet_inv") },
-           
         };
     }
 
@@ -102,10 +104,10 @@ public class ResourceLoader : MonoBehaviour {
 
     void CreateSpells() {
         spells = new List<Spell>();
-        spells.Add(new Spell("Wild Growth", 50, null));
-        spells.Add(new Spell("Ignite", 20, null));
-        spells.Add(new Spell("Smash", 20, null));
-        spells.Add(new Spell("Dredge", 20, null));
+        spells.Add(new Spell("Wild Growth", 25, null));
+        spells.Add(new Spell("Ignite", 15, null));
+        spells.Add(new Spell("Smash", 10, null));
+        spells.Add(new Spell("Dredge", 10, null));
     }
 
     void CreateInventory() {

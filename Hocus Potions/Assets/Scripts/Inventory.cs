@@ -126,7 +126,7 @@ public class Inventory {
         c.size = bounds;
         c.isTrigger = true;
 
-        if (item is Seed) {
+        if (!(item is Potion)) {
             go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
         }
 

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212609694893808478}
   - component: {fileID: 61826442973222028}
   - component: {fileID: 114524539826134742}
+  - component: {fileID: 95147417016659874}
   m_Layer: 0
   m_Name: Mountain Rock 3
   m_TagString: Untagged
@@ -67,6 +68,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.97630787, y: 0.6121216}
   m_EdgeRadius: 0
+--- !u!95 &95147417016659874
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1205016492330390}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 16315213e0f855e4b9843aed69e5fe4d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114524539826134742
 MonoBehaviour:
   m_ObjectHideFlags: 1

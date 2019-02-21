@@ -61,6 +61,7 @@ public class SceneSwitcher : MonoBehaviour {
         Scene loadingScene = SceneManager.GetSceneByBuildIndex(index);
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (loadingScene.IsValid()) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
             GameObject spawnPoint = GameObject.Find("SpawnPoint");
 
             player.transform.position = spawnPoint.transform.position;

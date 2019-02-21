@@ -188,12 +188,10 @@ public class GatheringManager : MonoBehaviour {
 
         SpawnerData temp3;
         spawnerData.TryGetValue(gatherer.name, out temp3);
-        if(temp3.spawnedItem.name == "morel" || temp3.spawnedItem.name == "fly_agaric")
-        {
-            return;
+        try {
+            Seed droppedSeed = rl.seeds[temp3.spawnedItem.name];
+            Inventory.Add(droppedSeed, numOfSeedsToDrop, true);
+        } catch (KeyNotFoundException e) {
         }
-        Seed droppedSeed = rl.seeds[temp3.spawnedItem.name];
-        Inventory.Add(droppedSeed, numOfSeedsToDrop, true);
-
     }
 }

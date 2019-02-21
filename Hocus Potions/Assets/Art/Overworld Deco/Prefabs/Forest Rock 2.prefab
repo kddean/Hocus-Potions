@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212650353724428488}
   - component: {fileID: 61241943973801886}
   - component: {fileID: 114877019421308124}
+  - component: {fileID: 95728634888992950}
   m_Layer: 0
   m_Name: Forest Rock 2
   m_TagString: Untagged
@@ -67,6 +68,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9060869, y: 0.55278397}
   m_EdgeRadius: 0
+--- !u!95 &95728634888992950
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673312657877882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9b83cc03d56e3b34fab83847a9f4b9f0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114877019421308124
 MonoBehaviour:
   m_ObjectHideFlags: 1
