@@ -91,8 +91,8 @@ TextureImporter:
       name: fence_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 80
+        x: 226
+        y: 273
         width: 64
         height: 64
       alignment: 0
@@ -102,7 +102,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55027e07f03d74c4cb69d952f4b3c0fa
+      spriteID: 6e2e69797a878dd44b19f3888aff069b
       vertices: []
       indices: 
       edges: []
@@ -111,9 +111,9 @@ TextureImporter:
       name: fence_1
       rect:
         serializedVersion: 2
-        x: 119
-        y: 80
-        width: 51
+        x: 328
+        y: 273
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -122,7 +122,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c738191a4e02d443b5fbe3949ff1023
+      spriteID: 885ff0b0440794e4f8f41ef7c1ebe5ea
       vertices: []
       indices: 
       edges: []
@@ -131,8 +131,8 @@ TextureImporter:
       name: fence_2
       rect:
         serializedVersion: 2
-        x: 73
-        y: 9
+        x: 282
+        y: 202
         width: 10
         height: 64
       alignment: 0
@@ -142,7 +142,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e36f91371e19454c8026deae8b0b512
+      spriteID: 5abfd1acdc8a9a54295e913ac97e3777
       vertices: []
       indices: 
       edges: []
@@ -151,8 +151,8 @@ TextureImporter:
       name: fence_3
       rect:
         serializedVersion: 2
-        x: 118
-        y: 23
+        x: 327
+        y: 216
         width: 10
         height: 51
       alignment: 0
@@ -162,7 +162,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d71ae955ab701774e93e2ab823f268ce
+      spriteID: da36a9b023fed2f4586491e35e740a39
       vertices: []
       indices: 
       edges: []
