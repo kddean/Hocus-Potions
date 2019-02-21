@@ -12,7 +12,8 @@ public class SaveData {
     public List<Player.PlayerStatus> playerStatus;
     public Potion lastTaken;
     public List<float> timers;
-    public int currentCostume;
+    public string currentCostume;
+    public bool[] unlockedCostumes;
 
     //Resource Data
     public float maxMana;
@@ -54,5 +55,5 @@ public class SaveData {
     public List<string> scheduleNames;
     public int currentMap;
 
-
+   
 }

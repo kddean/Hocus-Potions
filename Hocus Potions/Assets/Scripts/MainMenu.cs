@@ -74,6 +74,7 @@ public class MainMenu : MonoBehaviour {
         }
 
         data.currentCostume = GameObject.FindObjectOfType<Wardrobe>().Current;
+        data.unlockedCostumes = GameObject.FindObjectOfType<Wardrobe>().Unlocked;
         data.maxMana = mana.MaxMana;
         data.currentMana = mana.CurrentMana;
 
@@ -191,6 +192,7 @@ public class MainMenu : MonoBehaviour {
                 }
             }
             GameObject.FindObjectOfType<Wardrobe>().LoadCostume(data.currentCostume);
+            GameObject.FindObjectOfType<Wardrobe>().Unlocked = data.unlockedCostumes;
 
             bm.Pot = data.brewingPotion;
             bm.BrewTime = data.brewingTime;

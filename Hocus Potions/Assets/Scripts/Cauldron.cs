@@ -133,7 +133,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnMouseEnter() {
-        if (!visible && !GameObject.FindObjectOfType<StorageChest>().active) {
+        if (!visible && !GameObject.FindObjectOfType<StorageChest>().active && !GameObject.FindObjectOfType<Wardrobe>().open) {
             switch (manager.Brewing) {
                 case 0:
                     Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Exclaim Mouse"), Vector2.zero, CursorMode.Auto);

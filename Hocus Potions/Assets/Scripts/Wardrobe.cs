@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Wardrobe : MonoBehaviour {
     string[] costumes;
-    int current;
+    bool[] unlocked;
+    string current;
+    CanvasGroup cg;
+    public bool open;
 
-    public int Current {
+    public string Current {
         get {
             return current;
         }
@@ -16,21 +20,55 @@ public class Wardrobe : MonoBehaviour {
         }
     }
 
-    void Start () {
-        costumes = new[] {"Player_Default", "Costume_Cat", "Costume_Magic", "Costume_Steampunk", "Costume_Goddess" };
-        current = 0;
-    }
+    public bool[] Unlocked {
+        get {
+            return unlocked;
+        }
 
-    public void Cycle() {
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) < 3) {
-            Current = (Current + 1) % costumes.Length;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Characters/" + costumes[Current]);
+        set {
+            unlocked = value;
         }
     }
 
-    public void LoadCostume(int c) {
+    void Start () {
+        unlocked = new[] { true, true, false, false, true, false, false, true, false, false, true };
+        cg = GameObject.FindGameObjectWithTag("wardrobePanel").GetComponent<CanvasGroup>();
+        cg.alpha = 0;
+        cg.interactable = false;
+        cg.blocksRaycasts = false;
+        current = "Player_Default";
+        open = false;
+    }
+
+    public void Clicked() {
+        if (cg.alpha == 0) {
+            GameObject.FindObjectOfType<Player>().allowedToMove = false;
+            cg.alpha = 1;
+            cg.interactable = true;
+            cg.blocksRaycasts = true;
+            open = true;
+
+            Button[] options = cg.gameObject.GetComponentsInChildren<Button>();
+            for(int i = 0; i < options.Length - 1; i++){
+                if (!unlocked[i]) {
+                    options[i].interactable = false;
+                    options[i].gameObject.GetComponent<Image>().color = Color.black;
+                }
+            }
+        }
+    }
+
+    public void Close() {
+        cg.alpha = 0;
+        cg.interactable = false;
+        cg.blocksRaycasts = false;
+        GameObject.FindObjectOfType<Player>().allowedToMove = true;
+        open = false;
+    }
+
+    public void LoadCostume(string c) {
         current = c;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Characters/" + costumes[Current]);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Characters/" + c);
     }
 
     private void OnMouseEnter() {
