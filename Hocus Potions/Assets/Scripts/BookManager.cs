@@ -91,18 +91,27 @@ public class BookManager : MonoBehaviour {
 
     public void SetUpPage(int i)
     {
+        Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
         GameObject newPage = GameObject.Instantiate(CurrentPage);
         newPage.transform.SetParent(BookBackground.transform);
         newPage.transform.position = BookBackground.transform.position;
+        temp = newPage.transform.position;
+        temp.x -= 300;
+        //temp.y -= 250;
+        newPage.transform.position = temp;
         Debug.Log("Added newPage");
-        List<string> keys = rl.ingredients.Keys.ToList(); 
+        List<string> keys = rl.ingredients.Keys.ToList();
+
+        ScrollRect viewpoint = newPage.GetComponent<ScrollRect>();
+        GameObject content = GameObject.FindGameObjectWithTag("contentWindow");
         
         foreach (string key in keys)
         {
             GameObject button = Instantiate(ButtonPrefab);
-            button.transform.SetParent(newPage.transform);
-            button.transform.position = newPage.transform.position;
+            //button.transform.SetParent(newPage.transform);
+            button.transform.SetParent(content.transform);
+            button.transform.position = content.transform.position;
             button.GetComponentInChildren<Text>().text = key;
             button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
             
@@ -128,7 +137,8 @@ public class BookManager : MonoBehaviour {
         //temp = panel.transform.position;
         //temp.x += 50;
         panel.transform.position = temp;
-        panel.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
+        Image[] sprites = panel.GetComponentsInChildren<Image>();
+            sprites[1].sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
 
         
     }
