@@ -19875,11 +19875,14 @@ MonoBehaviour:
   PotionTab: {fileID: 0}
   MapTab: {fileID: 0}
   CurrentTab: 
-  CurrentPage: {fileID: 0}
-  KeyPage: {fileID: 0}
-  ButtonPrefab: {fileID: 0}
-  PanelPrefab: {fileID: 0}
-  TextBox: {fileID: 0}
+  CurrentPage: {fileID: 1239200967467820, guid: ef29535dcd7bce146b6c38d882a62681,
+    type: 2}
+  KeyPage: {fileID: 1239200967467820, guid: 001654f93516abd4ab428a9117d6cc58, type: 2}
+  ButtonPrefab: {fileID: 1791035568725948, guid: c21da3f02bde55140a5549cebfe7916c,
+    type: 2}
+  PanelPrefab: {fileID: 1525929769960732, guid: 263a029e3881cd448bf66bbdc5243314,
+    type: 2}
+  TextBox: {fileID: 1023032766453630, guid: 09ac1f0734455e3479d41919e90b374b, type: 2}
 --- !u!4 &1663266105
 Transform:
   m_ObjectHideFlags: 0
