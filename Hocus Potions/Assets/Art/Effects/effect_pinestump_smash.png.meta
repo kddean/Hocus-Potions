@@ -1,31 +1,26 @@
 fileFormatVersion: 2
-guid: 7e9d0f994d0196b4b91c2f25dded6f2b
+guid: 6102e60afc1da56469021e9ba040b1b7
 TextureImporter:
   fileIDToRecycleName:
-    21300000: plants (4)_0
-    21300002: plants (4)_1
-    21300004: plants (4)_2
-    21300006: plants (4)_3
-    21300008: plants (4)_4
-    21300010: plants (4)_5
-    21300012: plants (4)_6
-    21300014: plants (4)_7
-    21300016: plants (4)_8
-    21300018: plants (4)_9
-    21300020: plants (4)_10
-    21300022: plants (4)_11
-    21300024: Plants_Overworld_0
-    21300026: Plants_Overworld_1
-    21300028: Plants_Overworld_2
-    21300030: Plants_Overworld_3
-    21300032: Plants_Overworld_4
-    21300034: Plants_Overworld_5
-    21300036: Plants_Overworld_6
-    21300038: Plants_Overworld_7
-    21300040: Plants_Overworld_8
-    21300042: Plants_Overworld_9
-    21300044: Plants_Overworld_10
-    21300046: Plants_Overworld_11
+    21300000: effect_pinestump_smash_0
+    21300002: effect_pinestump_smash_1
+    21300004: effect_pinestump_smash_2
+    21300006: effect_pinestump_smash_3
+    21300008: effect_pinestump_smash_4
+    21300010: effect_pinestump_smash_5
+    21300012: effect_pinestump_smash_6
+    21300014: effect_pinestump_smash_7
+    21300016: effect_pinestump_smash_8
+    21300018: effect_pinestump_smash_9
+    21300020: effect_pinestump_smash_10
+    21300022: effect_pinestump_smash_11
+    21300024: effect_pinestump_smash_12
+    21300026: effect_pinestump_smash_13
+    21300028: effect_pinestump_smash_14
+    21300030: effect_pinestump_smash_15
+    21300032: effect_pinestump_smash_16
+    21300034: effect_pinestump_smash_17
+    21300036: effect_pinestump_smash_18
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -71,7 +66,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -141,53 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Plants_Overworld_0
+      name: effect_pinestump_smash_0
       rect:
         serializedVersion: 2
-        x: 314
-        y: 298
-        width: 69
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3fdcc3b20253864baf47a028c3c1a72
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_1
-      rect:
-        serializedVersion: 2
-        x: 404
-        y: 296
-        width: 70
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a7244bd6b9bc2f4db738de7e44f1173
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_2
-      rect:
-        serializedVersion: 2
-        x: 494
-        y: 296
+        x: 0
+        y: 194
         width: 64
-        height: 63
+        height: 62
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,59 +150,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2df57edd0eee45d4d89beea8696bb1fe
+      spriteID: e14e2aa57b44f7745ad9b90814d5e585
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Plants_Overworld_3
+      name: effect_pinestump_smash_1
       rect:
         serializedVersion: 2
-        x: 312
-        y: 224
-        width: 69
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 37e12f0bca8714242beeeea71a5c8fb1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_4
-      rect:
-        serializedVersion: 2
-        x: 404
-        y: 224
-        width: 70
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a1e8d4741b07f6046a508525eccd43bb
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_5
-      rect:
-        serializedVersion: 2
-        x: 491
-        y: 219
+        x: 64
+        y: 194
         width: 64
-        height: 64
+        height: 62
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,99 +170,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70844193625c71045b5ed38a58fda816
+      spriteID: eaf25185e6984a14dbc3b28f981bf704
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Plants_Overworld_6
+      name: effect_pinestump_smash_2
       rect:
         serializedVersion: 2
-        x: 18
-        y: 28
-        width: 96
-        height: 166
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 55f967f45667440479e89d16cb3280ff
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_7
-      rect:
-        serializedVersion: 2
-        x: 148
-        y: 28
-        width: 100
-        height: 162
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f737c73aacc83a40aec13bd072dfcd2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_8
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 32
-        width: 101
-        height: 165
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7aacdd34202c0ab458a8814738a61e7e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_9
-      rect:
-        serializedVersion: 2
-        x: 397
-        y: 32
-        width: 100
-        height: 169
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05427915b4646f5479f0a54b2b6cb2f9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plants_Overworld_10
-      rect:
-        serializedVersion: 2
-        x: 502
-        y: 97
+        x: 128
+        y: 194
         width: 64
-        height: 38
+        height: 62
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,19 +190,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f416f25b64b14e14e99d28e1ea40cc97
+      spriteID: ac93adbbf83c6964e83c1e2525d28696
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Plants_Overworld_11
+      name: effect_pinestump_smash_3
       rect:
         serializedVersion: 2
-        x: 501
-        y: 35
+        x: 192
+        y: 194
         width: 64
-        height: 47
+        height: 62
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -375,7 +210,307 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c1e327e16ae9084bbd2bdd332333f48
+      spriteID: 362aab5332a7c3c49861071afd43c37b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 194
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba70965fd6083a14792aba93525ff125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 130
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ea024fdc64ad754b9234399c18f0bcb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 130
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce0c726fd40b643428179ef2c770f206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 130
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d990b511f02dda4e8a00593337e1a9c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 130
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76905a75a4a34294081d50ace5882732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 130
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f463ee68d21fac49a96f7a99e00ac8c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4e78126152bc98468f0796f29500ba5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 66
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 881864908cd79684395c45765ab03de5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 66
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4400375b09017f24096740ce275ceabb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 66
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 681c046c38f4ce748861b8864fcd9c04
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 66
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5e84b6d830f0534f9e0365b0aa80f43
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 966c4f9d811473d4eae248e193fa1b90
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 2
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 639328597bb2e3b4ca3ac35afc7833dc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_17
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 2
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5762e064007e8284496ea6ced95295a5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_pinestump_smash_18
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 2
+        width: 64
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffde49b08c23a7408c2ba795b8d8ff9
       vertices: []
       indices: 
       edges: []
@@ -383,7 +518,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 82bf346ebfd7a6e40a2039d238840092
+    spriteID: 70240026632d4244382bcb933709ea95
     vertices: []
     indices: 
     edges: []

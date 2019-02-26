@@ -3491,10 +3491,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1f9679bb9f2b4c14384618d93966af4b, type: 3}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -4217,10 +4217,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1f9679bb9f2b4c14384618d93966af4b, type: 3}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -19586,11 +19586,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4550098322201666, guid: 4644bfdd3c7d5624eaebd350265c0e43, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4550098322201666, guid: 4644bfdd3c7d5624eaebd350265c0e43, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.86
+      value: -3.09
       objectReference: {fileID: 0}
     - target: {fileID: 4550098322201666, guid: 4644bfdd3c7d5624eaebd350265c0e43, type: 2}
       propertyPath: m_LocalPosition.z
@@ -19619,77 +19619,6 @@ Prefab:
     - target: {fileID: 1283993604407130, guid: 4644bfdd3c7d5624eaebd350265c0e43, type: 2}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 95375460657720658, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 0d51de41612000044a4eebc99598bfe3, type: 2}
-    - target: {fileID: 212632303001910162, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300002, guid: 8794573b48526804593428c482fbf2fe,
-        type: 3}
-    - target: {fileID: 212632303001910162, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 1.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 212632303001910162, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 2.21875
-      objectReference: {fileID: 0}
-    - target: {fileID: 212632303001910162, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114187325647405822, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: cursor
-      value: 
-      objectReference: {fileID: 2800000, guid: 1bc3fff319dfe654da6f6e7ad373d610, type: 3}
-    - target: {fileID: 61197529647547674, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 61197529647547674, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.21875
-      objectReference: {fileID: 0}
-    - target: {fileID: 61197529647547674, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 61197529647547674, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 2.21875
-      objectReference: {fileID: 0}
-    - target: {fileID: 61970886746809932, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 61970886746809932, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.21875
-      objectReference: {fileID: 0}
-    - target: {fileID: 61970886746809932, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 61970886746809932, guid: 4644bfdd3c7d5624eaebd350265c0e43,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 2.21875
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4644bfdd3c7d5624eaebd350265c0e43, type: 2}
@@ -23341,10 +23270,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1f9679bb9f2b4c14384618d93966af4b, type: 3}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0

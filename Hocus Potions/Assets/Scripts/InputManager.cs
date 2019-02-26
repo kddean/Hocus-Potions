@@ -11,7 +11,6 @@ public class InputManager : MonoBehaviour {
     CanvasGroup invGroup;
     GameObject spellCanvas;
     GameObject mainMenu;
-    bool invToggle = false;
     ResourceLoader rl;
     bool paused; 
     public void Awake() {
@@ -54,14 +53,12 @@ public class InputManager : MonoBehaviour {
         if (paused) { return; }
 
         if (Input.GetKeyDown(KeyCode.I)) {
-            if (invToggle) {
+            if (invGroup.alpha == 1) {
                 invGroup.gameObject.GetComponentsInChildren<AudioSource>()[1].Play();
-                invToggle = false;
                 invGroup.alpha = 0;
                 invGroup.interactable = false;
                 invGroup.blocksRaycasts = false;
             } else {
-                invToggle = true;
                 invGroup.gameObject.GetComponentsInChildren<AudioSource>()[0].Play();
                 invGroup.alpha = 1;
                 invGroup.interactable = true;

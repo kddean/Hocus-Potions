@@ -18,6 +18,7 @@ public class ResourceLoader : MonoBehaviour {
     public Dictionary<string, Sprite> charSpriteList;
     public Dictionary<string, List<Request>> requestList;
     public Dictionary<string, List<object>> npcGivenList;
+    public Dictionary<Ingredient, List<Ingredient.Attributes>> knownAttributes;
     public Ingredient[] brewingIngredients;
     public List<string> availableNPCs;
     public List<Spell> spells;
@@ -39,6 +40,7 @@ public class ResourceLoader : MonoBehaviour {
         charSpriteList = new Dictionary<string, Sprite>();
         requestList = new Dictionary<string, List<Request>>();
         npcGivenList = new Dictionary<string, List<object>>();
+        knownAttributes = new Dictionary<Ingredient, List<Ingredient.Attributes>>();
         brewingIngredients = new Ingredient[3];
 
         activeItem = null;
@@ -86,6 +88,10 @@ public class ResourceLoader : MonoBehaviour {
             { "garnet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeRed, Ingredient.Attributes.none, Ingredient.Attributes.none }, "garnet", "Gems/garnet_inv") },
             { "jet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeBlack, Ingredient.Attributes.speed, Ingredient.Attributes.transformation }, "jet", "Gems/jet_inv") },
         };
+
+        foreach(Ingredient i in ingredients.Values.ToList()) {
+            knownAttributes.Add(i, new List<Ingredient.Attributes>());
+        }
     }
 
     //TODO: Load from file

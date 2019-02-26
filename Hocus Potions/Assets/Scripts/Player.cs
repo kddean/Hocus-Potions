@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IPointerDownHandler {
 
-    public enum PlayerStatus { poisoned, fast, invisible, transformed, asleep }
+    public enum PlayerStatus { poisoned, fast, invisible, transformed, asleep, none }
     float speed;
     public float defaultSpeed, poisonedSpeed, fastSpeed;
     int x, y;
@@ -103,16 +103,32 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         }
 
         if (eventData.button == PointerEventData.InputButton.Right) {
-            if (rl.activeItem.item.item is Potion && (rl.activeItem.item.item != lastTaken)) {
+            if (rl.activeItem.item.item is Potion) {
                 UsePotion(rl.activeItem.item.item as Potion, rl.activeItem);
             }
         }
     }
 
     public void UsePotion(Potion pot, InventorySlot slot ) {
-        lastTaken = pot;
+        if (status.Contains(ConvertAttribute(pot))) { return; }
         StartCoroutine(HandlePotions(pot));
         Inventory.RemoveItem(slot);
+    }
+    PlayerStatus ConvertAttribute(Potion pot) {
+        switch (pot.Primary) {
+            case Ingredient.Attributes.poison:
+                return PlayerStatus.poisoned;
+            case Ingredient.Attributes.speed:
+                return PlayerStatus.fast;
+            case Ingredient.Attributes.invisibility:
+                return PlayerStatus.invisible; 
+            case Ingredient.Attributes.transformation:
+                return PlayerStatus.transformed;
+            case Ingredient.Attributes.sleep:
+                return PlayerStatus.asleep;
+            default:
+                return PlayerStatus.none;
+        }
     }
 
     private void FixedUpdate() {

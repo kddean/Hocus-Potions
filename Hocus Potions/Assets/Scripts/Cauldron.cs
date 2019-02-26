@@ -53,26 +53,26 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         
         done = false;
         brewVisible = false;
-
+ 
         if (rl.ingredientCount != 0) {
             try {
                 first.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[0].imagePath);
                 first.GetComponentsInChildren<Image>()[1].enabled = true;
-                first.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[0].name, "_", " ");
+                first.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[0].name.Substring(0, 1).ToUpper() + rl.brewingIngredients[0].name.Substring(1), "_", " ");
                 first.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
 
             try {
                 second.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[1].imagePath);
                 second.GetComponentsInChildren<Image>()[1].enabled = true;
-                second.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[1].name, "_", " ");
+                second.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[1].name.Substring(0, 1).ToUpper() + rl.brewingIngredients[1].name.Substring(1), "_", " ");
                 second.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
 
             try {
                 third.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[2].imagePath);
                 third.GetComponentsInChildren<Image>()[1].enabled = true;
-                third.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[2].name, "_", " ");
+                third.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[2].name.Substring(0, 1).ToUpper() + rl.brewingIngredients[2].name.Substring(1), "_", " ");
                 third.GetComponentInChildren<CanvasGroup>().alpha = 1;
             } catch (System.NullReferenceException e) { }
         }
@@ -319,6 +319,34 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             if (brewVisible) {
                 SwapVisible(brewPanel.GetComponent<CanvasGroup>());
                 brewVisible = false;
+            }
+        }
+    }
+
+
+    public void UpdateText() {
+        if (rl.brewingIngredients[0] != null) {
+            if (rl.knownAttributes[rl.brewingIngredients[0]].Count > 0) {
+                first.GetComponentsInChildren<Text>()[1].text = "";
+                foreach (Ingredient.Attributes att in rl.knownAttributes[rl.brewingIngredients[0]]) {
+                    first.GetComponentsInChildren<Text>()[1].text += "- " + att.ToString() + "\n";
+                }
+            }
+        }
+        if (rl.brewingIngredients[1] != null) {
+            if (rl.knownAttributes[rl.brewingIngredients[1]].Count > 0) {
+                second.GetComponentsInChildren<Text>()[1].text = "";
+                foreach (Ingredient.Attributes att in rl.knownAttributes[rl.brewingIngredients[1]]) {
+                    second.GetComponentsInChildren<Text>()[1].text += "- " + att.ToString() + "\n";
+                }
+            }
+        }
+        if (rl.brewingIngredients[2] != null) {
+            if (rl.knownAttributes[rl.brewingIngredients[2]].Count > 0) {
+                third.GetComponentsInChildren<Text>()[1].text = "";
+                foreach (Ingredient.Attributes att in rl.knownAttributes[rl.brewingIngredients[2]]) {
+                    third.GetComponentsInChildren<Text>()[1].text += "- " + att.ToString() + "\n";
+                }
             }
         }
     }

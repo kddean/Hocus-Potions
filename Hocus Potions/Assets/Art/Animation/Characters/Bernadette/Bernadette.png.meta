@@ -2,26 +2,38 @@ fileFormatVersion: 2
 guid: dec46f7461fb476409a1f05492f230c8
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Bernadette_0
-    21300002: Bernadette_1
-    21300004: Bernadette_2
-    21300006: Bernadette_3
-    21300008: Bernadette_4
-    21300010: Bernadette_5
-    21300012: Bernadette_6
-    21300014: Bernadette_7
-    21300016: Bernadette_8
-    21300018: Bernadette_9
-    21300020: Bernadette_10
-    21300022: Bernadette_11
-    21300024: Bernadette_12
-    21300026: Bernadette_13
-    21300028: Bernadette_14
-    21300030: Bernadette_15
-    21300032: Bernadette_16
-    21300034: Bernadette_17
-    21300036: Bernadette_18
-    21300038: Bernadette_19
+    21300000: bernadette_0
+    21300002: bernadette_1
+    21300004: bernadette_2
+    21300006: bernadette_3
+    21300008: bernadette_4
+    21300010: bernadette_5
+    21300012: bernadette_6
+    21300014: bernadette_7
+    21300016: bernadette_8
+    21300018: bernadette_9
+    21300020: bernadette_10
+    21300022: bernadette_11
+    21300024: bernadette_12
+    21300026: bernadette_13
+    21300028: bernadette_14
+    21300030: bernadette_15
+    21300032: bernadette_16
+    21300034: bernadette_17
+    21300036: bernadette_18
+    21300038: bernadette_19
+    21300040: bernadette_20
+    21300042: bernadette_21
+    21300044: bernadette_22
+    21300046: bernadette_23
+    21300048: bernadette_24
+    21300050: bernadette_25
+    21300052: bernadette_26
+    21300054: bernadette_27
+    21300056: bernadette_28
+    21300058: bernadette_29
+    21300060: bernadette_30
+    21300062: bernadette_31
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -83,7 +95,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,7 +117,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,7 +128,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -127,7 +139,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -137,192 +149,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bernadette_0
+      name: bernadette_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 268
-        width: 37
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 01356dfcc47dc5b478b68b222c7fbd5b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_1
-      rect:
-        serializedVersion: 2
-        x: 75
-        y: 268
-        width: 35
-        height: 73
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe8bcdefca168624bacf1513e0a95898
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_2
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 266
-        width: 35
-        height: 73
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b47a4e4eb57fa64c94e55ccc77be866
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_3
-      rect:
-        serializedVersion: 2
-        x: 217
-        y: 307
-        width: 25
-        height: 31
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b664beca7fe40244b148dc85d374cac
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_4
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 307
-        width: 25
-        height: 31
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1eee67e42f844ce47800e5fd385aea2c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_5
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 306
-        width: 25
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c60b73828d9524e4388c6b6f20f7009b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_6
-      rect:
-        serializedVersion: 2
-        x: 216
-        y: 274
-        width: 25
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a10b9b8d4bdbf504cbcbf8c68569e808
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_7
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 274
-        width: 25
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cbd21ef5aa9a58143a0a5c97dc0088b1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_8
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 273
-        width: 25
-        height: 31
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4422247df4b5d4242b31f04edd034c67
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bernadette_9
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 192
-        width: 37
+        x: 21
+        y: 425
+        width: 32
         height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -331,18 +163,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 897a7528407f6724eaa96bfc4ebf4c29
+      spriteID: 0e2b0ee324db61e45a456223067c8770
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_10
+      name: bernadette_1
       rect:
         serializedVersion: 2
-        x: 75
-        y: 192
-        width: 35
+        x: 77
+        y: 425
+        width: 32
         height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -351,19 +183,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08ee5fd908d64c64d857a9198e0bf002
+      spriteID: caa9da027030f37498c70eea8fe29b76
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_11
+      name: bernadette_2
       rect:
         serializedVersion: 2
         x: 127
-        y: 192
-        width: 35
-        height: 68
+        y: 423
+        width: 32
+        height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -371,18 +203,58 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 446ce73935cc3854da62003ce4495955
+      spriteID: 31a3e6b2b1d89bd408622443c50ebcb6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_12
+      name: bernadette_3
       rect:
         serializedVersion: 2
-        x: 234
-        y: 239
-        width: 26
+        x: 217
+        y: 466
+        width: 25
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89760f4005c3e58499688a69d3b20638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_4
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 466
+        width: 25
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aa04d0a90812784a9b7324f89d55bd7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 465
+        width: 25
         height: 31
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -391,17 +263,157 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: acded9938a17a4645a76179960a6c1a8
+      spriteID: 0c365565174908f409b96699a9e60d38
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_13
+      name: bernadette_6
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 432
+        width: 25
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9daa0952a676a864a8e228dc16e4c179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_7
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 432
+        width: 25
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7a067a4e81d5d7438129e36f7c28b26
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_8
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 432
+        width: 25
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7bc7929ee2eb0548befa354195412b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_9
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 349
+        width: 32
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e1e0a21186ea644ba4a291010db0abd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_10
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 350
+        width: 32
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 279f40e50c51d3e47a73d7266a694048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_11
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 349
+        width: 32
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90e941d72de3a474aa1b078d8a39058d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_12
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 397
+        width: 27
+        height: 31
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45d6d7aeb836da24081cd4118b495d30
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_13
       rect:
         serializedVersion: 2
         x: 268
-        y: 239
+        y: 397
         width: 27
         height: 30
       alignment: 7
@@ -411,18 +423,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad1be1afc12ad404c816b342b04a904b
+      spriteID: ce8b1cd0cf93cfa4a82ab44eea79fa52
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_14
+      name: bernadette_14
       rect:
         serializedVersion: 2
-        x: 234
-        y: 198
-        width: 26
+        x: 236
+        y: 358
+        width: 27
         height: 30
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -431,18 +443,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 821c4a764ca72494681fd48b65b04fb7
+      spriteID: b83f266cf5d428444a9edb74fd174298
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_15
+      name: bernadette_15
       rect:
         serializedVersion: 2
-        x: 268
-        y: 198
-        width: 26
+        x: 269
+        y: 358
+        width: 27
         height: 31
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -451,19 +463,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08d93d095149fd949b3185a88141733a
+      spriteID: d9c1ad5fab5613744b2b7eb10e8d66de
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_16
+      name: bernadette_16
       rect:
         serializedVersion: 2
-        x: 18
-        y: 116
-        width: 34
-        height: 68
+        x: 22
+        y: 273
+        width: 30
+        height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -471,19 +483,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb17ea6c742c16a4cbd824e1561fe574
+      spriteID: 5e6ab8fa276839544a9258b5e411e364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_17
+      name: bernadette_17
       rect:
         serializedVersion: 2
-        x: 73
-        y: 116
-        width: 34
-        height: 73
+        x: 78
+        y: 273
+        width: 30
+        height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -491,19 +503,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d624ab06e29dd6145a2d229513f5d68f
+      spriteID: 76302c5ff9369ca4a97ba3cd43bedb54
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_18
+      name: bernadette_18
       rect:
         serializedVersion: 2
-        x: 26
-        y: 28
-        width: 34
-        height: 68
+        x: 23
+        y: 191
+        width: 30
+        height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -511,18 +523,198 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 649fffceb25d6fc46ad49461f29a82a1
+      spriteID: a024e4c4e1e7ca94986b474d8ec10521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernadette_19
+      name: bernadette_19
       rect:
         serializedVersion: 2
-        x: 80
+        x: 78
+        y: 191
+        width: 30
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eb5129387b4a5f49a25874865df00ce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_20
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 107
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7b4ad4e33867dc45959524fe4fdfee4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_21
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 108
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0f94c4e0672e214d9381cb644033d1b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_22
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 108
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93ed990354d351e46b4b823cfd7c925f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_23
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 107
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d39acc017da07934eb90fbbdac7b781d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_24
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 106
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff777947c8384c645b515f565c93315b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_25
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 106
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ba5cb556d52ba4784f280c5c21525e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_26
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 107
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9ae7c520715dbe4e8cf413a5272020e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_27
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 27
+        width: 31
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8deeefd6b9205ec47869495dce2c19a6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_28
+      rect:
+        serializedVersion: 2
+        x: 70
         y: 26
-        width: 34
+        width: 31
         height: 68
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -531,7 +723,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dc8c0e5090a1084eaa37abfec3a8e9a
+      spriteID: 4e2ae297b56846f43ae08738d9fc94b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_29
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 26
+        width: 31
+        height: 68
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25796d7628cc6a14393ffdbdada2f2c4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_30
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 26
+        width: 31
+        height: 68
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 007b94c82b6d0a64580788022673f5a5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bernadette_31
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 26
+        width: 31
+        height: 68
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950a22498b7931b45b6a055ffec868a4
       vertices: []
       indices: 
       edges: []
@@ -539,7 +791,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 6d18758c3f537c64baa2386f9ac9140e
+    spriteID: fb86024b55beea142ab4831d433c37d5
     vertices: []
     indices: 
     edges: []

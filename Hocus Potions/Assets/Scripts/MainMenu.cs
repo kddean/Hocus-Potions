@@ -97,6 +97,9 @@ public class MainMenu : MonoBehaviour {
         data.brewingTime = bm.BrewTime;
         data.currentTime = bm.CurrentTime;
 
+        data.ingredNames = rl.knownAttributes.Keys.ToList();
+        data.knownAtts = rl.knownAttributes.Values.ToList();
+
         data.gardenPlots = garden.plots.Keys.ToList();
         data.gardenData = garden.plots.Values.ToList();
 
@@ -165,12 +168,7 @@ public class MainMenu : MonoBehaviour {
             }
         }
 
-
-        rl.brewingIngredients = data.cauldronContents;
-        rl.ingredientCount = data.ingredientCount;
-
         file.Close();
-
     }
 
     public void QuitGame() {
@@ -191,8 +189,22 @@ public class MainMenu : MonoBehaviour {
                     player.RestartTimers(player.Status[i], data.timers[i]);
                 }
             }
-            GameObject.FindObjectOfType<Wardrobe>().LoadCostume(data.currentCostume);
-            GameObject.FindObjectOfType<Wardrobe>().Unlocked = data.unlockedCostumes;
+            Wardrobe wardrobe = GameObject.FindObjectOfType<Wardrobe>();
+            if (wardrobe != null) {
+                wardrobe.LoadCostume(data.currentCostume);
+                wardrobe.Unlocked = data.unlockedCostumes;
+            }
+
+            rl.brewingIngredients = data.cauldronContents;
+            rl.ingredientCount = data.ingredientCount;
+            for (int i = 0; i < data.ingredNames.Count; i++) {
+                rl.knownAttributes.Add(data.ingredNames[i], data.knownAtts[i]);
+            }
+
+            Cauldron cauldron = GameObject.FindObjectOfType<Cauldron>();
+            if (cauldron != null) {
+                cauldron.UpdateText();
+            }
 
             bm.Pot = data.brewingPotion;
             bm.BrewTime = data.brewingTime;

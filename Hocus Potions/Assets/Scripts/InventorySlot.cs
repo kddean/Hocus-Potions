@@ -327,7 +327,13 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     ings[i] = temp;
                     icon.sprite = Resources.Load<Sprite>(temp.imagePath);
                     Text[] text = slot.GetComponentsInChildren<Text>();
-                    text[0].text = Regex.Replace(temp.name, "_", " ");
+                    text[0].text = Regex.Replace(temp.name.Substring(0,1).ToUpper() + temp.name.Substring(1), "_", " ");
+                    if(rl.knownAttributes[temp].Count > 0) {
+                        text[1].text = "";
+                        foreach(Ingredient.Attributes att in rl.knownAttributes[temp]) {
+                            text[1].text += "- " + att.ToString() + "\n";
+                        }
+                    }
                 } else {
                    Inventory.Add(temp, 1, false);
                 }
@@ -336,7 +342,13 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 icon.GetComponent<Image>().enabled = true;
                 icon.sprite = Resources.Load<Sprite>(temp.imagePath);
                 Text[] text = slot.GetComponentsInChildren<Text>();
-                text[0].text = Regex.Replace(temp.name, "_", " "); ;
+                text[0].text = Regex.Replace(temp.name.Substring(0, 1).ToUpper() + temp.name.Substring(1), "_", " "); ;
+                if (rl.knownAttributes[temp].Count > 0) {
+                    text[1].text = "";
+                    foreach (Ingredient.Attributes att in rl.knownAttributes[temp]) {
+                        text[1].text += "- " + att.ToString() + "\n";
+                    }
+                }
                 slot.GetComponentInChildren<CanvasGroup>().alpha = 1;
                 rl.ingredientCount++;
             }

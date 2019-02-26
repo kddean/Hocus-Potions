@@ -35,6 +35,10 @@ public class SaveData {
     public float brewingTime;
     public float currentTime;
 
+    //Ingredient Data
+    public List<Ingredient> ingredNames;
+    public List<List<Ingredient.Attributes>> knownAtts;
+
     //Garden Data
     public List<string> gardenPlots;
     public List<Garden.PlotData> gardenData;

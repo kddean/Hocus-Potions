@@ -25,8 +25,8 @@ public class Brewing {
         }
     }
 
-
     public Potion Brew(Ingredient first, Ingredient second, Ingredient third) {
+        ResourceLoader rl = GameObject.FindObjectOfType<ResourceLoader>();
 
         //assign ingredients based on name
 
@@ -219,36 +219,99 @@ public class Brewing {
                     duration = 10;
                     brewingTime = 50;
                     image = "Potions/potions_healing";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.healing)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.healing);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.healing)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.healing);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.healing)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.healing);
+                    }
                     break;
                 case Ingredient.Attributes.sleep:
                     duration = 120;
                     brewingTime = 60;
                     image = "Potions/potions_sleep";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.sleep)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.sleep);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.sleep)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.sleep);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.sleep)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.sleep);
+                    }
                     break;
                 case Ingredient.Attributes.invisibility:
                     duration = 100;
                     brewingTime = 90;
                     image = "Potions/potions_invisibility";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.invisibility)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.invisibility);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.invisibility)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.invisibility);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.invisibility)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.invisibility);
+                    }
                     break;
                 case Ingredient.Attributes.poison:
                     duration = 100;
                     brewingTime = 60;
                     image = "Potions/potions_poison";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.poison)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.poison);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.poison)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.poison);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.poison)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.poison);
+                    }
                     break;
                 case Ingredient.Attributes.transformation:
                     duration = 100;
                     brewingTime = 90;
                     image = "Potions/potions_transform";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.transformation)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.transformation);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.transformation)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.transformation);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.transformation)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.transformation);
+                    }
                     break;
                 case Ingredient.Attributes.mana:
                     duration = 10;
                     brewingTime = 60;
                     image = "Potions/potions_mana";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.mana)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.mana);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.mana)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.mana);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.mana)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.mana);
+                    }
                     break;
                 case Ingredient.Attributes.speed:
                     duration = 100;
                     brewingTime = 80;
                     image = "Potions/potions_speed";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.speed)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.speed);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.speed)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.speed);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.speed)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.speed);
+                    }
                     break;
                 default:
                     name = "Failed potion";
