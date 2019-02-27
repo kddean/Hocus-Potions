@@ -113,7 +113,7 @@ public class ResourceLoader : MonoBehaviour {
         spells.Add(new Spell("Wild Growth", 25, null));
         spells.Add(new Spell("Ignite", 15, null));
         spells.Add(new Spell("Smash", 10, null));
-        spells.Add(new Spell("Dredge", 10, null));
+        spells.Add(new Spell("Dredge", 20, null));
     }
 
     void CreateInventory() {

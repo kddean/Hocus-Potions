@@ -126,8 +126,12 @@ public class Inventory {
         c.size = bounds;
         c.isTrigger = true;
 
-        if (!(item is Potion)) {
-            go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+         if (!(item is Potion)) {
+            if (item.imagePath.StartsWith("Gem")) {
+                go.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+            } else {
+                go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+            }
         }
 
         Pickups p = go.AddComponent<Pickups>();
@@ -154,7 +158,11 @@ public class Inventory {
         c.isTrigger = true;
 
         if (!(slot.item.item is Potion)) {
-            go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+            if (slot.item.item.imagePath.StartsWith("Gem")) {
+                go.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+            } else {
+                go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+            }
         }
              
         Pickups p = go.AddComponent<Pickups>();

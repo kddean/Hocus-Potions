@@ -14,6 +14,16 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
     }
 
 
+    private void OnMouseEnter() {
+        if (rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Dredge")){
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Water Mouse"), Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void OnMouseExit() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+    }
+
     public void OnPointerDown(PointerEventData eventData) {
         Player player = GameObject.FindObjectOfType<Player>();
         if (eventData.button != PointerEventData.InputButton.Right || player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) {
@@ -23,26 +33,22 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
         if (rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Dredge") && mana.CurrentMana >= rl.activeSpell.Cost) {
             string key;
             do {
-                int i = Random.Range(0, rl.ingredientCount);
+                int i = Random.Range(0, rl.ingredients.Count);
                 key = rl.ingredients.Keys.ToArray()[i];
             } while (!rl.ingredients[key].imagePath.Contains("Plant"));
+
+            BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
+            foreach (BoxCollider2D b in colliders) {
+                b.enabled = false;
+            }
+
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
+            mana.UpdateMana(rl.activeSpell.Cost);
             StartCoroutine(SpawnItem(rl.ingredients[key]));
         }
-
     }
 
     IEnumerator SpawnItem(Ingredient item) {
-        Animator anim = GetComponent<Animator>();
-        anim.SetBool("Smash", true);  //Change name
-        float time = 1.5f; //change time
-        RuntimeAnimatorController ac = anim.runtimeAnimatorController;
-        for (int i = 0; i < ac.animationClips.Length; i++) {
-            if (ac.animationClips[i].name.Contains("smash")) { //change name
-                time = ac.animationClips[i].length;
-            }
-        }
-        yield return new WaitForSeconds(time);
-        anim.SetBool("Smash", false); // change name
         GetComponent<SpriteRenderer>().enabled = false;
         GameObject go = new GameObject();
         go.name = item.name;
@@ -54,6 +60,15 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
         BoxCollider2D c = go.AddComponent<BoxCollider2D>();
         c.size = bounds;
         c.isTrigger = true;
+        go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+
+        Vector3 target = GameObject.FindGameObjectWithTag("Player").transform.position;
+        target.y -= 1;
+        while(go.transform.position != target) {
+            go.transform.position = Vector3.MoveTowards(go.transform.position, target, Time.deltaTime * 10);
+            yield return new WaitForEndOfFrame();
+        }
+
         sr.sortingLayerName = "InFrontOfPlayer";
         sr.sortingOrder = 10;
         Pickups p = go.AddComponent<Pickups>();
