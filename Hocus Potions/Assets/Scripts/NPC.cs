@@ -144,8 +144,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             }
             if (!allowedToMove) {
                 playerAnim.SetBool(currentAnim, false);
-                currentAnim = "Idle";
-                playerAnim.SetBool(currentAnim, true);
+                currentAnim = "Forward";
             }
             if (path.Count > 0 && allowedToMove) {
                 NPC[] others = GameObject.FindObjectsOfType<NPC>();
@@ -157,8 +156,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                             Vector3 temp = new Vector3(Mathf.Sign(transform.position.x) * (Mathf.Abs((int)transform.position.x) + 0.5f), Mathf.Sign(transform.position.y) * (Mathf.Abs((int)transform.position.y) + 0.5f), 0);
                             if(n.path[0] != temp) {
                                 playerAnim.SetBool(currentAnim, false);
+                                currentAnim = "Forward";
                                 return;
-                            }
+                            } 
                         }
                     }
                 }
@@ -499,6 +499,32 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (!requested || gavePot) { return; }
         allowedToMove = false;
         player.allowedToMove = false;
+        Potion temp = slot.item.item as Potion;
+        if (slot.item.item.name.Contains("dye")) {
+            currentDialogue = 0;
+            dialogueCanvas.SetActive(true);
+            dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["default"][0];
+            if (!buttonsSet) {
+                if (info.map == 0) {
+                    dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogueInside);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.AddListener(AcceptButton);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.AddListener(WaitButton);
+                    dialogueCanvas.GetComponentsInChildren<Button>()[4].onClick.AddListener(DeclineButton);
+                } else {
+                    dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogueOutside);
+                }
+
+                dialogueCanvas.GetComponentsInChildren<Button>()[1].onClick.AddListener(ExitButton);
+                buttonsSet = true;
+            }
+
+            nextCG.alpha = 0;
+            nextCG.interactable = false;
+            nextCG.blocksRaycasts = false;
+            return;
+        }
+
+
         info.given.Add(slot.item.item);
         info.returning = false;
         requested = false;
@@ -512,7 +538,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             info.given.Add(slot.item.item);
         }
         controller.npcData[characterName] = info;
-        Potion temp = slot.item.item as Potion;
         Inventory.RemoveItem(slot);
 
         //Handle VFX and sprite swaps
@@ -555,8 +580,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             }
             responding = true;
             List<string> dia = new List<string>();
-            foreach(string s in initial) {
-                if(s.Length > 5) {
+            foreach (string s in initial) {
+                if (s.Length > 5) {
                     dia.Add(s);
                 }
             }

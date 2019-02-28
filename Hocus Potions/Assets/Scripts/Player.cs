@@ -111,7 +111,43 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
     public void UsePotion(Potion pot, InventorySlot slot ) {
         if (status.Contains(ConvertAttribute(pot))) { return; }
-        StartCoroutine(HandlePotions(pot));
+        if (pot.name.Contains("dye")) {
+            string type = pot.name.Substring(0, pot.name.Length - 4);
+            Wardrobe wardrobe = GameObject.FindObjectOfType<Wardrobe>();
+            switch (type) {
+                case "Black":
+                    wardrobe.Unlocked[1] = true;
+                    wardrobe.LoadCostume("Player_Black");
+                    break;
+                case "Blue":
+                    wardrobe.Unlocked[2] = true;
+                    wardrobe.LoadCostume("Player_Blue");
+                    break;
+                case "Green":
+                    wardrobe.Unlocked[3] = true;
+                    wardrobe.LoadCostume("Player_Green");
+                    break;
+                case "Purple":
+                    wardrobe.LoadCostume("Player_Default");
+                    break;
+                case "Red":
+                    wardrobe.Unlocked[4] = true;
+                    wardrobe.LoadCostume("Player_Red");
+                    break;
+                case "White":
+                    wardrobe.Unlocked[5] = true;
+                    wardrobe.LoadCostume("Player_White");
+                    break;
+                case "Yellow":
+                    wardrobe.Unlocked[6] = true;
+                    wardrobe.LoadCostume("Player_Yellow");
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            StartCoroutine(HandlePotions(pot));
+        }
         Inventory.RemoveItem(slot);
     }
     PlayerStatus ConvertAttribute(Potion pot) {

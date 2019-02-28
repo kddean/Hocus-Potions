@@ -189,8 +189,12 @@ public class Brewing {
 
             //TODO: finalize naming conventions - Currently just named by primary attrbute
             //Potion name generation
-            name = primary.ToString() + " Potion";
-            name = char.ToUpper(name[0]) + name.Substring(1);
+            if (primary.ToString().Contains("dye")) {
+                name = primary.ToString().Substring(3) + " dye";
+            } else {
+                name = primary.ToString() + " Potion";
+                name = char.ToUpper(name[0]) + name.Substring(1);
+            }
 
             //TODO: Might need this later but for now it's ignoring modifiers
             /*switch (mod) {
@@ -313,6 +317,104 @@ public class Brewing {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.speed);
                     }
                     break;
+                case Ingredient.Attributes.dyeBlack:
+                    duration = 0;
+                    brewingTime = 80;
+                    image = "Potions/dye_black";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.dyeBlack)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.dyeBlack);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.dyeBlack)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.dyeBlack);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.dyeBlack)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.dyeBlack);
+                    }
+                    break;
+                case Ingredient.Attributes.dyeBlue:
+                    duration = 0;
+                    brewingTime = 80;
+                    image = "Potions/dye_blue";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.dyeBlue)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.dyeBlue);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.dyeBlue)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.dyeBlue);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.dyeBlue)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.dyeBlue);
+                    }
+                    break;
+                case Ingredient.Attributes.dyeGreen:
+                    duration = 0;
+                    brewingTime = 80;
+                    image = "Potions/dye_green";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.dyeGreen)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.dyeGreen);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.dyeGreen)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.dyeGreen);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.dyeGreen)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.dyeGreen);
+                    }
+                    break;
+                case Ingredient.Attributes.dyePurple:
+                    duration = 0;
+                    brewingTime = 80;
+                    image = "Potions/dye_purple";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.dyePurple)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.dyePurple);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.dyePurple)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.dyePurple);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.dyePurple)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.dyePurple);
+                    }
+                    break;
+                case Ingredient.Attributes.dyeRed:
+                    duration = 0;
+                    brewingTime = 80;
+                    image = "Potions/dye_red";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.dyeRed)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.dyeRed);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.dyeRed)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.dyeRed);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.dyeRed)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.dyeRed);
+                    }
+                    break;
+                case Ingredient.Attributes.dyeWhite:
+                    duration = 0;
+                    brewingTime = 80;
+                    image = "Potions/dye_white";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.dyeWhite)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.dyeWhite);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.dyeWhite)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.dyeWhite);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.dyeWhite)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.dyeWhite);
+                    }
+                    break;
+                case Ingredient.Attributes.dyeYellow:
+                    duration = 0;
+                    brewingTime = 80;
+                    image = "Potions/dye_yellow";
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.dyeYellow)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.dyeYellow);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.dyeYellow)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.dyeYellow);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.dyeYellow)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.dyeYellow);
+                    }
+                    break;
                 default:
                     name = "Failed potion";
                     duration = 0;
@@ -321,8 +423,7 @@ public class Brewing {
                     break;
             }
 
-            Potion pot = new Potion(name, image, duration, primary, secondary, mod, brewingTime);
-            return pot;
+            return new Potion(name, image, duration, primary, secondary, mod, brewingTime);
 
         } else {
             //for failed potions TO DO: clean up a bit later

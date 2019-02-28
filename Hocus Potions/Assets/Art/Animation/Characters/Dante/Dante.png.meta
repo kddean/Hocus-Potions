@@ -22,6 +22,21 @@ TextureImporter:
     21300034: Dante_17
     21300036: Dante_18
     21300038: Dante_19
+    21300040: Dante_20
+    21300042: Dante_21
+    21300044: Dante_22
+    21300046: Dante_23
+    21300048: Dante_24
+    21300050: Dante_25
+    21300052: Dante_26
+    21300054: Dante_27
+    21300056: Dante_28
+    21300058: Dante_29
+    21300060: Dante_30
+    21300062: Dante_31
+    21300064: Dante_32
+    21300066: Dante_33
+    21300068: Dante_34
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -141,9 +156,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 20
-        y: 257
+        y: 425
         width: 32
-        height: 70
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,7 +166,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddcbfadb240293d46945f9c156648836
+      spriteID: c2fe5d1d669b6f44fb455bf9b9dee75c
       vertices: []
       indices: 
       edges: []
@@ -161,7 +176,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 73
-        y: 257
+        y: 426
         width: 32
         height: 71
       alignment: 7
@@ -171,7 +186,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1cbc9016c10ab043961177391002e35
+      spriteID: c36a6420527261f47b548ac8b7b43aad
       vertices: []
       indices: 
       edges: []
@@ -181,9 +196,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 122
-        y: 258
+        y: 426
         width: 32
-        height: 70
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,7 +206,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a51fe83c0c787824989fd5424b14e8c6
+      spriteID: b6d1136b2a68dca478c2b11ee0dcfa77
       vertices: []
       indices: 
       edges: []
@@ -201,9 +216,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 245
-        y: 292
-        width: 16
-        height: 29
+        y: 462
+        width: 15
+        height: 28
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,7 +226,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bb374c783b96324280b40f9a0e2ebe0
+      spriteID: e46e0d4747930634087ceb1617dc407d
       vertices: []
       indices: 
       edges: []
@@ -221,28 +236,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 274
-        y: 292
-        width: 16
-        height: 27
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c2ce0cd0a4e778c45992ff61adebd0e9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dante_5
-      rect:
-        serializedVersion: 2
-        x: 244
-        y: 261
-        width: 16
+        y: 462
+        width: 14
         height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -251,7 +246,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b289c11f632de1459095dfe90fb4ad8
+      spriteID: 41dd296d8d1072141825c02d15a75d10
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_5
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 430
+        width: 13
+        height: 26
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea73b14a8e17f624c84f16f042292374
       vertices: []
       indices: 
       edges: []
@@ -260,9 +275,9 @@ TextureImporter:
       name: Dante_6
       rect:
         serializedVersion: 2
-        x: 273
-        y: 261
-        width: 16
+        x: 274
+        y: 430
+        width: 13
         height: 28
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -271,7 +286,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d33b00ce63452d341822c83116f29b01
+      spriteID: 740ecd78b28db89498d868a57e2421ed
       vertices: []
       indices: 
       edges: []
@@ -281,7 +296,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 20
-        y: 179
+        y: 348
         width: 32
         height: 71
       alignment: 7
@@ -291,7 +306,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 449b7d65c59c20743a221604ac5765ee
+      spriteID: f79ffc88450975e4db778dafe7dbbecd
       vertices: []
       indices: 
       edges: []
@@ -301,9 +316,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 73
-        y: 179
+        y: 349
         width: 32
-        height: 72
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -311,7 +326,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efd3498988681e740a086eacb4aeed49
+      spriteID: 17df81e699d03c349ba37bafe8cd9cd6
       vertices: []
       indices: 
       edges: []
@@ -321,7 +336,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 122
-        y: 180
+        y: 349
         width: 32
         height: 71
       alignment: 7
@@ -331,7 +346,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c50971d84f86e554bb014794750d1a96
+      spriteID: e26b53f8243042b46a1d8d45cc32ddba
       vertices: []
       indices: 
       edges: []
@@ -340,10 +355,10 @@ TextureImporter:
       name: Dante_10
       rect:
         serializedVersion: 2
-        x: 240
-        y: 227
-        width: 24
-        height: 28
+        x: 241
+        y: 397
+        width: 21
+        height: 27
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,7 +366,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42de60972f3de384f9c26bb19bf5ac09
+      spriteID: b57529fab92a0b244b21e3b97795f8cd
       vertices: []
       indices: 
       edges: []
@@ -361,9 +376,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 267
-        y: 227
+        y: 398
         width: 27
-        height: 31
+        height: 29
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -371,7 +386,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 655738f269bafef4bbc57e49bcdf92e8
+      spriteID: 0dea4db71d6d92d4a99310729b5c3e24
       vertices: []
       indices: 
       edges: []
@@ -380,10 +395,10 @@ TextureImporter:
       name: Dante_12
       rect:
         serializedVersion: 2
-        x: 240
-        y: 186
-        width: 24
-        height: 27
+        x: 241
+        y: 356
+        width: 21
+        height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,7 +406,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0383a3d62973b494f880b8ff93af73bb
+      spriteID: 6538cbeab96116f43b2eb34a0f4fa422
       vertices: []
       indices: 
       edges: []
@@ -401,9 +416,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 267
-        y: 185
+        y: 356
         width: 27
-        height: 31
+        height: 29
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -411,7 +426,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36fc329c1b0f2c94180fdeda454ef78b
+      spriteID: ccaf266aa6e22564d8fac5266378d109
       vertices: []
       indices: 
       edges: []
@@ -420,9 +435,9 @@ TextureImporter:
       name: Dante_14
       rect:
         serializedVersion: 2
-        x: 22
-        y: 101
-        width: 41
+        x: 78
+        y: 271
+        width: 34
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -431,7 +446,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad2a919a8549a0c46ad33950e1412b54
+      spriteID: 87e1d2d88e29dcb449bcfa203af074f7
       vertices: []
       indices: 
       edges: []
@@ -440,9 +455,9 @@ TextureImporter:
       name: Dante_15
       rect:
         serializedVersion: 2
-        x: 78
-        y: 103
-        width: 28
+        x: 126
+        y: 271
+        width: 34
         height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -451,7 +466,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16e16b019f436d74fafd2154a00c9f12
+      spriteID: a9a8cded9c3c9714a8282a6cb5f73891
       vertices: []
       indices: 
       edges: []
@@ -460,9 +475,9 @@ TextureImporter:
       name: Dante_16
       rect:
         serializedVersion: 2
-        x: 123
-        y: 102
-        width: 41
+        x: 74
+        y: 186
+        width: 34
         height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -471,7 +486,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31a35c4ad2140f74cb677b41fe75ed70
+      spriteID: 142015c35292eb54281cfebee61a2ad8
       vertices: []
       indices: 
       edges: []
@@ -480,9 +495,9 @@ TextureImporter:
       name: Dante_17
       rect:
         serializedVersion: 2
-        x: 20
-        y: 20
-        width: 41
+        x: 123
+        y: 186
+        width: 34
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -491,7 +506,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f5ee93b2ec2a6342a519305e9fe8240
+      spriteID: 37eb3f2e91370664ba29de8f3655c2ad
       vertices: []
       indices: 
       edges: []
@@ -500,10 +515,10 @@ TextureImporter:
       name: Dante_18
       rect:
         serializedVersion: 2
-        x: 81
-        y: 21
-        width: 26
-        height: 70
+        x: 10
+        y: 102
+        width: 32
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -511,7 +526,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eabd9d84ea8ed084489dc3d2afefde20
+      spriteID: a00fbef0569ecfa4ea4f4d2e1b22abb1
       vertices: []
       indices: 
       edges: []
@@ -520,10 +535,10 @@ TextureImporter:
       name: Dante_19
       rect:
         serializedVersion: 2
-        x: 123
-        y: 22
-        width: 41
-        height: 69
+        x: 52
+        y: 102
+        width: 32
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -531,7 +546,287 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72c8489753464024287f4b235a37e68f
+      spriteID: ca4362fadbd3d8347bd76fb46676c4b8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_20
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 102
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e399fb7502a67a94792bf97dfa6ee63a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_21
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 102
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfef819285e68504297bce649da5db35
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_22
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 102
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2501c863f83276f489db65a57e9684af
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_23
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 102
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d4bbf7adc05e354096f5d3994e0f3b8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_24
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 102
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aedf76502c257a44d8cc7714a1051dcd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_26
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 14
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce651ea0a8fc33d4ba86f8ff939a7b65
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_27
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 14
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52e70c992cb45df4bbfbb1a073c582f1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_28
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 14
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3daba88655d28e542bf66839c919d4c5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_29
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 14
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dca183f2e8330c49ad26beca6c029f1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_30
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 14
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ed2e83ce1cbc524bb15a0176b1bebe7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_31
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 14
+        width: 32
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad7312efb8ac91d4c93384f68c65d44d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_32
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 14
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b4c84a759ec3ac4e9403c26e93e83d6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_33
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 14
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d253f7e4b10dd944a9b10a0dccb0eeb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dante_34
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 13
+        width: 32
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f7375348c83884793a11ebf7cb6212
       vertices: []
       indices: 
       edges: []
@@ -539,7 +834,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 469e8e3a4d118c94ebe14bb6e04be6f2
+    spriteID: cd3aff9b2bff0f84bb3254e929faa682
     vertices: []
     indices: 
     edges: []

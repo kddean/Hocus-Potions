@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\StorageSlot.cs" />
     <Compile Include="Assets\Scripts\Traveller.cs" />
     <Compile Include="Assets\Scripts\Wardrobe.cs" />
+    <Compile Include="Assets\Scripts\WardrobeDontDestroy.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/u1148638/Desktop/Hocus Potions/Hocus-Potions/Hocus Potions/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

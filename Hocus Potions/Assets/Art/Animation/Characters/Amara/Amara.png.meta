@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e7af892a9d40d67469ca1b77c7504253
+guid: 8a3cf2146cb92d04e8b7802c65c81ec4
 TextureImporter:
   fileIDToRecycleName:
     21300000: Amara_0
@@ -24,6 +24,22 @@ TextureImporter:
     21300038: Amara_19
     21300040: Amara_20
     21300042: Amara_21
+    21300044: Amara_22
+    21300046: Amara_23
+    21300048: Amara_24
+    21300050: Amara_25
+    21300052: Amara_26
+    21300054: Amara_27
+    21300056: Amara_28
+    21300058: Amara_29
+    21300060: Amara_30
+    21300062: Amara_31
+    21300064: Amara_32
+    21300066: Amara_33
+    21300068: Amara_34
+    21300070: Amara_35
+    21300072: Amara_36
+    21300074: Amara_37
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -143,8 +159,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 263
-        width: 31
+        y: 414
+        width: 32
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -153,7 +169,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d4118478f70adb43a1212bbff8f234c
+      spriteID: 32c2c0c8c52c3d64eb08822b2517fd19
       vertices: []
       indices: 
       edges: []
@@ -163,8 +179,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 70
-        y: 263
-        width: 31
+        y: 414
+        width: 32
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -173,7 +189,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a805d1b8731b123468c994df96dca522
+      spriteID: cf3c5a01179bdfb4aa30ecbb495e7886
       vertices: []
       indices: 
       edges: []
@@ -183,9 +199,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 118
-        y: 262
+        y: 414
         width: 32
-        height: 72
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,7 +209,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8f40bf1c4813fa4a908d92b75bec851
+      spriteID: 208e0c81536df6647a0956d4859ae08f
       vertices: []
       indices: 
       edges: []
@@ -203,9 +219,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 241
-        y: 310
+        y: 462
         width: 20
-        height: 19
+        height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,7 +229,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d3c8bce5d19c8340804a45fc578ead9
+      spriteID: 4ddbb74f2ea7f0e44af830616f752223
       vertices: []
       indices: 
       edges: []
@@ -223,9 +239,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 263
-        y: 310
+        y: 462
         width: 19
-        height: 19
+        height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,7 +249,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4245d0b48b3fedf4aa136c5fa9ad39b8
+      spriteID: 1aefb52ace738a04b86cf3dd31ccbc6d
       vertices: []
       indices: 
       edges: []
@@ -243,27 +259,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 283
-        y: 310
-        width: 20
-        height: 19
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5d32026ecbff3143bc66d5b91431e8c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Amara_6
-      rect:
-        serializedVersion: 2
-        x: 242
-        y: 286
+        y: 462
         width: 20
         height: 18
       alignment: 7
@@ -273,17 +269,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad0846b8720507946b9b1a08ef32e717
+      spriteID: 84fa2a2295e8f2c43830e0199cf08381
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amara_7
+      name: Amara_6
       rect:
         serializedVersion: 2
-        x: 263
-        y: 286
+        x: 243
+        y: 437
         width: 19
         height: 18
       alignment: 7
@@ -293,7 +289,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c943ec4b7029fd542892407bd31a0ccc
+      spriteID: 8f03a58fa35b725448f21e72a27f6f5b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_7
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 437
+        width: 18
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edec5f61a973f1d4ea82327715fdc8ba
       vertices: []
       indices: 
       edges: []
@@ -302,9 +318,9 @@ TextureImporter:
       name: Amara_8
       rect:
         serializedVersion: 2
-        x: 284
-        y: 286
-        width: 20
+        x: 285
+        y: 437
+        width: 19
         height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -313,7 +329,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94e12c669b25ccd44b819dde8d00c1eb
+      spriteID: 4080ee0cca0da794f855b33fe1c42b94
       vertices: []
       indices: 
       edges: []
@@ -322,9 +338,9 @@ TextureImporter:
       name: Amara_9
       rect:
         serializedVersion: 2
-        x: 249
-        y: 264
-        width: 12
+        x: 251
+        y: 415
+        width: 10
         height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -333,7 +349,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2948a82da6aff8a4d885326aacc9db61
+      spriteID: e4207c92202cdec40989e1856ca74ac4
       vertices: []
       indices: 
       edges: []
@@ -342,9 +358,9 @@ TextureImporter:
       name: Amara_10
       rect:
         serializedVersion: 2
-        x: 266
-        y: 264
-        width: 12
+        x: 268
+        y: 415
+        width: 9
         height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -353,7 +369,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16e8e6756cfe9284aa03053a1d6bfa27
+      spriteID: a1d40e537e20ddb488b009717a05ca21
       vertices: []
       indices: 
       edges: []
@@ -363,8 +379,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 284
-        y: 264
-        width: 12
+        y: 415
+        width: 10
         height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -373,7 +389,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd824e7ec2f5b6c49bb6a61cc2eafc13
+      spriteID: 78162acf00345534ebe8f78fc2f69d7e
       vertices: []
       indices: 
       edges: []
@@ -382,9 +398,9 @@ TextureImporter:
       name: Amara_12
       rect:
         serializedVersion: 2
-        x: 17
-        y: 187
-        width: 30
+        x: 16
+        y: 338
+        width: 32
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -393,7 +409,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5827535b8e597044b1dd8e0eed8e530
+      spriteID: 48d1b2f44a76dbb44bb2c91a84d33dc6
       vertices: []
       indices: 
       edges: []
@@ -403,8 +419,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 69
-        y: 187
-        width: 31
+        y: 338
+        width: 32
         height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -413,7 +429,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e02afe5d03b1b4245bb69adc71fc93a1
+      spriteID: 538a9089896fc2c42a6f6ada8bd4ca7d
       vertices: []
       indices: 
       edges: []
@@ -422,9 +438,9 @@ TextureImporter:
       name: Amara_14
       rect:
         serializedVersion: 2
-        x: 117
-        y: 186
-        width: 31
+        x: 116
+        y: 337
+        width: 32
         height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -433,7 +449,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f88a461f8f7002b4b833647067775e83
+      spriteID: 50c585682de8c0548825d53ef2c62349
       vertices: []
       indices: 
       edges: []
@@ -442,9 +458,9 @@ TextureImporter:
       name: Amara_15
       rect:
         serializedVersion: 2
-        x: 249
-        y: 239
-        width: 12
+        x: 251
+        y: 390
+        width: 9
         height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -453,7 +469,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ade4144efa759034690540c80b1c180e
+      spriteID: 564ef1579f08b9f4dbdb6019f6aa1fca
       vertices: []
       indices: 
       edges: []
@@ -462,9 +478,9 @@ TextureImporter:
       name: Amara_16
       rect:
         serializedVersion: 2
-        x: 266
-        y: 239
-        width: 12
+        x: 268
+        y: 390
+        width: 9
         height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -473,7 +489,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 474252b1e7343fd41aeed7f5802ef43c
+      spriteID: 4f76f87edc41efe4b8d9903bfd5f207e
       vertices: []
       indices: 
       edges: []
@@ -482,9 +498,9 @@ TextureImporter:
       name: Amara_17
       rect:
         serializedVersion: 2
-        x: 284
-        y: 239
-        width: 12
+        x: 286
+        y: 390
+        width: 9
         height: 18
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -493,7 +509,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44da5a956de8e214795d2a3f640cae9c
+      spriteID: 6dafbf8ff6d197e45ba83cde1c3c7078
       vertices: []
       indices: 
       edges: []
@@ -502,8 +518,8 @@ TextureImporter:
       name: Amara_18
       rect:
         serializedVersion: 2
-        x: 19
-        y: 114
+        x: 17
+        y: 260
         width: 29
         height: 72
       alignment: 7
@@ -513,7 +529,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3904c0541eebb43498a25fd4fc67b512
+      spriteID: 6f68fa69a5e54154aa066eb4a86e315d
       vertices: []
       indices: 
       edges: []
@@ -522,28 +538,8 @@ TextureImporter:
       name: Amara_19
       rect:
         serializedVersion: 2
-        x: 72
-        y: 112
-        width: 28
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1686e5b038373594c95597283d1e191a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Amara_20
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 33
+        x: 71
+        y: 260
         width: 29
         height: 72
       alignment: 7
@@ -553,18 +549,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b719a6dc3eb12c04aacbc84b7cb5ad14
+      spriteID: 51813dec7d5ac3e46b4d91515578b65f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amara_21
+      name: Amara_20
       rect:
         serializedVersion: 2
-        x: 71
-        y: 31
-        width: 28
+        x: 19
+        y: 179
+        width: 29
         height: 72
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -573,7 +569,347 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b82a074f6d5758c48901bc3af931fd1f
+      spriteID: f43bee8c76a7afb4ca8595c3fdeef7dd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_21
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 179
+        width: 29
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b4771a8df768874d88d41616c495ac5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_22
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd391f42a2cd35849a553fd0cc7014d5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_23
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7e73c203162ee6458c30f528c8e70f7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_24
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0137ba5c0bf8b0340939214cccbd74b0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_25
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab53a307ab2365747b8b49eec639c5a6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_26
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14cc84a7ab554fe44baaf6d2ca9d09c4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_27
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 721e3ab7ed8796f42b14d60412986a58
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_28
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6888d25733ee47a4b8b56eafbb9d422c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_29
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2c43c3131328e94cb5401e98c35fec9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_30
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 99
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6876f3b16c88b3a46abf3059ffdc7920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_31
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 13
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42ac28c86bfe2a84998f76529e1bf196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_32
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 13
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe61b458bbe8dcf4082d3c4d4a3bc3fe
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_33
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 13
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e65732d7307b54c811f7ffead6f346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_34
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 13
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2cd0f1e8226450478dbea3d5dd44027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_35
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 13
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23a64296c7ae3bc4e9167ec0bda17d37
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_36
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 13
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d62de80bf044c24cbd87160853f3679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amara_37
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 13
+        width: 31
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6e7078486f673647969f9621c545403
       vertices: []
       indices: 
       edges: []
@@ -581,7 +917,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 8cecd35f2acb67f49801918dd539a1c6
+    spriteID: edc744eca01e47b4d99a12b95bb93419
     vertices: []
     indices: 
     edges: []

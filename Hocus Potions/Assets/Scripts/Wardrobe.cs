@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Wardrobe : MonoBehaviour {
@@ -30,6 +31,13 @@ public class Wardrobe : MonoBehaviour {
         }
     }
 
+    public void Awake() {
+        DontDestroyOnLoad(this);
+        if (FindObjectsOfType(GetType()).Length > 1) {
+            Destroy(gameObject);
+        }
+    }
+
     void Start () {
         unlocked = new[] { true, true, false, false, true, false, false, true, false, false, true };
         cg = GameObject.FindGameObjectWithTag("wardrobePanel").GetComponent<CanvasGroup>();
@@ -38,6 +46,18 @@ public class Wardrobe : MonoBehaviour {
         cg.blocksRaycasts = false;
         current = "Player_Default";
         open = false;
+    }
+
+    private void Update() {
+        if (SceneManager.GetActiveScene().name.Equals("House")){
+            GetComponent<SpriteRenderer>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<Button>().interactable = true;
+        } else {
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<Button>().interactable = false;
+        }
     }
 
     public void Clicked() {
@@ -53,6 +73,9 @@ public class Wardrobe : MonoBehaviour {
                 if (!unlocked[i]) {
                     options[i].interactable = false;
                     options[i].gameObject.GetComponent<Image>().color = Color.black;
+                } else {
+                    options[i].interactable = true;
+                    options[i].gameObject.GetComponent<Image>().color = Color.white;
                 }
             }
         }
