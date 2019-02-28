@@ -13,12 +13,15 @@ public class BookManager : MonoBehaviour {
     public GameObject PotionTab;
     public GameObject MapTab;
     public string CurrentTab;
+    public bool PageUp = false;
 
     public GameObject CurrentPage;
     public GameObject KeyPage;
     public GameObject ButtonPrefab;
     public GameObject PanelPrefab;
     public GameObject TextBox;
+    public GameObject[] gameObjects;
+    public List<string> keys;
 
     public void Awake()
     {
@@ -42,7 +45,6 @@ public class BookManager : MonoBehaviour {
         //CurrentPage = GameObject.Find("CurrentPage");
 
         BookCanvas.SetActive(false);
-        Debug.Log("Off");
 	}
 	
 	// Update is called once per frame
@@ -64,15 +66,51 @@ public class BookManager : MonoBehaviour {
     {
         if (i == 0)
         {
+            if(PageUp == true && CurrentTab == "PlantTab")
+            {
+                return;
+            }
+            else if (PageUp == true && CurrentTab != "PlantTab"){
+                PageUp = false;
+                Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                t.x *= -1;
+                GameObject.Find(CurrentTab).transform.localPosition = t;
+                GameObject.Find(CurrentTab).transform.localScale *= -1;
+            }
             Vector3 temp = PlantTab.transform.localPosition;
             temp.x *= -1;
             PlantTab.transform.localPosition = temp;
             PlantTab.transform.localScale *= -1;
             CurrentTab = "PlantTab";
+            gameObjects = GameObject.FindGameObjectsWithTag("page");
+            Debug.Log(gameObjects.Length);
+            if (gameObjects.Length != 0)
+            {
+                for(int j = 0; j < gameObjects.Length; j++)
+                {
+                    Debug.Log(gameObjects[j].name);
+                    Destroy(gameObjects[j]);
+                
+                }
+
+            }
             SetUpPage(i);
         }
         else if (i == 1)
         {
+            if (PageUp == true && CurrentTab == "PotionTab")
+            {
+                return;
+            }
+            else if (PageUp == true && CurrentTab != "PotionTab")
+            {
+                PageUp = false;
+                Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                t.x *= -1;
+                GameObject.Find(CurrentTab).transform.localPosition = t;
+                GameObject.Find(CurrentTab).transform.localScale *= -1;
+            }
+
             Vector3 temp = PotionTab.transform.localPosition;
             temp.x *= -1;
             PotionTab.transform.localPosition = temp;
@@ -81,6 +119,18 @@ public class BookManager : MonoBehaviour {
         }
         else if (i == 2)
         {
+            if (PageUp == true && CurrentTab == "MapTab")
+            {
+                return;
+            }
+            else if (PageUp == true && CurrentTab != "MapTab")
+            {
+                PageUp = false;
+                Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                t.x *= -1;
+                GameObject.Find(CurrentTab).transform.localPosition = t;
+                GameObject.Find(CurrentTab).transform.localScale *= -1;
+            }
             Vector3 temp = MapTab.transform.localPosition;
             temp.x *= -1;
             MapTab.transform.localPosition = temp;
@@ -101,10 +151,12 @@ public class BookManager : MonoBehaviour {
         //temp.y -= 250;
         newPage.transform.position = temp;
         Debug.Log("Added newPage");
-        List<string> keys = rl.ingredients.Keys.ToList();
+        keys = rl.ingredients.Keys.ToList();
 
         ScrollRect viewpoint = newPage.GetComponent<ScrollRect>();
         GameObject content = GameObject.FindGameObjectWithTag("contentWindow");
+        PageUp = true;
+        Debug.Log(content);
         
         foreach (string key in keys)
         {
@@ -113,7 +165,7 @@ public class BookManager : MonoBehaviour {
             button.transform.SetParent(content.transform);
             button.transform.position = content.transform.position;
             button.GetComponentInChildren<Text>().text = key;
-            button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
+            button.GetComponent<Button>().onClick.AddListener(() => PassName(button));          
             
         }
     }
@@ -137,6 +189,9 @@ public class BookManager : MonoBehaviour {
         //temp = panel.transform.position;
         //temp.x += 50;
         panel.transform.position = temp;
+        textBox.transform.SetParent(newPage.transform);
+        //textBox.transform.position = newPage.transform.position;
+        
         Image[] sprites = panel.GetComponentsInChildren<Image>();
             sprites[1].sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
 
