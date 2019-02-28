@@ -36,6 +36,13 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    void Start() {
+        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        gc = GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 5;
+    }
+
     private void OnMouseEnter() {
         Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Collect Mouse"), Vector2.zero, CursorMode.Auto);
     }
@@ -52,13 +59,5 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
             Destroy(this.gameObject);
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
         }
-    }
-
-    // Use this for initialization
-    void Start() {
-        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
-        gc = GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 5;
     }
 }

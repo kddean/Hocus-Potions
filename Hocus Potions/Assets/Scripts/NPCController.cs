@@ -130,7 +130,7 @@ public class NPCController : MonoBehaviour {
 
 
     void Update() {
-        while (npcQueue.Count > 0 && mc.Hour >= npcQueue.Keys[0].hour && mc.Minutes >= npcQueue.Keys[0].minute) {
+        while (npcQueue.Count > 0 && (mc.days > npcQueue.Keys[0].day ||  (mc.Hour >= npcQueue.Keys[0].hour && mc.Minutes >= npcQueue.Keys[0].minute))) {
             HandleMovement(npcQueue.Keys[0], npcQueue.Values[0]);
             npcQueue.RemoveAt(0);
         }
@@ -440,7 +440,6 @@ public class NPCController : MonoBehaviour {
 
     public void SetQueue(int day) {
         List<string> queued = new List<string>();
-        npcQueue.Clear();
         foreach (string key in npcData.Keys.ToList()) {
             List<Schedule> temp = new List<Schedule>();
             foreach (Schedule s in npcData[key].locations) {
