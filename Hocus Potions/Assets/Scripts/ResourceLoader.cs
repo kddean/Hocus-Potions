@@ -56,7 +56,6 @@ public class ResourceLoader : MonoBehaviour {
         CreateNPCs();
         LoadNPCData();
 
-        DontDestroyOnLoad(GameObject.FindGameObjectWithTag("inventory").transform.parent.gameObject);
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
         //Just for force spawning inventory items for testing
         Inventory.Testing();
