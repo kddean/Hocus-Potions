@@ -61,8 +61,9 @@ public class NPCController : MonoBehaviour {
         public Dictionary<NPC.Status, TimerData> potionTimers;
         public Vec3 pathEnd;
         public Vec3 nextTarget;
+        public List<int> givenQuests;
 
-        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget) {
+        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget, List<int> givenQuests) {
             this.x = x;
             this.y = y;
             this.z = z;
@@ -78,6 +79,7 @@ public class NPCController : MonoBehaviour {
             this.potionTimers = potionTimers;
             this.pathEnd = pathEnd;
             this.nextTarget = nextTarget;
+            this.givenQuests = givenQuests;
         }
     }
 

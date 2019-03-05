@@ -295,7 +295,11 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             //Dont let them dont wander off
             allowedToMove = false;
             player.allowedToMove = false;
-            dialogueCanvas.GetComponentsInChildren<Text>()[4].text = characterName;
+            if (characterName.Contains("Traveler")) {
+                dialogueCanvas.GetComponentsInChildren<Text>()[4].text = "???";
+            } else {
+                dialogueCanvas.GetComponentsInChildren<Text>()[4].text = characterName;
+            }
 
             //Set dialogue list if it isn't already set
             if (dialogue.Count == 0) {
@@ -480,7 +484,17 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     }
 
     private void GiveQuest() {
-        int choice = Random.Range(0, requests.Count - 1);
+        int choice;
+        if(info.givenQuests.Count == requests.Count) {
+            info.givenQuests = new List<int>();
+        }
+
+        do {
+            choice = Random.Range(0, requests.Count - 1);
+        } while (info.givenQuests.Contains(choice));
+
+        info.givenQuests.Add(choice);
+
         string affinity;
         if (info.affinity < 0) {
             affinity = "_bad";
