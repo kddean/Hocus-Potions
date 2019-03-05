@@ -364,11 +364,13 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             case Ingredient.Attributes.sleep:
                 effectAnim.SetBool("Sleep", true);
                 Status.Add(PlayerStatus.asleep);
-                GameObject.FindObjectOfType<Mana>().UpdateMana(-(pot.Duration / 60) * 10);
-                Speed = 0;
+                playerAnim.SetBool(currentAnim, false);
+                playerAnim.SetBool("Sleep", true);
+                allowedToMove = false;
                 sleepCanvas.SetActive(true);
                 StartCoroutine(FadeScreen(1));
                 yield return new WaitForSeconds(2);
+                GameObject.FindObjectOfType<Mana>().UpdateMana(-(pot.Duration / 60) * 10);
                 Time.timeScale = Time.timeScale / (0.1f / GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
                 break;
             case Ingredient.Attributes.speed:
@@ -436,9 +438,10 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             case Ingredient.Attributes.sleep:
                 effectAnim.SetBool("Sleep", false);
                 Status.Remove(PlayerStatus.asleep);
-                Speed = defaultSpeed;
+                allowedToMove = true;
                 Time.timeScale = Time.timeScale * (0.1f / GameObject.Find("Clock").GetComponent<MoonCycle>().CLOCK_SPEED);
                 StartCoroutine(FadeScreen(-1));
+                playerAnim.SetBool("Sleep", false);
                 sleepCanvas.GetComponentsInChildren<CanvasGroup>()[0].blocksRaycasts = false;
                 yield return new WaitForSeconds(2);
                 sleepCanvas.SetActive(false);

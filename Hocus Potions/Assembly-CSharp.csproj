@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\Sleep.cs" />
     <Compile Include="Assets\Scripts\SleepCanvas.cs" />
     <Compile Include="Assets\Scripts\SmashSpell.cs" />
+    <Compile Include="Assets\Scripts\Smoke.cs" />
     <Compile Include="Assets\Scripts\Spell.cs" />
     <Compile Include="Assets\Scripts\SpellCanvas.cs" />
     <Compile Include="Assets\Scripts\StorageChest.cs" />

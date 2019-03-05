@@ -11,6 +11,7 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
     StorageManager sm;
     float temp;
     GameObject inv;
+    bool alreadyOpen;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -19,6 +20,7 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         inv = GameObject.FindGameObjectWithTag("inventory");
         canvas.SetActive(false);
         active = false;
+        alreadyOpen = true;
     }
     private void OnMouseEnter() {
         if (!active && !GameObject.FindObjectOfType<Cauldron>().Visible && !GameObject.FindObjectOfType<Wardrobe>().open) {
@@ -36,9 +38,14 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
         GameObject.FindGameObjectWithTag("storage").GetComponent<GridLayoutGroup>().enabled = true;
         sm.OpenChest();
-        inv.GetComponent<CanvasGroup>().alpha = 1;
-        inv.GetComponent<CanvasGroup>().interactable = true;
-        inv.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        if (inv.GetComponent<CanvasGroup>().alpha == 0) {
+            inv.GetComponent<CanvasGroup>().alpha = 1;
+            inv.GetComponent<CanvasGroup>().interactable = true;
+            inv.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            alreadyOpen = false;
+        } else {
+            alreadyOpen = true;
+        }
         player.allowedToMove = false;
         GetComponent<AudioSource>().Play();
     }
@@ -47,9 +54,11 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         GetComponents<AudioSource>()[1].Play();
         canvas.SetActive(false);
         active = false;
-        inv.GetComponent<CanvasGroup>().alpha = 0;
-        inv.GetComponent<CanvasGroup>().interactable = false;
-        inv.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        if (!alreadyOpen) {
+            inv.GetComponent<CanvasGroup>().alpha = 0;
+            inv.GetComponent<CanvasGroup>().interactable = false;
+            inv.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
         player.allowedToMove = true;
 
     }

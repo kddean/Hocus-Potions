@@ -32,6 +32,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     public bool sceneSwapped;
     public bool saving;
     public bool closed;
+    bool sleeping;
     
 
 
@@ -80,6 +81,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         intro = false;
         allowedToMove = true;
         closed = false;
+        sleeping = false;
         dialoguePieces = new string[0];
         currentAnim = "Forward";
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
@@ -293,6 +295,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             //Dont let them dont wander off
             allowedToMove = false;
             player.allowedToMove = false;
+            dialogueCanvas.GetComponentsInChildren<Text>()[4].text = characterName;
 
             //Set dialogue list if it isn't already set
             if (dialogue.Count == 0) {
@@ -702,7 +705,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         nextCG.alpha = 1.0f;
         dialogueCanvas.GetComponent<DialogueCanvas>().active = false;
         dialogueCanvas.SetActive(false);
-        allowedToMove = true;
         player.allowedToMove = true;
         dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
         dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.RemoveAllListeners();
@@ -710,6 +712,11 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentsInChildren<Button>()[4].onClick.RemoveAllListeners();
         buttonsSet = false;
         closed = true;
+        if (sleeping) {
+            playerAnim.SetBool("Sleep", true);
+        } else {
+            allowedToMove = true;
+        }
     }
 
     IEnumerator PotionEffects(Potion pot) {
@@ -747,6 +754,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 info.state.Add(Status.asleep);
                 info.potionTimers.Add(Status.asleep, new NPCController.TimerData(Time.time, pot.Duration));
                 effectsAnim.SetBool("Sleep", true);
+                sleeping = true;
+                allowedToMove = false;
                 break;
             case Ingredient.Attributes.speed:
                 info.state.Add(Status.fast);
@@ -804,6 +813,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 info.state.Remove(Status.asleep);
                 info.potionTimers.Remove(Status.asleep);
                 effectsAnim.SetBool("Sleep", false);
+                playerAnim.SetBool("Sleep", false);
+                yield return new WaitForSeconds(0.33f);
+                sleeping = false;
+                allowedToMove = true;
                 break;
             case Ingredient.Attributes.speed:
                 info.state.Remove(Status.fast);
@@ -852,6 +865,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 break;
             case Status.asleep:
                 effectsAnim.SetBool("Sleep", true);
+                playerAnim.SetBool("Sleep", true);
+                allowedToMove = false;
                 break;
             case Status.fast:
                 speed = 8;
@@ -891,6 +906,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 info.state.Remove(Status.asleep);
                 info.potionTimers.Remove(Status.asleep);
                 effectsAnim.SetBool("Sleep", false);
+                playerAnim.SetBool("Sleep", false);
+                yield return new WaitForSeconds(0.33f);
+                allowedToMove = true;
                 break;
             case Status.fast:
                 info.state.Remove(Status.fast);

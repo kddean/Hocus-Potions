@@ -28,6 +28,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
     Player player;
 
     bool done;
+    bool alreadyOpen;
     bool visible;
     bool brewVisible;
     public bool active;
@@ -50,7 +51,7 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
         canvas = brewPanel.transform.parent.gameObject;
         canvas.SetActive(false);
         active = false;
-        
+        alreadyOpen = true;
         done = false;
         brewVisible = false;
  
@@ -169,9 +170,14 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
             if (!visible && (manager.Brewing == 0 || manager.Brewing == 2)) {
                 SetVisible(ingredientPanel.GetComponent<CanvasGroup>());
-                inv.GetComponent<CanvasGroup>().alpha = 1;
-                inv.GetComponent<CanvasGroup>().interactable = true;
-                inv.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                if (inv.GetComponent<CanvasGroup>().alpha == 0) {
+                    inv.GetComponent<CanvasGroup>().alpha = 1;
+                    inv.GetComponent<CanvasGroup>().interactable = true;
+                    inv.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                    alreadyOpen = false;
+                } else {
+                    alreadyOpen = true;
+                }
                 visible = true;
                 if (manager.Brewing == 2) {
                     SetVisible(brewPanel.GetComponent<CanvasGroup>());
@@ -269,9 +275,12 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             b.image.color = c;
         }
 
-        inv.GetComponent<CanvasGroup>().alpha = 0;
-        inv.GetComponent<CanvasGroup>().interactable = false;
-        inv.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        if (!alreadyOpen) {
+            inv.GetComponent<CanvasGroup>().alpha = 0;
+            inv.GetComponent<CanvasGroup>().interactable = false;
+            inv.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+
         visible = false;
         canvas.SetActive(false);
         active = false;
