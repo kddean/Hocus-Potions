@@ -15,6 +15,7 @@ TagManager:
   - tab
   - wardrobePanel
   - contentWindow
+  - page
   layers:
   - Default
   - TransparentFX
