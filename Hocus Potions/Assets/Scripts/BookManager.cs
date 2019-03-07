@@ -8,7 +8,8 @@ public class BookManager : MonoBehaviour {
 
     ResourceLoader rl;
     Dictionary<string, string> plantInfo;
-    Dictionary<string, string> potionInfo;
+    Dictionary<string, Potion> potionInfo;
+    Dictionary<string, bool> potionDiscovery;
     //Dictionary<string, string> mapInfo;
 
     public GameObject BookCanvas;
@@ -47,7 +48,8 @@ public class BookManager : MonoBehaviour {
         PotionTab = GameObject.Find("PotionTab");
         MapTab = GameObject.Find("MapTab");
         plantInfo = new Dictionary<string, string>();
-        potionInfo = new Dictionary<string, string>();
+        potionInfo = new Dictionary<string, Potion>();
+        potionDiscovery = new Dictionary<string, bool>();
         //CurrentPage = GameObject.Find("CurrentPage");
         CreateDictionary();
 
@@ -96,11 +98,11 @@ public class BookManager : MonoBehaviour {
                 for(int j = 0; j < gameObjects.Length; j++)
                 {
                     //Debug.Log(gameObjects[j].name);
-                    //Destroy(gameObjects[j]);               
+                    Destroy(gameObjects[j]);               
                 }
 
             }
-            SetUpPage(i);
+            SetUpPlantPage(i);
         }
         else if (i == 1)
         {
@@ -129,11 +131,11 @@ public class BookManager : MonoBehaviour {
                 for (int j = 0; j < gameObjects.Length; j++)
                 {
                     //Debug.Log(gameObjects[j].name);
-                    //Destroy(gameObjects[j]);                   
+                    Destroy(gameObjects[j]);                   
                 }
 
             }
-            //SetUpPage(i);
+            SetUpPotionPage(i);
         }
         else if (i == 2)
         {
@@ -166,12 +168,12 @@ public class BookManager : MonoBehaviour {
                 }
 
             }
-            SetUpPage(i);
+            //SetUpPage(i);
 
         }
     }
 
-    public void SetUpPage(int i)
+    public void SetUpPlantPage(int i)
     {
         Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
@@ -201,8 +203,58 @@ public class BookManager : MonoBehaviour {
         }
     }
 
+    public void SetUpPotionPage(int i)
+    {
+        Vector3 temp;
+        GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+        GameObject newPage = GameObject.Instantiate(CurrentPage);
+        newPage.transform.SetParent(BookBackground.transform);
+        newPage.transform.position = BookBackground.transform.position;
+        temp = newPage.transform.position;
+        temp.x -= 300;
+        //temp.y -= 250;
+        newPage.transform.position = temp;
+        Debug.Log("Added newPage");
+       
+        GameObject content = GameObject.FindGameObjectWithTag("contentWindow");
+        PageUp = true;
+
+
+
+        foreach (string key in potionInfo.Keys)
+        {
+            GameObject button = Instantiate(ButtonPrefab);
+
+            button.transform.SetParent(content.transform);
+            button.transform.position = content.transform.position;
+           
+            button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
+
+            Image[] sprites = button.GetComponentsInChildren<Image>();
+
+            if (potionDiscovery[key] == true)
+            {
+                button.GetComponent<Button>().interactable = true;
+                sprites[0].sprite = Resources.Load<Sprite>(potionInfo[key].imagePath);
+                button.GetComponentInChildren<Text>().text = key;
+                
+            }
+            else
+            {
+                button.GetComponentInChildren<Text>().text = "???";
+                button.GetComponent<Button>().interactable = false;
+                sprites[0].sprite = Resources.Load<Sprite>("Potions/potions_mystical");
+                sprites[0].color = Color.black;
+
+            }
+            
+        }
+    }
+
     public void SetUpKeyPage(string name)
     {
+        GameObject page = GameObject.Find("KeyPage(Clone)");
+        Destroy(page);      
 
         Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
@@ -228,15 +280,29 @@ public class BookManager : MonoBehaviour {
         temp.x += 190;
         
         textBox.transform.position = temp;
-
-        
         Image[] sprites = panel.GetComponentsInChildren<Image>();
+
+        if (CurrentTab == "PlantTab")
+        {
+
+            
             sprites[1].sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
 
-        textBox.
-            GetComponentInChildren<Text>().text = 
-            plantInfo[name];
+            textBox.
+                GetComponentInChildren<Text>().text =
+                plantInfo[name];
+        }
+        else if(CurrentTab == "PotionTab")
+        {
+            sprites[1].sprite = Resources.Load<Sprite>(potionInfo[name].imagePath);
+            textBox.
+                GetComponentInChildren<Text>().text =
+                potionInfo[name].description;
+        }
+        else if(CurrentTab == "MapTab")
+        {
 
+        }
         
     }
 
@@ -251,7 +317,7 @@ public class BookManager : MonoBehaviour {
         plantInfo.Add("catnip", "A flower with ink blossoms. It was said that cats would trade one of their lives for some of this plant.");
         plantInfo.Add("nightshade", "A dark purple flower famous for its poison. While it’s poison can be used to hurt it can as well be used for healing");
         plantInfo.Add("mugwort", "A bushy white flower. It often grows from the mud.");
-        plantInfo.Add("lambgrass", "A flower in the shape of a bell. It is said that those who sit in a field of them will hear bells.");
+        plantInfo.Add("lambsgrass", "A flower in the shape of a bell. It is said that those who sit in a field of them will hear bells.");
         plantInfo.Add("poppy", "A short flower that grow in groups and a variety of colors. It is often used in cakes and other sweets.");
         plantInfo.Add("thistle ", "");
         plantInfo.Add("lily", "A very large plant with a beautiful flower, unfortunately it smells of death and decay.");
@@ -269,12 +335,21 @@ public class BookManager : MonoBehaviour {
         plantInfo.Add("garnet", "");
         plantInfo.Add("jet", "");
 
-        potionInfo.Add("Sleeping", "A potion that puts the user the sleep");
-        potionInfo.Add("Healing", "Restores the user’s health");
-        potionInfo.Add("Invisibility", "Turns the user invisible");
-        potionInfo.Add("Mana", "Restores the user’s Mana");
-        potionInfo.Add("Poison", "Poisons the user ");
-        potionInfo.Add("Transformation", "Turns the user into a cat");
-        potionInfo.Add("Odd", "A potion with a variety of qualities, but no defining ones");
+        potionInfo.Add("Sleeping", new Potion( "Sleeping", "Potions/potions_sleep", 0, "A potion that puts the user the sleep"));
+        potionInfo.Add("Healing", new Potion("Healing", "Potions/potions_healing", 0, "Restores the user’s health"));
+        potionInfo.Add("Invisibility", new Potion("Invisibility", "Potions/potions_invisibility", 0, "Turns the user invisible"));
+        potionInfo.Add("Mana", new Potion("Mana", "Potions/potions_mana", 0, "Restores the user’s Mana"));
+        potionInfo.Add("Poison", new Potion("poison", "Potions/potions_poison", 0, "Poisons the user "));
+        potionInfo.Add("Transformation", new Potion("Transformation", "Potions/potions_transform", 0, "Turns the user into a cat"));
+        potionInfo.Add("Odd", new Potion("Null", "Potions/potions_null", 0, "A potion with a variety of qualities, but no defining ones"));
+
+        potionDiscovery.Add("Sleeping", false);
+        potionDiscovery.Add("Healing", false);
+        potionDiscovery.Add("Invisibility", false);
+        potionDiscovery.Add("Mana", false);
+        potionDiscovery.Add("Poison", false);
+        potionDiscovery.Add("Transformation", false);
+        potionDiscovery.Add("Odd", false);
+        
     }
 }

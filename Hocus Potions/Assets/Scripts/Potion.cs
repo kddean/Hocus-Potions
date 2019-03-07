@@ -12,6 +12,8 @@ public class Potion : Item {
     Ingredient.Attributes? secondary;
     Ingredient.Modifiers? modifier;
 
+    public string description;
+
     public Potion(string name, string imagePath, int duration, Ingredient.Attributes? primary, Ingredient.Attributes? secondary, Ingredient.Modifiers? modifier, int brewingTime) {
         this.name = name;
         this.imagePath = imagePath;
@@ -20,6 +22,15 @@ public class Potion : Item {
         this.secondary = secondary;
         this.modifier = modifier;
         this.brewingTime = brewingTime;
+    }
+
+    public Potion(string name, string imagePath, int brewingTime, string description)
+    {
+        this.name = name;
+        this.imagePath = imagePath;
+        this.brewingTime = brewingTime;
+        this.description = description;
+
     }
 
     public Ingredient.Attributes? Primary {
