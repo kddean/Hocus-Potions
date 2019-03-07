@@ -27,7 +27,8 @@ public class Brewing {
 
     public Potion Brew(Ingredient first, Ingredient second, Ingredient third) {
         ResourceLoader rl = GameObject.FindObjectOfType<ResourceLoader>();
-
+        BookManager bm = GameObject.FindObjectOfType<BookManager>();
+        bool potionTrue;
         //assign ingredients based on name
 
         List<attList> attributes = new List<attList>();
@@ -232,6 +233,17 @@ public class Brewing {
                     if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.healing)) {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.healing);
                     }
+
+                    if (bm.potionDiscovery == null)
+                    {
+                        break;
+                    }
+                    else if(bm.potionDiscovery.TryGetValue("Healing", out potionTrue))
+                    {
+                        potionTrue = true;
+                        bm.potionDiscovery["Healing"] = potionTrue;
+                    }
+
                     break;
                 case Ingredient.Attributes.sleep:
                     duration = 120;
@@ -246,7 +258,17 @@ public class Brewing {
                     if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.sleep)) {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.sleep);
                     }
-                    break;
+
+                    if (bm.potionDiscovery == null)
+                    {
+                        break;
+                    }
+                    else if(bm.potionDiscovery.TryGetValue("Sleeping", out potionTrue))
+                    {
+                        potionTrue = true;
+                        bm.potionDiscovery["Sleeping"] = potionTrue;
+                    }    
+                            break;
                 case Ingredient.Attributes.invisibility:
                     duration = 100;
                     brewingTime = 90;
@@ -260,6 +282,17 @@ public class Brewing {
                     if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.invisibility)) {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.invisibility);
                     }
+
+                    if (bm.potionDiscovery == null)
+                    {
+                        break;
+                    }
+                    else if(bm.potionDiscovery.TryGetValue("Invisibility", out potionTrue))
+                    {
+                        potionTrue = true;
+                        bm.potionDiscovery["Invisibility"] = potionTrue;
+                    }
+
                     break;
                 case Ingredient.Attributes.poison:
                     duration = 100;
@@ -274,6 +307,17 @@ public class Brewing {
                     if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.poison)) {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.poison);
                     }
+
+                    if (bm.potionDiscovery == null)
+                    {
+                        break;
+                    }
+                    else if (bm.potionDiscovery.TryGetValue("Poison", out potionTrue))
+                    {
+                        potionTrue = true;
+                        bm.potionDiscovery["Poison"] = potionTrue;
+                    }
+
                     break;
                 case Ingredient.Attributes.transformation:
                     duration = 100;
@@ -287,6 +331,16 @@ public class Brewing {
                     }
                     if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.transformation)) {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.transformation);
+                    }
+
+                    if (bm.potionDiscovery == null)
+                    {
+                        break;
+                    }
+                    else if (bm.potionDiscovery.TryGetValue("Transformation", out potionTrue))
+                    {
+                        potionTrue = true;
+                        bm.potionDiscovery["Transformation"] = potionTrue;
                     }
                     break;
                 case Ingredient.Attributes.mana:
@@ -302,6 +356,16 @@ public class Brewing {
                     if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.mana)) {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.mana);
                     }
+
+                    if (bm.potionDiscovery == null)
+                    {
+                        break;
+                    }
+                    else if(bm.potionDiscovery.TryGetValue("Mana", out potionTrue))
+                    {
+                        potionTrue = true;
+                        bm.potionDiscovery["Mana"] = potionTrue;
+                    }
                     break;
                 case Ingredient.Attributes.speed:
                     duration = 100;
@@ -315,6 +379,16 @@ public class Brewing {
                     }
                     if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.speed)) {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.speed);
+                    }
+
+                    if(bm.potionDiscovery == null)
+                    {
+                        break;
+                    }
+                    else if (bm.potionDiscovery.TryGetValue("Speed", out potionTrue))
+                    {
+                        potionTrue = true;
+                        bm.potionDiscovery["Speed"] = potionTrue;
                     }
                     break;
                 case Ingredient.Attributes.dyeBlack:
@@ -434,6 +508,15 @@ public class Brewing {
             duration = 0;
             brewingTime = 30;
             image = "Potions/potions_null";
+            if (bm.potionDiscovery == null)
+            {
+               
+            }
+            else if (bm.potionDiscovery.TryGetValue("Odd", out potionTrue))
+            {
+                potionTrue = true;
+                bm.potionDiscovery["Odd"] = potionTrue;
+            }
             Potion pot = new Potion(name, image, duration, primary, secondary, mod, brewingTime);
             return pot;
         }

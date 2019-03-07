@@ -9,7 +9,7 @@ public class BookManager : MonoBehaviour {
     ResourceLoader rl;
     Dictionary<string, string> plantInfo;
     Dictionary<string, Potion> potionInfo;
-    Dictionary<string, bool> potionDiscovery;
+    public Dictionary<string, bool> potionDiscovery;
     //Dictionary<string, string> mapInfo;
 
     public GameObject BookCanvas;
@@ -339,9 +339,10 @@ public class BookManager : MonoBehaviour {
         potionInfo.Add("Healing", new Potion("Healing", "Potions/potions_healing", 0, "Restores the user’s health"));
         potionInfo.Add("Invisibility", new Potion("Invisibility", "Potions/potions_invisibility", 0, "Turns the user invisible"));
         potionInfo.Add("Mana", new Potion("Mana", "Potions/potions_mana", 0, "Restores the user’s Mana"));
-        potionInfo.Add("Poison", new Potion("poison", "Potions/potions_poison", 0, "Poisons the user "));
+        potionInfo.Add("Poison", new Potion("Poison", "Potions/potions_poison", 0, "Poisons the user "));
         potionInfo.Add("Transformation", new Potion("Transformation", "Potions/potions_transform", 0, "Turns the user into a cat"));
         potionInfo.Add("Odd", new Potion("Null", "Potions/potions_null", 0, "A potion with a variety of qualities, but no defining ones"));
+        potionInfo.Add("Speed", new Potion("Speed", "Potions/potions_speed", 0, "Makes one go fast"));
 
         potionDiscovery.Add("Sleeping", false);
         potionDiscovery.Add("Healing", false);
@@ -350,6 +351,7 @@ public class BookManager : MonoBehaviour {
         potionDiscovery.Add("Poison", false);
         potionDiscovery.Add("Transformation", false);
         potionDiscovery.Add("Odd", false);
+        potionDiscovery.Add("Speed", false);
         
     }
 }

@@ -38,6 +38,8 @@ public class SaveData {
     //Ingredient Data
     public List<Ingredient> ingredNames;
     public List<List<Ingredient.Attributes>> knownAtts;
+    public List<string> discoveredKeys;
+    public List<bool> discoveredValues;
 
     //Garden Data
     public List<string> gardenPlots;

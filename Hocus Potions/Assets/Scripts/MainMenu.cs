@@ -99,6 +99,8 @@ public class MainMenu : MonoBehaviour {
 
         data.ingredNames = rl.knownAttributes.Keys.ToList();
         data.knownAtts = rl.knownAttributes.Values.ToList();
+        data.discoveredKeys = GameObject.FindObjectOfType<BookManager>().potionDiscovery.Keys.ToList();
+        data.discoveredValues = GameObject.FindObjectOfType<BookManager>().potionDiscovery.Values.ToList();
 
         data.gardenPlots = garden.plots.Keys.ToList();
         data.gardenData = garden.plots.Values.ToList();
@@ -115,7 +117,7 @@ public class MainMenu : MonoBehaviour {
         data.schedules = npcs.npcQueue.Keys.ToList();
         data.scheduleNames = npcs.npcQueue.Values.ToList();
         data.currentMap = npcs.CurrentMap;
-
+        
         bf.Serialize(file, data);
         file.Close();
         gameObject.SetActive(false);
@@ -255,6 +257,12 @@ public class MainMenu : MonoBehaviour {
 
             npcs.CurrentMap = data.currentMap;
             npcs.LoadNPCS();
+
+            GameObject.FindObjectOfType<BookManager>().potionDiscovery.Clear();
+            for (int i = 0; i < data.discoveredKeys.Count; i++)
+            {
+                GameObject.FindObjectOfType<BookManager>().potionDiscovery.Add(data.discoveredKeys[i], data.discoveredValues[i]);
+            }
 
             gc.droppedItems = data.droppedItems;
             GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>().SpawnDropped();
