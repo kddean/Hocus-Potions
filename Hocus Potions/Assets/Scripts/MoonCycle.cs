@@ -20,6 +20,7 @@ public class MoonCycle : MonoBehaviour {
     public Image moonPhase;
     public Image timeImage;
     int currentMoonPhase = 0;
+    int nightSprite = 0;
 
     public int days;
     public int hour;
@@ -98,6 +99,10 @@ public class MoonCycle : MonoBehaviour {
         //Every 2 mins real time is 10 mins game time - 120 for actual time scale
         yield return new WaitForSeconds(CLOCK_SPEED);
         ChangeTime();
+        if(hour > 20 || hour < 6) {
+            timeImage.sprite = timeOfDay[12 + nightSprite];
+            nightSprite = (nightSprite + 1) % 4;
+        }
         StartCoroutine(PassingTime());
     }
 
@@ -109,17 +114,55 @@ public class MoonCycle : MonoBehaviour {
                 timeImage.sprite = timeOfDay[0];
                 DayPart = PartOfDay.morning;
                 break;
+            case 7:
+                if(minutes == 30) {
+                    timeImage.sprite = timeOfDay[1];
+                }
+                break;
+            case 9:
+                timeImage.sprite = timeOfDay[2];
+                break;
+            case 10:
+                if (minutes == 30) {
+                    timeImage.sprite = timeOfDay[3];
+                }
+                break;
             case 12:
-                timeImage.sprite = timeOfDay[1];
+                timeImage.sprite = timeOfDay[4];
                 DayPart = PartOfDay.afternoon;
                 break;
+            case 13:
+                if(minutes == 20) {
+                    timeImage.sprite = timeOfDay[5];
+                }
+                break;
+            case 14:
+                if(minutes == 40) {
+                    timeImage.sprite = timeOfDay[6];
+                }
+                break;
+            case 16:
+                timeImage.sprite = timeOfDay[7];
+                break;
             case 17:
-                timeImage.sprite = timeOfDay[2];
+                timeImage.sprite = timeOfDay[8];
                 DayPart = PartOfDay.evening;
+                if(minutes == 40) {
+                    timeImage.sprite = timeOfDay[9];
+                }
+                break;
+            case 18:
+                if(minutes == 20) {
+                    timeImage.sprite = timeOfDay[10];
+                }
+                break;
+            case 19:
+                timeImage.sprite = timeOfDay[11];
                 break;
             case 20:
-                timeImage.sprite = timeOfDay[3];
+                timeImage.sprite = timeOfDay[12 + nightSprite];
                 DayPart = PartOfDay.night;
+                nightSprite = (nightSprite + 1) % 4;
                 break;
             default:
                 break;

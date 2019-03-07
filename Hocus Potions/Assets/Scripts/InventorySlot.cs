@@ -69,7 +69,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
     public void OnMouseEnter() {
-         if (item != null && !dragging) {
+         if (item != null && item.item.name != null && !dragging) {
             DisplayTooltip();
         }
     }
@@ -77,8 +77,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     void DisplayTooltip() {
         text = tooltip.GetComponentsInChildren<Text>();
         text[0].text = Regex.Replace(item.item.name, "_", " ");
-        //text[1].text = item.flavorText;
-        //text[2].text = item.attributes;
         tooltip.GetComponent<CanvasGroup>().alpha = 1;
         hovered = true;
     }
@@ -221,7 +219,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             //Adding to storage chest
             foreach (StorageSlot s in slots) {
                 if (RectTransformUtility.RectangleContainsScreenPoint(s.transform as RectTransform, Input.mousePosition)) {
-                    if (s.item == null) {
+                    if (s.item == null || s.item.name == null) {
                         s.item = item.item;
                         s.count = item.count;
                         s.gameObject.GetComponent<Image>().enabled = true;

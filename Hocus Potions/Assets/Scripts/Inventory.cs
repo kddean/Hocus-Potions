@@ -38,6 +38,7 @@ public class Inventory {
         Add(ss, 4, false);
         Add(sss, 4, false);
         Add(i, 8, false);
+        Add(i, 3, false);
         Add(ii, 8, false);
         Add(iii, 8, false);    
     }
@@ -57,11 +58,13 @@ public class Inventory {
                     return true;
                 } else {
                     slot.item.count = slot.item.maxStack;
+                    slot.gameObject.GetComponentInChildren<Text>().text = slot.item.count.ToString();
                     foreach (Button bt in invButtons) {
                         InventorySlot s = bt.GetComponent<InventorySlot>();
                         if (s.item == null) {
                             s.item = new InventoryItem(obj, remainder);
                             s.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(obj.imagePath);
+                            s.gameObject.GetComponent<Image>().enabled = true;
                             if (s.item.count > 1) {
                                 s.gameObject.GetComponentInChildren<Text>().text = s.item.count.ToString();
                             } else {
@@ -87,7 +90,7 @@ public class Inventory {
                     s.gameObject.GetComponentInChildren<Text>().text = "";
                 }
                 return true;
-            }
+            } 
         }
 
         //No empty slots and no partial stacks to add into
