@@ -151,6 +151,7 @@ public class BookManager : MonoBehaviour {
                 GameObject.Find(CurrentTab).transform.localPosition = t;
                 GameObject.Find(CurrentTab).transform.localScale *= -1;
             }
+            
             Vector3 temp = MapTab.transform.localPosition;
             temp.x *= -1;
             MapTab.transform.localPosition = temp;
@@ -168,6 +169,7 @@ public class BookManager : MonoBehaviour {
                 }
 
             }
+            PageUp = true;
             //SetUpPage(i);
 
         }
