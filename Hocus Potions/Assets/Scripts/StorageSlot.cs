@@ -9,7 +9,6 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public int count = 0;
     public Item item;
 
-    ResourceLoader rl;
     GameObject invPanel;
     Vector3 temp;
     Transform startingParent;
@@ -22,7 +21,6 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private void Awake() {
         sm = GameObject.Find("StorageManager").GetComponent<StorageManager>();
-        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         invPanel = GameObject.FindGameObjectWithTag("inventory");
 
         StorageManager.StoreageData temp;

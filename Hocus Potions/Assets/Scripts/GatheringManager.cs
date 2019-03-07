@@ -65,7 +65,6 @@ public class GatheringManager : MonoBehaviour {
 
     public void Populate(Gathering gatherer)
     {
-        SpawnerData sD;
         SpawnerResetTime sRT;
 
         //Debug.Log(spawnerReset.Count);
@@ -191,7 +190,7 @@ public class GatheringManager : MonoBehaviour {
         try {
             Seed droppedSeed = rl.seeds[temp3.spawnedItem.name];
             Inventory.Add(droppedSeed, numOfSeedsToDrop, true);
-        } catch (KeyNotFoundException e) {
+        } catch (KeyNotFoundException) {
         }
     }
 }

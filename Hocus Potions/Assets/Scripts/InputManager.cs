@@ -11,7 +11,6 @@ public class InputManager : MonoBehaviour {
     CanvasGroup invGroup;
     GameObject spellCanvas;
     GameObject mainMenu;
-    ResourceLoader rl;
     bool paused; 
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -23,7 +22,6 @@ public class InputManager : MonoBehaviour {
     void Start() {
         invPanel = GameObject.FindGameObjectWithTag("inventory");
         invGroup = invPanel.GetComponent<CanvasGroup>();
-        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         spellCanvas = GameObject.Find("SpellCanvas");
         mainMenu = GameObject.Find("MainMenuCanvas");
         mainMenu.SetActive(false);

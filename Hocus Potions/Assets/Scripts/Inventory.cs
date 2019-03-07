@@ -101,7 +101,6 @@ public class Inventory {
     }
 
     public static void RemoveItem(InventorySlot slot) {
-        Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").transform.parent.GetComponentsInChildren<Button>();
         if (slot.item.count == 1) {
             RemoveStack(slot);
         } else {

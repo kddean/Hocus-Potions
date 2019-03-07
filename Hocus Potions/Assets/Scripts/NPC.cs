@@ -322,7 +322,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     List<string> initial;
                     try {
                         initial = dialogue[key];
-                    } catch (KeyNotFoundException e) {
+                    } catch (KeyNotFoundException) {
                         allowedToMove = true;
                         player.allowedToMove = true;
                         return;
@@ -736,7 +736,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     IEnumerator PotionEffects(Potion pot) {
         effects.SetActive(true);
         Ingredient.Attributes? type = pot.Primary;
-        Animator anim = GetComponentInChildren<Animator>();
 
         switch (type) {
             case Ingredient.Attributes.healing:

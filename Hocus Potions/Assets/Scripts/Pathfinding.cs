@@ -9,7 +9,6 @@ using UnityEngine.Tilemaps;
 
 public class Pathfinding : MonoBehaviour {
     Tilemap houseMap, worldMap1, worldMap2;
-    bool houseSet, worldSet;
     List<Vector3> houseTiles, worldTiles;
     AsyncOperation scene;
     AudioListener al;
@@ -19,7 +18,6 @@ public class Pathfinding : MonoBehaviour {
         if (FindObjectsOfType(GetType()).Length > 1) {
             Destroy(gameObject);
         }
-        houseSet = worldSet = false;
     }
 
     struct PathTileData {
@@ -179,7 +177,6 @@ public class Pathfinding : MonoBehaviour {
         Vector3 centeredTarget = new Vector3(Mathf.Sign(target.x) * (Mathf.Abs((int)target.x) + 0.5f), Mathf.Sign(target.y) * (Mathf.Abs((int)target.y) + 0.5f), 0);
         openList = new Dictionary<Vector3, PathTileData>();
         closedList = new Dictionary<Vector3, PathTileData>();
-        Vector2Int start = new Vector2Int(-999, -999);
         List<Vector3> temp;
         Vector3 tempPos = new Vector3(Mathf.Sign(pos.x) * (Mathf.Abs((int)pos.x) + 0.5f), Mathf.Sign(pos.y) * (Mathf.Abs((int)pos.y) + 0.5f), 0);
         if (map == 0) {

@@ -130,9 +130,9 @@ public class MainMenu : MonoBehaviour {
         FileStream file;
         try {
             file = File.Open(Application.persistentDataPath + "/saveData.dat", FileMode.Open);
-        } catch (DirectoryNotFoundException e) {
+        } catch (DirectoryNotFoundException) {
             return;
-        } catch (IsolatedStorageException e) {
+        } catch (IsolatedStorageException) {
             return;
         }
 

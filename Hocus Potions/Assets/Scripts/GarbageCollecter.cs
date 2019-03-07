@@ -94,8 +94,13 @@ public class GarbageCollecter : MonoBehaviour {
                 c.size = bounds;
                 c.isTrigger = true;
 
-                if (d.item is Seed) {
-                    go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+
+                if (!(d.item is Potion)) {
+                    if (d.item.imagePath.StartsWith("Gem")) {
+                        go.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+                    } else {
+                        go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+                    }
                 }
 
                 Pickups p = go.AddComponent<Pickups>();

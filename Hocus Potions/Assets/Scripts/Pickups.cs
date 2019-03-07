@@ -7,7 +7,6 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
     Item item;
     int count;
     GarbageCollecter gc;
-    ResourceLoader rl;
     GarbageCollecter.DroppedItemData data;
     Player player;
 
@@ -37,7 +36,6 @@ public class Pickups : MonoBehaviour, IPointerDownHandler {
     }
 
     void Start() {
-        rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         gc = GameObject.Find("GarbageCollector").GetComponent<GarbageCollecter>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 5;

@@ -126,9 +126,9 @@ public class Traveller : NPC, IPointerDownHandler {
             data.returningMinutes = spawnMinute;
             manager.data[CharacterName] = data;
             string junk;
-           /* if (!manager.returnQueue.TryGetValue(data, out junk)) {       TODO: This works but it causes glitches with the time set too fast
+            if (!manager.returnQueue.TryGetValue(data, out junk)) {       //TODO: This works but it causes glitches with the time set too fast
                 manager.returnQueue.Add(data, CharacterName);
-            }*/
+            }
         }
    
     }

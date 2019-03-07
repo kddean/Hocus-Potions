@@ -16,7 +16,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     [SerializeField]
     List<PlayerStatus> status;
     Dictionary<PlayerStatus, TimerData> startTimers;
-    SpriteRenderer sr;
     string currentAnim, lastAnim;
     GameObject fadeScreen, sleepCanvas;
     bool idling;
@@ -88,7 +87,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         Status = new List<PlayerStatus>();
         startTimers = new Dictionary<PlayerStatus, TimerData>();
         Speed = defaultSpeed;
-        sr = GetComponent<SpriteRenderer>();
         swappingScenes = false;
         allowedToMove = true;
         layerSwapping = false;

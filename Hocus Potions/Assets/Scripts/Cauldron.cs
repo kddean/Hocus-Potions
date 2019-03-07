@@ -61,21 +61,21 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
                 first.GetComponentsInChildren<Image>()[1].enabled = true;
                 first.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[0].name.Substring(0, 1).ToUpper() + rl.brewingIngredients[0].name.Substring(1), "_", " ");
                 first.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            } catch (System.NullReferenceException e) { }
+            } catch (System.NullReferenceException) { }
 
             try {
                 second.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[1].imagePath);
                 second.GetComponentsInChildren<Image>()[1].enabled = true;
                 second.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[1].name.Substring(0, 1).ToUpper() + rl.brewingIngredients[1].name.Substring(1), "_", " ");
                 second.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            } catch (System.NullReferenceException e) { }
+            } catch (System.NullReferenceException) { }
 
             try {
                 third.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(rl.brewingIngredients[2].imagePath);
                 third.GetComponentsInChildren<Image>()[1].enabled = true;
                 third.GetComponentInChildren<Text>().text = Regex.Replace(rl.brewingIngredients[2].name.Substring(0, 1).ToUpper() + rl.brewingIngredients[2].name.Substring(1), "_", " ");
                 third.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            } catch (System.NullReferenceException e) { }
+            } catch (System.NullReferenceException) { }
         }
 
         switch (manager.Brewing) {

@@ -15,7 +15,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     ResourceLoader rl;
     int index;
     Vector3 temp;
-    bool set = false;
     public GameObject tooltip;
     //tooltip text
     Text[] text;
@@ -23,8 +22,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     bool hovered = false;
     //tooltip offset
     bool dragging = false;
-    bool filledStack = false;
-    bool triedBrewing = false;
     Vector3 offset = new Vector3(50, 0, 0);
     Image first, second, third, firstIcon, secondIcon, thirdIcon;
     PointerEventData.InputButton clickedButton;
@@ -96,7 +93,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(canvas);
         tooltip.GetComponent<CanvasGroup>().alpha = 0;
         dragging = true;
-        triedBrewing = false;
         canvas.GetComponent<Canvas>().sortingOrder = 1;
     }
 
@@ -311,7 +307,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 if (ingred != null) {
                     if (ingred.name.Equals(item.item.name)) {
                         ResetDrag();
-                        triedBrewing = true;
                         return;
                     }
                 } else {
@@ -352,7 +347,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         }
         ResetDrag();
-        triedBrewing = true;
     }
 
     void ResetDrag() {
