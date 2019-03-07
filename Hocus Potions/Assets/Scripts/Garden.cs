@@ -48,7 +48,13 @@ public class Garden : MonoBehaviour {
                 return;
             }
         } else {
-            if(seed == null) { return; }
+            if(seed == null) {
+                GameObject inv = GameObject.FindGameObjectWithTag("inventory");
+                inv.GetComponent<CanvasGroup>().alpha = 1;
+                inv.GetComponent<CanvasGroup>().interactable = true;
+                inv.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                return;
+            }
             plot.gameObject.GetComponent<AudioSource>().Play();
             PlotData newData = new PlotData();
             //Set values for plot

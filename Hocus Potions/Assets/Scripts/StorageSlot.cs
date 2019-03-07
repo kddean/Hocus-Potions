@@ -32,6 +32,18 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
     }
 
+    public void TakeItem() {
+        if (item != null && item.name != null && !dragging) {
+            if (Inventory.Add(item, count, false)) {
+                GetComponent<Image>().enabled = false;
+                GetComponentInChildren<Text>().text = "";
+                item = null;
+                count = 0;
+                sm.storageChest[gameObject.name] = new StorageManager.StoreageData(item, count, transform.GetSiblingIndex(), transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+            }
+        } 
+    }
+
     public void OnBeginDrag(PointerEventData eventData) {
         if (dragging) { return; }
         clickedButton = eventData.button;
@@ -81,7 +93,7 @@ public class StorageSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     if(count == 0) {
                         gameObject.GetComponent<Image>().enabled = false;
                         gameObject.GetComponentInChildren<Text>().text = "";
-                        item = null;                     
+                        item = null;   
                     } else {
                         if (count != 1) {
                             gameObject.GetComponentInChildren<Text>().text = count.ToString();

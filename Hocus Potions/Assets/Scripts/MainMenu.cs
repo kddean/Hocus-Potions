@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -131,7 +132,10 @@ public class MainMenu : MonoBehaviour {
             file = File.Open(Application.persistentDataPath + "/saveData.dat", FileMode.Open);
         } catch (DirectoryNotFoundException e) {
             return;
+        } catch (IsolatedStorageException e) {
+            return;
         }
+
         SaveData data = (SaveData)bf.Deserialize(file);
 
         //TODO:This is going to require a ton of setup to make sure all these objects/scripts exist before their data is set
