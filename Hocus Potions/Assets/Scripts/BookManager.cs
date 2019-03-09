@@ -27,6 +27,8 @@ public class BookManager : MonoBehaviour {
     public GameObject[] gameObjects;
     public List<string> keys;
     public GameObject Test;
+    public GameObject content;
+    public Transform[] buttons;
 
     public void Awake()
     {
@@ -50,6 +52,7 @@ public class BookManager : MonoBehaviour {
         plantInfo = new Dictionary<string, string>();
         potionInfo = new Dictionary<string, Potion>();
         potionDiscovery = new Dictionary<string, bool>();
+        content = new GameObject();
         //CurrentPage = GameObject.Find("CurrentPage");
         CreateDictionary();
 
@@ -68,6 +71,10 @@ public class BookManager : MonoBehaviour {
             {
                 BookCanvas.SetActive(false);
             }
+        }
+        if(BookCanvas.activeSelf == true)
+        {
+            content = GameObject.FindGameObjectWithTag("contentWindow");
         }
 	}
 
@@ -93,15 +100,17 @@ public class BookManager : MonoBehaviour {
             CurrentTab = "PlantTab";
             gameObjects = GameObject.FindGameObjectsWithTag("page");
             Debug.Log(gameObjects.Length);
-            if (gameObjects.Length != 0)
+            /*if (gameObjects.Length != 0)
             {
                 for(int j = 0; j < gameObjects.Length; j++)
                 {
                     //Debug.Log(gameObjects[j].name);
-                    Destroy(gameObjects[j]);               
+                    Destroy(gameObjects[j]);
+                    gameObjects[j] = null;
                 }
 
-            }
+            }*/
+            //StartCoroutine(FindContent());
             SetUpPlantPage(i);
         }
         else if (i == 1)
@@ -126,15 +135,18 @@ public class BookManager : MonoBehaviour {
             CurrentTab = "PotionTab";
             gameObjects = GameObject.FindGameObjectsWithTag("page");
             Debug.Log(gameObjects.Length);
-            if (gameObjects.Length != 0)
+            /*if (gameObjects.Length != 0)
             {
                 for (int j = 0; j < gameObjects.Length; j++)
                 {
-                    //Debug.Log(gameObjects[j].name);
-                    Destroy(gameObjects[j]);                   
+
+                    Destroy(gameObjects[j]);
+                    gameObjects[j] = null;
+                    
                 }
 
-            }
+            }*/
+            //StartCoroutine(FindContent());
             SetUpPotionPage(i);
         }
         else if (i == 2)
@@ -179,20 +191,28 @@ public class BookManager : MonoBehaviour {
     {
         Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-        GameObject newPage = GameObject.Instantiate(CurrentPage);
+       /* GameObject newPage = GameObject.Instantiate(CurrentPage);
         newPage.transform.SetParent(BookBackground.transform);
         newPage.transform.position = BookBackground.transform.position;
         temp = newPage.transform.position;
         temp.x -= 300;
         //temp.y -= 250;
         newPage.transform.position = temp;
-        Debug.Log("Added newPage");
+        Debug.Log("Added newPage");*/
         keys = rl.ingredients.Keys.ToList();
 
         //ScrollRect viewpoint = Test.GetComponent<ScrollRect>();
-        GameObject content = GameObject.FindGameObjectWithTag("contentWindow");
+        content = GameObject.FindGameObjectWithTag("contentWindow");
         PageUp = true;
-        
+
+        if (content.transform.childCount != 0)
+        {
+            for (int k = 0; k < content.transform.childCount-1; k++)
+            {
+                Destroy(transform.GetChild(k).gameObject);
+            }
+        }
+
         foreach (string key in keys)
         {
             GameObject button = Instantiate(ButtonPrefab);
@@ -209,18 +229,25 @@ public class BookManager : MonoBehaviour {
     {
         Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-        GameObject newPage = GameObject.Instantiate(CurrentPage);
+        /*GameObject newPage = GameObject.Instantiate(CurrentPage);
         newPage.transform.SetParent(BookBackground.transform);
         newPage.transform.position = BookBackground.transform.position;
         temp = newPage.transform.position;
         temp.x -= 300;
         //temp.y -= 250;
         newPage.transform.position = temp;
-        Debug.Log("Added newPage");
+        Debug.Log("Added newPage");*/
        
-        GameObject content = GameObject.FindGameObjectWithTag("contentWindow");
+        content = GameObject.FindGameObjectWithTag("contentWindow");
         PageUp = true;
 
+        if (content.transform.childCount != 0)
+        {
+            for (int k = 0; k < content.transform.childCount-1; k++)
+            {
+                Destroy(transform.GetChild(k).gameObject);
+            }
+        }
 
 
         foreach (string key in potionInfo.Keys)
@@ -355,5 +382,20 @@ public class BookManager : MonoBehaviour {
         potionDiscovery.Add("Odd", false);
         potionDiscovery.Add("Speed", false);
         
+    }
+
+    IEnumerator FindContent()
+    {
+        /*buttons = content.transform.GetComponentsInChildren<Transform>();
+        for(int i = 1; i < buttons.Length; i++)
+        {
+            Destroy(buttons[i]);
+        }*/
+
+        for (int i = 0; i < content.transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        yield return new WaitForSecondsRealtime(10f);
     }
 }
