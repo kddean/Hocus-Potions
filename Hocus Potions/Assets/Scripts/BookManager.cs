@@ -100,7 +100,7 @@ public class BookManager : MonoBehaviour {
             CurrentTab = "PlantTab";
             gameObjects = GameObject.FindGameObjectsWithTag("page");
             Debug.Log(gameObjects.Length);
-            /*if (gameObjects.Length != 0)
+            if (gameObjects.Length != 0)
             {
                 for(int j = 0; j < gameObjects.Length; j++)
                 {
@@ -109,7 +109,7 @@ public class BookManager : MonoBehaviour {
                     gameObjects[j] = null;
                 }
 
-            }*/
+            }
             //StartCoroutine(FindContent());
             SetUpPlantPage(i);
         }
@@ -135,7 +135,7 @@ public class BookManager : MonoBehaviour {
             CurrentTab = "PotionTab";
             gameObjects = GameObject.FindGameObjectsWithTag("page");
             Debug.Log(gameObjects.Length);
-            /*if (gameObjects.Length != 0)
+            if (gameObjects.Length != 0)
             {
                 for (int j = 0; j < gameObjects.Length; j++)
                 {
@@ -145,7 +145,7 @@ public class BookManager : MonoBehaviour {
                     
                 }
 
-            }*/
+            }
             //StartCoroutine(FindContent());
             SetUpPotionPage(i);
         }
@@ -191,27 +191,27 @@ public class BookManager : MonoBehaviour {
     {
         Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-       /* GameObject newPage = GameObject.Instantiate(CurrentPage);
+        GameObject newPage = GameObject.Instantiate(CurrentPage);
         newPage.transform.SetParent(BookBackground.transform);
         newPage.transform.position = BookBackground.transform.position;
         temp = newPage.transform.position;
         temp.x -= 300;
         //temp.y -= 250;
         newPage.transform.position = temp;
-        Debug.Log("Added newPage");*/
+        Debug.Log("Added newPage");
         keys = rl.ingredients.Keys.ToList();
 
         //ScrollRect viewpoint = Test.GetComponent<ScrollRect>();
         content = GameObject.FindGameObjectWithTag("contentWindow");
         PageUp = true;
 
-        if (content.transform.childCount != 0)
+        /*if (content.transform.childCount != 0)
         {
             for (int k = 0; k < content.transform.childCount-1; k++)
             {
                 Destroy(transform.GetChild(k).gameObject);
             }
-        }
+        }*/
 
         foreach (string key in keys)
         {
@@ -229,25 +229,25 @@ public class BookManager : MonoBehaviour {
     {
         Vector3 temp;
         GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-        /*GameObject newPage = GameObject.Instantiate(CurrentPage);
+        GameObject newPage = GameObject.Instantiate(CurrentPage);
         newPage.transform.SetParent(BookBackground.transform);
         newPage.transform.position = BookBackground.transform.position;
         temp = newPage.transform.position;
         temp.x -= 300;
         //temp.y -= 250;
         newPage.transform.position = temp;
-        Debug.Log("Added newPage");*/
+        Debug.Log("Added newPage");
        
         content = GameObject.FindGameObjectWithTag("contentWindow");
         PageUp = true;
 
-        if (content.transform.childCount != 0)
+       /* if (content.transform.childCount != 0)
         {
             for (int k = 0; k < content.transform.childCount-1; k++)
             {
                 Destroy(transform.GetChild(k).gameObject);
             }
-        }
+        }*/
 
 
         foreach (string key in potionInfo.Keys)
