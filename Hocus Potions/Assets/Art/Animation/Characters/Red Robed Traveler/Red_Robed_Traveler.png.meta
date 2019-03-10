@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ccc7e924626fd3f42b5e11b39e83dadc
+guid: 488dd6901f9d71f49ac7086dd630d29c
 TextureImporter:
   fileIDToRecycleName:
     21300000: Red_Robed_Traveler_0
@@ -12,6 +12,17 @@ TextureImporter:
     21300014: Red_Robed_Traveler_7
     21300016: Red_Robed_Traveler_8
     21300018: Red_Robed_Traveler_9
+    21300020: Red_Robed_Traveler_10
+    21300022: Red_Robed_Traveler_11
+    21300024: Red_Robed_Traveler_12
+    21300026: Red_Robed_Traveler_13
+    21300028: Red_Robed_Traveler_14
+    21300030: Red_Robed_Traveler_15
+    21300032: Red_Robed_Traveler_16
+    21300034: Red_Robed_Traveler_17
+    21300036: Red_Robed_Traveler_18
+    21300038: Red_Robed_Traveler_19
+    21300040: Red_Robed_Traveler_20
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -90,39 +101,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -130,10 +108,10 @@ TextureImporter:
       name: Red_Robed_Traveler_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 223
-        width: 30
-        height: 58
+        x: 12
+        y: 310
+        width: 29
+        height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,7 +119,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96dfa64bb98793d4baa21c3966fb2c78
+      spriteID: 99b8d78379838e04b951233b0c75fafa
       vertices: []
       indices: 
       edges: []
@@ -150,10 +128,10 @@ TextureImporter:
       name: Red_Robed_Traveler_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 223
-        width: 30
-        height: 58
+        x: 50
+        y: 310
+        width: 29
+        height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,7 +139,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fad8459d51de64346b6db3954a4dd73c
+      spriteID: f8dffb5c4f2b8ad4ba7db77320c2433f
       vertices: []
       indices: 
       edges: []
@@ -170,10 +148,10 @@ TextureImporter:
       name: Red_Robed_Traveler_2
       rect:
         serializedVersion: 2
-        x: 5
-        y: 155
+        x: 89
+        y: 309
         width: 29
-        height: 58
+        height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,7 +159,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d087596f9b7f724591bc4486a67b4b9
+      spriteID: 7bd3af5d0d988d84a8cf0dd28ad72564
       vertices: []
       indices: 
       edges: []
@@ -190,10 +168,10 @@ TextureImporter:
       name: Red_Robed_Traveler_3
       rect:
         serializedVersion: 2
-        x: 43
-        y: 155
+        x: 11
+        y: 245
         width: 29
-        height: 58
+        height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,7 +179,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14ca557edcf8cf34ca23a6a3b3bbe9ab
+      spriteID: 696c66a57ea4fb1489791d8d4eb3eb48
       vertices: []
       indices: 
       edges: []
@@ -210,10 +188,10 @@ TextureImporter:
       name: Red_Robed_Traveler_4
       rect:
         serializedVersion: 2
-        x: 81
-        y: 155
-        width: 30
-        height: 58
+        x: 50
+        y: 245
+        width: 29
+        height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,7 +199,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1937f096a38aff459d85c99a617aec1
+      spriteID: 790e86f4bf9e62442816e3428e8df10d
       vertices: []
       indices: 
       edges: []
@@ -230,8 +208,8 @@ TextureImporter:
       name: Red_Robed_Traveler_5
       rect:
         serializedVersion: 2
-        x: 4
-        y: 89
+        x: 90
+        y: 244
         width: 29
         height: 59
       alignment: 7
@@ -241,7 +219,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8035c790821845444b408de328957d03
+      spriteID: 4b8409953aef45b4f9b729ab28d00445
       vertices: []
       indices: 
       edges: []
@@ -250,8 +228,88 @@ TextureImporter:
       name: Red_Robed_Traveler_6
       rect:
         serializedVersion: 2
-        x: 43
-        y: 89
+        x: 12
+        y: 173
+        width: 29
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1de3ec18e9556d942a77650ab5cc65ce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_7
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 173
+        width: 29
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d595f96418defa468a8b2d55473bf0d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_8
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 106
+        width: 29
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 942ed5db84ae58a4f9114c5b7eb6098d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 106
+        width: 29
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5437c81ee0a72242815b8741ff2a658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_10
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 29
         width: 29
         height: 59
       alignment: 7
@@ -261,18 +319,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57411488d9b06af4c94b366a7ecd31a7
+      spriteID: 57c716352c3a52c4d8d0d84f66e61fcd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Robed_Traveler_7
+      name: Red_Robed_Traveler_11
       rect:
         serializedVersion: 2
-        x: 81
-        y: 89
-        width: 30
+        x: 55
+        y: 29
+        width: 29
         height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -281,19 +339,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f2a079d8b6ddf641a3d91104ea4f2e6
+      spriteID: 716c1b4fe7d425c458ea29afc2b47723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Robed_Traveler_8
+      name: Red_Robed_Traveler_12
       rect:
         serializedVersion: 2
-        x: 5
-        y: 17
-        width: 30
-        height: 58
+        x: 101
+        y: 29
+        width: 29
+        height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -301,19 +359,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a8d7a778d88daa4288ff91c8a088879
+      spriteID: df47dbe1c3467ef4cb94b09cd6589fcb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Robed_Traveler_9
+      name: Red_Robed_Traveler_13
       rect:
         serializedVersion: 2
-        x: 42
-        y: 17
-        width: 30
-        height: 58
+        x: 152
+        y: 29
+        width: 29
+        height: 63
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,7 +379,147 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3b0241aebe977c44b7592aadb0b88f0
+      spriteID: 20e36b863da7c164fbc94a23e058bedd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_14
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 29
+        width: 29
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 857195e1d6b859e4883f317d6752d3ab
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_15
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 29
+        width: 29
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c2e1d896292bea428c15797f3e1cd03
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_16
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 30
+        width: 29
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fff2b981198855d41ba515a42e1f0531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_17
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 30
+        width: 29
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: decc3f0f9ed3c6142ba860f5415c2a9f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_18
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 31
+        width: 29
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c1d91f252c7dcc4aa5884051f126671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_19
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 31
+        width: 29
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56cc43bc90daddd4aa6b088523e9afc7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Robed_Traveler_20
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 31
+        width: 29
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d565e71810be04438a8d364fe4ebaa4
       vertices: []
       indices: 
       edges: []
@@ -329,7 +527,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 37b5b42e1fbd3bc499a3ee02c594abe1
+    spriteID: 8268ed427e2640b48b663eb2eeb09f1b
     vertices: []
     indices: 
     edges: []
