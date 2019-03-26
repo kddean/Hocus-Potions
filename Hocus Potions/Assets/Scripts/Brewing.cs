@@ -496,7 +496,10 @@ public class Brewing {
                     image = "Potions/potions_null";
                     break;
             }
-
+            if (bm.dictExists)
+            {
+                bm.UpdateUnlockedPotions();
+            }
             return new Potion(name, image, duration, primary, secondary, mod, brewingTime);
 
         } else {
@@ -508,11 +511,8 @@ public class Brewing {
             duration = 0;
             brewingTime = 30;
             image = "Potions/potions_null";
-            if (bm.potionDiscovery == null)
-            {
-               
-            }
-            else if (bm.potionDiscovery.TryGetValue("Odd", out potionTrue))
+
+            if (bm.potionDiscovery != null && bm.potionDiscovery.TryGetValue("Odd", out potionTrue))
             {
                 potionTrue = true;
                 bm.potionDiscovery["Odd"] = potionTrue;

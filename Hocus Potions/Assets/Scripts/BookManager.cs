@@ -18,6 +18,7 @@ public class BookManager : MonoBehaviour {
     public GameObject MapTab;
     public string CurrentTab;
     public bool PageUp = false;
+    public GameObject Tab;
 
     public GameObject CurrentPage;
     public GameObject KeyPage;
@@ -28,11 +29,18 @@ public class BookManager : MonoBehaviour {
     public List<string> keys;
     public GameObject Test;
     public GameObject content;
-    public Transform[] buttons;
+    public GameObject button;
+
+    public GameObject PlantPage;
+    public GameObject PotionPage;
+    public GameObject MapPage;
+    public GameObject[] contents;
+
+    public bool dictExists;
 
     public void Awake()
     {
-        
+
         DontDestroyOnLoad(this);
         if (Resources.FindObjectsOfTypeAll(GetType()).Length > 1)
         {
@@ -42,9 +50,9 @@ public class BookManager : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
-
+        dictExists = false;
         BookCanvas = GameObject.Find("BookCanvas");
         PlantTab = GameObject.Find("PlantTab");
         PotionTab = GameObject.Find("PotionTab");
@@ -53,14 +61,22 @@ public class BookManager : MonoBehaviour {
         potionInfo = new Dictionary<string, Potion>();
         potionDiscovery = new Dictionary<string, bool>();
         content = new GameObject();
+        contents = GameObject.FindGameObjectsWithTag("contentWindow");
         //CurrentPage = GameObject.Find("CurrentPage");
         CreateDictionary();
 
+        SetUpPlantPage();
+        SetUpPotionPage();
+
+        PlantPage.SetActive(false);
+        PotionPage.SetActive(false);
+        Tab.SetActive(false);
+        dictExists = true;
         BookCanvas.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update() {
         if (Input.GetKeyDown("m"))
         {
             if (BookCanvas.activeSelf == false)
@@ -72,46 +88,56 @@ public class BookManager : MonoBehaviour {
                 BookCanvas.SetActive(false);
             }
         }
-        if(BookCanvas.activeSelf == true)
+        if (BookCanvas.activeSelf == true)
         {
-            content = GameObject.FindGameObjectWithTag("contentWindow");
+            contents = GameObject.FindGameObjectsWithTag("contentWindow");
+           
+            
         }
-	}
-
+    }
     public void SetCurrentTab(int i)
     {
         if (i == 0)
         {
-            if(PageUp == true && CurrentTab == "PlantTab")
+            if (PageUp == true && CurrentTab == "PlantTab")
             {
                 return;
             }
-            else if (PageUp == true && CurrentTab != "PlantTab"){
+            else if (PageUp == true && CurrentTab != "PlantTab")
+            {
                 PageUp = false;
-                Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                /*Vector3 t = Tab.transform.localPosition;
                 t.x *= -1;
-                GameObject.Find(CurrentTab).transform.localPosition = t;
-                GameObject.Find(CurrentTab).transform.localScale *= -1;
+                Tab.transform.localPosition = t;
+                Tab.transform.localScale *= -1;*/
+                PotionPage.SetActive(false);
+                //MapPage.SetActive(false);
+
+                GameObject page = GameObject.Find("KeyPage(Clone)");
+                Destroy(page);
+                Vector3 pt;
+                if (CurrentTab == "PotionTab")
+                {
+                    pt = PotionTab.transform.localPosition;
+                    pt.x *= -1;
+                    PotionTab.transform.localPosition = pt;
+                    PotionTab.transform.localScale *= -1;
+                }
+                else if (CurrentTab == "MapTab")
+                {
+                    pt = MapTab.transform.localPosition;
+                    pt.x *= -1;
+                    MapTab.transform.localPosition = pt;
+                    MapTab.transform.localScale *= -1;
+                }
             }
             Vector3 temp = PlantTab.transform.localPosition;
             temp.x *= -1;
             PlantTab.transform.localPosition = temp;
             PlantTab.transform.localScale *= -1;
             CurrentTab = "PlantTab";
-            gameObjects = GameObject.FindGameObjectsWithTag("page");
-            Debug.Log(gameObjects.Length);
-            if (gameObjects.Length != 0)
-            {
-                for(int j = 0; j < gameObjects.Length; j++)
-                {
-                    //Debug.Log(gameObjects[j].name);
-                    Destroy(gameObjects[j]);
-                    gameObjects[j] = null;
-                }
-
-            }
-            //StartCoroutine(FindContent());
-            SetUpPlantPage(i);
+            PlantPage.SetActive(true);
+            PageUp = true;
         }
         else if (i == 1)
         {
@@ -122,10 +148,31 @@ public class BookManager : MonoBehaviour {
             else if (PageUp == true && CurrentTab != "PotionTab")
             {
                 PageUp = false;
-                Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                /*Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
                 t.x *= -1;
-                GameObject.Find(CurrentTab).transform.localPosition = t;
-                GameObject.Find(CurrentTab).transform.localScale *= -1;
+                Tab.transform.localPosition = t;
+                Tab.transform.localScale *= -1;*/
+                PlantPage.SetActive(false);
+                //MapPage.SetActive(false);
+
+                GameObject page = GameObject.Find("KeyPage(Clone)");
+                Destroy(page);
+
+                Vector3 pt;
+                if (CurrentTab == "PlantTab")
+                {
+                    pt = PlantTab.transform.localPosition;
+                    pt.x *= -1;
+                    PlantTab.transform.localPosition = pt;
+                    PlantTab.transform.localScale *= -1;
+                }
+                else if (CurrentTab == "MapTab")
+                {
+                    pt = MapTab.transform.localPosition;
+                    pt.x *= -1;
+                    MapTab.transform.localPosition = pt;
+                    MapTab.transform.localScale *= -1;
+                }
             }
 
             Vector3 temp = PotionTab.transform.localPosition;
@@ -133,21 +180,8 @@ public class BookManager : MonoBehaviour {
             PotionTab.transform.localPosition = temp;
             PotionTab.transform.localScale *= -1;
             CurrentTab = "PotionTab";
-            gameObjects = GameObject.FindGameObjectsWithTag("page");
-            Debug.Log(gameObjects.Length);
-            if (gameObjects.Length != 0)
-            {
-                for (int j = 0; j < gameObjects.Length; j++)
-                {
-
-                    Destroy(gameObjects[j]);
-                    gameObjects[j] = null;
-                    
-                }
-
-            }
-            //StartCoroutine(FindContent());
-            SetUpPotionPage(i);
+            PotionPage.SetActive(true);
+            PageUp = true;
         }
         else if (i == 2)
         {
@@ -158,107 +192,399 @@ public class BookManager : MonoBehaviour {
             else if (PageUp == true && CurrentTab != "MapTab")
             {
                 PageUp = false;
-                Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                /*Vector3 t = Tab.transform.localPosition;
                 t.x *= -1;
-                GameObject.Find(CurrentTab).transform.localPosition = t;
-                GameObject.Find(CurrentTab).transform.localScale *= -1;
+                Tab.transform.localPosition = t;
+                Tab.transform.localScale *= -1;*/
+
+                PotionPage.SetActive(false);
+                PlantPage.SetActive(false);
+                GameObject page = GameObject.Find("KeyPage(Clone)");
+                Destroy(page);
+
+                Vector3 pt;
+                if (CurrentTab == "PlantTab")
+                {
+                    pt = PlantTab.transform.localPosition;
+                    pt.x *= -1;
+                    PlantTab.transform.localPosition = pt;
+                    PlantTab.transform.localScale *= -1;
+                }
+                else if (CurrentTab == "PotionTab")
+                {
+                    pt = PotionTab.transform.localPosition;
+                    pt.x *= -1;
+                    PotionTab.transform.localPosition = pt;
+                    PotionTab.transform.localScale *= -1;                    
+                }
             }
-            
+
             Vector3 temp = MapTab.transform.localPosition;
             temp.x *= -1;
             MapTab.transform.localPosition = temp;
             MapTab.transform.localScale *= -1;
             CurrentTab = "MapTab";
-            gameObjects = GameObject.FindGameObjectsWithTag("page");
-            Debug.Log(gameObjects.Length);
-            if (gameObjects.Length != 0)
+            PageUp = true;
+        }
+    }
+
+
+        /*public void SetCurrentTab(int i)
+        {
+            if (i == 0)
             {
-                for (int j = 0; j < gameObjects.Length; j++)
+                if(PageUp == true && CurrentTab == "PlantTab")
                 {
-                    Debug.Log(gameObjects[j].name);
-                    Destroy(gameObjects[j]);
+                    return;
+                }
+                else if (PageUp == true && CurrentTab != "PlantTab"){
+                    PageUp = false;
+                    Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                    t.x *= -1;
+                    GameObject.Find(CurrentTab).transform.localPosition = t;
+                    GameObject.Find(CurrentTab).transform.localScale *= -1;
+                }
+                Vector3 temp = PlantTab.transform.localPosition;
+                temp.x *= -1;
+                PlantTab.transform.localPosition = temp;
+                PlantTab.transform.localScale *= -1;
+                CurrentTab = "PlantTab";
+                gameObjects = GameObject.FindGameObjectsWithTag("page");
+                Debug.Log(gameObjects.Length);
+                if (gameObjects.Length != 0)
+                {
+                    for(int j = 0; j < gameObjects.Length; j++)
+                    {
+                        //Debug.Log(gameObjects[j].name);
+                        Destroy(gameObjects[j]);
+                        gameObjects[j] = null;
+                    }
+
+                }
+                //StartCoroutine(FindContent());
+                SetUpPlantPage(i);
+            }
+            else if (i == 1)
+            {
+                if (PageUp == true && CurrentTab == "PotionTab")
+                {
+                    return;
+                }
+                else if (PageUp == true && CurrentTab != "PotionTab")
+                {
+                    PageUp = false;
+                    Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                    t.x *= -1;
+                    GameObject.Find(CurrentTab).transform.localPosition = t;
+                    GameObject.Find(CurrentTab).transform.localScale *= -1;
+                }
+
+                Vector3 temp = PotionTab.transform.localPosition;
+                temp.x *= -1;
+                PotionTab.transform.localPosition = temp;
+                PotionTab.transform.localScale *= -1;
+                CurrentTab = "PotionTab";
+                gameObjects = GameObject.FindGameObjectsWithTag("page");
+                Debug.Log(gameObjects.Length);
+                if (gameObjects.Length != 0)
+                {
+                    for (int j = 0; j < gameObjects.Length; j++)
+                    {
+
+                        Destroy(gameObjects[j]);
+                        gameObjects[j] = null;
+
+                    }
+
+                }
+                //StartCoroutine(FindContent());
+                SetUpPotionPage(i);
+            }
+            else if (i == 2)
+            {
+                if (PageUp == true && CurrentTab == "MapTab")
+                {
+                    return;
+                }
+                else if (PageUp == true && CurrentTab != "MapTab")
+                {
+                    PageUp = false;
+                    Vector3 t = GameObject.Find(CurrentTab).transform.localPosition;
+                    t.x *= -1;
+                    GameObject.Find(CurrentTab).transform.localPosition = t;
+                    GameObject.Find(CurrentTab).transform.localScale *= -1;
+                }
+
+                Vector3 temp = MapTab.transform.localPosition;
+                temp.x *= -1;
+                MapTab.transform.localPosition = temp;
+                MapTab.transform.localScale *= -1;
+                CurrentTab = "MapTab";
+                gameObjects = GameObject.FindGameObjectsWithTag("page");
+                Debug.Log(gameObjects.Length);
+                if (gameObjects.Length != 0)
+                {
+                    for (int j = 0; j < gameObjects.Length; j++)
+                    {
+                        Debug.Log(gameObjects[j].name);
+                        Destroy(gameObjects[j]);
+
+                    }
+
+                }
+                PageUp = true;
+                //SetUpPage(i);
+
+            }
+        }*/
+
+        public void SetUpPlantPage()
+        {
+            Vector3 temp;
+            GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+       
+            GameObject newPage = GameObject.Find("PlantPage");
+            newPage.transform.SetParent(BookBackground.transform);
+            newPage.transform.position = BookBackground.transform.position;
+            temp = newPage.transform.position;
+            temp.x -= 300;
+           
+            newPage.transform.position = temp;
+            newPage.gameObject.name = "PlantPage";
+            PlantPage = newPage;
+            Debug.Log("Added PlantPage");
+            keys = rl.ingredients.Keys.ToList();
+
+            
+            content = GameObject.Find("PlantContent");
+            PageUp = true;
+
+           
+
+            foreach (string key in keys)
+            {
+                GameObject button = Instantiate(ButtonPrefab);
+              
+                button.transform.SetParent(content.transform);
+                button.transform.position = content.transform.position;
+                button.GetComponentInChildren<Text>().text = key;
+                button.GetComponent<Button>().onClick.AddListener(() => PassName(button));          
+
+            }
+
+        }
+
+       /* public void SetUpPlantPage(int i)
+        {
+            Vector3 temp;
+            GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+            GameObject newPage = GameObject.Instantiate(CurrentPage);
+            newPage.transform.SetParent(BookBackground.transform);
+            newPage.transform.position = BookBackground.transform.position;
+            temp = newPage.transform.position;
+            temp.x -= 300;
+            //temp.y -= 250;
+            newPage.transform.position = temp;
+            newPage.gameObject.name = "PlantPage";
+            PlantPage = newPage;
+            Debug.Log("Added PlantPage");
+            keys = rl.ingredients.Keys.ToList();
+
+            //ScrollRect viewpoint = Test.GetComponent<ScrollRect>();
+            content = GameObject.FindGameObjectWithTag("contentWindow");
+            PageUp = true;
+
+            /*if (content.transform.childCount != 0)
+            {
+                for (int k = 0; k < content.transform.childCount-1; k++)
+                {
+                    Destroy(transform.GetChild(k).gameObject);
+                }
+            }
+
+            foreach (string key in keys)
+            {
+                GameObject button = Instantiate(ButtonPrefab);
+                //button.transform.SetParent(newPage.transform);
+                button.transform.SetParent(content.transform);
+                button.transform.position = content.transform.position;
+                button.GetComponentInChildren<Text>().text = key;
+                button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
+
+            }
+
+        }*/
+
+        /*public void SetUpPotionPage(int i)
+        {
+            Vector3 temp;
+            GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+            GameObject newPage = GameObject.Instantiate(CurrentPage);
+            newPage.transform.SetParent(BookBackground.transform);
+            newPage.transform.position = BookBackground.transform.position;
+            temp = newPage.transform.position;
+            temp.x -= 300;
+            //temp.y -= 250;
+            newPage.transform.position = temp;
+            Debug.Log("Added PotionPage");
+
+            content = GameObject.FindGameObjectWithTag("contentWindow");
+            PageUp = true;
+
+            /* if (content.transform.childCount != 0)
+             {
+                 for (int k = 0; k < content.transform.childCount-1; k++)
+                 {
+                     Destroy(transform.GetChild(k).gameObject);
+                 }
+             }
+
+
+            foreach (string key in potionInfo.Keys)
+            {
+                GameObject button = Instantiate(ButtonPrefab);
+
+                button.transform.SetParent(content.transform);
+                button.transform.position = content.transform.position;
+
+                button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
+
+                Image[] sprites = button.GetComponentsInChildren<Image>();
+
+                if (potionDiscovery[key] == true)
+                {
+                    button.GetComponent<Button>().interactable = true;
+                    sprites[0].sprite = Resources.Load<Sprite>(potionInfo[key].imagePath);
+                    button.GetComponentInChildren<Text>().text = key;
+
+                }
+                else
+                {
+                    button.GetComponentInChildren<Text>().text = "???";
+                    button.GetComponent<Button>().interactable = false;
+                    sprites[0].sprite = Resources.Load<Sprite>("Potions/potions_mystical");
+                    sprites[0].color = Color.black;
 
                 }
 
             }
-            PageUp = true;
-            //SetUpPage(i);
-
-        }
-    }
-
-    public void SetUpPlantPage(int i)
-    {
-        Vector3 temp;
-        GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-        GameObject newPage = GameObject.Instantiate(CurrentPage);
-        newPage.transform.SetParent(BookBackground.transform);
-        newPage.transform.position = BookBackground.transform.position;
-        temp = newPage.transform.position;
-        temp.x -= 300;
-        //temp.y -= 250;
-        newPage.transform.position = temp;
-        Debug.Log("Added newPage");
-        keys = rl.ingredients.Keys.ToList();
-
-        //ScrollRect viewpoint = Test.GetComponent<ScrollRect>();
-        content = GameObject.FindGameObjectWithTag("contentWindow");
-        PageUp = true;
-
-        /*if (content.transform.childCount != 0)
-        {
-            for (int k = 0; k < content.transform.childCount-1; k++)
-            {
-                Destroy(transform.GetChild(k).gameObject);
-            }
         }*/
 
-        foreach (string key in keys)
+        public void SetUpPotionPage()
         {
-            GameObject button = Instantiate(ButtonPrefab);
-            //button.transform.SetParent(newPage.transform);
-            button.transform.SetParent(content.transform);
-            button.transform.position = content.transform.position;
-            button.GetComponentInChildren<Text>().text = key;
-            button.GetComponent<Button>().onClick.AddListener(() => PassName(button));          
+            Vector3 temp;
+            GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+        
+            GameObject newPage = GameObject.Find("PotionPage");
+            newPage.transform.SetParent(BookBackground.transform);
+            newPage.transform.position = BookBackground.transform.position;
+            temp = newPage.transform.position;
+            temp.x -= 300;
             
-        }
-    }
+            newPage.transform.position = temp;
+            newPage.gameObject.name = "PotionPage";
+            PotionPage = newPage;
+            Debug.Log("Added PotionPage");
 
-    public void SetUpPotionPage(int i)
-    {
-        Vector3 temp;
-        GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-        GameObject newPage = GameObject.Instantiate(CurrentPage);
-        newPage.transform.SetParent(BookBackground.transform);
-        newPage.transform.position = BookBackground.transform.position;
-        temp = newPage.transform.position;
-        temp.x -= 300;
-        //temp.y -= 250;
-        newPage.transform.position = temp;
-        Debug.Log("Added newPage");
-       
-        content = GameObject.FindGameObjectWithTag("contentWindow");
-        PageUp = true;
+            content = GameObject.Find("PotionContent");
+            PageUp = true;
 
-       /* if (content.transform.childCount != 0)
-        {
-            for (int k = 0; k < content.transform.childCount-1; k++)
+
+            foreach (string key in potionInfo.Keys)
             {
-                Destroy(transform.GetChild(k).gameObject);
+                GameObject button = Instantiate(ButtonPrefab);
+
+                button.transform.SetParent(content.transform);
+                button.transform.position = content.transform.position;
+
+                button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
+                button.gameObject.name = key;
+
+                Image[] sprites = button.GetComponentsInChildren<Image>();
+
+                if (potionDiscovery[key] == true)
+                {
+                    button.GetComponent<Button>().interactable = true;
+                    sprites[0].sprite = Resources.Load<Sprite>(potionInfo[key].imagePath);
+                    button.GetComponentInChildren<Text>().text = key;
+
+                }
+                else
+                {
+                    button.GetComponentInChildren<Text>().text = "???";
+                    button.GetComponent<Button>().interactable = false;
+                    sprites[0].sprite = Resources.Load<Sprite>("Potions/potions_mystical");
+                    sprites[0].color = Color.black;
+
+                }                
+
             }
-        }*/
+        }
+
+        public void SetUpKeyPage(string name)
+        {
+            GameObject page = GameObject.Find("KeyPage(Clone)");
+            Destroy(page);
+
+            Vector3 temp;
+            GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
+            GameObject newPage = GameObject.Instantiate(KeyPage);
+            newPage.transform.SetParent(BookBackground.transform);
+            newPage.transform.position = BookBackground.transform.position;
+            temp = newPage.transform.position;
+            temp.x += 250;
+            temp.y -= 250;
+            newPage.transform.position = temp;
+            GameObject panel = GameObject.Instantiate(PanelPrefab);
+            GameObject textBox = GameObject.Instantiate(TextBox);
+
+            panel.transform.SetParent(newPage.transform);
+            panel.transform.position = newPage.transform.position;
+            temp = panel.transform.position;
+            temp.x += 140;
+            temp.y += 500;
+            panel.transform.position = temp;
+            textBox.transform.SetParent(newPage.transform);
+            textBox.transform.position = newPage.transform.position;
+            temp = textBox.transform.position;
+            temp.x += 190;
+
+            textBox.transform.position = temp;
+            Image[] sprites = panel.GetComponentsInChildren<Image>();
+
+            if (CurrentTab == "PlantTab")
+            {
 
 
+                sprites[1].sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
+
+                textBox.
+                    GetComponentInChildren<Text>().text =
+                    plantInfo[name];
+            }
+            else if (CurrentTab == "PotionTab")
+            {
+                sprites[1].sprite = Resources.Load<Sprite>(potionInfo[name].imagePath);
+                textBox.
+                    GetComponentInChildren<Text>().text =
+                    potionInfo[name].description;
+            }
+            else if (CurrentTab == "MapTab")
+            {
+
+            }
+
+        }
+
+    public void UpdateUnlockedPotions()
+    {
+        BookCanvas.SetActive(true);
+        PotionPage.SetActive(true);
         foreach (string key in potionInfo.Keys)
         {
-            GameObject button = Instantiate(ButtonPrefab);
 
-            button.transform.SetParent(content.transform);
-            button.transform.position = content.transform.position;
+            button = GameObject.Find(key);
            
-            button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
-
             Image[] sprites = button.GetComponentsInChildren<Image>();
 
             if (potionDiscovery[key] == true)
@@ -266,7 +592,8 @@ public class BookManager : MonoBehaviour {
                 button.GetComponent<Button>().interactable = true;
                 sprites[0].sprite = Resources.Load<Sprite>(potionInfo[key].imagePath);
                 button.GetComponentInChildren<Text>().text = key;
-                
+                sprites[0].color = Color.white;
+
             }
             else
             {
@@ -276,69 +603,16 @@ public class BookManager : MonoBehaviour {
                 sprites[0].color = Color.black;
 
             }
-            
+
         }
+        PotionPage.SetActive(false);
+        BookCanvas.SetActive(false);
     }
 
-    public void SetUpKeyPage(string name)
-    {
-        GameObject page = GameObject.Find("KeyPage(Clone)");
-        Destroy(page);      
-
-        Vector3 temp;
-        GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
-        GameObject newPage = GameObject.Instantiate(KeyPage);
-        newPage.transform.SetParent(BookBackground.transform);
-        newPage.transform.position = BookBackground.transform.position;
-        temp = newPage.transform.position;
-        temp.x += 250;
-        temp.y -= 250;
-        newPage.transform.position = temp;
-        GameObject panel = GameObject.Instantiate(PanelPrefab);
-        GameObject textBox = GameObject.Instantiate(TextBox);
-
-        panel.transform.SetParent(newPage.transform);
-        panel.transform.position = newPage.transform.position;
-        temp = panel.transform.position;
-        temp.x += 140;
-        temp.y += 500;
-        panel.transform.position = temp;
-        textBox.transform.SetParent(newPage.transform);
-        textBox.transform.position = newPage.transform.position;
-        temp = textBox.transform.position;
-        temp.x += 190;
-        
-        textBox.transform.position = temp;
-        Image[] sprites = panel.GetComponentsInChildren<Image>();
-
-        if (CurrentTab == "PlantTab")
+        public void PassName(GameObject b)
         {
-
-            
-            sprites[1].sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
-
-            textBox.
-                GetComponentInChildren<Text>().text =
-                plantInfo[name];
+            SetUpKeyPage(b.GetComponentInChildren<Text>().text);
         }
-        else if(CurrentTab == "PotionTab")
-        {
-            sprites[1].sprite = Resources.Load<Sprite>(potionInfo[name].imagePath);
-            textBox.
-                GetComponentInChildren<Text>().text =
-                potionInfo[name].description;
-        }
-        else if(CurrentTab == "MapTab")
-        {
-
-        }
-        
-    }
-
-    public void PassName(GameObject b)
-    {
-        SetUpKeyPage(b.GetComponentInChildren<Text>().text);
-    }
 
     void CreateDictionary()
     {
@@ -364,7 +638,7 @@ public class BookManager : MonoBehaviour {
         plantInfo.Add("garnet", "");
         plantInfo.Add("jet", "");
 
-        potionInfo.Add("Sleeping", new Potion( "Sleeping", "Potions/potions_sleep", 0, "A potion that puts the user the sleep"));
+        potionInfo.Add("Sleeping", new Potion("Sleeping", "Potions/potions_sleep", 0, "A potion that puts the user the sleep"));
         potionInfo.Add("Healing", new Potion("Healing", "Potions/potions_healing", 0, "Restores the user’s health"));
         potionInfo.Add("Invisibility", new Potion("Invisibility", "Potions/potions_invisibility", 0, "Turns the user invisible"));
         potionInfo.Add("Mana", new Potion("Mana", "Potions/potions_mana", 0, "Restores the user’s Mana"));
@@ -381,21 +655,21 @@ public class BookManager : MonoBehaviour {
         potionDiscovery.Add("Transformation", false);
         potionDiscovery.Add("Odd", false);
         potionDiscovery.Add("Speed", false);
-        
+
     }
 
-    IEnumerator FindContent()
-    {
-        /*buttons = content.transform.GetComponentsInChildren<Transform>();
-        for(int i = 1; i < buttons.Length; i++)
+        IEnumerator FindContent()
         {
-            Destroy(buttons[i]);
-        }*/
+            /*buttons = content.transform.GetComponentsInChildren<Transform>();
+            for(int i = 1; i < buttons.Length; i++)
+            {
+                Destroy(buttons[i]);
+            }*/
 
-        for (int i = 0; i < content.transform.childCount; i++)
-        {
-            Destroy(transform.GetChild(i).gameObject);
+            for (int i = 0; i < content.transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+            yield return new WaitForSecondsRealtime(10f);
         }
-        yield return new WaitForSecondsRealtime(10f);
     }
-}
