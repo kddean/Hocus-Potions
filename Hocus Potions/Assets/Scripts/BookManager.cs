@@ -368,7 +368,8 @@ public class BookManager : MonoBehaviour {
                 button.transform.SetParent(content.transform);
                 button.transform.position = content.transform.position;
                 button.GetComponentInChildren<Text>().text = key;
-                button.GetComponent<Button>().onClick.AddListener(() => PassName(button));          
+                button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
+                button.gameObject.name = key;
 
             }
 
@@ -557,10 +558,30 @@ public class BookManager : MonoBehaviour {
 
 
                 sprites[1].sprite = Resources.Load<Sprite>(rl.ingredients[name].imagePath);
+            Debug.Log(name);
+            textBox.
+                    GetComponentInChildren<Text>().text =                   
+                        plantInfo[name];
+            
 
-                textBox.
-                    GetComponentInChildren<Text>().text =
-                    plantInfo[name];
+            GameObject attributes = Instantiate(TextBox);
+            attributes.transform.SetParent(newPage.transform);
+            attributes.transform.position = newPage.transform.position;
+            temp = attributes.transform.position;
+            temp.x += 190;
+            temp.y += 120;
+
+            attributes.transform.position = temp;
+
+            List<Ingredient.Attributes> list = rl.knownAttributes[rl.ingredients[name]];
+
+             //attributes.GetComponentInChildren<Text>().GetComponent<Text>().text = list.ToString();
+            
+            foreach (Ingredient.Attributes a in list)
+            {
+                attributes.GetComponentInChildren<Text>().GetComponent<Text>().text = attributes.GetComponentInChildren<Text>().GetComponent<Text>().text + "" + a.ToString();
+            }
+
             }
             else if (CurrentTab == "PotionTab")
             {
@@ -608,6 +629,22 @@ public class BookManager : MonoBehaviour {
         PotionPage.SetActive(false);
         BookCanvas.SetActive(false);
     }
+    public void UpdateAttributes()
+    {
+        BookCanvas.SetActive(true);
+        PlantPage.SetActive(true);
+        foreach (string key in keys)
+        {
+            GameObject button = GameObject.Find(key);
+
+           
+            button.GetComponentInChildren<Text>().text = key;
+            
+
+        }
+        PlantPage.SetActive(true);
+        BookCanvas.SetActive(true);
+    } 
 
         public void PassName(GameObject b)
         {
@@ -622,7 +659,7 @@ public class BookManager : MonoBehaviour {
         plantInfo.Add("mugwort", "A bushy white flower. It often grows from the mud.");
         plantInfo.Add("lambsgrass", "A flower in the shape of a bell. It is said that those who sit in a field of them will hear bells.");
         plantInfo.Add("poppy", "A short flower that grow in groups and a variety of colors. It is often used in cakes and other sweets.");
-        plantInfo.Add("thistle ", "");
+        plantInfo.Add("thistle", "");
         plantInfo.Add("lily", "A very large plant with a beautiful flower, unfortunately it smells of death and decay.");
         plantInfo.Add("indigo", "");
         plantInfo.Add("dandylion", "");
