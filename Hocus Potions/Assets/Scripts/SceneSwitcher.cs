@@ -48,6 +48,10 @@ public class SceneSwitcher : MonoBehaviour {
     }
 
     IEnumerator SceneLoader(int index) {
+        if (Resources.FindObjectsOfTypeAll<StartScreen>().Length > 0) {
+            Resources.FindObjectsOfTypeAll<StartScreen>()[0].gameObject.SetActive(false);
+        }
+        Resources.FindObjectsOfTypeAll<LoadingScreen>()[0].gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         scene = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
         while (!scene.isDone) {

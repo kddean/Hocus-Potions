@@ -95,7 +95,7 @@ public class Wardrobe : MonoBehaviour {
     }
 
     private void OnMouseEnter() {
-        if (!GameObject.FindObjectOfType<Cauldron>().Visible && !GameObject.FindObjectOfType<StorageChest>().active) {
+        if (!GameObject.FindObjectOfType<Cauldron>().Visible && !GameObject.FindObjectOfType<StorageChest>().active && !Resources.FindObjectsOfTypeAll<StartScreen>()[0].startScreenOpen) {
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Exclaim Mouse"), Vector2.zero, CursorMode.Auto);
         }
     }

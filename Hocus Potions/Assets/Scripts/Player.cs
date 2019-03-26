@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     public float defaultSpeed, poisonedSpeed, fastSpeed;
     int x, y;
     ResourceLoader rl;
+    InputManager inputManager;
     Animator effectAnim, playerAnim;
     Potion lastTaken;
     [SerializeField]
@@ -80,6 +81,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
 
     public void Start() {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        inputManager = FindObjectOfType<InputManager>();
         sleepCanvas = Resources.FindObjectsOfTypeAll<SleepCanvas>()[0].gameObject; ;
         fadeScreen = sleepCanvas.GetComponentInChildren<Image>().gameObject;
         playerAnim = GetComponent<Animator>();
@@ -188,7 +190,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
         Vector3 pos = transform.position;
         playerAnim.speed = speed / 7.5f;
         x = y = 0;
-        if (Input.GetKey("w")) {
+        if (Input.GetKey(inputManager.walkForwardKey)) {
             idling = false;
             if (playerAnim.GetBool("Transform")) {
                 playerAnim.Play("T_Backward");
@@ -199,7 +201,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             playerAnim.SetBool("Backward", true);
             currentAnim = "Backward";
             y = 1;
-        } else if (Input.GetKey("s")) {
+        } else if (Input.GetKey(inputManager.walkBackwardKey)) {
             idling = false;
             if (playerAnim.GetBool("Transform")) {
                 playerAnim.Play("T_Forward");
@@ -210,7 +212,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             playerAnim.SetBool("Forward", true);
             currentAnim = "Forward";
             y = -1;
-        } else if (Input.GetKey("a")) {
+        } else if (Input.GetKey(inputManager.walkLeftKey)) {
             idling = false;
             if (playerAnim.GetBool("Transform")) {
                 playerAnim.Play("T_Left");
@@ -221,7 +223,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             playerAnim.SetBool("Left", true);
             currentAnim = "Left";
             x = -1;
-        } else if (Input.GetKey("d")) {
+        } else if (Input.GetKey(inputManager.walkRightKey)) {
             idling = false;
             if (playerAnim.GetBool("Transform")) {
                 playerAnim.Play("T_Right");

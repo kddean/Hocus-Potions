@@ -23,7 +23,7 @@ public class StorageChest : MonoBehaviour, IPointerDownHandler {
         alreadyOpen = true;
     }
     private void OnMouseEnter() {
-        if (!active && !GameObject.FindObjectOfType<Cauldron>().Visible && !GameObject.FindObjectOfType<Wardrobe>().open) {
+        if (!active && !GameObject.FindObjectOfType<Cauldron>().Visible && !GameObject.FindObjectOfType<Wardrobe>().open && !Resources.FindObjectsOfTypeAll<StartScreen>()[0].startScreenOpen) {
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Exclaim Mouse"), Vector2.zero, CursorMode.Auto);
         }
     }
