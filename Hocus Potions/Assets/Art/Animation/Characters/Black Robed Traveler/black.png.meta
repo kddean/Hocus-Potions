@@ -1,26 +1,26 @@
 fileFormatVersion: 2
-guid: 9ff0889e812bc5840b7768b20080dc35
+guid: 4fb18111b82c581458bfe58aaad1fa49
 TextureImporter:
   fileIDToRecycleName:
-    21300000: White_Robed_Traveler_0
-    21300002: White_Robed_Traveler_1
-    21300004: White_Robed_Traveler_2
-    21300006: White_Robed_Traveler_3
-    21300008: White_Robed_Traveler_4
-    21300010: White_Robed_Traveler_5
-    21300012: White_Robed_Traveler_6
-    21300014: White_Robed_Traveler_7
-    21300016: White_Robed_Traveler_8
-    21300018: White_Robed_Traveler_9
-    21300020: White_Robed_Traveler_10
-    21300022: White_Robed_Traveler_11
-    21300024: White_Robed_Traveler_12
-    21300026: White_Robed_Traveler_13
-    21300028: White_Robed_Traveler_14
-    21300030: White_Robed_Traveler_15
-    21300032: White_Robed_Traveler_16
-    21300034: White_Robed_Traveler_17
-    21300036: White_Robed_Traveler_18
+    21300000: black_0
+    21300002: black_1
+    21300004: black_2
+    21300006: black_3
+    21300008: black_4
+    21300010: black_5
+    21300012: black_6
+    21300014: black_7
+    21300016: black_8
+    21300018: black_9
+    21300020: black_10
+    21300022: black_11
+    21300024: black_12
+    21300026: black_13
+    21300028: black_14
+    21300030: black_15
+    21300032: black_16
+    21300034: black_17
+    21300036: black_18
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -103,12 +103,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: White_Robed_Traveler_0
+      name: black_0
       rect:
         serializedVersion: 2
-        x: 11
+        x: 12
         y: 310
-        width: 30
+        width: 29
         height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -117,13 +117,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aef8c497eeed29543baf18221255ce35
+      spriteID: 0da6d373ca33c65419e6d9460217a062
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_1
+      name: black_1
       rect:
         serializedVersion: 2
         x: 50
@@ -137,13 +137,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a250bbe535206754895300d4cd519847
+      spriteID: f42dc4c092dec4f47b1f739f0a551115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_2
+      name: black_2
       rect:
         serializedVersion: 2
         x: 89
@@ -157,13 +157,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b59ebdd18d7f784458a2d4e30f898d50
+      spriteID: c3d6c2f97c953ca4aae4f098e9e2a43b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_3
+      name: black_3
       rect:
         serializedVersion: 2
         x: 11
@@ -177,13 +177,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 988cc310191216a469bc692b5b6bfca5
+      spriteID: 810dd3d75852eb6489e53c58a1349d7c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_4
+      name: black_4
       rect:
         serializedVersion: 2
         x: 50
@@ -197,13 +197,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7a9ce92adaf99e47b1f6e61b0719746
+      spriteID: 052189ceb4daf464bb16129c54085e76
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_5
+      name: black_5
       rect:
         serializedVersion: 2
         x: 90
@@ -217,13 +217,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17166f77aa377004ab6feeae34b8c16b
+      spriteID: 58f19c1606d6a72479cc5885272f2610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_6
+      name: black_6
       rect:
         serializedVersion: 2
         x: 12
@@ -237,13 +237,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c89266ca732139a42b2dcbd0e7269773
+      spriteID: 665efe567d2114046b373f85ae4fb663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_7
+      name: black_7
       rect:
         serializedVersion: 2
         x: 50
@@ -257,13 +257,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebdb91682b4bd9543a8ab8dffa8847c1
+      spriteID: 08e787e230cb1eb4c87a3e0990062d9a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_8
+      name: black_8
       rect:
         serializedVersion: 2
         x: 10
@@ -277,13 +277,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8276cdb112cb6464da8f6b00568d582a
+      spriteID: 2a8a6578f96d9df4a81cd9ee98a0e059
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_9
+      name: black_9
       rect:
         serializedVersion: 2
         x: 48
@@ -297,16 +297,16 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55d2ccc08e169c04997e0cfd284ddba3
+      spriteID: 22b7dea8b84c6b64293947c6931d0bf7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_10
+      name: black_10
       rect:
         serializedVersion: 2
-        x: 10
+        x: 9
         y: 28
         width: 29
         height: 59
@@ -317,13 +317,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8de082cf8ee10d84e91c550ad433c284
+      spriteID: 0bb0b41dcab66fa4086e50614ca4ba6c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_11
+      name: black_11
       rect:
         serializedVersion: 2
         x: 50
@@ -337,13 +337,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a67c84b5f2bd4f64083a0b949c2166b0
+      spriteID: a291512fe1ef72842b9915d32011767c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_12
+      name: black_12
       rect:
         serializedVersion: 2
         x: 90
@@ -357,13 +357,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a2d36c0ef8d5dc4ab2f0cdf31edcd20
+      spriteID: 637b2bfb7ee9aa948994121e563d87b6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_13
+      name: black_13
       rect:
         serializedVersion: 2
         x: 129
@@ -377,13 +377,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4def01f33b8ee774ebf5527463d7e5c5
+      spriteID: 88e6be61858f5204e97bff84d6e8b535
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_14
+      name: black_14
       rect:
         serializedVersion: 2
         x: 171
@@ -397,16 +397,16 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 502e00ded5f1f6d4c91896ec349d5658
+      spriteID: e7a09ac94fbeb1b48a734c0142d259ad
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_15
+      name: black_15
       rect:
         serializedVersion: 2
-        x: 216
+        x: 213
         y: 28
         width: 29
         height: 59
@@ -417,16 +417,16 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91f3f82a896dae748b580da25d3175f4
+      spriteID: 0656874f1656dbe43a1b8c165fb71fe9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_16
+      name: black_16
       rect:
         serializedVersion: 2
-        x: 258
+        x: 255
         y: 28
         width: 29
         height: 59
@@ -437,16 +437,16 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31ae72c3ec57ba14aaf1a8264e60a0ee
+      spriteID: 80241959b584c5a48967edfe839bf9cd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_17
+      name: black_17
       rect:
         serializedVersion: 2
-        x: 303
+        x: 297
         y: 29
         width: 29
         height: 59
@@ -457,17 +457,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bf81d9d08bfaa94b859a8b618dd89b7
+      spriteID: 45e92c507f49ca149b75c6a28f941ae7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White_Robed_Traveler_18
+      name: black_18
       rect:
         serializedVersion: 2
-        x: 347
-        y: 29
+        x: 340
+        y: 28
         width: 29
         height: 59
       alignment: 7
@@ -477,7 +477,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1279c30b02bd2874288ab200eda45032
+      spriteID: 51d5551245de3d54aa48a79ef8b54f39
       vertices: []
       indices: 
       edges: []
@@ -485,7 +485,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 930ffe21bb381204eb9d84abccf6ebc0
+    spriteID: 9998e03f73bae794496957f97913e804
     vertices: []
     indices: 
     edges: []
