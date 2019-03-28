@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class BookManager : MonoBehaviour {
 
@@ -36,6 +37,16 @@ public class BookManager : MonoBehaviour {
     public GameObject MapPage;
     public GameObject[] contents;
 
+    public GameObject ForestZone;
+    public GameObject HomeZone;
+    public GameObject MeadowZone;
+    public GameObject CampsiteZone;
+    public GameObject ShrineZone;
+    public GameObject MountainsZone;
+    public GameObject CurrentZone;
+    public GameObject WitchIcon;
+
+
     public bool dictExists;
 
     public void Awake()
@@ -62,14 +73,18 @@ public class BookManager : MonoBehaviour {
         potionDiscovery = new Dictionary<string, bool>();
         content = new GameObject();
         contents = GameObject.FindGameObjectsWithTag("contentWindow");
+        WitchIcon = GameObject.Find("WitchIcon");
         //CurrentPage = GameObject.Find("CurrentPage");
         CreateDictionary();
 
         SetUpPlantPage();
         SetUpPotionPage();
 
+        CurrentZone = null;
+        MapPage = GameObject.Find("MapPage");
         PlantPage.SetActive(false);
         PotionPage.SetActive(false);
+        MapPage.SetActive(false);
         Tab.SetActive(false);
         dictExists = true;
         BookCanvas.SetActive(false);
@@ -91,9 +106,24 @@ public class BookManager : MonoBehaviour {
         if (BookCanvas.activeSelf == true)
         {
             contents = GameObject.FindGameObjectsWithTag("contentWindow");
+            SetUpMapPage();
            
             
         }
+
+        if (!SceneManager.GetActiveScene().name.Equals("SampleGameArea"))
+        {
+            return;
+        }
+        else
+        {
+            ForestZone = GameObject.Find("ForestZone");
+            HomeZone = GameObject.Find("HomeZone");
+            MeadowZone = GameObject.Find("MeadowZone");
+            CampsiteZone = GameObject.Find("CampsiteZone");
+            ShrineZone = GameObject.Find("ShrineZone");
+            MountainsZone = GameObject.Find("MountainsZone");
+}
     }
     public void SetCurrentTab(int i)
     {
@@ -111,7 +141,7 @@ public class BookManager : MonoBehaviour {
                 Tab.transform.localPosition = t;
                 Tab.transform.localScale *= -1;*/
                 PotionPage.SetActive(false);
-                //MapPage.SetActive(false);
+                MapPage.SetActive(false);
 
                 GameObject page = GameObject.Find("KeyPage(Clone)");
                 Destroy(page);
@@ -153,7 +183,7 @@ public class BookManager : MonoBehaviour {
                 Tab.transform.localPosition = t;
                 Tab.transform.localScale *= -1;*/
                 PlantPage.SetActive(false);
-                //MapPage.SetActive(false);
+                MapPage.SetActive(false);
 
                 GameObject page = GameObject.Find("KeyPage(Clone)");
                 Destroy(page);
@@ -225,6 +255,9 @@ public class BookManager : MonoBehaviour {
             MapTab.transform.localScale *= -1;
             CurrentTab = "MapTab";
             PageUp = true;
+            MapPage.SetActive(true);
+            SetUpMapPage();
+
         }
     }
 
@@ -569,7 +602,7 @@ public class BookManager : MonoBehaviour {
             attributes.transform.position = newPage.transform.position;
             temp = attributes.transform.position;
             temp.x += 190;
-            temp.y += 120;
+            temp.y += 240;
 
             attributes.transform.position = temp;
 
@@ -579,7 +612,8 @@ public class BookManager : MonoBehaviour {
             
             foreach (Ingredient.Attributes a in list)
             {
-                attributes.GetComponentInChildren<Text>().GetComponent<Text>().text = attributes.GetComponentInChildren<Text>().GetComponent<Text>().text + "" + a.ToString();
+                attributes.GetComponentInChildren<Text>().GetComponent<Text>().text = attributes.GetComponentInChildren<Text>().GetComponent<Text>().text + " " + "\n" + a.ToString();
+                attributes.GetComponent<Text>().fontSize = 12;
             }
 
             }
@@ -596,6 +630,46 @@ public class BookManager : MonoBehaviour {
             }
 
         }
+
+    public void SetUpMapPage()
+    {
+        /*Forest -222.9, 16
+         *Mountains -86.5, 240
+         * Home -55, 67
+         * Shrine 226.4, 265
+         * Campsite 145.3, 79
+         * Meadow 145.3, -111
+        */
+        if(CurrentZone == null)
+        {
+            return;
+        }
+
+        if(CurrentZone.name == ForestZone.name)
+        {
+            WitchIcon.transform.localPosition = new Vector2(-222.9f, 16f);
+        }
+        else if (CurrentZone.name == MountainsZone.name)
+        {
+            WitchIcon.transform.localPosition = new Vector2(-86.5f, 240f);
+        }
+        else if (CurrentZone.name == HomeZone.name)
+        {
+            WitchIcon.transform.localPosition = new Vector2(-55f, 67f);
+        }
+        else if (CurrentZone.name == ShrineZone.name)
+        {
+            WitchIcon.transform.localPosition = new Vector2(226.4f, 265f);
+        }
+        else if (CurrentZone.name == CampsiteZone.name)
+        {
+            WitchIcon.transform.localPosition = new Vector2(-145.3f, 79f);
+        }
+        else if (CurrentZone.name == MeadowZone.name)
+        {
+            WitchIcon.transform.localPosition = new Vector2(145.3f, -111f);
+        }
+    }
 
     public void UpdateUnlockedPotions()
     {
