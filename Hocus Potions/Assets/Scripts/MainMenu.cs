@@ -118,6 +118,8 @@ public class MainMenu : MonoBehaviour {
         data.schedules = npcs.npcQueue.Keys.ToList();
         data.scheduleNames = npcs.npcQueue.Values.ToList();
         data.currentMap = npcs.CurrentMap;
+
+        data.keybinds = GameObject.FindObjectOfType<InputManager>().keybinds;
         
         bf.Serialize(file, data);
         file.Close();
@@ -195,6 +197,12 @@ public class MainMenu : MonoBehaviour {
                     player.RestartTimers(player.Status[i], data.timers[i]);
                 }
             }
+
+            InputManager im = GameObject.FindObjectOfType<InputManager>();
+            im.keybinds = data.keybinds;
+            im.LoadKeybinds();
+
+
             Wardrobe wardrobe = GameObject.FindObjectOfType<Wardrobe>();
             if (wardrobe != null) {
                 wardrobe.LoadCostume(data.currentCostume);

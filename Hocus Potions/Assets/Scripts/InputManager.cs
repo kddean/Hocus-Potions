@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//This class should be used to handle all keybinds and player inputs
 public class InputManager : MonoBehaviour {
-    public KeyCode pauseKey = KeyCode.P, mainMenuKey = KeyCode.Escape, walkForwardKey = KeyCode.W, walkLeftKey = KeyCode.A, walkRightKey = KeyCode.D, walkBackwardKey = KeyCode.S, spellMenuKey = KeyCode.LeftControl, spellKey1 = KeyCode.F1, spellKey2 = KeyCode.F2, spellKey3 = KeyCode.F3, spellKey4 = KeyCode.F4,
-        inventoryKey = KeyCode.I, inventory1 = KeyCode.Alpha1, inventory2 = KeyCode.Alpha2, inventory3 = KeyCode.Alpha3, inventory4 = KeyCode.Alpha4, inventory5 = KeyCode.Alpha5, inventory6 = KeyCode.Alpha6, inventory7 = KeyCode.Alpha7, inventory8 = KeyCode.Alpha8, inventory9 = KeyCode.Alpha9, inventory10 = KeyCode.Alpha0;
-    //This class should be used to handle all keybinds and player inputs
+    public KeyCode inventoryKey = KeyCode.I, inventory1 = KeyCode.Alpha1, inventory2 = KeyCode.Alpha2, inventory3 = KeyCode.Alpha3, inventory4 = KeyCode.Alpha4, inventory5 = KeyCode.Alpha5, inventory6 = KeyCode.Alpha6, inventory7 = KeyCode.Alpha7, inventory8 = KeyCode.Alpha8, inventory9 = KeyCode.Alpha9, inventory10 = KeyCode.Alpha0,
+                   spellMenuKey = KeyCode.LeftControl, spellKey1 = KeyCode.F1, spellKey2 = KeyCode.F2, spellKey3 = KeyCode.F3, spellKey4 = KeyCode.F4, pauseKey = KeyCode.P, mainMenuKey = KeyCode.Escape, walkForwardKey = KeyCode.W, walkLeftKey = KeyCode.A, walkRightKey = KeyCode.D, walkBackwardKey = KeyCode.S;
+    public List<KeyCode> keybinds;
     GameObject invPanel;
     CanvasGroup invGroup;
     GameObject spellCanvas;
@@ -30,19 +30,14 @@ public class InputManager : MonoBehaviour {
         mainMenu.SetActive(false);
         spellCanvas.SetActive(false);
         paused = false;
+        keybinds = new List<KeyCode>();
+        SetupKeybinds();
     }
 
     void Update() {
-        if (GameObject.FindObjectOfType<Player>().Status.Contains(Player.PlayerStatus.asleep)) {
+        if (GameObject.FindObjectOfType<Player>().Status.Contains(Player.PlayerStatus.asleep) || GameObject.FindObjectOfType<StartScreen>() != null) {
             return;
         }
-        /*TODO: For Keybinds
-        foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode))) {
-            if (Input.GetKeyDown(kcode)) {
-                Debug.Log("KeyCode down: " + kcode);
-                break;
-            }
-        }*/
 
         //Pause
         if (Input.GetKeyDown(pauseKey)) {
@@ -136,5 +131,56 @@ public class InputManager : MonoBehaviour {
         if (Input.GetKeyDown(spellKey4)) {
             Resources.FindObjectsOfTypeAll<SpellCanvas>()[0].SetActiveSpell(3);
         }
+    }
+
+    void SetupKeybinds() {
+        keybinds.Clear();
+        keybinds.Add(inventoryKey);
+        keybinds.Add(inventory1);
+        keybinds.Add(inventory2);
+        keybinds.Add(inventory3);
+        keybinds.Add(inventory4);
+        keybinds.Add(inventory5);
+        keybinds.Add(inventory6);
+        keybinds.Add(inventory7);
+        keybinds.Add(inventory8);
+        keybinds.Add(inventory9);
+        keybinds.Add(inventory10);
+        keybinds.Add(spellMenuKey);
+        keybinds.Add(spellKey1);
+        keybinds.Add(spellKey2);
+        keybinds.Add(spellKey3);
+        keybinds.Add(spellKey4);
+        keybinds.Add(mainMenuKey);
+        keybinds.Add(pauseKey);
+        keybinds.Add(walkForwardKey);
+        keybinds.Add(walkBackwardKey);
+        keybinds.Add(walkLeftKey);
+        keybinds.Add(walkRightKey);
+    }
+
+    public void LoadKeybinds() {
+        inventoryKey = keybinds[0];
+        inventory1 = keybinds[1];
+        inventory2 = keybinds[2];
+        inventory3 = keybinds[3];
+        inventory4 = keybinds[4];
+        inventory5 = keybinds[5];
+        inventory6 = keybinds[6];
+        inventory7 = keybinds[7];
+        inventory8 = keybinds[8];
+        inventory9 = keybinds[9];
+        inventory10 = keybinds[10];
+        spellMenuKey = keybinds[11];
+        spellKey1 = keybinds[12];
+        spellKey2 = keybinds[13];
+        spellKey3 = keybinds[14];
+        spellKey4 = keybinds[15];
+        mainMenuKey = keybinds[16];
+        pauseKey = keybinds[17];
+        walkForwardKey = keybinds[18];
+        walkBackwardKey = keybinds[19];
+        walkLeftKey = keybinds[20];
+        walkRightKey = keybinds[21];
     }
 }

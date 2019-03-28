@@ -61,5 +61,8 @@ public class SaveData {
     public List<string> scheduleNames;
     public int currentMap;
 
+    //Keybinds
+    public List<KeyCode> keybinds;
+
    
 }

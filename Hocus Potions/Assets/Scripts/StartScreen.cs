@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class StartScreen : MonoBehaviour {
     public bool startScreenOpen;
+    public VideoPlayer video;
+    public RawImage rawImage;
 
     private void OnEnable() {
         startScreenOpen = true;
+        StartCoroutine(PlayVideo());
     }
     public void NewGame() {
         Time.timeScale = 1;
@@ -34,6 +38,15 @@ public class StartScreen : MonoBehaviour {
 
     public void QuitGame() {
         Application.Quit();
+    }
+
+    IEnumerator PlayVideo() {
+        video.Prepare();
+        while (!video.isPrepared) {
+            yield return null;
+        }
+        rawImage.texture = video.texture;
+        video.Play();
     }
 
 }
