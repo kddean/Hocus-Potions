@@ -62,6 +62,7 @@ public class Wardrobe : MonoBehaviour {
 
     public void Clicked() {
         if (cg.alpha == 0) {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
             GameObject.FindObjectOfType<Player>().allowedToMove = false;
             cg.alpha = 1;
             cg.interactable = true;

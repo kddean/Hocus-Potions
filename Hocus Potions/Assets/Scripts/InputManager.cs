@@ -56,6 +56,7 @@ public class InputManager : MonoBehaviour {
                 paused = false;
                 Time.timeScale = 1;
             } else {
+                Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
                 Time.timeScale = 0;
                 paused = true;
             }

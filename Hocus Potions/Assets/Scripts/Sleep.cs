@@ -72,6 +72,7 @@ public class Sleep : MonoBehaviour {
     }
 
     public void FallAsleep() {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
         canvas.GetComponentsInChildren<CanvasGroup>()[1].alpha = 0;
         canvas.GetComponentsInChildren<CanvasGroup>()[0].blocksRaycasts = true;
         player.Speed = 0;

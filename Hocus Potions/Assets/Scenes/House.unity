@@ -14979,6 +14979,11 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 26.300049
       objectReference: {fileID: 0}
+    - target: {fileID: 114703404203343728, guid: 2877ef530d2233842b6304816ebef73b,
+        type: 2}
+      propertyPath: CLOCK_SPEED
+      value: 1.67
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2877ef530d2233842b6304816ebef73b, type: 2}
   m_IsPrefabAsset: 0
@@ -31936,17 +31941,17 @@ Prefab:
     - target: {fileID: 61347121462506108, guid: a4cad152661fcea4ab21bf9a0f2db8e4,
         type: 2}
       propertyPath: m_Offset.y
-      value: -0.62891304
+      value: -0.69360626
       objectReference: {fileID: 0}
     - target: {fileID: 61347121462506108, guid: a4cad152661fcea4ab21bf9a0f2db8e4,
         type: 2}
       propertyPath: m_Size.y
-      value: 1.2358954
+      value: 1.106509
       objectReference: {fileID: 0}
     - target: {fileID: 61347121462506108, guid: a4cad152661fcea4ab21bf9a0f2db8e4,
         type: 2}
       propertyPath: m_Offset.x
-      value: 0.23197094
+      value: 0.2319709
       objectReference: {fileID: 0}
     - target: {fileID: 61347121462506108, guid: a4cad152661fcea4ab21bf9a0f2db8e4,
         type: 2}

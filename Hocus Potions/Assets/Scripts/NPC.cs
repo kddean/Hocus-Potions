@@ -243,7 +243,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 Destroy(this.gameObject);
             }
 
-            if (speed != 0 && path.Count == 0 && nextTarget.x > -9000 && transform.position == swapPoint.transform.position) {
+            if (speed != 0 && path.Count == 0 && nextTarget.x > -9000 && transform.position == swapPoint.transform.position && allowedToMove) {
                 if (info.map == 0) {
                     GameObject.FindObjectOfType<Pathfinding>().InitializePath(new Vector3(-7.5f, -1.5f, 0), nextTarget, 1, path);
                     info.map = 1;
@@ -262,6 +262,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     controller.npcData[characterName] = info;
                 }
                 controller.FinishPathData(path, characterName);
+                if (dialogueCanvas.GetComponent<DialogueCanvas>().active) {
+                    ExitButton();
+                }
                 Destroy(this.gameObject);
             }
         }
