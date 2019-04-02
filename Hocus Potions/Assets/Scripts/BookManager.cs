@@ -92,6 +92,7 @@ public class BookManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (Resources.FindObjectsOfTypeAll<StartScreen>().Length != 0 && Resources.FindObjectsOfTypeAll<StartScreen>()[0].startScreenOpen) { return; }
         if (Input.GetKeyDown("m"))
         {
             if (BookCanvas.activeSelf == false)
@@ -738,16 +739,16 @@ public class BookManager : MonoBehaviour {
         plantInfo.Add("indigo", "");
         plantInfo.Add("dandylion", "");
         plantInfo.Add("ghostcap", "");
-        plantInfo.Add("morel", "");
-        plantInfo.Add("fly_agaric", "");
+        plantInfo.Add("morel", "A brown colored mushroom fairly common. It is a delicious mushroom used in cooking.");
+        plantInfo.Add("fly_agaric", "A poisonous mushroom with a red cap. Despite being poisonous it is often used in medicine.");
         plantInfo.Add("ash", "");
-        plantInfo.Add("amethyst", "");
-        plantInfo.Add("selenite", "");
-        plantInfo.Add("lapis_lazuli", "");
-        plantInfo.Add("emerald", "");
-        plantInfo.Add("amber", "");
-        plantInfo.Add("garnet", "");
-        plantInfo.Add("jet", "");
+        plantInfo.Add("amethyst", "A purple gemstone often found in geodes near volcanic areas. It is said to have protective properties. ");
+        plantInfo.Add("selenite", "A milky white stone sometimes referred to as the desert rose for the petals shapes the stone makes.");
+        plantInfo.Add("lapis_lazuli", "A blue gemstone with gold specks. It is often used for creating a royal blue paint.");
+        plantInfo.Add("emerald", "A beautiful green gemstone that is considered a symbol of eternal life.");
+        plantInfo.Add("amber", "Tree sap that has hardened and fossilized becoming a yellow stone, once considered to be solidified drops of sunshine.");
+        plantInfo.Add("garnet", "A sturdy red gem. It is said that tucking one under your pillow can prevent bad dreams.");
+        plantInfo.Add("jet", "The fossilized remains of an ancient, wood that have mineralized black. This gem is said to alleviate grief and anger.");
 
         potionInfo.Add("Sleeping", new Potion("Sleeping", "Potions/potions_sleep", 0, "A potion that puts the user the sleep"));
         potionInfo.Add("Healing", new Potion("Healing", "Potions/potions_healing", 0, "Restores the user’s health"));
