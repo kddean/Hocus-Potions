@@ -12,11 +12,13 @@ public class StartScreen : MonoBehaviour {
     private void OnEnable() {
         startScreenOpen = true;
         StartCoroutine(PlayVideo());
+        GameObject.FindObjectOfType<HouseAudioController>().startPlaying = false;
     }
     public void NewGame() {
         Time.timeScale = 1;
         startScreenOpen = false;
         gameObject.SetActive(false);
+        GameObject.FindObjectOfType<HouseAudioController>().startPlaying = true;
     }
 
     public void LoadGame() {

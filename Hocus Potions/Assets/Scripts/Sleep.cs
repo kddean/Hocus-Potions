@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,7 +13,6 @@ public class Sleep : MonoBehaviour {
     Player player;
     bool done, sleeping;
 
-    
     void Start () {
         mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
         mana = GameObject.FindObjectOfType<Mana>();

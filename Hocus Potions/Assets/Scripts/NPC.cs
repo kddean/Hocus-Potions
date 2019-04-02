@@ -353,7 +353,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         return;
                     }
                 }
-                info.timesInteracted++;
                 controller.npcData[characterName] = info;
             }
 
@@ -480,29 +479,47 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 dialoguePieces = new string[0];
                 currentDialogue = 0;
             }
+            info.timesInteracted++;
+            controller.npcData[CharacterName] = info;
         }
     }
 
     private void GiveQuest() {
-        int choice;
+        int choice = -1;
         if(info.givenQuests.Count == requests.Count) {
             info.givenQuests = new List<int>();
         }
+        bool scriptedQuest = false;
+        foreach (Request r in requests) {
+            if (r.Key.Contains(info.timesInteracted.ToString())) {
+                scriptedQuest = true;
+                choice++;
+            }
+        }
 
-        do {
-            choice = Random.Range(0, requests.Count - 1);
-        } while (info.givenQuests.Contains(choice));
+        string affinity = "";
+        if (!scriptedQuest) {
+            do {
+                choice = Random.Range(0, requests.Count - 1);
+            } while (info.givenQuests.Contains(choice) || requests[choice].Key.Length < 10);
+            if (info.affinity < 0) {
+                affinity = "_bad";
+            } else if (info.affinity > 0) {
+                affinity = "_good";
+            } else {
+                affinity = "_neutral";
+            }
+        } else {
+            if (info.option) {
+                affinity = "option1";
+            } else {
+                affinity = "option2";
+            }
+        }
 
         info.givenQuests.Add(choice);
 
-        string affinity;
-        if (info.affinity < 0) {
-            affinity = "_bad";
-        } else if (info.affinity > 0) {
-            affinity = "_good";
-        } else {
-            affinity = "_neutral";
-        }
+       
         string key = requests[choice].Key + affinity;
         info.requestKey = key;
         controller.npcData[CharacterName] = info;
@@ -627,6 +644,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         int index = requests.FindIndex(item => item.Key.Equals(rKey));
         info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
         info.requestKey = null;
+        info.timesInteracted++;
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
@@ -703,6 +721,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentInChildren<Text>().enabled = true;
         dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["no"][0];
         info.returning = false;
+        info.timesInteracted++;
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);

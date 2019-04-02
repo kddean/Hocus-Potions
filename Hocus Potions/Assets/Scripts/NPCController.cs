@@ -54,6 +54,7 @@ public class NPCController : MonoBehaviour {
         public bool returning;
         public string requestKey;
         public float affinity;
+        public bool option;
         public List<Item> given;
         public List<Schedule> locations;
         public bool spawned;
@@ -63,7 +64,7 @@ public class NPCController : MonoBehaviour {
         public Vec3 nextTarget;
         public List<int> givenQuests;
 
-        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget, List<int> givenQuests) {
+        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, bool option, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget, List<int> givenQuests) {
             this.x = x;
             this.y = y;
             this.z = z;
@@ -72,6 +73,7 @@ public class NPCController : MonoBehaviour {
             this.returning = returning;
             this.requestKey = requestKey;
             this.affinity = affinity;
+            this.option = option;
             this.given = given;
             this.locations = locations;
             this.spawned = spawned;
@@ -472,7 +474,7 @@ public class NPCController : MonoBehaviour {
         int spawnHour = UnityEngine.Random.Range(8, 13);
         Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, -0.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
-        schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
+        schedule = new Schedule(false, day, spawnHour + 6, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
         npcQueue.Add(schedule, available[rand]);
         available.RemoveAt(rand);
         if (available.Count > 0) {
@@ -480,9 +482,9 @@ public class NPCController : MonoBehaviour {
             //TODO: Change the times for this later
             spawnHour = UnityEngine.Random.Range(13, 17);
             rand = UnityEngine.Random.Range(0, available.Count - 1);
-            schedule = new Schedule(false, day, 14, 0, "", 0, -6.5f, 0.5f, 0, available[rand]);
+            schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
-            schedule = new Schedule(false, day, spawnHour + 7, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
+            schedule = new Schedule(false, day, spawnHour + 6, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
             available.RemoveAt(rand);
         }

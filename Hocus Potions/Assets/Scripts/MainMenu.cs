@@ -188,6 +188,9 @@ public class MainMenu : MonoBehaviour {
         while (!scene.isDone) {
             yield return null;
         }
+        if (GameObject.FindObjectOfType<HouseAudioController>() != null) {
+            GameObject.FindObjectOfType<HouseAudioController>().startPlaying = true;
+        }
 
         Scene check = SceneManager.GetSceneByName(data.currentScene);
         if (check.IsValid()) {

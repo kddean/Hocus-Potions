@@ -51,6 +51,12 @@ public class SceneSwitcher : MonoBehaviour {
         if (Resources.FindObjectsOfTypeAll<StartScreen>().Length > 0) {
             Resources.FindObjectsOfTypeAll<StartScreen>()[0].gameObject.SetActive(false);
         }
+        if (Resources.FindObjectsOfTypeAll<HouseAudioController>().Length > 0) {
+            Resources.FindObjectsOfTypeAll<HouseAudioController>()[0].fadeOutAudio = true;
+        }
+        if (Resources.FindObjectsOfTypeAll<OverworldAudioController>().Length > 0) {
+            Resources.FindObjectsOfTypeAll<OverworldAudioController>()[0].fadeOutAudio = true;
+        }
         Resources.FindObjectsOfTypeAll<LoadingScreen>()[0].gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         scene = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);

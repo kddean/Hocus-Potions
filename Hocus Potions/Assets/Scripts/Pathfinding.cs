@@ -110,7 +110,7 @@ public class Pathfinding : MonoBehaviour {
                     } else {
                         bool triggers = true;
                         foreach (RaycastHit2D r in check) {
-                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player") && !r.collider.gameObject.name.Equals("Water") && !r.collider.gameObject.name.Equals("Cliffs")) {
                                 Vector3 testPoint = new Vector3(x + 0.1f, y + 0.1f, 0);
                                 if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
                                 testPoint = new Vector3(x + 0.9f, y + 0.1f, 0);
@@ -141,7 +141,7 @@ public class Pathfinding : MonoBehaviour {
                     } else {
                         bool triggers = true;
                         foreach (RaycastHit2D r in check) {
-                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player")) {
+                            if (!r.collider.isTrigger && !r.collider.gameObject.tag.Equals("Player") && !r.collider.gameObject.name.Equals("Water") && !r.collider.gameObject.name.Equals("Cliffs")) {
                                 Vector3 testPoint = new Vector3(x + 0.1f, y + 0.1f, 0);
                                 if (r.collider.bounds.Contains(testPoint)) { triggers = false; break; }
                                 testPoint = new Vector3(x + 0.9f, y + 0.1f, 0);

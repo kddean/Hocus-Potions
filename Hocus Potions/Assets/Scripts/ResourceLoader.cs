@@ -141,7 +141,7 @@ public class ResourceLoader : MonoBehaviour {
                     schedule.Add(new NPCController.Schedule(Boolean.Parse(data[0]), int.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), data[4], int.Parse(data[5]), float.Parse(data[6]), float.Parse(data[7]), float.Parse(data[8]), characterName));
                 }
             }
-            c.npcData.Add(characterName, new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, new List<Item>(), schedule, false, new List<NPC.Status>(), new Dictionary<NPC.Status, NPCController.TimerData>(), new NPCController.Vec3(), new NPCController.Vec3(), new List<int>()));
+            c.npcData.Add(characterName, new NPCController.NPCInfo(0, 0, 0, 1, 0, false, null, 0, true, new List<Item>(), schedule, false, new List<NPC.Status>(), new Dictionary<NPC.Status, NPCController.TimerData>(), new NPCController.Vec3(), new NPCController.Vec3(), new List<int>()));
         }
     }
 
