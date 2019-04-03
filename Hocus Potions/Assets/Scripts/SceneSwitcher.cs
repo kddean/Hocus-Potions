@@ -58,7 +58,8 @@ public class SceneSwitcher : MonoBehaviour {
             Resources.FindObjectsOfTypeAll<OverworldAudioController>()[0].fadeOutAudio = true;
         }
         Resources.FindObjectsOfTypeAll<LoadingScreen>()[0].gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
+        Resources.FindObjectsOfTypeAll<LoadingScreen>()[0].loading = true;
+        yield return new WaitForSeconds(1f);
         scene = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
         while (!scene.isDone) {
             yield return null;
