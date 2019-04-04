@@ -94,11 +94,28 @@ public class GatheringManager : MonoBehaviour {
             {
                 SpawnerResetTime newTime = new SpawnerResetTime();
                 SpawnerData newData = new SpawnerData();
-                string newPlant;
-                do {
+                string newPlant = "";
+                /*do {
                     int ran = Random.Range(0, rl.ingredients.Count);
                     newPlant = plants[ran];
-                } while (!rl.ingredients[newPlant].imagePath.StartsWith("Plants"));
+                } while (!rl.ingredients[newPlant].imagePath.StartsWith("Plants"));*/
+
+                int ran;
+                if (gatherer.name.Contains("Forest"))
+                {
+                    ran = Random.Range(0, ForestList.Count);
+                    newPlant = ForestList[ran];
+                }
+                else if (gatherer.name.Contains("Meadow"))
+                {
+                    ran = Random.Range(0, MeadowList.Count);
+                    newPlant = MeadowList[ran];
+                }
+                else if (gatherer.name.Contains("Mountain"))
+                {
+                    ran = Random.Range(0, MountainList.Count);
+                    newPlant = MountainList[ran];
+                }
 
                 newData.spawnedItem = rl.ingredients[newPlant];
                 newData.hasSpawnedItem = true;
