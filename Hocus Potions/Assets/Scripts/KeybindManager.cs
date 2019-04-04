@@ -154,6 +154,80 @@ public class KeybindManager : MonoBehaviour {
         }
     }
 
+    public void LoadKeybindText() {
+        switch (key) {
+            case "invToggle":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[0]);
+                break;
+            case "inv1":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[1]);
+                break;
+            case "inv2":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[2]);
+                break;
+            case "inv3":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[3]);
+                break;
+            case "inv4":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[4]);
+                break;
+            case "inv5":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[5]);
+                break;
+            case "inv6":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[6]);
+                break;
+            case "inv7":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[7]);
+                break;
+            case "inv8":
+                GetComponentInChildren<Text>()
+                    .text = GetString(im.keybinds[8]);
+                break;
+            case "inv9":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[9]);
+                break;
+            case "inv10":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[10]);
+                break;
+            case "spellToggle":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[11]);
+                break;
+            case "wildGrowth":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[12]);
+                break;
+            case "Ignite":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[13]);
+                break;
+            case "Smash":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[14]);
+                break;
+            case "Dredge":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[15]);
+                break;
+            case "mainMenu":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[16]);
+                break;
+            case "pause":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[17]);
+                break;
+            case "walkF":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[18]);
+                break;
+            case "walkB":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[19]);
+                break;
+            case "walkL":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[20]);
+                break;
+            case "walkR":
+                GetComponentInChildren<Text>().text = GetString(im.keybinds[21]);
+                break;
+            default:
+                break;
+        }
+    }
+
     string GetString(KeyCode key) {
         switch (key) {
             case KeyCode.LeftAlt:
@@ -256,6 +330,26 @@ public class KeybindManager : MonoBehaviour {
                 return "ScrLk";
             case KeyCode.SysReq:
                 return "Print";
+            case KeyCode.Alpha0:
+                return "0";
+            case KeyCode.Alpha1:
+                return "1";
+            case KeyCode.Alpha2:
+                return "2";
+            case KeyCode.Alpha3:
+                return "3";
+            case KeyCode.Alpha4:
+                return "4";
+            case KeyCode.Alpha5:
+                return "5";
+            case KeyCode.Alpha6:
+                return "6";
+            case KeyCode.Alpha7:
+                return "7";
+            case KeyCode.Alpha8:
+                return "8";
+            case KeyCode.Alpha9:
+                return "9";
             default:
                 return key.ToString();
         }

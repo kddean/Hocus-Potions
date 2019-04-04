@@ -19,7 +19,7 @@ public class DayNight : MonoBehaviour {
         if(mc.hour > 17 || mc.hour < 6) {
             if (player.Status.Contains(Player.PlayerStatus.transformed)) {
                 wasCat = true;
-                shader.alpha = 0.503f;
+                shader.alpha = 0.403f;
             } else {
                 shader.alpha = 0.707f;
             }
@@ -39,14 +39,18 @@ public class DayNight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(shader.alpha > 0.6f && player.Status.Contains(Player.PlayerStatus.transformed)) {
+        if(shader.alpha > 0.5f && player.Status.Contains(Player.PlayerStatus.transformed)) {
             wasCat = true;
-            shader.alpha = 0.503f;
+            shader.alpha = 0.403f;
+        } else if (player.Status.Contains(Player.PlayerStatus.transformed)) {
+            wasCat = true;
+        } else if (shader.alpha == 0 && !player.Status.Contains(Player.PlayerStatus.transformed)) {
+            wasCat = false;
         }
 
         if (wasCat && !player.Status.Contains(Player.PlayerStatus.transformed)) {
             wasCat = false;
-            if(shader.alpha == 0.503f) {
+            if(shader.alpha == 0.403f) {
                 shader.alpha = 0.707f;
             }
         }
@@ -61,7 +65,7 @@ public class DayNight : MonoBehaviour {
 
     IEnumerator FadeOut() { 
         shader.alpha += 0.101f;
-        if ((!player.Status.Contains(Player.PlayerStatus.transformed) && shader.alpha > 0.70f) || (player.Status.Contains(Player.PlayerStatus.transformed) && shader.alpha > 0.5f)) {
+        if ((!player.Status.Contains(Player.PlayerStatus.transformed) && shader.alpha > 0.70f) || (player.Status.Contains(Player.PlayerStatus.transformed) && shader.alpha > 0.4f)) {
             fading = false;
             yield return null;
         } else {

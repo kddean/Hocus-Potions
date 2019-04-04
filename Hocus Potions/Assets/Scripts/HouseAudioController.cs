@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class HouseAudioController : MonoBehaviour {
 
-    AudioSource audio;
+    AudioSource audioSource;
     StartScreen start;
     public bool startPlaying;
     public bool fadeOutAudio;
 	// Use this for initialization
 	void Start () {
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         start = Resources.FindObjectsOfTypeAll<StartScreen>()[0];
         fadeOutAudio = false;
         startPlaying = true;
@@ -21,20 +21,20 @@ public class HouseAudioController : MonoBehaviour {
         if (start.startScreenOpen) {
             return;
         }
-        if (startPlaying && !audio.isPlaying) {
-            audio.Play();
+        if (startPlaying && !audioSource.isPlaying) {
+            audioSource.Play();
         }
         if (!fadeOutAudio) {
-            if (audio.volume < 0.95f) {
-                audio.volume += Time.deltaTime / 4;
+            if (audioSource.volume < 0.95f) {
+                audioSource.volume += Time.deltaTime / 4;
             } else {
-                audio.volume = 1;
+                audioSource.volume = 1;
             }
         } else {
-            if (audio.volume > 0.05f) {
-                audio.volume -= Time.deltaTime * 1.5f;
+            if (audioSource.volume > 0.05f) {
+                audioSource.volume -= Time.deltaTime * 1.5f;
             } else {
-                audio.volume = 0;
+                audioSource.volume = 0;
             }
         }
 	}

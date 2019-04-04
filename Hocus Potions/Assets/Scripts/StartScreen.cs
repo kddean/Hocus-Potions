@@ -8,25 +8,28 @@ public class StartScreen : MonoBehaviour {
     public bool startScreenOpen;
     public VideoPlayer video;
     public RawImage rawImage;
+    AudioSource audioSource;
+    bool clickedButton;
 
     private void OnEnable() {
         startScreenOpen = true;
         StartCoroutine(PlayVideo());
         GameObject.FindObjectOfType<HouseAudioController>().startPlaying = false;
+        audioSource = GetComponent<AudioSource>();
+        clickedButton = false;
     }
     public void NewGame() {
-        Time.timeScale = 1;
-        startScreenOpen = false;
-        gameObject.SetActive(false);
-        GameObject.FindObjectOfType<HouseAudioController>().startPlaying = true;
+        if (!clickedButton) {
+            StartCoroutine(FadeoutAudio(true));
+            clickedButton = true;
+        }
     }
 
     public void LoadGame() {
-        Time.timeScale = 1;
-        startScreenOpen = false;
-        Resources.FindObjectsOfTypeAll<MainMenu>()[0].gameObject.SetActive(true);
-        Resources.FindObjectsOfTypeAll<MainMenu>()[0].LoadGame();
-        gameObject.SetActive(false);
+        if (!clickedButton) {
+            StartCoroutine(FadeoutAudio(false));
+            clickedButton = true;
+        }
     }
 
     public void ToggleControls() {
@@ -36,10 +39,37 @@ public class StartScreen : MonoBehaviour {
             c.blocksRaycasts = !c.blocksRaycasts;
             c.alpha = Mathf.Abs(c.alpha - 1);
         }
+        KeybindManager[] keybindManagers = GameObject.FindObjectsOfType<KeybindManager>();
+        foreach (KeybindManager km in keybindManagers) {
+            km.LoadKeybindText();
+        }
     }
 
     public void QuitGame() {
         Application.Quit();
+    }
+
+    IEnumerator FadeoutAudio(bool newGame) {
+        yield return null;
+        while (audioSource.volume > 0.05f) {
+            audioSource.volume -= 0.02f;
+            yield return new WaitForEndOfFrame();
+        }
+        audioSource.volume = 0;
+        audioSource.Stop();
+
+        if (newGame) {
+            Time.timeScale = 1;
+            startScreenOpen = false;
+            gameObject.SetActive(false);
+            GameObject.FindObjectOfType<HouseAudioController>().startPlaying = true;
+        } else {
+            Time.timeScale = 1;
+            startScreenOpen = false;
+            Resources.FindObjectsOfTypeAll<MainMenu>()[0].gameObject.SetActive(true);
+            Resources.FindObjectsOfTypeAll<MainMenu>()[0].LoadGame();
+            gameObject.SetActive(false);
+        }
     }
 
     IEnumerator PlayVideo() {

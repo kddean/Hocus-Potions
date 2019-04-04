@@ -311,9 +311,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
             if (dialoguePieces.Length == 0) {
                 currentDialogue = 0;
-                if (info.timesInteracted == 0) {        //First interaction
+                if (info.timesInteracted < 0) {        //First interaction
                     dialoguePieces = dialogue["intro"][0].Split('*');
                     intro = true;
+                    info.timesInteracted++;
                 } else if (info.map == 1) {             //Overworld 
                     intro = false;
                     string key = GenerateKey();
@@ -482,7 +483,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 dialoguePieces = new string[0];
                 currentDialogue = 0;
             }
-            info.timesInteracted++;
             controller.npcData[CharacterName] = info;
         }
     }
@@ -494,9 +494,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         }
         bool scriptedQuest = false;
         foreach (Request r in requests) {
+            choice++;
             if (r.Key.Contains(info.timesInteracted.ToString())) {
                 scriptedQuest = true;
-                choice++;
+                break;
             }
         }
 
@@ -514,9 +515,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             }
         } else {
             if (info.option) {
-                affinity = "option1";
+                affinity = "_A";
             } else {
-                affinity = "option2";
+                affinity = "_B";
             }
         }
 
@@ -724,7 +725,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentInChildren<Text>().enabled = true;
         dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["no"][0];
         info.returning = false;
-        info.timesInteracted++;
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
