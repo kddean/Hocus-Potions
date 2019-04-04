@@ -8,9 +8,14 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
 
     ResourceLoader rl;
     Mana mana;
+    List<string> spawnableItems;
     void Start() {
         rl = GameObject.FindObjectOfType<ResourceLoader>();
         mana = GameObject.FindObjectOfType<Mana>();
+
+        spawnableItems = new List<string>();
+        spawnableItems.Add("selenite");
+        spawnableItems.Add("lapis_lazuli");
     }
 
 
@@ -32,10 +37,22 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
 
         if (rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Dredge") && mana.CurrentMana >= rl.activeSpell.Cost) {
             string key;
-            do {
+            /*do {
                 int i = Random.Range(0, rl.ingredients.Count);
                 key = rl.ingredients.Keys.ToArray()[i];
-            } while (!rl.ingredients[key].imagePath.Contains("Plant"));
+            } while (!rl.ingredients[key].imagePath.Contains("Plant"));*/
+
+            float i = Random.Range(0f, 1f);
+            Debug.Log(i);
+            if (i > 0.3f)
+            {
+                key = rl.ingredients["lapis_lazuli"].name;
+                
+            }
+            else
+            {
+                key = rl.ingredients["selenite"].name;
+            }
 
             BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
             foreach (BoxCollider2D b in colliders) {

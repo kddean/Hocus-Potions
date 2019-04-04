@@ -120,13 +120,13 @@ public class GatheringManager : MonoBehaviour {
                 
                 if (gatherer.name.Contains("Forest"))
                 {
-                    ran = Random.Range(0, 1);
-                    if (ran < 0.4)
+                    ran = Random.Range(0f, 1f);
+                    if (ran < 0.4f)
                     {
                         dom = Random.Range(0, LowForestList.Count);
                         newPlant = LowForestList[dom];
                     }
-                    else if (ran < 0.7 && ran > 0.3)
+                    else if (ran < 0.7f && ran > 0.3f)
                     {
                         dom = Random.Range(0, MidForestList.Count);
                         newPlant = MidForestList[dom];
@@ -141,8 +141,8 @@ public class GatheringManager : MonoBehaviour {
                 }
                 else if (gatherer.name.Contains("Meadow"))
                 {
-                    ran = Random.Range(0, 10);
-                    if (ran > 0.6)
+                    ran = Random.Range(0f, 1f);
+                    if (ran > 0.6f)
                     {
                         dom = Random.Range(0, HighMeadowList.Count);
                         newPlant = HighMeadowList[dom];
@@ -163,13 +163,13 @@ public class GatheringManager : MonoBehaviour {
                 }
                 else if (gatherer.name.Contains("Mountain"))
                 {
-                    ran = Random.Range(0, 1);
-                    if (ran > 0.4)
+                    ran = Random.Range(0f, 1f);
+                    if (ran > 0.4f)
                     {
                         dom = Random.Range(0, HighMountainList.Count);
                         newPlant = HighMountainList[dom];
                     }
-                    else if (ran < 0.7 && ran > 0.3)
+                    else if (ran < 0.7f && ran > 0.3f)
                     {
                         dom = Random.Range(0, MidMountainList.Count);
                         newPlant = MidMountainList[dom];
