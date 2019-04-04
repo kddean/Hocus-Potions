@@ -303,7 +303,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                     break;
             }
         }
-      
     }
 
    
