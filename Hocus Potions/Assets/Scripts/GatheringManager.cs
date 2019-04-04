@@ -14,9 +14,17 @@ public class GatheringManager : MonoBehaviour {
     public int defaultResetTime = 3;
     public int daystrack;
 
-    public List<string> MeadowList;
-    public List<string> ForestList;
-    public List<string> MountainList;
+    public List<string> HighMeadowList;
+    public List<string> HighForestList;
+    public List<string> HighMountainList;
+
+    public List<string> MidMeadowList;
+    public List<string> MidForestList;
+    public List<string> MidMountainList;
+
+    public List<string> LowMeadowList;
+    public List<string> LowForestList;
+    public List<string> LowMountainList;
 
     public struct SpawnerData
     {
@@ -53,9 +61,16 @@ public class GatheringManager : MonoBehaviour {
         daystrack = mc.Days;
         SetResetDictionary();
 
-        MeadowList = new List<string>();
-        ForestList = new List<string>();
-        MountainList = new List<string>();
+        HighMeadowList = new List<string>();
+        HighForestList = new List<string>();
+        HighMountainList = new List<string>();
+        MidMeadowList = new List<string>();
+        MidForestList = new List<string>();
+        MidMountainList = new List<string>();
+        LowMeadowList = new List<string>();
+        LowForestList = new List<string>();
+        LowMountainList = new List<string>();
+
         CreateLists();
 
         StartCoroutine(Spawn());
@@ -100,21 +115,72 @@ public class GatheringManager : MonoBehaviour {
                     newPlant = plants[ran];
                 } while (!rl.ingredients[newPlant].imagePath.StartsWith("Plants"));*/
 
-                int ran;
+                float ran;
+                int dom;
+                
                 if (gatherer.name.Contains("Forest"))
                 {
-                    ran = Random.Range(0, ForestList.Count);
-                    newPlant = ForestList[ran];
+                    ran = Random.Range(0, 1);
+                    if (ran < 0.4)
+                    {
+                        dom = Random.Range(0, LowForestList.Count);
+                        newPlant = LowForestList[dom];
+                    }
+                    else if (ran < 0.7 && ran > 0.3)
+                    {
+                        dom = Random.Range(0, MidForestList.Count);
+                        newPlant = MidForestList[dom];
+                    }
+                    else
+                    {
+                        dom = Random.Range(0, HighForestList.Count);
+                        newPlant = HighForestList[dom];
+                    }
+
+                    //newPlant = ForestList[ran];
                 }
                 else if (gatherer.name.Contains("Meadow"))
                 {
-                    ran = Random.Range(0, MeadowList.Count);
-                    newPlant = MeadowList[ran];
+                    ran = Random.Range(0, 10);
+                    if (ran > 0.6)
+                    {
+                        dom = Random.Range(0, HighMeadowList.Count);
+                        newPlant = HighMeadowList[dom];
+                    }
+                    else //if (ran < 0.7 && ran > 0.3)
+                    {
+                        dom = Random.Range(0, MidMeadowList.Count);
+                        newPlant = MidMeadowList[dom];
+                    }
+                    /*else
+                    {
+                        dom = Random.Range(0, LowMeadowList.Count);
+                        newPlant = LowMeadowList[dom];
+                    }
+                    */
+
+                    //newPlant = MeadowList[ran];
                 }
                 else if (gatherer.name.Contains("Mountain"))
                 {
-                    ran = Random.Range(0, MountainList.Count);
-                    newPlant = MountainList[ran];
+                    ran = Random.Range(0, 1);
+                    if (ran > 0.4)
+                    {
+                        dom = Random.Range(0, HighMountainList.Count);
+                        newPlant = HighMountainList[dom];
+                    }
+                    else if (ran < 0.7 && ran > 0.3)
+                    {
+                        dom = Random.Range(0, MidMountainList.Count);
+                        newPlant = MidMountainList[dom];
+                    }
+                    else
+                    {
+                        dom = Random.Range(0, LowMountainList.Count);
+                        newPlant = LowMountainList[dom];
+                    }
+
+                    //newPlant = MountainList[ran];
                 }
 
                 newData.spawnedItem = rl.ingredients[newPlant];
@@ -223,20 +289,26 @@ public class GatheringManager : MonoBehaviour {
 
     void CreateLists()
     {
-        MeadowList.Add("lavender");
-        MeadowList.Add("catnip");
-        MeadowList.Add("poppy");
-        MeadowList.Add("lambsgrass");
-        MeadowList.Add("dandylion");
+        HighMeadowList.Add("lavender");
+        HighMeadowList.Add("catnip");
+        HighMeadowList.Add("dandylion");
+        MidMeadowList.Add("poppy");
+        MidMeadowList.Add("lambsgrass");
 
-        ForestList.Add("ghostcap");
-        ForestList.Add("morel");
-        ForestList.Add("fly_agaric");
-        ForestList.Add("nightshade");
-        ForestList.Add("lily");
-        ForestList.Add("mugwort");
 
-        MountainList.Add("thistle");
-        MountainList.Add("indigo");
+        HighForestList.Add("catnip");
+        MidForestList.Add("nightshade");
+        MidForestList.Add("morel");
+        MidForestList.Add("mugwort");
+        LowForestList.Add("ghostcap");
+        LowForestList.Add("fly_agaric");
+        LowForestList.Add("lily");
+
+        HighMountainList.Add("lavender");
+        HighMountainList.Add("thistle");
+        MidMountainList.Add("morel");
+        LowMountainList.Add("indigo");
+        LowMountainList.Add("lily");
+        LowMountainList.Add("ghostcap");
     }
 }
