@@ -401,7 +401,7 @@ public class BookManager : MonoBehaviour {
               
                 button.transform.SetParent(content.transform);
                 button.transform.position = content.transform.position;
-            button.transform.localScale = new Vector3(1, 1, 1);
+                button.transform.localScale = new Vector3(1, 1, 1);
                 button.GetComponentInChildren<Text>().text = key;
                 button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
                 button.gameObject.name = key;
@@ -566,24 +566,27 @@ public class BookManager : MonoBehaviour {
             GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
             GameObject newPage = GameObject.Instantiate(KeyPage);
             newPage.transform.SetParent(BookBackground.transform);
-            newPage.transform.position = BookBackground.transform.position;
-            temp = newPage.transform.position;
-            temp.x += 250;
-            temp.y -= 250;
-            newPage.transform.position = temp;
+            newPage.transform.localPosition = BookBackground.transform.position;
+            temp = newPage.transform.localPosition;
+            temp.x = 448;
+            temp.y = -14;
+            newPage.transform.localPosition = temp;
             GameObject panel = GameObject.Instantiate(PanelPrefab);
             GameObject textBox = GameObject.Instantiate(TextBox);
 
             panel.transform.SetParent(newPage.transform);
-            panel.transform.position = newPage.transform.position;
-            temp = panel.transform.position;
-            temp.x += 140;
-            temp.y += 500;
-            panel.transform.position = temp;
+            panel.transform.localPosition = newPage.transform.localPosition;
+            temp = panel.transform.localPosition;
+            temp.x = 427;
+            temp.y = -216;
+            //panel.transform.localPosition = temp;
             textBox.transform.SetParent(newPage.transform);
-            textBox.transform.position = newPage.transform.position;
-            temp = textBox.transform.position;
-            temp.x += 190;
+            textBox.transform.localPosition = newPage.transform.localPosition;
+            temp = textBox.transform.localPosition;
+            //temp.x += 120;
+
+            panel.transform.localScale = new Vector3(1, 1, 1);
+            textBox.transform.localScale = new Vector3(1, 1, 1);
 
             textBox.transform.position = temp;
             Image[] sprites = panel.GetComponentsInChildren<Image>();
@@ -599,14 +602,25 @@ public class BookManager : MonoBehaviour {
                         plantInfo[name];
             
 
+            GameObject label = Instantiate(TextBox);
+            label.transform.SetParent(newPage.transform);
+            label.transform.localPosition = newPage.transform.localPosition;
+            label.GetComponent<Text>().text = "Attributes:";
+            label.transform.localScale = new Vector3(1, 1, 1);
+            label.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 50);
+
+
             GameObject attributes = Instantiate(TextBox);
             attributes.transform.SetParent(newPage.transform);
-            attributes.transform.position = newPage.transform.position;
-            temp = attributes.transform.position;
+            attributes.transform.localPosition = newPage.transform.localPosition;
+            temp = attributes.transform.localPosition;
             temp.x += 190;
             temp.y += 240;
 
             attributes.transform.position = temp;
+            attributes.transform.localScale = new Vector3(1, 1, 1);
+
+            newPage.transform.localScale = new Vector3(1, 1, 1);
 
             List<Ingredient.Attributes> list = rl.knownAttributes[rl.ingredients[name]];
 
