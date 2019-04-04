@@ -44,10 +44,17 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
 
             float i = Random.Range(0f, 1f);
             Debug.Log(i);
-            if (i > 0.3f)
+            if(i > 0.6)
             {
-                key = rl.ingredients["lapis_lazuli"].name;
-                
+                key = rl.ingredients["algae"].name;
+            }
+            else if( i < 0.6 && i > 0.4)
+            {
+                key = rl.ingredients["snail"].name;
+            }
+            else if (i < 0.4 && i > 0.2f)
+            {
+                key = rl.ingredients["lapis_lazuli"].name;               
             }
             else
             {

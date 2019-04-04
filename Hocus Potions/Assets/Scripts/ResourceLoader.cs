@@ -86,6 +86,9 @@ public class ResourceLoader : MonoBehaviour {
             { "amber", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeYellow, Ingredient.Attributes.endSocial, Ingredient.Attributes.transformation }, "amber", "Gems/amber_inv") },
             { "garnet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeRed, Ingredient.Attributes.none, Ingredient.Attributes.none }, "garnet", "Gems/garnet_inv") },
             { "jet", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeBlack, Ingredient.Attributes.speed, Ingredient.Attributes.transformation }, "jet", "Gems/jet_inv") },
+            { "algae", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyeGreen, Ingredient.Attributes.poison, Ingredient.Attributes.none }, "algae", "Plants/algae_inv") },
+            { "snail", new Ingredient(new Ingredient.Attributes[] { Ingredient.Attributes.dyePurple, Ingredient.Attributes.sleep, Ingredient.Attributes.none }, "snail", "Other/snail_inv") },
+
         };
 
         foreach(Ingredient i in ingredients.Values.ToList()) {

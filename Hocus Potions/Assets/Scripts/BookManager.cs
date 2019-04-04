@@ -405,6 +405,8 @@ public class BookManager : MonoBehaviour {
                 button.GetComponentInChildren<Text>().text = key;
                 button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
                 button.gameObject.name = key;
+                button.GetComponentInChildren<Image>().sprite = 
+                Resources.Load<Sprite>(rl.ingredients[key].imagePath);
 
             }
 
@@ -764,6 +766,8 @@ public class BookManager : MonoBehaviour {
         plantInfo.Add("amber", "Tree sap that has hardened and fossilized becoming a yellow stone, once considered to be solidified drops of sunshine.");
         plantInfo.Add("garnet", "A sturdy red gem. It is said that tucking one under your pillow can prevent bad dreams.");
         plantInfo.Add("jet", "The fossilized remains of an ancient, wood that have mineralized black. This gem is said to alleviate grief and anger.");
+        plantInfo.Add("algae", "A plant found in moist environments. It comes in a variant of colors, the most common is green.");
+        plantInfo.Add("snail", "Found in bodies of fresh water. It has a myriad of uses including medicine, poison and cooking.");
 
         potionInfo.Add("Sleeping", new Potion("Sleeping", "Potions/potions_sleep", 0, "A potion that puts the user the sleep"));
         potionInfo.Add("Healing", new Potion("Healing", "Potions/potions_healing", 0, "Restores the user’s health"));
