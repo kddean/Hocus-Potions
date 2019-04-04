@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour {
     GameObject spellCanvas;
     GameObject mainMenu;
     ResourceLoader rl;
-    bool paused; 
+    public bool paused; 
     public void Awake() {
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1) {
@@ -55,6 +55,12 @@ public class InputManager : MonoBehaviour {
             if (mainMenu.activeSelf) {
                 paused = false;
                 Time.timeScale = 1;
+                CanvasGroup[] cgs = mainMenu.GetComponentsInChildren<CanvasGroup>();
+                foreach (CanvasGroup c in cgs) {
+                    c.interactable = false;
+                    c.blocksRaycasts = false;
+                    c.alpha = 0;
+                }
             } else {
                 Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
                 Time.timeScale = 0;

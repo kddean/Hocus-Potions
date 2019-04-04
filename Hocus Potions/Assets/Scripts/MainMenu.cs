@@ -45,10 +45,36 @@ public class MainMenu : MonoBehaviour {
 
     public void SaveGame() {
         StartCoroutine(PopulateSaveData());
-
     }
 
-     IEnumerator PopulateSaveData() {
+    public void ToggleControls() {
+        CanvasGroup[] cgs = GetComponentsInChildren<CanvasGroup>();
+        for (int i = 0; i < 2; i++) {
+            cgs[i].interactable = !cgs[i].interactable;
+            cgs[i].blocksRaycasts = !cgs[i].blocksRaycasts;
+            cgs[i].alpha = 1 - cgs[i].alpha;
+        }
+        KeybindManager[] keybindManagers = GameObject.FindObjectsOfType<KeybindManager>();
+        foreach (KeybindManager km in keybindManagers) {
+            km.LoadKeybindText();
+        }
+    }
+
+    public void ToggleSave() {
+        CanvasGroup cg = GameObject.Find("SaveConfirm").GetComponent<CanvasGroup>();
+        cg.interactable = !cg.interactable;
+        cg.blocksRaycasts = !cg.blocksRaycasts;
+        cg.alpha = 1 - cg.alpha;
+    }
+
+    public void ToggleQuit() {
+        CanvasGroup cg = GameObject.Find("QuitConfirm").GetComponent<CanvasGroup>();
+        cg.interactable = !cg.interactable;
+        cg.blocksRaycasts = !cg.blocksRaycasts;
+        cg.alpha = 1 - cg.alpha;
+    }
+
+    IEnumerator PopulateSaveData() {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saveData.dat");
         SaveData data = new SaveData();
@@ -123,6 +149,8 @@ public class MainMenu : MonoBehaviour {
         
         bf.Serialize(file, data);
         file.Close();
+        GameObject.FindObjectOfType<InputManager>().paused = false;
+        Time.timeScale = 1;
         gameObject.SetActive(false);
     }
 
@@ -188,6 +216,8 @@ public class MainMenu : MonoBehaviour {
         while (!scene.isDone) {
             yield return null;
         }
+        Time.timeScale = 1;
+        
         if (GameObject.FindObjectOfType<HouseAudioController>() != null) {
             GameObject.FindObjectOfType<HouseAudioController>().startPlaying = true;
         }
@@ -202,9 +232,9 @@ public class MainMenu : MonoBehaviour {
             }
 
             InputManager im = GameObject.FindObjectOfType<InputManager>();
+            im.paused = false;
             im.keybinds = data.keybinds;
             im.LoadKeybinds();
-
 
             Wardrobe wardrobe = GameObject.FindObjectOfType<Wardrobe>();
             if (wardrobe != null) {
