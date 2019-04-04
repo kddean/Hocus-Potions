@@ -378,12 +378,12 @@ public class BookManager : MonoBehaviour {
             GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
        
             GameObject newPage = GameObject.Find("PlantPage");
-            newPage.transform.SetParent(BookBackground.transform);
-            newPage.transform.position = BookBackground.transform.position;
-            temp = newPage.transform.position;
-            temp.x -= 300;
+            //newPage.transform.SetParent(BookBackground.transform);
+            //newPage.transform.position = BookBackground.transform.position;
+            //temp = newPage.transform.position;
+            //temp.x -= 300;
            
-            newPage.transform.position = temp;
+            //newPage.transform.position = temp;
             newPage.gameObject.name = "PlantPage";
             PlantPage = newPage;
             Debug.Log("Added PlantPage");
@@ -401,6 +401,7 @@ public class BookManager : MonoBehaviour {
               
                 button.transform.SetParent(content.transform);
                 button.transform.position = content.transform.position;
+            button.transform.localScale = new Vector3(1, 1, 1);
                 button.GetComponentInChildren<Text>().text = key;
                 button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
                 button.gameObject.name = key;
@@ -511,12 +512,12 @@ public class BookManager : MonoBehaviour {
             GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
         
             GameObject newPage = GameObject.Find("PotionPage");
-            newPage.transform.SetParent(BookBackground.transform);
+            /*newPage.transform.SetParent(BookBackground.transform);
             newPage.transform.position = BookBackground.transform.position;
             temp = newPage.transform.position;
             temp.x -= 300;
             
-            newPage.transform.position = temp;
+            newPage.transform.position = temp;*/
             newPage.gameObject.name = "PotionPage";
             PotionPage = newPage;
             Debug.Log("Added PotionPage");
@@ -531,7 +532,7 @@ public class BookManager : MonoBehaviour {
 
                 button.transform.SetParent(content.transform);
                 button.transform.position = content.transform.position;
-
+            button.transform.localScale = new Vector3(1, 1, 1);
                 button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
                 button.gameObject.name = key;
 
@@ -634,12 +635,12 @@ public class BookManager : MonoBehaviour {
 
     public void SetUpMapPage()
     {
-        /*Forest -222.9, 16
-         *Mountains -86.5, 240
-         * Home -55, 67
-         * Shrine 226.4, 265
-         * Campsite 145.3, 79
-         * Meadow 145.3, -111
+        /*Forest -435, 16
+         *Mountains -127, 320
+         * Home -110, 84
+         * Shrine 443, 365
+         * Campsite 284, 114
+         * Meadow 228, -111
         */
         if(CurrentZone == null)
         {
@@ -648,27 +649,27 @@ public class BookManager : MonoBehaviour {
 
         if(CurrentZone.name == ForestZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-222.9f, 16f);
+            WitchIcon.transform.localPosition = new Vector2(-435f, 16f);
         }
         else if (CurrentZone.name == MountainsZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-86.5f, 240f);
+            WitchIcon.transform.localPosition = new Vector2(-127f, 320f);
         }
         else if (CurrentZone.name == HomeZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-55f, 67f);
+            WitchIcon.transform.localPosition = new Vector2(-110f, 84f);
         }
         else if (CurrentZone.name == ShrineZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(226.4f, 265f);
+            WitchIcon.transform.localPosition = new Vector2(443f, 365f);
         }
         else if (CurrentZone.name == CampsiteZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-145.3f, 79f);
+            WitchIcon.transform.localPosition = new Vector2(284f, 114f);
         }
         else if (CurrentZone.name == MeadowZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(145.3f, -111f);
+            WitchIcon.transform.localPosition = new Vector2(228f, -111f);
         }
     }
 
