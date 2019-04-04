@@ -14,6 +14,10 @@ public class GatheringManager : MonoBehaviour {
     public int defaultResetTime = 3;
     public int daystrack;
 
+    public List<string> MeadowList;
+    public List<string> ForestList;
+    public List<string> MountainList;
+
     public struct SpawnerData
     {
         public bool hasSpawnedItem;
@@ -48,6 +52,12 @@ public class GatheringManager : MonoBehaviour {
         plants = rl.ingredients.Keys.ToList();
         daystrack = mc.Days;
         SetResetDictionary();
+
+        MeadowList = new List<string>();
+        ForestList = new List<string>();
+        MountainList = new List<string>();
+        CreateLists();
+
         StartCoroutine(Spawn());
 	}
 	
@@ -192,5 +202,24 @@ public class GatheringManager : MonoBehaviour {
             Inventory.Add(droppedSeed, numOfSeedsToDrop, true);
         } catch (KeyNotFoundException) {
         }
+    }
+
+    void CreateLists()
+    {
+        MeadowList.Add("lavender");
+        MeadowList.Add("catnip");
+        MeadowList.Add("poppy");
+        MeadowList.Add("lambsgrass");
+        MeadowList.Add("dandylion");
+
+        ForestList.Add("ghostcap");
+        ForestList.Add("morel");
+        ForestList.Add("fly_agaric");
+        ForestList.Add("nightshade");
+        ForestList.Add("lily");
+        ForestList.Add("mugwort");
+
+        MountainList.Add("thistle");
+        MountainList.Add("indigo");
     }
 }
