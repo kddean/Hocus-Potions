@@ -378,12 +378,12 @@ public class BookManager : MonoBehaviour {
             GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
        
             GameObject newPage = GameObject.Find("PlantPage");
-            newPage.transform.SetParent(BookBackground.transform);
-            newPage.transform.position = BookBackground.transform.position;
-            temp = newPage.transform.position;
-            temp.x -= 300;
+            //newPage.transform.SetParent(BookBackground.transform);
+            //newPage.transform.position = BookBackground.transform.position;
+            //temp = newPage.transform.position;
+            //temp.x -= 300;
            
-            newPage.transform.position = temp;
+            //newPage.transform.position = temp;
             newPage.gameObject.name = "PlantPage";
             PlantPage = newPage;
             Debug.Log("Added PlantPage");
@@ -401,6 +401,7 @@ public class BookManager : MonoBehaviour {
               
                 button.transform.SetParent(content.transform);
                 button.transform.position = content.transform.position;
+                button.transform.localScale = new Vector3(1, 1, 1);
                 button.GetComponentInChildren<Text>().text = key;
                 button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
                 button.gameObject.name = key;
@@ -511,12 +512,12 @@ public class BookManager : MonoBehaviour {
             GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
         
             GameObject newPage = GameObject.Find("PotionPage");
-            newPage.transform.SetParent(BookBackground.transform);
+            /*newPage.transform.SetParent(BookBackground.transform);
             newPage.transform.position = BookBackground.transform.position;
             temp = newPage.transform.position;
             temp.x -= 300;
             
-            newPage.transform.position = temp;
+            newPage.transform.position = temp;*/
             newPage.gameObject.name = "PotionPage";
             PotionPage = newPage;
             Debug.Log("Added PotionPage");
@@ -531,7 +532,7 @@ public class BookManager : MonoBehaviour {
 
                 button.transform.SetParent(content.transform);
                 button.transform.position = content.transform.position;
-
+            button.transform.localScale = new Vector3(1, 1, 1);
                 button.GetComponent<Button>().onClick.AddListener(() => PassName(button));
                 button.gameObject.name = key;
 
@@ -565,24 +566,27 @@ public class BookManager : MonoBehaviour {
             GameObject BookBackground = BookCanvas.GetComponentInChildren<Image>().gameObject;
             GameObject newPage = GameObject.Instantiate(KeyPage);
             newPage.transform.SetParent(BookBackground.transform);
-            newPage.transform.position = BookBackground.transform.position;
-            temp = newPage.transform.position;
-            temp.x += 250;
-            temp.y -= 250;
-            newPage.transform.position = temp;
+            newPage.transform.localPosition = BookBackground.transform.position;
+            temp = newPage.transform.localPosition;
+            temp.x = 448;
+            temp.y = -14;
+            newPage.transform.localPosition = temp;
             GameObject panel = GameObject.Instantiate(PanelPrefab);
             GameObject textBox = GameObject.Instantiate(TextBox);
 
             panel.transform.SetParent(newPage.transform);
-            panel.transform.position = newPage.transform.position;
-            temp = panel.transform.position;
-            temp.x += 140;
-            temp.y += 500;
-            panel.transform.position = temp;
+            panel.transform.localPosition = newPage.transform.localPosition;
+            temp = panel.transform.localPosition;
+            temp.x = 427;
+            temp.y = -216;
+            //panel.transform.localPosition = temp;
             textBox.transform.SetParent(newPage.transform);
-            textBox.transform.position = newPage.transform.position;
-            temp = textBox.transform.position;
-            temp.x += 190;
+            textBox.transform.localPosition = newPage.transform.localPosition;
+            temp = textBox.transform.localPosition;
+            //temp.x += 120;
+
+            panel.transform.localScale = new Vector3(1, 1, 1);
+            textBox.transform.localScale = new Vector3(1, 1, 1);
 
             textBox.transform.position = temp;
             Image[] sprites = panel.GetComponentsInChildren<Image>();
@@ -598,14 +602,25 @@ public class BookManager : MonoBehaviour {
                         plantInfo[name];
             
 
+            GameObject label = Instantiate(TextBox);
+            label.transform.SetParent(newPage.transform);
+            label.transform.localPosition = newPage.transform.localPosition;
+            label.GetComponent<Text>().text = "Attributes:";
+            label.transform.localScale = new Vector3(1, 1, 1);
+            label.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 50);
+
+
             GameObject attributes = Instantiate(TextBox);
             attributes.transform.SetParent(newPage.transform);
-            attributes.transform.position = newPage.transform.position;
-            temp = attributes.transform.position;
+            attributes.transform.localPosition = newPage.transform.localPosition;
+            temp = attributes.transform.localPosition;
             temp.x += 190;
             temp.y += 240;
 
             attributes.transform.position = temp;
+            attributes.transform.localScale = new Vector3(1, 1, 1);
+
+            newPage.transform.localScale = new Vector3(1, 1, 1);
 
             List<Ingredient.Attributes> list = rl.knownAttributes[rl.ingredients[name]];
 
@@ -634,12 +649,12 @@ public class BookManager : MonoBehaviour {
 
     public void SetUpMapPage()
     {
-        /*Forest -222.9, 16
-         *Mountains -86.5, 240
-         * Home -55, 67
-         * Shrine 226.4, 265
-         * Campsite 145.3, 79
-         * Meadow 145.3, -111
+        /*Forest -435, 16
+         *Mountains -127, 320
+         * Home -110, 84
+         * Shrine 443, 365
+         * Campsite 284, 114
+         * Meadow 228, -111
         */
         if(CurrentZone == null)
         {
@@ -648,27 +663,27 @@ public class BookManager : MonoBehaviour {
 
         if(CurrentZone.name == ForestZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-222.9f, 16f);
+            WitchIcon.transform.localPosition = new Vector2(-435f, 16f);
         }
         else if (CurrentZone.name == MountainsZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-86.5f, 240f);
+            WitchIcon.transform.localPosition = new Vector2(-127f, 320f);
         }
         else if (CurrentZone.name == HomeZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-55f, 67f);
+            WitchIcon.transform.localPosition = new Vector2(-110f, 84f);
         }
         else if (CurrentZone.name == ShrineZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(226.4f, 265f);
+            WitchIcon.transform.localPosition = new Vector2(443f, 365f);
         }
         else if (CurrentZone.name == CampsiteZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-145.3f, 79f);
+            WitchIcon.transform.localPosition = new Vector2(284f, 114f);
         }
         else if (CurrentZone.name == MeadowZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(145.3f, -111f);
+            WitchIcon.transform.localPosition = new Vector2(228f, -111f);
         }
     }
 
@@ -734,14 +749,14 @@ public class BookManager : MonoBehaviour {
         plantInfo.Add("mugwort", "A bushy white flower. It often grows from the mud.");
         plantInfo.Add("lambsgrass", "A flower in the shape of a bell. It is said that those who sit in a field of them will hear bells.");
         plantInfo.Add("poppy", "A short flower that grow in groups and a variety of colors. It is often used in cakes and other sweets.");
-        plantInfo.Add("thistle", "");
+        plantInfo.Add("thistle", "A thorny plant with purple flowers. This plant is often a symbol of fortitude for its persistence.");
         plantInfo.Add("lily", "A very large plant with a beautiful flower, unfortunately it smells of death and decay.");
-        plantInfo.Add("indigo", "");
-        plantInfo.Add("dandylion", "");
-        plantInfo.Add("ghostcap", "");
+        plantInfo.Add("indigo", "A deep purple plant often used for dye clothing and clothing.");
+        plantInfo.Add("dandylion", "A plant with a fluffy appearance regarded a common weed. Despite being a weed, it is often used in salads.");
+        plantInfo.Add("ghostcap", "A mushroom known for having a mild glow at night. It is said that this mushroom has the power to capture evil spirits and hold them till dawn.");
         plantInfo.Add("morel", "A brown colored mushroom fairly common. It is a delicious mushroom used in cooking.");
         plantInfo.Add("fly_agaric", "A poisonous mushroom with a red cap. Despite being poisonous it is often used in medicine.");
-        plantInfo.Add("ash", "");
+        plantInfo.Add("ash", "Well… its ash, born from burning something to a crisp.");
         plantInfo.Add("amethyst", "A purple gemstone often found in geodes near volcanic areas. It is said to have protective properties. ");
         plantInfo.Add("selenite", "A milky white stone sometimes referred to as the desert rose for the petals shapes the stone makes.");
         plantInfo.Add("lapis_lazuli", "A blue gemstone with gold specks. It is often used for creating a royal blue paint.");
