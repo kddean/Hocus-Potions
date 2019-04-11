@@ -61,6 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Art\Animation\Characters\turtle\Bunny.cs" />
+    <Compile Include="Assets\Art\Animation\Characters\turtle\BunnyManager.cs" />
     <Compile Include="Assets\Art\Animation\Characters\turtle\Turtle.cs" />
     <Compile Include="Assets\Scripts\BookDontDestory.cs" />
     <Compile Include="Assets\Scripts\BookManager.cs" />
