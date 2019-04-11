@@ -2381,7 +2381,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300012, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  m_Sprite: {fileID: 21300014, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3780,7 +3780,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300016, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  m_Sprite: {fileID: 21300018, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9979,6 +9979,16 @@ Prefab:
     - target: {fileID: 224355939373304730, guid: f34a7d223ae485346b0018960b3b603d,
         type: 2}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224530817177639898, guid: f34a7d223ae485346b0018960b3b603d,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224530817177639898, guid: f34a7d223ae485346b0018960b3b603d,
+        type: 2}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -17015,7 +17025,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300006, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19213,7 +19223,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300014, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  m_Sprite: {fileID: 21300016, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -29043,7 +29053,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300010, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  m_Sprite: {fileID: 21300012, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -42583,26 +42593,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smash:
-  - {fileID: 21300042, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300040, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300038, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300036, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300034, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300032, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300030, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300028, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300026, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300024, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  - {fileID: 21300046, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300044, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300042, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300040, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300038, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300036, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300034, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300032, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300030, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300028, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   ignite:
-  - {fileID: 21300022, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300020, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300018, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  - {fileID: 21300026, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300024, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300022, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   dredge:
-  - {fileID: 21300010, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  - {fileID: 21300066, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300064, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300062, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300060, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300058, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300056, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300054, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300052, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300050, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300048, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
   growth:
-  - {fileID: 21300004, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300002, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
-  - {fileID: 21300000, guid: 9d163f1ce6bcbfd43afd1585143cc036, type: 3}
+  - {fileID: 21300008, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300006, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300004, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300002, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
+  - {fileID: 21300000, guid: 4252507d7e3c8494fb1e1514a872fa29, type: 3}
 --- !u!1 &2086861478
 GameObject:
   m_ObjectHideFlags: 0

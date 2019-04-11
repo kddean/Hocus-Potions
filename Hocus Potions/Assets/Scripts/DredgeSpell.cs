@@ -43,7 +43,6 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
             } while (!rl.ingredients[key].imagePath.Contains("Plant"));*/
 
             float i = Random.Range(0f, 1f);
-            Debug.Log(i);
             if(i > 0.6)
             {
                 key = rl.ingredients["algae"].name;

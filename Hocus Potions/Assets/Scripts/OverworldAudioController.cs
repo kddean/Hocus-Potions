@@ -38,25 +38,21 @@ public class OverworldAudioController : MonoBehaviour {
             case "HomeZone":
                 if (currentAudio != audioSources[0]) {
                     StartCoroutine(CrossFade(0));
-                    Debug.Log("0");
                 }
                 break;
             case "MeadowZone":
                 if (currentAudio != audioSources[1]) {
                     StartCoroutine(CrossFade(1));
-                    Debug.Log("1");
                 }
                 break;
             case "ShrineZone":
                 if (currentAudio != audioSources[2]) {
                     StartCoroutine(CrossFade(2));
-                    Debug.Log("2");
                 }
                 break;
             case "MountainsZone":
                 if (currentAudio != audioSources[3]) {
                     StartCoroutine(CrossFade(3));
-                    Debug.Log("3");
                 }
                 break;
             default:

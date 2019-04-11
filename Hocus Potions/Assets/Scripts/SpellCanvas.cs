@@ -28,7 +28,7 @@ public class SpellCanvas : MonoBehaviour {
         if (i < current.Length) {
             activeSpell.GetComponent<Image>().sprite = current[(int)i];
         }
-        i = (i + 0.03f * current.Length) % current.Length;
+        i = (i + 0.02f * current.Length) % current.Length;
     }
 
     public void SetActiveSpell(int i) {

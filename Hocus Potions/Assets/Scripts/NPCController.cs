@@ -16,6 +16,7 @@ public class NPCController : MonoBehaviour {
 
     public Dictionary<string, NPCInfo> npcData;
     public SortedList<Schedule, string> npcQueue;
+    public Dictionary<string, bool> NPCQuestFlags;
     MoonCycle mc;
     int currentMap;
     public bool sceneSwapped;
@@ -63,8 +64,9 @@ public class NPCController : MonoBehaviour {
         public Vec3 pathEnd;
         public Vec3 nextTarget;
         public List<int> givenQuests;
+        public int scriptedQuestNum;
 
-        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, bool option, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget, List<int> givenQuests) {
+        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, bool option, int scriptedQuestNum, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget, List<int> givenQuests) {
             this.x = x;
             this.y = y;
             this.z = z;
@@ -82,6 +84,9 @@ public class NPCController : MonoBehaviour {
             this.pathEnd = pathEnd;
             this.nextTarget = nextTarget;
             this.givenQuests = givenQuests;
+            this.scriptedQuestNum = scriptedQuestNum;
+
+
         }
     }
 
@@ -123,6 +128,14 @@ public class NPCController : MonoBehaviour {
 
     void Start() {
         npcQueue = new SortedList<Schedule, string>(new CompareTimes());
+        NPCQuestFlags = new Dictionary<string, bool>();
+        NPCQuestFlags.Add("Bernadette", false);
+        NPCQuestFlags.Add("Amara", false);
+        NPCQuestFlags.Add("Geoff", false);
+        NPCQuestFlags.Add("Dante", false);
+        NPCQuestFlags.Add("Ralphie", false);
+        NPCQuestFlags.Add("Franklin", false);
+
         //TODO: Might need to move the initilization to fix execution order errors
         mc = GameObject.FindObjectOfType<MoonCycle>();
         pathfinder = GameObject.FindObjectOfType<Pathfinding>();

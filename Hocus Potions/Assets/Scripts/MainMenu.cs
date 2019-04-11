@@ -144,6 +144,8 @@ public class MainMenu : MonoBehaviour {
         data.schedules = npcs.npcQueue.Keys.ToList();
         data.scheduleNames = npcs.npcQueue.Values.ToList();
         data.currentMap = npcs.CurrentMap;
+        data.npcNames2 = npcs.NPCQuestFlags.Keys.ToList();
+        data.questFlags = npcs.NPCQuestFlags.Values.ToList();
 
         data.keybinds = GameObject.FindObjectOfType<InputManager>().keybinds;
         
@@ -298,6 +300,11 @@ public class MainMenu : MonoBehaviour {
             npcs.npcQueue.Clear();
             for (int i = 0; i < data.schedules.Count; i++) {
                 npcs.npcQueue.Add(data.schedules[i], data.scheduleNames[i]);
+            }
+
+            npcs.NPCQuestFlags.Clear();
+            for (int i = 0; i < data.npcNames2.Count; i++) {
+                npcs.NPCQuestFlags.Add(data.npcNames2[i], data.questFlags[i]);
             }
 
             npcs.CurrentMap = data.currentMap;
