@@ -1,29 +1,41 @@
 fileFormatVersion: 2
-guid: 9d163f1ce6bcbfd43afd1585143cc036
+guid: 4252507d7e3c8494fb1e1514a872fa29
 TextureImporter:
   fileIDToRecycleName:
-    21300000: spell ui_0
-    21300002: spell ui_1
-    21300004: spell ui_2
-    21300006: spell ui_3
-    21300008: spell ui_4
-    21300010: spell ui_5
-    21300012: spell ui_6
-    21300014: spell ui_7
-    21300016: spell ui_8
-    21300018: spell ui_9
-    21300020: spell ui_10
-    21300022: spell ui_11
-    21300024: spell ui_12
-    21300026: spell ui_13
-    21300028: spell ui_14
-    21300030: spell ui_15
-    21300032: spell ui_16
-    21300034: spell ui_17
-    21300036: spell ui_18
-    21300038: spell ui_19
-    21300040: spell ui_20
-    21300042: spell ui_21
+    21300000: spellUI_0
+    21300002: spellUI_1
+    21300004: spellUI_2
+    21300006: spellUI_3
+    21300008: spellUI_4
+    21300010: spellUI_5
+    21300012: spellUI_6
+    21300014: spellUI_7
+    21300016: spellUI_8
+    21300018: spellUI_9
+    21300020: spellUI_10
+    21300022: spellUI_11
+    21300024: spellUI_12
+    21300026: spellUI_13
+    21300028: spellUI_14
+    21300030: spellUI_15
+    21300032: spellUI_16
+    21300034: spellUI_17
+    21300036: spellUI_18
+    21300038: spellUI_19
+    21300040: spellUI_20
+    21300042: spellUI_21
+    21300044: spellUI_22
+    21300046: spellUI_23
+    21300048: spellUI_24
+    21300050: spellUI_25
+    21300052: spellUI_26
+    21300054: spellUI_27
+    21300056: spellUI_28
+    21300058: spellUI_29
+    21300060: spellUI_30
+    21300062: spellUI_31
+    21300064: spellUI_32
+    21300066: spellUI_33
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -139,11 +151,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spell ui_0
+      name: spellUI_0
       rect:
         serializedVersion: 2
-        x: 248
-        y: 125
+        x: 28
+        y: 145
         width: 33
         height: 33
       alignment: 0
@@ -153,17 +165,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38e378c7f9c038f4fb01dbfd0482dea2
+      spriteID: 61800eb2376aa9544bddeedb71b355f9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_1
+      name: spellUI_1
       rect:
         serializedVersion: 2
-        x: 289
-        y: 124
+        x: 67
+        y: 145
         width: 33
         height: 33
       alignment: 0
@@ -173,17 +185,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: affa6575621425749b4ee70b7c12891f
+      spriteID: 27570eeedf2cae04fb78e3bf25a8dc01
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_2
+      name: spellUI_2
       rect:
         serializedVersion: 2
-        x: 333
-        y: 124
+        x: 106
+        y: 145
         width: 33
         height: 33
       alignment: 0
@@ -193,17 +205,157 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c27258de3e6a5742944802a46e56078
+      spriteID: a752f0da7f30e434e90ec701f08155c6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_3
+      name: spellUI_3
       rect:
         serializedVersion: 2
-        x: 461
-        y: 10
+        x: 143
+        y: 145
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0df12d01ddb144f40b77a3aadd7cd4cd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_4
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 145
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af33ffb29b516824294c251174f646b9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 137
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca8b82f4edb556c4e88701cdc7be32b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_6
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 137
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b72fbf4c5b3af214792e36d0bc366136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_7
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 137
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf9508285b58bea43a40e687041ed9c9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_8
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 137
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6c5fc1a8a7e8024bb6f4d7042331c89
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_9
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 136
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 209b8efa76fb57241a0c359544f04055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_10
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 31
         width: 131
         height: 131
       alignment: 0
@@ -213,117 +365,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57ff056e0b463c04da5809244667f2af
+      spriteID: 4b1ffe0fa0f41b64587555bf63756c0e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_4
+      name: spellUI_11
       rect:
         serializedVersion: 2
-        x: 252
-        y: 92
-        width: 25
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: db20723e30a293e48ad62112a603dd87
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spell ui_5
-      rect:
-        serializedVersion: 2
-        x: 289
-        y: 92
-        width: 25
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80411a4dcc2116c48b083afeefa3dafd
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spell ui_6
-      rect:
-        serializedVersion: 2
-        x: 321
-        y: 92
-        width: 25
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 885d7bab4e529f3429118ae5480a1741
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spell ui_7
-      rect:
-        serializedVersion: 2
-        x: 355
-        y: 92
-        width: 25
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5f02fd70139c87747b63d8fca3937946
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spell ui_8
-      rect:
-        serializedVersion: 2
-        x: 389
-        y: 91
-        width: 25
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7eeb6600981e86642ae03566e3777aee
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spell ui_9
-      rect:
-        serializedVersion: 2
-        x: 245
-        y: 52
+        x: 34
+        y: 99
         width: 33
         height: 33
       alignment: 0
@@ -333,17 +385,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31a3c491975862648a10ad97776f2b18
+      spriteID: e7eb12730a019aa4997df412870f58fb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_10
+      name: spellUI_12
       rect:
         serializedVersion: 2
-        x: 292
-        y: 52
+        x: 81
+        y: 99
         width: 33
         height: 33
       alignment: 0
@@ -353,17 +405,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f68cc6d9859a1a4292a8af466fa3c35
+      spriteID: 8f3ace48df767bf4f8d84c39d2e759bc
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_11
+      name: spellUI_13
       rect:
         serializedVersion: 2
-        x: 340
-        y: 50
+        x: 129
+        y: 97
         width: 33
         height: 33
       alignment: 0
@@ -373,17 +425,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33d722750ab80074ca0eb0761052fa05
+      spriteID: 295ebd59c763c4b4d895d821453b2429
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_12
+      name: spellUI_14
       rect:
         serializedVersion: 2
-        x: 23
-        y: 11
+        x: 27
+        y: 56
         width: 33
         height: 33
       alignment: 0
@@ -393,17 +445,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c823d76c5e968d544a2e2cbaac9bf957
+      spriteID: c59581f969c53f249a6561e682c147a1
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_13
+      name: spellUI_15
       rect:
         serializedVersion: 2
-        x: 65
-        y: 11
+        x: 69
+        y: 56
         width: 33
         height: 33
       alignment: 0
@@ -413,17 +465,217 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 732f6f9cba656a04daf852a366eb74a2
+      spriteID: 44bd978f5cf4f8444adb919833ecf9cb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_14
+      name: spellUI_16
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 56
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88aa52a0ae559444a94c46a43f2ab61c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_17
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 56
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e80374880970374ab12c9a504f1b7e7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_18
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 55
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd5e1f34a5f5fe1458d1a3692b52b1ea
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_19
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 55
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c7460a0cdc4e694ea7e4b3401b7d08b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_20
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 56
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 323e9cf1c2327214990e847355015216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_21
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 55
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ec21cc8ca496754494c0173eef903f0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_22
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 55
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef046ce927834d74d87794e5eaf4b3df
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_23
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 55
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa5033b6a0b84184aa81f9e19365838c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_24
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 16
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be0e4d046bcdebf4ca6fcc2a8718c2a9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_25
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 15
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97442585b1055e0419aa1b3544d1b803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spellUI_26
       rect:
         serializedVersion: 2
         x: 106
-        y: 11
+        y: 15
         width: 33
         height: 33
       alignment: 0
@@ -433,17 +685,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df21da2a72b24694b9ffd99ef61d4110
+      spriteID: 55552abbf151dc44392c7f636c419039
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_15
+      name: spellUI_27
       rect:
         serializedVersion: 2
-        x: 147
-        y: 11
+        x: 149
+        y: 15
         width: 33
         height: 33
       alignment: 0
@@ -453,17 +705,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e25c33143a2f99f49927ae99396f74b2
+      spriteID: 6a5886f102a887248b5ddb13e6f0928a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_16
+      name: spellUI_28
       rect:
         serializedVersion: 2
-        x: 190
-        y: 10
+        x: 192
+        y: 14
         width: 33
         height: 33
       alignment: 0
@@ -473,17 +725,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ed537b9add7a3848a08863701a37387
+      spriteID: 2f13f7eaf8fc602408763ec8969a707a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_17
+      name: spellUI_29
       rect:
         serializedVersion: 2
         x: 234
-        y: 10
+        y: 13
         width: 33
         height: 33
       alignment: 0
@@ -493,17 +745,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa3be3a22d2c43a41aa17db70d9a9f85
+      spriteID: d5628ac4948e46b4690834aa06f33d90
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_18
+      name: spellUI_30
       rect:
         serializedVersion: 2
         x: 273
-        y: 11
+        y: 13
         width: 33
         height: 33
       alignment: 0
@@ -513,17 +765,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9107daf52ccc1c345a2a92a3a96b1a73
+      spriteID: b3282b7d88397af4783078327213fd3e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_19
+      name: spellUI_31
       rect:
         serializedVersion: 2
-        x: 314
-        y: 10
+        x: 315
+        y: 13
         width: 33
         height: 33
       alignment: 0
@@ -533,17 +785,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18d84cfa9b9d7c345b2d474e4e3e2f41
+      spriteID: 6468b194e7956d046bbe1d3e52f82152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_20
+      name: spellUI_32
       rect:
         serializedVersion: 2
-        x: 356
-        y: 10
+        x: 359
+        y: 13
         width: 33
         height: 33
       alignment: 0
@@ -553,17 +805,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3d9ceb524975a542ab3c3f4c0061947
+      spriteID: 6022a15699112e149b77a5d998daa31a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spell ui_21
+      name: spellUI_33
       rect:
         serializedVersion: 2
-        x: 401
-        y: 10
+        x: 405
+        y: 13
         width: 33
         height: 33
       alignment: 0
@@ -573,7 +825,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84e3cf103426dd9429a0604f1ae513e8
+      spriteID: 8649bd5870775564699f3d41421303a9
       vertices: []
       indices: 
       edges: []
@@ -581,7 +833,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 14cb6bbf9458d1849ba2030c50d241c6
+    spriteID: 01871561dfb13d44bb41a9c127b54faf
     vertices: []
     indices: 
     edges: []

@@ -33,7 +33,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     public bool saving;
     public bool closed;
     bool sleeping;
-    
+    bool scriptedQuest;
+
+
 
 
     public enum Status { poisoned, fast, invisible, transformed, asleep }
@@ -82,6 +84,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         allowedToMove = true;
         closed = false;
         sleeping = false;
+        scriptedQuest = false;
         dialoguePieces = new string[0];
         currentAnim = "Forward";
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
@@ -479,6 +482,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             nextCG.GetComponent<CanvasGroup>().alpha = 0;
             nextCG.GetComponent<CanvasGroup>().interactable = false;
             nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            info.timesInteracted++;
             if (intro) {
                 dialoguePieces = new string[0];
                 currentDialogue = 0;
@@ -492,10 +496,34 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if(info.givenQuests.Count == requests.Count) {
             info.givenQuests = new List<int>();
         }
-        bool scriptedQuest = false;
+        scriptedQuest = false;
+        switch (characterName) {
+            case "Amara":
+                if (controller.NPCQuestFlags["Bernadette"] && !controller.NPCQuestFlags["Amara"]) {
+                    scriptedQuest = true;
+                }
+                break;
+            case "Bernadette":
+                if (!controller.NPCQuestFlags["Berdadette"]) {
+                    scriptedQuest = true;
+                }
+                break;
+            case "Dante":
+                break;
+            case "Franklin":
+                break;
+            case "Ralphie":
+                break;
+            case "Geoff":
+                break;
+            default:
+                break;
+        }
+
+
         foreach (Request r in requests) {
             choice++;
-            if (r.Key.Contains(info.timesInteracted.ToString())) {
+            if (r.Key.Contains(info.scriptedQuestNum.ToString())) {
                 scriptedQuest = true;
                 break;
             }
@@ -583,12 +611,16 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         StartCoroutine(PotionEffects(temp));
 
         string affinity;    //TODO: This might need to be ranges
-        if (info.affinity < 0) {
-            affinity = "_bad";
-        } else if (info.affinity > 0) {
-            affinity = "_good";
+        if (!scriptedQuest) {
+            if (info.affinity < 0) {
+                affinity = "_bad";
+            } else if (info.affinity > 0) {
+                affinity = "_good";
+            } else {
+                affinity = "_neutral";
+            }
         } else {
-            affinity = "_neutral";
+            affinity = "";
         }
 
         string response;
@@ -649,6 +681,24 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
         info.requestKey = null;
         info.timesInteracted++;
+        if (scriptedQuest) {
+            info.scriptedQuestNum++;
+
+            bool finishedQuestline = true;
+            int i = -1;
+            foreach (Request r in requests) {
+                i++;
+                if (r.Key.Contains(info.scriptedQuestNum.ToString())) {
+                    finishedQuestline = false;
+                    break;
+                }
+            }
+
+            if (finishedQuestline) {
+                controller.NPCQuestFlags[characterName] = true;
+            }
+        }
+
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
@@ -725,6 +775,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentInChildren<Text>().enabled = true;
         dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["no"][0];
         info.returning = false;
+        info.timesInteracted++;
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);

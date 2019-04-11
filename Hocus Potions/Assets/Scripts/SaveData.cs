@@ -59,6 +59,8 @@ public class SaveData {
     public List<NPCController.NPCInfo> npcInfo;
     public List<NPCController.Schedule> schedules;
     public List<string> scheduleNames;
+    public List<string> npcNames2;
+    public List<bool> questFlags;
     public int currentMap;
 
     //Keybinds
