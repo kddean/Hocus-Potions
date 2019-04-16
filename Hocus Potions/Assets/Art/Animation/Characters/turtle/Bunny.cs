@@ -51,7 +51,7 @@ public class Bunny : MonoBehaviour {
                 bunnyAnim.SetBool(currentAnim, true);
 
             }
-            else if (transform.position.y < destination.y)
+            else if (transform.position.y < destination.y || idling == true)
             {
                 bunnyAnim.SetBool(currentAnim, false);
                 currentAnim = "Backward";
@@ -59,7 +59,12 @@ public class Bunny : MonoBehaviour {
             }
         }
 
-        if (currentLocation != destination)
+
+        if (followPlayer)
+        {
+            followingPlayer();
+        }
+        else if (currentLocation != destination)
         {
             this.transform.position = Vector2.MoveTowards(this.transform.position, destination, Time.deltaTime);
 
@@ -79,13 +84,31 @@ public class Bunny : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision)
     {
         destination = GameObject.Find("BunnyHome").transform.position;
-        Wander();
+        StartCoroutine(Wander());
     }
 
     IEnumerator Wander()
     {
         yield return new WaitForSeconds(3);
         Wandering();
+    }
+
+
+    void followingPlayer()
+    {
+       
+      if(currentLocation != destination)
+        {           
+            destination = GameObject.Find("BunnyManager").GetComponent<BunnyManager>().Player.transform.position + new Vector3(1,0);
+            this.transform.position =  Vector2.MoveTowards(this.transform.position, destination, Time.deltaTime);
+        }
+        else
+        {
+            idling = true;
+        }
+        
+
+
     }
 
 }

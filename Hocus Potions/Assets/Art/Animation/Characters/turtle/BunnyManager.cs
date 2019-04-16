@@ -10,22 +10,28 @@ public class BunnyManager : MonoBehaviour {
     public bool isPlayerInMeadow;
     public Vector3 bunnyHome;
 
+    public GameObject Player;
+    public bool alreadySetBunnies;
+
 
 	// Use this for initialization
 	void Start () {
         bunnies = GameObject.FindObjectsOfType<Bunny>();
         isPlayerInMeadow = false;
         bunnyHome = GameObject.Find("BunnyHome").transform.position;
+        Player = GameObject.FindGameObjectWithTag("Player");
+        alreadySetBunnies = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if(isPlayerInMeadow == true)
+        if (isPlayerInMeadow == true && alreadySetBunnies == false)
         {
+            Debug.Log("Now following");
             PlayerFollow();
         }
-        else
+        else if(isPlayerInMeadow == false)
         {
             PlayerLeft();
         }
@@ -36,6 +42,10 @@ public class BunnyManager : MonoBehaviour {
         int ran = Random.Range(0, bunnies.Length);
 
         bunnies[ran].followPlayer = true;
+        bunnies[ran].destination = Player.transform.position;
+
+        alreadySetBunnies = true;
+        Debug.Log("Stalking the Player");
     }
 
     void PlayerLeft()
@@ -44,6 +54,7 @@ public class BunnyManager : MonoBehaviour {
         {
             bunnies[i].followPlayer = false;
         }
+        alreadySetBunnies = false;
     }
 
     
