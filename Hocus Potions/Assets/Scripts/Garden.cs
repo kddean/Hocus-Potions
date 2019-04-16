@@ -12,6 +12,8 @@ public class Garden : MonoBehaviour {
     public Dictionary<string, PlotData> plots;
     ResourceLoader rl;
     MoonCycle mc;
+    SteamAchievementManager sam;
+
     [System.Serializable]
     public struct PlotData {
         public Status stage;
@@ -27,6 +29,7 @@ public class Garden : MonoBehaviour {
         rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         plots = new Dictionary<string, PlotData>();
         mc = GameObject.Find("Clock").GetComponent<MoonCycle>();
+        sam = GameObject.FindObjectOfType<SteamAchievementManager>();
         StartCoroutine(Grow());
     }
 
@@ -113,6 +116,8 @@ public class Garden : MonoBehaviour {
             plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Growth");
             plots[plot.gameObject.name] = data;
         } else if (rl.activeSpell.SpellName.Equals("Ignite")) {
+
+            sam.UnlockAchievement(sam.m_Achievements[8]);
             plot.gameObject.GetComponents<AudioSource>()[1].Play();
             plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Ignite");
             SpriteRenderer[] renderers = GameObject.Find(plot.gameObject.name).GetComponentsInChildren<SpriteRenderer>();

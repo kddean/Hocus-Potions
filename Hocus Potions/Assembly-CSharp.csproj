@@ -115,6 +115,7 @@
     <Compile Include="Assets\Scripts\SpellCanvas.cs" />
     <Compile Include="Assets\Scripts\StartScreen.cs" />
     <Compile Include="Assets\Scripts\StartScreenLoader.cs" />
+    <Compile Include="Assets\Scripts\SteamAchievementManager.cs" />
     <Compile Include="Assets\Scripts\SteamFunctions.cs" />
     <Compile Include="Assets\Scripts\Steamworks.NET\SteamManager.cs" />
     <Compile Include="Assets\Scripts\StorageChest.cs" />

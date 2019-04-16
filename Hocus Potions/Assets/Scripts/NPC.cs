@@ -702,6 +702,37 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
+
+
+        int neg = 0;
+        int pos = 0;
+        foreach (NPCController.NPCInfo data in controller.npcData.Values) {
+            if (data.affinity < 0) {
+                neg++;
+            } else if (data.affinity > 0) {
+                pos++;
+            }
+        }
+
+        if(characterName.Equals("Black_Robed_Traveler") && info.affinity > 0) {
+            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+            sam.UnlockAchievement(sam.m_Achievements[11]);
+        }else if (characterName.Equals("White_Robed_Traveler") && info.affinity > 0) {
+            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+            sam.UnlockAchievement(sam.m_Achievements[12]);
+        } else if (characterName.Equals("Red_Robed_Traveler") && info.affinity > 0) {
+            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+            sam.UnlockAchievement(sam.m_Achievements[13]);
+        }
+
+        if (neg == controller.npcData.Count()) {
+            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+            sam.UnlockAchievement(sam.m_Achievements[10]);
+        } else if (pos == controller.npcData.Count()) {
+            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+            sam.UnlockAchievement(sam.m_Achievements[9]);
+        }
+
     }
 
 
