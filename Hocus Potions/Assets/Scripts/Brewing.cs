@@ -25,6 +25,7 @@ public class Brewing {
         }
     }
 
+
     public Potion Brew(Ingredient first, Ingredient second, Ingredient third) {
         ResourceLoader rl = GameObject.FindObjectOfType<ResourceLoader>();
         BookManager bm = GameObject.FindObjectOfType<BookManager>();

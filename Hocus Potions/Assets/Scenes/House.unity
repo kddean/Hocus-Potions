@@ -9991,6 +9991,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224530817177639898, guid: f34a7d223ae485346b0018960b3b603d,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f34a7d223ae485346b0018960b3b603d, type: 2}
   m_IsPrefabAsset: 0
@@ -43305,6 +43310,7 @@ GameObject:
   - component: {fileID: 2127056498}
   - component: {fileID: 2127056497}
   - component: {fileID: 2127056499}
+  - component: {fileID: 2127056500}
   m_Layer: 0
   m_Name: SteamManager
   m_TagString: Untagged
@@ -43345,6 +43351,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cf58f1d3a7b8e14389e4259cbc6956c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2127056500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2127056496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa75335302fed5544846b65d2e6be0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2128777102
