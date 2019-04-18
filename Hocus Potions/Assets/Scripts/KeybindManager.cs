@@ -118,8 +118,8 @@ public class KeybindManager : MonoBehaviour {
                     im.keybinds.RemoveAt(15);
                     im.keybinds.Insert(15, newKey);
                     break;
-                case "mainMenu":
-                    im.mainMenuKey = newKey;
+                case "bookMenu":
+                    im.bookMenu = newKey;
                     im.keybinds.RemoveAt(16);
                     im.keybinds.Insert(16, newKey);
                     break;
@@ -205,7 +205,7 @@ public class KeybindManager : MonoBehaviour {
             case "Dredge":
                 GetComponentInChildren<Text>().text = GetString(im.keybinds[15]);
                 break;
-            case "mainMenu":
+            case "bookMenu":
                 GetComponentInChildren<Text>().text = GetString(im.keybinds[16]);
                 break;
             case "pause":
