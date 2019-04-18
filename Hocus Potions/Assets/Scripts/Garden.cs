@@ -116,8 +116,9 @@ public class Garden : MonoBehaviour {
             plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Growth");
             plots[plot.gameObject.name] = data;
         } else if (rl.activeSpell.SpellName.Equals("Ignite")) {
-
-            sam.UnlockAchievement(sam.m_Achievements[8]);
+            if (GameObject.FindObjectOfType<SteamAchievementManager>() != null) {
+                sam.UnlockAchievement(sam.m_Achievements[8]);
+            }
             plot.gameObject.GetComponents<AudioSource>()[1].Play();
             plot.gameObject.GetComponentInChildren<Animator>().SetTrigger("Ignite");
             SpriteRenderer[] renderers = GameObject.Find(plot.gameObject.name).GetComponentsInChildren<SpriteRenderer>();
