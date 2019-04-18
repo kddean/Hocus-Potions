@@ -13,6 +13,8 @@ public class BunnyManager : MonoBehaviour {
     public GameObject Player;
     public bool alreadySetBunnies;
 
+    
+
     /*
      * Be able to use potions on the bunnies 
      * Transformation potion - Turn bunnies into a turtle
@@ -21,10 +23,13 @@ public class BunnyManager : MonoBehaviour {
      * Bunnies should flock together
      * 
      * Add butterflies
+     * 
+     * Creatures should react to the goddess costume
+     * Costume_Goddess
      */
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         bunnies = GameObject.FindObjectsOfType<Bunny>();
         isPlayerInMeadow = false;
         bunnyHome = GameObject.Find("BunnyHome").transform.position;
