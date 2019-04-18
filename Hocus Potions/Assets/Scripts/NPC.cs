@@ -395,7 +395,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     }
 
     private string GenerateKey() {
-        //TODO: remove this once we add dialogue while they're walking to a place
         if (region == null) { return null; }
         MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
         string key = "overworld_" + mc.DayPart.ToString().ToLower();
@@ -425,9 +424,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         key += region;
 
 
-        if (info.affinity < 0) {
+        if (info.affinity <= -3) {
             key += "_bad";
-        } else if (info.affinity > 0) {
+        } else if (info.affinity >= 3) {
             key += "_good";
         } else {
             key += "_neutral";
@@ -482,7 +481,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             nextCG.GetComponent<CanvasGroup>().alpha = 0;
             nextCG.GetComponent<CanvasGroup>().interactable = false;
             nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            info.timesInteracted++;
             if (intro) {
                 dialoguePieces = new string[0];
                 currentDialogue = 0;
@@ -497,6 +495,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             info.givenQuests = new List<int>();
         }
         scriptedQuest = false;
+        
         switch (characterName) {
             case "Amara":
                 if (controller.NPCQuestFlags["Bernadette"] && !controller.NPCQuestFlags["Amara"]) {
@@ -504,7 +503,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
                 break;
             case "Bernadette":
-                if (!controller.NPCQuestFlags["Berdadette"]) {
+                if (!controller.NPCQuestFlags["Berdadette"] && info.timesInteracted > 1) {
                     scriptedQuest = true;
                 }
                 break;
@@ -520,12 +519,14 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 break;
         }
 
-
-        foreach (Request r in requests) {
-            choice++;
-            if (r.Key.Contains(info.scriptedQuestNum.ToString())) {
-                scriptedQuest = true;
-                break;
+        if (scriptedQuest) {
+            scriptedQuest = false;
+            foreach (Request r in requests) {
+                choice++;       
+                if (r.Key.Contains(info.scriptedQuestNum.ToString())) {
+                    scriptedQuest = true;
+                    break;
+                }
             }
         }
 
@@ -534,9 +535,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             do {
                 choice = Random.Range(0, requests.Count - 1);
             } while (info.givenQuests.Contains(choice) || requests[choice].Key.Length < 10);
-            if (info.affinity < 0) {
+            if (info.affinity <= -3) {
                 affinity = "_bad";
-            } else if (info.affinity > 0) {
+            } else if (info.affinity >= 3) {
                 affinity = "_good";
             } else {
                 affinity = "_neutral";
@@ -590,18 +591,47 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             return;
         }
 
-
-        info.given.Add(slot.item.item);
+        if(temp.Primary == Ingredient.Attributes.none || temp.Primary == null) {
+            if (Random.Range(0, 1.0f) < 0.5f) {
+                int rand = Random.Range(0, 7);
+                switch (rand) {
+                    case 0:
+                        temp = new Potion("Healing Potion", "Potions/potions_healing", 10, Ingredient.Attributes.healing, null, null, 0);
+                        break;
+                    case 1:
+                        temp = new Potion("Sleep Potion", "Potions/potions_sleep", 40, Ingredient.Attributes.sleep, null, null, 0);
+                        break;
+                    case 2:
+                        temp = new Potion("Invisibility Potion", "Potions/potions_invisibility", 25, Ingredient.Attributes.invisibility, null, null, 0);
+                        break;
+                    case 3:
+                        temp = new Potion("Poison Potion", "Potions/potions_poison", 25, Ingredient.Attributes.poison, null, null, 0);
+                        break;
+                    case 4:
+                        temp = new Potion("Transformation Potion", "Potions/potions_transform", 25, Ingredient.Attributes.transformation, null, null, 0);
+                        break;
+                    case 5:
+                        temp = new Potion("Mana Potion", "Potions/potions_mana", 10, Ingredient.Attributes.mana, null, null, 0);
+                        break;
+                    case 6:
+                        temp = new Potion("Speed Potion", "Potions/potions_speed", 25, Ingredient.Attributes.speed, null, null, 0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        info.given.Add(temp);
         info.returning = false;
         requested = false;
 
         gavePot = true;
 
         if (info.given.Count < 5) {
-            info.given.Add(slot.item.item);
+            info.given.Add(temp);
         } else {
             info.given.RemoveAt(0);
-            info.given.Add(slot.item.item);
+            info.given.Add(temp);
         }
         controller.npcData[characterName] = info;
         Inventory.RemoveItem(slot);
@@ -610,11 +640,11 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         closed = false;
         StartCoroutine(PotionEffects(temp));
 
-        string affinity;    //TODO: This might need to be ranges
+        string affinity;
         if (!scriptedQuest) {
-            if (info.affinity < 0) {
+            if (info.affinity <= -3) {
                 affinity = "_bad";
-            } else if (info.affinity > 0) {
+            } else if (info.affinity >= 3) {
                 affinity = "_good";
             } else {
                 affinity = "_neutral";
@@ -626,7 +656,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         string response;
         string[] keyBits = info.requestKey.Split('_');
         string rKey = keyBits[0] + "_" + keyBits[1];
-        if (temp.Primary == null) {
+        if (temp.Primary == null || temp.Primary == Ingredient.Attributes.none) {
             response = rKey + "_null" + affinity;
         } else {
             response = rKey + "_" + temp.Primary.ToString() + affinity;
@@ -707,32 +737,34 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         int neg = 0;
         int pos = 0;
         foreach (NPCController.NPCInfo data in controller.npcData.Values) {
-            if (data.affinity < 0) {
+            if (data.affinity <= -3) {
                 neg++;
-            } else if (data.affinity > 0) {
+            } else if (data.affinity >= 3) {
                 pos++;
             }
         }
 
-        if(characterName.Equals("Black_Robed_Traveler") && info.affinity > 0) {
-            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
-            sam.UnlockAchievement(sam.m_Achievements[11]);
-        }else if (characterName.Equals("White_Robed_Traveler") && info.affinity > 0) {
-            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
-            sam.UnlockAchievement(sam.m_Achievements[12]);
-        } else if (characterName.Equals("Red_Robed_Traveler") && info.affinity > 0) {
-            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
-            sam.UnlockAchievement(sam.m_Achievements[13]);
-        }
+        if (GameObject.FindObjectOfType<SteamAchievementManager>() != null) {
+            if (characterName.Equals("Black_Robed_Traveler") && info.affinity >= 3) {
+                SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+                sam.UnlockAchievement(sam.m_Achievements[11]);
+            } else if (characterName.Equals("White_Robed_Traveler") && info.affinity >= 3) {
+                SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+                sam.UnlockAchievement(sam.m_Achievements[12]);
+            } else if (characterName.Equals("Red_Robed_Traveler") && info.affinity >= 3) {
+                SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+                sam.UnlockAchievement(sam.m_Achievements[13]);
+            }
 
-        if (neg == controller.npcData.Count()) {
-            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
-            sam.UnlockAchievement(sam.m_Achievements[10]);
-        } else if (pos == controller.npcData.Count()) {
-            SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
-            sam.UnlockAchievement(sam.m_Achievements[9]);
+            if (neg == controller.npcData.Count()) {
+                SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+                sam.UnlockAchievement(sam.m_Achievements[10]);
+            } else if (pos == controller.npcData.Count()) {
+                SteamAchievementManager sam = GameObject.FindObjectOfType<SteamAchievementManager>();
+                sam.UnlockAchievement(sam.m_Achievements[9]);
+            }
         }
-
+        
     }
 
 
@@ -859,8 +891,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             case Ingredient.Attributes.mana:
                 effectsAnim.SetBool("Mana", true);
                 break;
-            case Ingredient.Attributes.none:
-                break;
             case Ingredient.Attributes.poison:
                 speed--;
                 info.state.Add(Status.poisoned);
@@ -889,6 +919,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 speed++;
                 playerAnim.SetBool("Transform", true);
                 effectsAnim.SetBool("Transformation", false);
+                break;
+            case Ingredient.Attributes.none:
                 break;
             default:
                 break;

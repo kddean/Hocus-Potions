@@ -216,7 +216,7 @@ class SteamAchievementManager : MonoBehaviour {
     public void UnlockAchievement(Achievement_t achievement) {
         if (achievement.m_bAchieved) {
             return;
-        } 
+        }
 
         achievement.m_bAchieved = true;
 
@@ -224,11 +224,11 @@ class SteamAchievementManager : MonoBehaviour {
         //achievement.m_iIconImage = 0;
 
         // mark it down
-        bool test = SteamUserStats.SetAchievement(achievement.m_eAchievementID.ToString());
+        SteamUserStats.SetAchievement(achievement.m_eAchievementID.ToString());
 
         // Store stats end of frame
         m_bStoreStats = true;
-      //  Debug.Log(test);
+
     }
 
     //-----------------------------------------------------------------------------

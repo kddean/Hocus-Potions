@@ -396,6 +396,36 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 GetComponents<BoxCollider2D>()[1].offset = new Vector2(0, GetComponent<SpriteRenderer>().bounds.size.y / 2);
                 break;
             case Ingredient.Attributes.none:
+                float check = Random.Range(0, 1.0f);
+                Debug.Log(check);
+                if ( check < 0.5f) {
+                    int rand = Random.Range(0, 7);
+                    switch (rand) {
+                        case 0:
+                            StartCoroutine(HandlePotions(new Potion("Healing Potion", "Potions/potions_healing", 10, Ingredient.Attributes.healing, null, null, 0)));
+                            break;
+                        case 1:
+                            StartCoroutine(HandlePotions(new Potion("Sleep Potion", "Potions/potions_sleep", 40, Ingredient.Attributes.sleep, null, null, 0)));
+                            break;
+                        case 2:
+                            StartCoroutine(HandlePotions(new Potion("Invisibility Potion", "Potions/potions_invisibility", 25, Ingredient.Attributes.invisibility, null, null, 0)));
+                            break;
+                        case 3:
+                            StartCoroutine(HandlePotions(new Potion("Poison Potion", "Potions/potions_poison", 25, Ingredient.Attributes.poison, null, null, 0)));
+                            break;
+                        case 4:
+                            StartCoroutine(HandlePotions(new Potion("Transformation Potion", "Potions/potions_transform", 25, Ingredient.Attributes.transformation, null, null, 0)));
+                            break;
+                        case 5:
+                            StartCoroutine(HandlePotions(new Potion("Mana Potion", "Potions/potions_mana", 10, Ingredient.Attributes.mana, null, null, 0)));
+                            break;
+                        case 6:
+                            StartCoroutine(HandlePotions(new Potion("Speed Potion", "Potions/potions_speed", 25, Ingredient.Attributes.speed, null, null, 0)));
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 break;
             default:
                 break;

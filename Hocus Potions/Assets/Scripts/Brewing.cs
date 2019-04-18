@@ -506,8 +506,8 @@ public class Brewing {
         } else {
             //for failed potions TO DO: clean up a bit later
             name = "Failed potion";
-            primary = null;
-            secondary = null;
+            primary = Ingredient.Attributes.none;
+            secondary = Ingredient.Attributes.none;
             mod = null;
             duration = 0;
             brewingTime = 30;
