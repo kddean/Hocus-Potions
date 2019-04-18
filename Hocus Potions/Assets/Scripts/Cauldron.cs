@@ -254,48 +254,49 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
             manager.Brewing = 0;
             manager.Pot = null;
             done = false;
-
-            switch (pot.Primary) {
-                case Ingredient.Attributes.dyeBlack:
-                case Ingredient.Attributes.dyeBlue:
-                case Ingredient.Attributes.dyeGreen:
-                case Ingredient.Attributes.dyePurple:
-                case Ingredient.Attributes.dyeRed:
-                case Ingredient.Attributes.dyeWhite:
-                case Ingredient.Attributes.dyeYellow:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[7]);
-                    break;
-                case Ingredient.Attributes.healing:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[2]);
-                    break;
-                case Ingredient.Attributes.speed:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[1]);
-                    break;
-                case Ingredient.Attributes.invisibility:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[3]);
-                    break;
-                case Ingredient.Attributes.transformation:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[6]);
-                    break;
-                case Ingredient.Attributes.poison:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[4]);
-                    break;
-                case Ingredient.Attributes.sleep:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[5]);
-                    break;
-                case Ingredient.Attributes.mana:
-                    sam.UnlockAchievement(sam.m_Achievements[0]);
-                    sam.UnlockAchievement(sam.m_Achievements[14]);
-                    break;
-                default:
-                    break;
+            if (GameObject.FindObjectOfType<SteamAchievementManager>() != null) {
+                switch (pot.Primary) {
+                    case Ingredient.Attributes.dyeBlack:
+                    case Ingredient.Attributes.dyeBlue:
+                    case Ingredient.Attributes.dyeGreen:
+                    case Ingredient.Attributes.dyePurple:
+                    case Ingredient.Attributes.dyeRed:
+                    case Ingredient.Attributes.dyeWhite:
+                    case Ingredient.Attributes.dyeYellow:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[7]);
+                        break;
+                    case Ingredient.Attributes.healing:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[2]);
+                        break;
+                    case Ingredient.Attributes.speed:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[1]);
+                        break;
+                    case Ingredient.Attributes.invisibility:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[3]);
+                        break;
+                    case Ingredient.Attributes.transformation:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[6]);
+                        break;
+                    case Ingredient.Attributes.poison:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[4]);
+                        break;
+                    case Ingredient.Attributes.sleep:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[5]);
+                        break;
+                    case Ingredient.Attributes.mana:
+                        sam.UnlockAchievement(sam.m_Achievements[0]);
+                        sam.UnlockAchievement(sam.m_Achievements[14]);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
