@@ -621,6 +621,7 @@ public class BookManager : MonoBehaviour {
 
             attributes.transform.position = temp;
             attributes.transform.localScale = new Vector3(1, 1, 1);
+            attributes.GetComponent<Text>().fontStyle = FontStyle.Bold;
 
             newPage.transform.localScale = new Vector3(1, 1, 1);
 
