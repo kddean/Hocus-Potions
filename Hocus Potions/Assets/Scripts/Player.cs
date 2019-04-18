@@ -146,9 +146,13 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                     break;
             }
         } else {
-            StartCoroutine(HandlePotions(pot));
+            if (!pot.name.Contains("of")) {
+                StartCoroutine(HandlePotions(pot));
+            }
         }
-        Inventory.RemoveItem(slot);
+        if (!pot.name.Contains("of")) {
+            Inventory.RemoveItem(slot);
+        }
     }
     PlayerStatus ConvertAttribute(Potion pot) {
         switch (pot.Primary) {

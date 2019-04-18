@@ -490,6 +490,55 @@ public class Brewing {
                         rl.knownAttributes[third].Add(Ingredient.Attributes.dyeYellow);
                     }
                     break;
+                case Ingredient.Attributes.endChaos:
+                    duration = 0;
+                    brewingTime = 200;
+                    image = "Potions/potions_endChaos";
+                    name = "Potion of Chaos";
+
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.endChaos)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.endChaos);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.endChaos)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.endChaos);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.endChaos)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.endChaos);
+                    }
+                    break;
+                case Ingredient.Attributes.endOrder:
+                    duration = 0;
+                    brewingTime = 200;
+                    image = "Potions/potions_endOrder";
+                    name = "Potion of Order";
+
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.endOrder)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.endOrder);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.endOrder)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.endOrder);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.endOrder)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.endOrder);
+                    }
+                    break;
+                case Ingredient.Attributes.endSocial:
+                    duration = 0;
+                    brewingTime = 200;
+                    image = "Potions/potions_endSocial";
+                    name = "Potion of Kindness";
+
+                    if (!rl.knownAttributes[first].Contains(Ingredient.Attributes.endSocial)) {
+                        rl.knownAttributes[first].Add(Ingredient.Attributes.endSocial);
+                    }
+                    if (!rl.knownAttributes[second].Contains(Ingredient.Attributes.endSocial)) {
+                        rl.knownAttributes[second].Add(Ingredient.Attributes.endSocial);
+                    }
+                    if (!rl.knownAttributes[third].Contains(Ingredient.Attributes.endSocial)) {
+                        rl.knownAttributes[third].Add(Ingredient.Attributes.endSocial);
+                    }
+                    break;
+
                 default:
                     name = "Failed potion";
                     duration = 0;
