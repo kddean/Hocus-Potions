@@ -567,7 +567,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         allowedToMove = false;
         player.allowedToMove = false;
         Potion temp = slot.item.item as Potion;
-        if (slot.item.item.name.Contains("dye")) {
+        if (slot.item.item.name.Contains("dye") || slot.item.item.name.Contains("of")) {
             currentDialogue = 0;
             dialogueCanvas.SetActive(true);
             dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["default"][0];
