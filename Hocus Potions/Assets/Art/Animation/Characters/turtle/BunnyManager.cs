@@ -18,6 +18,9 @@ public class BunnyManager : MonoBehaviour {
      * Transformation potion - Turn bunnies into a turtle
      * 
      * Adjust the bunnies movement behaviors 
+     * Bunnies should flock together
+     * 
+     * Add butterflies
      */
 
 	// Use this for initialization
