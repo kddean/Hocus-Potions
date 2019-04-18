@@ -26347,7 +26347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f882190333c3cae4d9a931f7892b9d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: mainMenu
+  key: bookMenu
 --- !u!114 &1344471665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28807,7 +28807,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Main Menu
+  m_Text: Journal
 --- !u!222 &1425462500
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -31551,7 +31551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5294118}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -32392,7 +32392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f882190333c3cae4d9a931f7892b9d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: mainMenu
+  key: bookMenu
 --- !u!114 &1607650659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34094,7 +34094,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Main Menu
+  m_Text: Journal
 --- !u!222 &1710782340
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42888,7 +42888,7 @@ MonoBehaviour:
   spellKey3: 284
   spellKey4: 285
   pauseKey: 112
-  mainMenuKey: 27
+  bookMenu: 109
   walkForwardKey: 119
   walkLeftKey: 97
   walkRightKey: 100

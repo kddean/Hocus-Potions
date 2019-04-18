@@ -93,7 +93,7 @@ public class BookManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Resources.FindObjectsOfTypeAll<StartScreen>().Length != 0 && Resources.FindObjectsOfTypeAll<StartScreen>()[0].startScreenOpen) { return; }
-        if (Input.GetKeyDown("m"))
+        if (Input.GetKeyDown(GameObject.FindObjectOfType<InputManager>().bookMenu))
         {
             if (BookCanvas.activeSelf == false)
             {
