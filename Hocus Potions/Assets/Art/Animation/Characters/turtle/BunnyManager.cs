@@ -13,6 +13,12 @@ public class BunnyManager : MonoBehaviour {
     public GameObject Player;
     public bool alreadySetBunnies;
 
+    /*
+     * Be able to use potions on the bunnies 
+     * Transformation potion - Turn bunnies into a turtle
+     * 
+     * Adjust the bunnies movement behaviors 
+     */
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +41,11 @@ public class BunnyManager : MonoBehaviour {
         {
             PlayerLeft();
         }
+        
+        if(isPlayerInMeadow && Player.GetComponent<Player>().Status.Contains(global::Player.PlayerStatus.transformed))
+        {
+            PlayerIsACat();
+        }
 	}
 
     void PlayerFollow()
@@ -53,8 +64,18 @@ public class BunnyManager : MonoBehaviour {
         for(int i = 0; i < bunnies.Length; i++)
         {
             bunnies[i].followPlayer = false;
+            bunnies[i].fleePlayer = false;
         }
         alreadySetBunnies = false;
+    }
+
+    void PlayerIsACat()
+    {
+        for(int i = 0; i < bunnies.Length; i++)
+        {
+            bunnies[i].fleePlayer = true;
+            bunnies[i].followPlayer = false;
+        }
     }
 
     
