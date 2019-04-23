@@ -14045,17 +14045,29 @@ Prefab:
     - target: {fileID: 224724443689672626, guid: 7a2aa6c54c104dd4fa451e2865332adc,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 643
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 224724443689672626, guid: 7a2aa6c54c104dd4fa451e2865332adc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 432
+      value: 251
       objectReference: {fileID: 0}
     - target: {fileID: 1565342114648922, guid: 7a2aa6c54c104dd4fa451e2865332adc, type: 2}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114422730222798810, guid: 7a2aa6c54c104dd4fa451e2865332adc,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8fdb9fc7ea22fe14f8472f4ebed2559f,
+        type: 3}
+    - target: {fileID: 114632782125441930, guid: 7a2aa6c54c104dd4fa451e2865332adc,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ff30c54730115b342a970bcc13b8d661,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a2aa6c54c104dd4fa451e2865332adc, type: 2}
   m_IsPrefabAsset: 0

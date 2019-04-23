@@ -108,7 +108,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Nature
-  m_Speed: 1
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101932695899544576}
@@ -121,7 +121,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 11bf4a08d60dd4643812f017d1e7d61f, type: 2}
+  m_Motion: {fileID: 7400000, guid: 267f27c3c604d42408f90392a65d0627, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

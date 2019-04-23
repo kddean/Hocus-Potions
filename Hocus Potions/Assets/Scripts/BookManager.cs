@@ -386,7 +386,7 @@ public class BookManager : MonoBehaviour {
             //newPage.transform.position = temp;
             newPage.gameObject.name = "PlantPage";
             PlantPage = newPage;
-            Debug.Log("Added PlantPage");
+            //Debug.Log("Added PlantPage");
             keys = rl.ingredients.Keys.ToList();
 
             
@@ -395,7 +395,7 @@ public class BookManager : MonoBehaviour {
 
            
 
-            foreach (string key in keys)
+           /* foreach (string key in keys)
             {
                 GameObject button = Instantiate(ButtonPrefab);
               
@@ -408,7 +408,7 @@ public class BookManager : MonoBehaviour {
                 button.GetComponentInChildren<Image>().sprite = 
                 Resources.Load<Sprite>(rl.ingredients[key].imagePath);
 
-            }
+            }*/
 
         }
 
@@ -522,7 +522,7 @@ public class BookManager : MonoBehaviour {
             newPage.transform.position = temp;*/
             newPage.gameObject.name = "PotionPage";
             PotionPage = newPage;
-            Debug.Log("Added PotionPage");
+            //Debug.Log("Added PotionPage");
 
             content = GameObject.Find("PotionContent");
             PageUp = true;
@@ -652,12 +652,12 @@ public class BookManager : MonoBehaviour {
 
     public void SetUpMapPage()
     {
-        /*Forest -435, 16
-         *Mountains -127, 320
-         * Home -110, 84
-         * Shrine 443, 365
-         * Campsite 284, 114
-         * Meadow 228, -111
+        /*Forest -363, 46
+         *Mountains -12, 390
+         * Home -22, 161
+         * Shrine 599, 427
+         * Campsite 357, 188
+         * Meadow 409, -63
         */
         if(CurrentZone == null)
         {
@@ -666,27 +666,27 @@ public class BookManager : MonoBehaviour {
 
         if(CurrentZone.name == ForestZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-435f, 16f);
+            WitchIcon.transform.localPosition = new Vector2(-363f, 46f);
         }
         else if (CurrentZone.name == MountainsZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-127f, 320f);
+            WitchIcon.transform.localPosition = new Vector2(-12f, 390f);
         }
         else if (CurrentZone.name == HomeZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(-110f, 84f);
+            WitchIcon.transform.localPosition = new Vector2(-22f, 161f);
         }
         else if (CurrentZone.name == ShrineZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(443f, 365f);
+            WitchIcon.transform.localPosition = new Vector2(599f, 427f);
         }
         else if (CurrentZone.name == CampsiteZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(284f, 114f);
+            WitchIcon.transform.localPosition = new Vector2(357f, 188f);
         }
         else if (CurrentZone.name == MeadowZone.name)
         {
-            WitchIcon.transform.localPosition = new Vector2(228f, -111f);
+            WitchIcon.transform.localPosition = new Vector2(409f, -63f);
         }
     }
 
