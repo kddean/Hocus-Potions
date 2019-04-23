@@ -204,7 +204,11 @@ public class Cauldron : MonoBehaviour, IPointerDownHandler {
                 }
             }
         } else {
-            if(manager.Brewing == 1 && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Ignite") && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.activeSpell.Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
+            if(manager.Brewing == 1 && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Ignite") && !GameObject.FindObjectOfType<Mana>().InUse) {
+                if (GameObject.FindObjectOfType<Mana>().CurrentMana < rl.activeSpell.Cost) {
+                    GameObject.FindObjectOfType<Mana>().OOM();
+                    return;
+                }
                 GetComponentsInChildren<AudioSource>()[1].Play();
                 manager.BrewTime = manager.BrewTime * speedUp;
                 anims[2].SetBool("Ignite", true);

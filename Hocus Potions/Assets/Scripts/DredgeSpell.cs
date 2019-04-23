@@ -35,28 +35,21 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
             return;
         }
 
-        if (rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Dredge") && mana.CurrentMana >= rl.activeSpell.Cost) {
+        if (rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Dredge")) {
             string key;
-            /*do {
-                int i = Random.Range(0, rl.ingredients.Count);
-                key = rl.ingredients.Keys.ToArray()[i];
-            } while (!rl.ingredients[key].imagePath.Contains("Plant"));*/
+            if (mana.CurrentMana < rl.activeSpell.Cost) {
+                mana.OOM();
+                return;
+            }
 
             float i = Random.Range(0f, 1f);
-            if(i > 0.6)
-            {
+            if (i > 0.6) {
                 key = rl.ingredients["algae"].name;
-            }
-            else if( i < 0.6 && i > 0.4)
-            {
+            } else if (i < 0.6 && i > 0.4) {
                 key = rl.ingredients["snail"].name;
-            }
-            else if (i < 0.4 && i > 0.2f)
-            {
-                key = rl.ingredients["lapis_lazuli"].name;               
-            }
-            else
-            {
+            } else if (i < 0.4 && i > 0.2f) {
+                key = rl.ingredients["lapis_lazuli"].name;
+            } else {
                 key = rl.ingredients["selenite"].name;
             }
 

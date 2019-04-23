@@ -6,7 +6,7 @@ using UnityEngine.Video;
 
 public class StartScreen : MonoBehaviour {
     public bool startScreenOpen;
-    public VideoPlayer video;
+    public VideoPlayer video, video2;
     public RawImage rawImage;
     AudioSource audioSource;
     bool clickedButton;
@@ -74,11 +74,21 @@ public class StartScreen : MonoBehaviour {
 
     IEnumerator PlayVideo() {
         video.Prepare();
+        video2.Prepare();
         while (!video.isPrepared) {
             yield return null;
         }
         rawImage.texture = video.texture;
         video.Play();
+        yield return new WaitForSecondsRealtime(2.7f);
+        video.Stop();
+
+        while (!video2.isPrepared) {
+            yield return null;
+        }
+
+        rawImage.texture = video2.texture;
+        video2.Play();
     }
 
 }

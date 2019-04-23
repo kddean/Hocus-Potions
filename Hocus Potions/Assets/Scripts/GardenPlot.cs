@@ -33,7 +33,11 @@ public class GardenPlot : MonoBehaviour, IPointerDownHandler {
                 return;
             }
 
-            if (rl.activeSpell != null && GameObject.FindObjectOfType<Mana>().CurrentMana >= rl.activeSpell.Cost && !GameObject.FindObjectOfType<Mana>().InUse) {
+            if (rl.activeSpell != null && !GameObject.FindObjectOfType<Mana>().InUse) {
+                if (GameObject.FindObjectOfType<Mana>().CurrentMana < rl.activeSpell.Cost) {
+                    GameObject.FindObjectOfType<Mana>().OOM();
+                    return;
+                }
                 rl.garden.SpellCast(this);
             }
         }
