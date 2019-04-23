@@ -386,7 +386,7 @@ public class BookManager : MonoBehaviour {
             //newPage.transform.position = temp;
             newPage.gameObject.name = "PlantPage";
             PlantPage = newPage;
-            Debug.Log("Added PlantPage");
+            //Debug.Log("Added PlantPage");
             keys = rl.ingredients.Keys.ToList();
 
             
@@ -395,7 +395,7 @@ public class BookManager : MonoBehaviour {
 
            
 
-            foreach (string key in keys)
+           /* foreach (string key in keys)
             {
                 GameObject button = Instantiate(ButtonPrefab);
               
@@ -408,7 +408,7 @@ public class BookManager : MonoBehaviour {
                 button.GetComponentInChildren<Image>().sprite = 
                 Resources.Load<Sprite>(rl.ingredients[key].imagePath);
 
-            }
+            }*/
 
         }
 
@@ -522,7 +522,7 @@ public class BookManager : MonoBehaviour {
             newPage.transform.position = temp;*/
             newPage.gameObject.name = "PotionPage";
             PotionPage = newPage;
-            Debug.Log("Added PotionPage");
+            //Debug.Log("Added PotionPage");
 
             content = GameObject.Find("PotionContent");
             PageUp = true;
