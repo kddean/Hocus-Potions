@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61985547870998666}
   - component: {fileID: 61193473677287782}
   - component: {fileID: 114754912742137594}
+  - component: {fileID: 114108631699623396}
   m_Layer: 0
   m_Name: Social Statue
   m_TagString: Untagged
@@ -112,6 +113,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114108631699623396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1975870718243412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402ef59c17cac1644b2f04977f62836e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114754912742137594
 MonoBehaviour:
   m_ObjectHideFlags: 1
