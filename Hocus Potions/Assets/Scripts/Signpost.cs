@@ -25,7 +25,7 @@ public class Signpost : MonoBehaviour {
 	void Update () {
         if (hovered)
         {
-            toolTip.transform.position = Input.mousePosition + new Vector3(100, -50, 0);
+            toolTip.transform.position = Input.mousePosition + new Vector3(200, -50, 0);
         }
     }
 

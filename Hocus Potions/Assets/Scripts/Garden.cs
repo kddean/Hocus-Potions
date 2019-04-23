@@ -94,14 +94,15 @@ public class Garden : MonoBehaviour {
 
     public void SpellCast(GardenPlot plot) {
         PlotData data;
+        Mana mana = GameObject.FindObjectOfType<Mana>();
         if (!plots.TryGetValue(plot.gameObject.name, out data)) {
             return;
-        }      
-        if(rl.activeSpell.SpellName.Equals("Wild Growth") && data.stage == Status.harvestable) {
+        }
+        if (rl.activeSpell.SpellName.Equals("Wild Growth") && data.stage == Status.harvestable) {
             return;
         }
 
-        if (rl.activeSpell.SpellName.Equals("Wild Growth")) {
+        if (rl.activeSpell.SpellName.Equals("Wild Growth")) { 
             plot.gameObject.GetComponents<AudioSource>()[2].Play();
             data.index++;
             if (data.index == (rl.seeds[data.type].GrowthStages - 1)) {
@@ -129,7 +130,7 @@ public class Garden : MonoBehaviour {
             Inventory.Add(rl.ingredients["ash"], 1, true);
         }
 
-        GameObject.FindObjectOfType<Mana>().UpdateMana(rl.activeSpell.Cost);
+        mana.UpdateMana(rl.activeSpell.Cost);
     }
 
     //Grows plants in code; only updates visuals if you're in the garden

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61451689254582342}
   - component: {fileID: 61709955877654350}
   - component: {fileID: 114881528296018802}
+  - component: {fileID: 114814644715068088}
   m_Layer: 0
   m_Name: Nature Statue
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1695093976512528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 116.328, y: 52.437897, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -112,6 +113,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114814644715068088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1695093976512528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402ef59c17cac1644b2f04977f62836e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114881528296018802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,7 +170,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4d67d10cde23e1b44a595aae9bcca3e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c586514cef7b21a42aa848631bf4a1fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

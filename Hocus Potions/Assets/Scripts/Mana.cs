@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Mana : MonoBehaviour {
     public Image manaBar;
+    public Sprite[] effectSprites;
+    public Image effectImage;
+    int index = 1;
     float maxMana, currentMana;
     bool inUse;
 
@@ -20,7 +23,6 @@ public class Mana : MonoBehaviour {
         MaxMana = 100;
         CurrentMana = MaxMana;
         manaBar.fillAmount = 1.0f;
-
     }
 
 
@@ -34,6 +36,21 @@ public class Mana : MonoBehaviour {
         StartCoroutine(DrainBar(amount));
     }
 
+    public void OOM() {
+        StartCoroutine(PlayEffect());
+    }
+
+    IEnumerator PlayEffect() {
+        effectImage.sprite = effectSprites[index];
+        yield return new WaitForSeconds(0.0695f);
+        index++;
+        if (index < effectSprites.Length) {
+            StartCoroutine(PlayEffect());
+        }  else {
+            effectImage.sprite = effectSprites[0];
+            index = 1;
+        }
+    }
    
 
     IEnumerator DrainBar(float amount) {
