@@ -32,7 +32,12 @@ public class SmashSpell : MonoBehaviour, IPointerDownHandler {
         if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) {
             return;
         }
-        if(eventData.button == PointerEventData.InputButton.Right && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Smash") && mana.CurrentMana >= rl.activeSpell.Cost) {
+        if(eventData.button == PointerEventData.InputButton.Right && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Smash")) {
+            if (mana.CurrentMana < rl.activeSpell.Cost) {
+                mana.OOM();
+                return;
+            }
+
             int type;
             BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
             foreach (BoxCollider2D b in colliders) {
