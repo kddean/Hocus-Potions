@@ -395,7 +395,7 @@ public class BookManager : MonoBehaviour {
 
            
 
-           /* foreach (string key in keys)
+            foreach (string key in keys)
             {
                 GameObject button = Instantiate(ButtonPrefab);
               
@@ -408,7 +408,7 @@ public class BookManager : MonoBehaviour {
                 button.GetComponentInChildren<Image>().sprite = 
                 Resources.Load<Sprite>(rl.ingredients[key].imagePath);
 
-            }*/
+            }
 
         }
 
