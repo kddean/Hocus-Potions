@@ -51,14 +51,14 @@ public class Bunny : MonoBehaviour {
             else if (transform.position.y > destination.y)
             {
                 bunnyAnim.SetBool(currentAnim, false);
-                currentAnim = "Forward";
+                currentAnim = "Backward";
                 bunnyAnim.SetBool(currentAnim, true);
 
             }
             else if (transform.position.y < destination.y || idling == true)
             {
                 bunnyAnim.SetBool(currentAnim, false);
-                currentAnim = "Backward";
+                currentAnim = "Foreward";
                 bunnyAnim.SetBool(currentAnim, true);
             }
         }
