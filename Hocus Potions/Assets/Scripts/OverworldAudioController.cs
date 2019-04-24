@@ -79,8 +79,8 @@ public class OverworldAudioController : MonoBehaviour {
         fading = true;
         audioSources[i].Play();
         while (currentAudio.volume > 0.05f) {
-            currentAudio.volume -= Time.deltaTime / 1.5f;
-            audioSources[i].volume += Time.deltaTime / 1.5f;
+            currentAudio.volume -= Time.deltaTime / 1.75f;
+            audioSources[i].volume += Time.deltaTime / 1.75f;
             yield return new WaitForEndOfFrame();
         }
         currentAudio.volume = 0;

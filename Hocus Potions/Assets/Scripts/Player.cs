@@ -245,8 +245,8 @@ public class Player : MonoBehaviour, IPointerDownHandler {
             }
         }
        
-        pos.x += x * Speed * Time.deltaTime;
-        pos.y += y * Speed * Time.deltaTime;
+        pos.x += x * Speed * 0.02f;
+        pos.y += y * Speed * 0.02f;
 
         if (currentAnim.Equals("Left")) {
             Vector3 temp = pos;
@@ -276,7 +276,7 @@ public class Player : MonoBehaviour, IPointerDownHandler {
     }
 
     IEnumerator StartIdle() {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
         if (idling) {
             playerAnim.SetBool(currentAnim, false);
             currentAnim = "Idle";

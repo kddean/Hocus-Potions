@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\StorageManager.cs" />
     <Compile Include="Assets\Scripts\StorageSlot.cs" />
     <Compile Include="Assets\Scripts\Traveller.cs" />
+    <Compile Include="Assets\Scripts\Tutorial.cs" />
     <Compile Include="Assets\Scripts\Wardrobe.cs" />
     <Compile Include="Assets\Scripts\WardrobeDontDestroy.cs" />
     <Compile Include="Assets\Scripts\ZoneLocator.cs" />

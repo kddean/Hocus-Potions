@@ -22,6 +22,7 @@ public class StartScreen : MonoBehaviour {
         if (!clickedButton) {
             StartCoroutine(FadeoutAudio(true));
             clickedButton = true;
+            GameObject.FindObjectOfType<Tutorial>().doTutorial = true;
         }
     }
 

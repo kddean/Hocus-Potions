@@ -106,8 +106,9 @@ class SteamAchievementManager : MonoBehaviour {
             // If yes, request our stats
 
             bool bSuccess = SteamUserStats.RequestCurrentStats();
-            SteamUserStats.ResetAllStats(true);
-            bSuccess = SteamUserStats.RequestCurrentStats();
+            //Resetting achievements for testing
+            // SteamUserStats.ResetAllStats(true);
+            //bSuccess = SteamUserStats.RequestCurrentStats();
 
             // This function should only return false if we weren't logged in, and we already checked that.
             // But handle it being false again anyway, just ask again later.
