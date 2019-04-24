@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DialogueCanvas : MonoBehaviour {
     public bool active;
+    public string user;
 
     public void Awake() {
         DontDestroyOnLoad(this);
@@ -11,6 +12,7 @@ public class DialogueCanvas : MonoBehaviour {
             Destroy(gameObject);
         }
         active = false;
+        user = "";
         gameObject.SetActive(false);
     }
 

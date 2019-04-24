@@ -267,7 +267,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     controller.npcData[characterName] = info;
                 }
                 controller.FinishPathData(path, characterName);
-                if (dialogueCanvas.GetComponent<DialogueCanvas>().active) {
+                if (dialogueCanvas.GetComponent<DialogueCanvas>().active && dialogueCanvas.GetComponent<DialogueCanvas>().user.Equals(characterName)) {
                     ExitButton();
                 }
                 Destroy(this.gameObject);
@@ -367,6 +367,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
             dialogueCanvas.SetActive(true);
             dialogueCanvas.GetComponent<DialogueCanvas>().active = true;
+            dialogueCanvas.GetComponent<DialogueCanvas>().user = characterName;
             dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
             if (!buttonsSet) {
                 if (info.map == 0) {
@@ -585,6 +586,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (slot.item.item.name.Contains("dye") || slot.item.item.name.Contains("of")) {
             currentDialogue = 0;
             dialogueCanvas.SetActive(true);
+            dialogueCanvas.GetComponent<DialogueCanvas>().user = characterName;
             dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["default"][0];
             if (!buttonsSet) {
                 if (info.map == 0) {
@@ -680,6 +682,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         currentDialogue = 0;
         if (Dialogue.TryGetValue(response, out initial)) {
             dialogueCanvas.SetActive(true);
+            dialogueCanvas.GetComponent<DialogueCanvas>().user = characterName;
             if (!buttonsSet) {
                 if (info.map == 0) {
                     dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextDialogueInside);
@@ -882,6 +885,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         nextCG.alpha = 1.0f;
         dialogueCanvas.GetComponent<DialogueCanvas>().active = false;
         dialogueCanvas.SetActive(false);
+        dialogueCanvas.GetComponent<DialogueCanvas>().user = "";
         player.allowedToMove = true;
         dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
         dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.RemoveAllListeners();
