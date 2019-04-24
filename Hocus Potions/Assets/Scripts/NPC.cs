@@ -34,6 +34,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     public bool closed;
     bool sleeping;
     bool scriptedQuest;
+    bool madeChoice;
 
 
 
@@ -85,6 +86,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         closed = false;
         sleeping = false;
         scriptedQuest = false;
+        madeChoice = false;
         dialoguePieces = new string[0];
         currentAnim = "Forward";
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
@@ -380,7 +382,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 buttonsSet = true;
             }
 
-            if (!info.returning && !requested && currentDialogue == dialoguePieces.Length - 1) {
+            if (!info.returning && !intro && currentDialogue == dialoguePieces.Length - 1 && (!requested || madeChoice)) {
                 nextCG.alpha = 0;
                 nextCG.interactable = false;
                 nextCG.blocksRaycasts = false;
@@ -437,15 +439,19 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     public void NextDialogueInside() {
         currentDialogue++;
         if (!responding && !requested && !info.returning && currentDialogue == dialoguePieces.Length) {
+            intro = false;
             GiveQuest();
             return;
         }
 
         if ((info.returning || requested) && currentDialogue == dialoguePieces.Length) {
+            currentDialogue--;
             nextCG.alpha = 0;
             nextCG.interactable = false;
             nextCG.blocksRaycasts = false;
-            ShowButtons();
+            if (!madeChoice) {
+                ShowButtons();
+            }
             return;
         }
 
@@ -835,6 +841,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         controller.npcQueue.Add(s, characterName);
         allowedToMove = true;
         player.allowedToMove = true;
+        madeChoice = true;
     }
 
     public void WaitButton() {
@@ -849,6 +856,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
         done = true;
+        madeChoice = true;
     }
 
     public void DeclineButton() {
@@ -861,6 +869,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);
         done = true;
+        madeChoice = true;
     }
 
     public void ExitButton() {
