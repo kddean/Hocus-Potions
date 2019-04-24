@@ -482,14 +482,19 @@ public class NPCController : MonoBehaviour {
             }
         }
 
+        string sendChar = "";
+
         int rand = UnityEngine.Random.Range(0, available.Count - 1);
         int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
         int spawnHour = UnityEngine.Random.Range(8, 13);
-        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, -0.5f, 0, available[rand]);
-        npcQueue.Add(schedule, available[rand]);
-        schedule = new Schedule(false, day, spawnHour + 6, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
-        npcQueue.Add(schedule, available[rand]);
-        available.RemoveAt(rand);
+        if (mc.Days < 5 && available.Contains("Bernadette")) { sendChar = "Bernadette"; } else {
+            sendChar = available[rand];
+        }
+        Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, -0.5f, 0, sendChar);
+        npcQueue.Add(schedule, sendChar);
+        schedule = new Schedule(false, day, spawnHour + 6, spawnMinute, "", 1, 69.5f, -12.5f, 0, sendChar);
+        npcQueue.Add(schedule, sendChar);
+        available.Remove(sendChar);
         if (available.Count > 0) {
             spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
             //TODO: Change the times for this later

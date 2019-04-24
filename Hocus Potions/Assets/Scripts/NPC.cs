@@ -510,17 +510,26 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
                 break;
             case "Bernadette":
-                if (!controller.NPCQuestFlags["Bernadette"] && info.timesInteracted > 0) {
+                if (!controller.NPCQuestFlags["Bernadette"] && info.timesInteracted > 3) {
                     scriptedQuest = true;
                 }
                 break;
             case "Dante":
                 break;
             case "Franklin":
+                if (controller.NPCQuestFlags["Amara"] && !controller.NPCQuestFlags["Franklin"]) {
+                    scriptedQuest = true;
+                }
                 break;
             case "Ralphie":
+                if (controller.NPCQuestFlags["Bernadette"] && !controller.NPCQuestFlags["Ralphie"]) {
+                    scriptedQuest = true;
+                }
                 break;
             case "Geoff":
+                if (controller.NPCQuestFlags["Amara"] && !controller.NPCQuestFlags["Geoff"]) {
+                    scriptedQuest = true;
+                }
                 break;
             default:
                 break;
