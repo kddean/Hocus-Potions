@@ -43,6 +43,40 @@ public class Inventory {
         Add(iii, 8, false);    
     }
    
+    public static void Tutorial1() {
+        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        Ingredient i = rl.ingredients["thistle"];
+        Ingredient ii = rl.ingredients["catnip"];
+        Ingredient iii = rl.ingredients["lambsgrass"];
+        Add(i, 1, false);
+        Add(ii, 1, false);
+        Add(iii, 1, false);
+    }
+
+    public static void Tutorial2() {
+        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        Seed s = rl.seeds["catnip"];
+        Seed ss = rl.seeds["poppy"];
+        Seed sss = rl.seeds["nightshade"];
+        Seed ssss = rl.seeds["lavender"];
+        Add(s, 3, false);
+        Add(ss, 3, false);
+        Add(sss, 3, false);
+        Add(ssss, 3, false);
+    }
+
+    public static void TutorialSkip() {
+        InventorySlot[] slots = GameObject.FindObjectsOfType<InventorySlot>();
+        foreach(InventorySlot s in slots) {
+            if (s.item != null) {
+                RemoveStack(s);
+            }
+        }
+        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        Brewing b = new Brewing();
+        Inventory.Add(b.Brew(rl.ingredients["catnip"], rl.ingredients["thistle"], rl.ingredients["lambsgrass"]), 1, false);
+        Tutorial2();
+    }
 
     public static bool Add(Item obj, int count, bool shouldDrop) {
         Button[] invButtons = GameObject.FindGameObjectWithTag("inventory").transform.parent.GetComponentsInChildren<Button>();

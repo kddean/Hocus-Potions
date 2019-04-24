@@ -503,7 +503,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
                 break;
             case "Bernadette":
-                if (!controller.NPCQuestFlags["Berdadette"] && info.timesInteracted > 1) {
+                if (!controller.NPCQuestFlags["Bernadette"] && info.timesInteracted > 0) {
                     scriptedQuest = true;
                 }
                 break;
@@ -534,7 +534,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (!scriptedQuest) {
             do {
                 choice = Random.Range(0, requests.Count - 1);
-            } while (info.givenQuests.Contains(choice) || requests[choice].Key.Length < 10);
+            } while (info.givenQuests.Contains(choice) || requests[choice].Key.Length < 5 || requests[choice].Key.Contains("1") || requests[choice].Key.Contains("2") || requests[choice].Key.Contains("3")) ;
             if (info.affinity <= -3) {
                 affinity = "_bad";
             } else if (info.affinity >= 3) {
@@ -543,15 +543,24 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 affinity = "_neutral";
             }
         } else {
-            if (info.option) {
-                affinity = "_A";
+            if (info.scriptedQuestNum == 1) {
+                if (info.affinity <= -3) {
+                    affinity = "_bad";
+                } else if (info.affinity >= 3) {
+                    affinity = "_good";
+                } else {
+                    affinity = "_neutral";
+                }
             } else {
-                affinity = "_B";
+                if (info.option) {
+                    affinity = "_recall_1";
+                } else {
+                    affinity = "_recall_-1";
+                }
             }
         }
 
         info.givenQuests.Add(choice);
-
        
         string key = requests[choice].Key + affinity;
         info.requestKey = key;
@@ -708,7 +717,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             type = temp.Primary.ToString();
         }
         int index = requests.FindIndex(item => item.Key.Equals(rKey));
-        info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
+        if (!scriptedQuest) {
+            info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
+        }
         info.requestKey = null;
         info.timesInteracted++;
         if (scriptedQuest) {
@@ -724,8 +735,15 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
             }
 
+            if(requests[index].GetValue(type) < 0) {
+                info.option = false;
+            } else {
+                info.option = true;
+            }
+
             if (finishedQuestline) {
                 controller.NPCQuestFlags[characterName] = true;
+                info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
             }
         }
 

@@ -24,7 +24,7 @@ public class BrewingManager : MonoBehaviour {
         pot = p;
         Brewing = 1;
         while (currentTime < brewTime) {
-            yield return new WaitForSeconds(mc.CLOCK_SPEED);
+            yield return new WaitForSecondsRealtime(mc.CLOCK_SPEED);
             currentTime += 10;
         }
        
