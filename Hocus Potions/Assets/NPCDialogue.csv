@@ -817,6 +817,9 @@ request_3geoff_speed,"....Tastes of lightning. This will prove very useful in th
 ,,,,,,,,
 request_3geoff_transformation,"....Tastes of tortoise. This will prove very useful in the wars to come....Thank you, daughter of the abyss.",,,,,,,
 ,,,,,,,,
+default,default text for receiving stuff. This shouldn't ever be shown.,,,,,,,
+wait,"Alright, I'll be back tomorrow then",,,,,,,
+no,Really? You won't help me?.,,,,,,,
 @,,,,,,,,
 request_preTwo,.3,-.3,1,.3,-.6,-.3,.3,-.3
 request_preOne,.5,-.3,1,-.3,-.6,.3,1,-.3

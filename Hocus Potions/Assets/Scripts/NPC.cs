@@ -353,10 +353,16 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         dialoguePieces = dialogue[info.requestKey][0].Split('*');
                         currentDialogue = dialoguePieces.Length - 1;
                     }
+                    
                     if (!rl.requestList.TryGetValue(characterName, out requests)) {
                         allowedToMove = true;
                         player.allowedToMove = true;
                         return;
+                    } else if (info.requestKey != null && !info.requestKey.Equals("")) {
+                        dialoguePieces = dialogue[info.requestKey][0].Split('*');
+                        currentDialogue = dialoguePieces.Length - 1;
+                        requested = true;
+                        madeChoice = true;
                     } else {
                         GiveQuest();
                         return;
@@ -738,7 +744,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (!scriptedQuest) {
             info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
         }
-        info.requestKey = null;
+        info.requestKey = "";
         info.timesInteracted++;
         if (scriptedQuest) {
             info.scriptedQuestNum++;
@@ -876,6 +882,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.GetComponentInChildren<Text>().enabled = true;
         dialogueCanvas.GetComponentInChildren<Text>().text = Dialogue["no"][0];
         info.returning = false;
+        info.requestKey = "";
         info.timesInteracted++;
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);

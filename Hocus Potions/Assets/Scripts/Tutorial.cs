@@ -91,21 +91,22 @@ public class Tutorial : MonoBehaviour {
 
     IEnumerator RunTutorial() {
         yield return new WaitForSecondsRealtime(1.5f);
-        Time.timeScale = 0;
-        doorway.SetActive(false);
-        player = GameObject.FindObjectOfType<Player>();
-        player.allowedToMove = false;
-        speed = 4;
-        cat = Instantiate(Resources.Load<GameObject>("Characters/TutorialCat"));
-        cat.transform.position = new Vector3(0.5f, -4.5f, 0);
-        cat.name = "Princess";
-        GameObject.FindObjectOfType<Pathfinding>().InitializePath(cat.transform.position, new Vector3(2.5f, 1.5f, 0), 0, path);
-        anim = cat.GetComponent<Animator>();
-        currentAnim = "Forward";
+        if (!finishedTutorial) {
+            Time.timeScale = 0;
+            doorway.SetActive(false);
+            player = GameObject.FindObjectOfType<Player>();
+            player.allowedToMove = false;
+            speed = 4;
+            cat = Instantiate(Resources.Load<GameObject>("Characters/TutorialCat"));
+            cat.transform.position = new Vector3(0.5f, -4.5f, 0);
+            cat.name = "Princess";
+            GameObject.FindObjectOfType<Pathfinding>().InitializePath(cat.transform.position, new Vector3(2.5f, 1.5f, 0), 0, path);
+            anim = cat.GetComponent<Animator>();
+            currentAnim = "Forward";
 
-        dc = Resources.FindObjectsOfTypeAll<DialogueCanvas>()[0];
-        exitButton = dc.GetComponentsInChildren<Button>()[1].gameObject;
-        dialogue = new string[] { "Hail, young witch", "Oh, don’t look so surprised!", "How do you expect to become a witch if you can’t handle a talking cat?", "I’m Princess, I’ve lived in these parts for a while, I even knew your Great Aunt back in the day", "She would be proud to know you’ve decided to take over the family business", "I’m glad to see you’ve already started dressing the part, too.", "So... you don’t really know where to start, do you?", "Well, luckily for you your Great Aunt left her old spellbook. I think you can open it up with M",
+            dc = Resources.FindObjectsOfTypeAll<DialogueCanvas>()[0];
+            exitButton = dc.GetComponentsInChildren<Button>()[1].gameObject;
+            dialogue = new string[] { "Hail, young witch", "Oh, don’t look so surprised!", "How do you expect to become a witch if you can’t handle a talking cat?", "I’m Princess, I’ve lived in these parts for a while, I even knew your Great Aunt back in the day", "She would be proud to know you’ve decided to take over the family business", "I’m glad to see you’ve already started dressing the part, too.", "So... you don’t really know where to start, do you?", "Well, luckily for you your Great Aunt left her old spellbook. I think you can open it up with M",
             "Great, I’m glad that old pile of papers still works, although it looks like some pages have gone missing over the years.", "You’re new to brewing potions, right? Well, it’s not too hard to get started.", "Here, take these ingredients, plop ‘em in the cauldron over there, and see what you can make.",
             "Nice, that looks like a great potion of speed. You can drink it now if you want, or you can save it for later.", "You can get more ingredients by finding them in the wild surrounding your house", "Or you can grow them yourself! Here are some seeds you can plant in the old garden plots outside.",
             "There, now you have some to get you started.", "Don’t worry about saying thanks, I’m a cat, I don’t have thumbs so I can’t use them anyways.", "You can put them in that storage chest for now, if you’d like.", "Why don’t you go ahead and make sure the darn thing isn’t rusted shut?",
@@ -114,19 +115,20 @@ public class Tutorial : MonoBehaviour {
 
 
 
-        while (!startText) {
-            yield return null;
+            while (!startText) {
+                yield return null;
+            }
+
+            dc.gameObject.SetActive(true);
+            dc.active = true;
+
+            dc.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
+
+            dc.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextButton);
+            exitButton.SetActive(false);
+            dc.GetComponentInChildren<Text>().text = dialogue[index];
+            dc.GetComponentsInChildren<Text>()[4].text = "Princess";
         }
-
-        dc.gameObject.SetActive(true);
-        dc.active = true;
-
-        dc.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
-
-        dc.GetComponentsInChildren<Button>()[0].onClick.AddListener(NextButton);
-        exitButton.SetActive(false);
-        dc.GetComponentInChildren<Text>().text = dialogue[index];
-        dc.GetComponentsInChildren<Text>()[4].text = "Princess";
 
     }
 
