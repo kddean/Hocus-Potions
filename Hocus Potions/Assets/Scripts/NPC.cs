@@ -35,6 +35,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     bool sleeping;
     bool scriptedQuest;
     bool madeChoice;
+    bool clicked;
 
 
 
@@ -87,6 +88,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         sleeping = false;
         scriptedQuest = false;
         madeChoice = false;
+        clicked = false;
         dialoguePieces = new string[0];
         currentAnim = "Forward";
         if (!controller.npcData.TryGetValue(CharacterName, out info)) {
@@ -299,7 +301,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         if (done || player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(transform.position, player.transform.position) > 2) { return; }
         //Left click
         if (eventData.button.Equals(PointerEventData.InputButton.Left)) {
-            if (dialogueCanvas.GetComponent<DialogueCanvas>().active) { return; }
+            if (dialogueCanvas.GetComponent<DialogueCanvas>().active || clicked) { return; }
+            clicked = true;
             //Dont let them dont wander off
             allowedToMove = false;
             player.allowedToMove = false;
@@ -326,6 +329,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     if (key == null) {
                         allowedToMove = true;
                         player.allowedToMove = true;
+                        clicked = false;
                         return;
                     }
                     List<string> initial;
@@ -334,6 +338,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     } catch (KeyNotFoundException) {
                         allowedToMove = true;
                         player.allowedToMove = true;
+                        clicked = false;
                         return;
                     }
                     List<string> options = new List<string>();
@@ -357,6 +362,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                     if (!rl.requestList.TryGetValue(characterName, out requests)) {
                         allowedToMove = true;
                         player.allowedToMove = true;
+                        clicked = false;
                         return;
                     } else if (info.requestKey != null && !info.requestKey.Equals("")) {
                         dialoguePieces = dialogue[info.requestKey][0].Split('*');
@@ -504,8 +510,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
     private void GiveQuest() {
         int choice = -1;
-        if(info.givenQuests.Count == requests.Count) {
-            info.givenQuests = new List<int>();
+        if(info.availableQuests.Count == 0) {
+            PopulateQuestList();
         }
         scriptedQuest = false;
         
@@ -554,9 +560,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
         string affinity = "";
         if (!scriptedQuest) {
-            do {
-                choice = Random.Range(0, requests.Count - 1);
-            } while (info.givenQuests.Contains(choice) || requests[choice].Key.Length < 5 || requests[choice].Key.Contains("1") || requests[choice].Key.Contains("2") || requests[choice].Key.Contains("3")) ;
+
+            choice = info.availableQuests[Random.Range(0, info.availableQuests.Count - 1)];
+            info.availableQuests.Remove(choice);
+
             if (info.affinity <= -3) {
                 affinity = "_bad";
             } else if (info.affinity >= 3) {
@@ -582,7 +589,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             }
         }
 
-        info.givenQuests.Add(choice);
        
         string key = requests[choice].Key + affinity;
         info.requestKey = key;
@@ -591,6 +597,15 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         currentDialogue = 0;
         dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[0];
         requested = true;
+    }
+
+    void PopulateQuestList() {
+        info.availableQuests = new List<int>();
+        for(int i = 0; i < requests.Count; i++) {
+            if(!requests[i].Key.Contains("1") && !requests[i].Key.Contains("2") && !requests[i].Key.Contains("3")) {
+                info.availableQuests.Add(i);
+            }
+        }
     }
 
     public void GivePotion(InventorySlot slot) {
@@ -656,7 +671,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         info.given.Add(temp);
         info.returning = false;
         requested = false;
-
+        done = true;
         gavePot = true;
 
         if (info.given.Count < 5) {
@@ -859,6 +874,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         controller.npcQueue.Add(s, characterName);
         allowedToMove = true;
         player.allowedToMove = true;
+        clicked = false;
         madeChoice = true;
     }
 
@@ -903,6 +919,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         dialogueCanvas.SetActive(false);
         dialogueCanvas.GetComponent<DialogueCanvas>().user = "";
         player.allowedToMove = true;
+        clicked = false;
         dialogueCanvas.GetComponentsInChildren<Button>()[0].onClick.RemoveAllListeners();
         dialogueCanvas.GetComponentsInChildren<Button>()[2].onClick.RemoveAllListeners();
         dialogueCanvas.GetComponentsInChildren<Button>()[3].onClick.RemoveAllListeners();

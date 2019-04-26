@@ -71,7 +71,6 @@ public class BookManager : MonoBehaviour {
         plantInfo = new Dictionary<string, string>();
         potionInfo = new Dictionary<string, Potion>();
         potionDiscovery = new Dictionary<string, bool>();
-        content = new GameObject();
         contents = GameObject.FindGameObjectsWithTag("contentWindow");
         WitchIcon = GameObject.Find("WitchIcon");
         //CurrentPage = GameObject.Find("CurrentPage");
