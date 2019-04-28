@@ -178,7 +178,6 @@ public class MoonCycle : MonoBehaviour {
         if (Minutes == 60) {
             Hour = (Hour + 1) % 24;
             Minutes = 00;
-
         }
     }
 

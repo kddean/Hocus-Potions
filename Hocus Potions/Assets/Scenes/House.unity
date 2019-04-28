@@ -8276,7 +8276,7 @@ MonoBehaviour:
   activeItem: {fileID: 0}
   brewingIngredients: []
   availableNPCs: []
-  npcData: {fileID: 4900000, guid: 64e0e46497ef5f24ea2928e48ba8fbe1, type: 3}
+  npcData: {fileID: 4900000, guid: 08997c6f6375b6545a82d26f069dd986, type: 3}
   npcSchedule: {fileID: 4900000, guid: ce20bc09e42c95148a316d5f8dc949e3, type: 3}
   givenListMax: 5
   potionStrength: 1

@@ -861,6 +861,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     public void AcceptButton() {
         ExitButton();
         info.returning = false;
+        info.requestKey = "";
         controller.npcData[CharacterName] = info;
         List<string> queueList = controller.npcQueue.Values.ToList();
         int index = queueList.FindIndex(item => item.Equals(characterName));
@@ -869,8 +870,16 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         } else {
             path = new List<Vector3>();
         }
+        if(path.Count > 0 && path[path.Count - 1] == new Vector3(0.5f, -4.5f, 0)) {
+            path = new List<Vector3>();
+        }
         MoonCycle mc = GameObject.FindObjectOfType<MoonCycle>();
-        NPCController.Schedule s = new NPCController.Schedule(false, mc.Days, mc.Hour + 4, mc.Minutes, "", 1, 69.5f, -12.5f, 0, characterName);
+        NPCController.Schedule s;
+        if ((mc.hour + 4) < 24) {
+             s = new NPCController.Schedule(false, mc.Days, mc.Hour + 4, mc.Minutes, "", 1, 69.5f, -12.5f, 0, characterName);
+        } else {
+             s = new NPCController.Schedule(false, mc.Days + 1, (mc.Hour + 4) % 24, mc.Minutes, "", 1, 69.5f, -12.5f, 0, characterName);
+        }
         controller.npcQueue.Add(s, characterName);
         allowedToMove = true;
         player.allowedToMove = true;
