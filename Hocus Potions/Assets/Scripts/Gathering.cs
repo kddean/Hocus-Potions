@@ -7,6 +7,7 @@ public class Gathering : MonoBehaviour {
 
 	ResourceLoader rl;
     public Sprite[] plants;
+    public bool special = false;
 
 	// Use this for initialization
 	void Start () {

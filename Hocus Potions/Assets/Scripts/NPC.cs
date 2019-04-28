@@ -469,7 +469,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         }
 
         if (responding) {
-            if (currentDialogue == dialoguePieces.Length - 2) {
+            if (currentDialogue == dialoguePieces.Length - 1) {
                 nextCG.alpha = 0;
                 nextCG.interactable = false;
                 nextCG.blocksRaycasts = false;
@@ -729,7 +729,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             responding = true;
             List<string> dia = new List<string>();
             foreach (string s in initial) {
-                if (s.Length > 5) {
+                if (s.Length > 2) {
                     dia.Add(s);
                 }
             }

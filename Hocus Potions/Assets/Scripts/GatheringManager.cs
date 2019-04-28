@@ -101,6 +101,8 @@ public class GatheringManager : MonoBehaviour {
 
         if(spawnerReset.TryGetValue(gatherer.gameObject.name, out sRT))
         {           
+            if(gatherer.special && !GameObject.FindObjectOfType<ShrineManager>().endNature) { return; }
+
             if(sRT.numberOfDaysLeft > 0)
             {
                 return;

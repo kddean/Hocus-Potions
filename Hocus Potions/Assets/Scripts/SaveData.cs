@@ -66,5 +66,10 @@ public class SaveData {
     //Keybinds
     public List<KeyCode> keybinds;
 
+    //Faction Flags
+    public bool endOrder;
+    public bool endNature;
+    public bool endSocial;
+
    
 }

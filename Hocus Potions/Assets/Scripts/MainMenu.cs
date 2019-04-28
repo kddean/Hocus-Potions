@@ -148,7 +148,11 @@ public class MainMenu : MonoBehaviour {
         data.questFlags = npcs.NPCQuestFlags.Values.ToList();
 
         data.keybinds = GameObject.FindObjectOfType<InputManager>().keybinds;
-        
+
+        data.endNature = GameObject.FindObjectOfType<ShrineManager>().endNature;
+        data.endOrder = GameObject.FindObjectOfType<ShrineManager>().endOrder;
+        data.endSocial = GameObject.FindObjectOfType<ShrineManager>().endSocial;
+
         bf.Serialize(file, data);
         file.Close();
         GameObject.FindObjectOfType<InputManager>().paused = false;
@@ -309,6 +313,10 @@ public class MainMenu : MonoBehaviour {
 
             npcs.CurrentMap = data.currentMap;
             npcs.LoadNPCS();
+
+            GameObject.FindObjectOfType<ShrineManager>().endNature = data.endNature;
+            GameObject.FindObjectOfType<ShrineManager>().endOrder = data.endOrder;
+            GameObject.FindObjectOfType<ShrineManager>().endSocial = data.endSocial;
 
             GameObject.FindObjectOfType<BookManager>().potionDiscovery.Clear();
             for (int i = 0; i < data.discoveredKeys.Count; i++)

@@ -98,6 +98,8 @@ public class GarbageCollecter : MonoBehaviour {
                 if (!(d.item is Potion)) {
                     if (d.item.imagePath.StartsWith("Gem")) {
                         go.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+                    } else if(go.name.Equals("algae") || go.name.Equals("snail")) {
+                        go.transform.localScale = new Vector3(0.6f, 0.6f, 1);
                     } else {
                         go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
                     }

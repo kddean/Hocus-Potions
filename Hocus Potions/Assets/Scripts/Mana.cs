@@ -27,6 +27,11 @@ public class Mana : MonoBehaviour {
 
 
     public void UpdateMana(float amount) {
+        if (GameObject.FindObjectOfType<ShrineManager>().endOrder) {
+            currentMana = maxMana;
+            manaBar.fillAmount = 1;
+            return;
+        }
         if (currentMana - amount < 0) {
             amount = currentMana;
         } else if (currentMana - amount > maxMana) {

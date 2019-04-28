@@ -21,9 +21,9 @@ public class Inventory {
     public static void Testing() {
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         Brewing b = new Brewing();
-        Potion p = b.Brew(rl.ingredients["catnip"], rl.ingredients["thistle"], rl.ingredients["lambsgrass"]);
-        Potion pp = b.Brew(rl.ingredients["catnip"], rl.ingredients["lambsgrass"], rl.ingredients["poppy"]);
-        Potion ppp = b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]);
+        Potion p = b.Brew(rl.ingredients["poppy"], rl.ingredients["dandylion"], rl.ingredients["emerald"]);
+        Potion pp = b.Brew(rl.ingredients["mugwort"], rl.ingredients["fly_agaric"], rl.ingredients["selenite"]);
+        Potion ppp = b.Brew(rl.ingredients["ghostcap"], rl.ingredients["morel"], rl.ingredients["amber"]);
         Seed s = rl.seeds["thistle"];
         Seed ss = rl.seeds["poppy"];
         Seed sss = rl.seeds["nightshade"];
@@ -162,9 +162,11 @@ public class Inventory {
         c.size = bounds;
         c.isTrigger = true;
 
-         if (!(item is Potion)) {
+        if (!(item is Potion)) {
             if (item.imagePath.StartsWith("Gem")) {
                 go.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+            } else if (go.name.Equals("algae") || go.name.Equals("snail")) {
+                go.transform.localScale = new Vector3(0.6f, 0.6f, 1);
             } else {
                 go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
             }
@@ -196,6 +198,8 @@ public class Inventory {
         if (!(slot.item.item is Potion)) {
             if (slot.item.item.imagePath.StartsWith("Gem")) {
                 go.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+            } else if (go.name.Equals("algae") || go.name.Equals("snail")) {
+                go.transform.localScale = new Vector3(0.6f, 0.6f, 1);
             } else {
                 go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
             }
@@ -210,7 +214,7 @@ public class Inventory {
     }
 
     public static void RemoveStack(InventorySlot item) {
-        ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
+        ResourceLoader rl = GameObject.FindObjectOfType<ResourceLoader> ();
         if (rl.activeItem == item) {
             rl.activeItem = null;
             item.gameObject.GetComponentsInChildren<Image>()[1].enabled = false;

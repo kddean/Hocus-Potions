@@ -147,6 +147,7 @@ public class Tutorial : MonoBehaviour {
             GameObject.FindObjectOfType<Pathfinding>().InitializePath(cat.transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
             player.allowedToMove = true;
             doorway.SetActive(true);
+            dc.GetComponentsInChildren<Text>()[4].text = "";
 
         }
     }
@@ -253,5 +254,6 @@ public class Tutorial : MonoBehaviour {
         doorway.SetActive(true);
         GameObject.FindObjectOfType<Player>().allowedToMove = true;
         finishedTutorial = true;
+        dc.GetComponentsInChildren<Text>()[4].text = "";
     }
 }

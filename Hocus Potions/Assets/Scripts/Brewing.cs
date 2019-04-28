@@ -540,7 +540,7 @@ public class Brewing {
                     break;
 
                 default:
-                    name = "Failed potion";
+                    name = "Odd Potion";
                     duration = 0;
                     brewingTime = 30;
                     image = "Potions/potions_null";
@@ -553,8 +553,7 @@ public class Brewing {
             return new Potion(name, image, duration, primary, secondary, mod, brewingTime);
 
         } else {
-            //for failed potions TO DO: clean up a bit later
-            name = "Failed potion";
+            name = "Odd Potion";
             primary = Ingredient.Attributes.none;
             secondary = Ingredient.Attributes.none;
             mod = null;

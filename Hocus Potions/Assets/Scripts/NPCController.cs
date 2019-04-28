@@ -487,7 +487,7 @@ public class NPCController : MonoBehaviour {
         int rand = UnityEngine.Random.Range(0, available.Count - 1);
         int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
         int spawnHour = UnityEngine.Random.Range(8, 13);
-        if (mc.Days < 5 && available.Contains("Franklin")) { sendChar = "Franklin"; } else {
+        if (mc.Days < 5 && available.Contains("Bernadette")) { sendChar = "Bernadette"; } else {
             sendChar = available[rand];
         }
         Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, -0.5f, 0, sendChar);

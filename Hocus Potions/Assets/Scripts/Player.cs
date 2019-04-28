@@ -401,7 +401,6 @@ public class Player : MonoBehaviour, IPointerDownHandler {
                 break;
             case Ingredient.Attributes.none:
                 float check = Random.Range(0, 1.0f);
-                Debug.Log(check);
                 if ( check < 0.5f) {
                     int rand = Random.Range(0, 7);
                     switch (rand) {

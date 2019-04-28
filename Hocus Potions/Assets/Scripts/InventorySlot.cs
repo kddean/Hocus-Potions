@@ -290,6 +290,16 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     dragging = false;
                     return;
                 }
+
+                //Use potion on shrine
+                if (item.item is Potion && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y)) && ray.collider.gameObject.GetComponent<Shrine>() != null) {
+                    ray.collider.gameObject.GetComponent<Shrine>().UsePotion(this);
+                    transform.SetParent(startingParent);
+                    transform.localPosition = temp;
+                    transform.SetSiblingIndex(index);
+                    dragging = false;
+                    return;
+                }
             }
             transform.SetParent(startingParent);
             transform.localPosition = temp;

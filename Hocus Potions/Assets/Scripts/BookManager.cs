@@ -55,7 +55,6 @@ public class BookManager : MonoBehaviour {
         DontDestroyOnLoad(this);
         if (Resources.FindObjectsOfTypeAll(GetType()).Length > 1)
         {
-            Debug.Log(this.name);
             Destroy(gameObject);
         }
     }

@@ -76,7 +76,9 @@ public class DredgeSpell : MonoBehaviour, IPointerDownHandler {
         BoxCollider2D c = go.AddComponent<BoxCollider2D>();
         c.size = bounds;
         c.isTrigger = true;
-        go.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+        if (go.name.Equals("snail") || go.name.Equals("algae")) {
+            go.transform.localScale = new Vector3(0.6f, 0.6f, 1);
+        }
 
         Vector3 target = GameObject.FindGameObjectWithTag("Player").transform.position;
         target.y -= 1;

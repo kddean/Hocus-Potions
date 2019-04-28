@@ -9,6 +9,7 @@ public class Wardrobe : MonoBehaviour {
     bool[] unlocked;
     string current;
     CanvasGroup cg;
+    BookManager bm;
     public bool open;
 
     public string Current {
@@ -39,8 +40,9 @@ public class Wardrobe : MonoBehaviour {
     }
 
     void Start () {
-        unlocked = new[] { true, true, false, false, true, false, false, true, false, false, true };
+        unlocked = new[] { true, false, false, false, false, false, false, false, false, false, false };
         cg = GameObject.FindGameObjectWithTag("wardrobePanel").GetComponent<CanvasGroup>();
+        bm = GameObject.FindObjectOfType<BookManager>();
         cg.alpha = 0;
         cg.interactable = false;
         cg.blocksRaycasts = false;
@@ -58,9 +60,24 @@ public class Wardrobe : MonoBehaviour {
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<Button>().interactable = false;
         }
+
+        if (!unlocked[7]) {
+            bool madeAllPots = true;
+            foreach (bool b in bm.potionDiscovery.Values) {
+                if (!b) {
+                    madeAllPots = false;
+                    break;
+                }
+            }
+            if (madeAllPots) {
+                unlocked[7] = true;
+                LoadCostume("Costume_Cat");
+            }
+        }
     }
 
     public void Clicked() {
+        if( Vector3.Distance(GameObject.FindObjectOfType<Player>().transform.position, transform.position) > 2) { return; }
         if (cg.alpha == 0) {
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Default Mouse"), Vector2.zero, CursorMode.Auto);
             GameObject.FindObjectOfType<Player>().allowedToMove = false;

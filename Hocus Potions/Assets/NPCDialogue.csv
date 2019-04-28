@@ -1044,7 +1044,7 @@ request_franklintired_sleep_good,"You say this'll help me get more work done? Ho
 ,,,,,,,,
 request_franklintired_speed_bad,"Whoa, miss, I can move so fast!*I'm sure this here brew will help me plow through all that construction!*Thanks so much, I'm glad ya decided to help me out this time.",,,,,,,
 request_franklintired_speed_neutral,"Whoa, miss, I never figured I could move this fast!*This here brew will help me plow through all that work for sure!*Thanks so much for helping me out, I'll come see ya again soon.",,,,,,,
-request_franklintired_speed_good,"Whoa, miss, I've never figured I could move this fast!*This here brew will help me finish up the big ceterpiece I'm workin' on for little Bernie's wedding.*I'm carvin' it in the shape of a swan. Bernie's always loved those darn birds ya know. ",,,,,,,
+request_franklintired_speed_good,"Whoa, miss, I've never figured I could move this fast!*This here brew will help me finish up the big centerpiece I'm workin' on for little Bernie's wedding.*I'm carvin' it in the shape of a swan. Bernie's always loved those darn birds ya know.",,,,,,,
 ,,,,,,,,
 request_franklintired_transformation_bad,Brrrrraaaay!*(I can't believe you've done this to me)*Brrray! Brraaay!*(I can't build anything with hooves!)*Brrrray! Bray! Brray!*(You're the least helpful witch I've ever met.),,,,,,,
 request_franklintired_transformation_neutral,"Brrrraaay!*(You've turned me into a darn mule!)*Brrray! Brrrray!*(How can I get any work done with hooves instead of hands!?)*Brrray! Bray! (I won't forget this, witch.)",,,,,,,
