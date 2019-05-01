@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Bunny : MonoBehaviour {
 
-
+    ResourceLoader rl;
     string currentAnim;
     Animator bunnyAnim, effectsAnim;
     float speed;
@@ -15,17 +16,28 @@ public class Bunny : MonoBehaviour {
 
     bool idling;
     bool sleeping;
+    bool poisoned;
+    bool transformed;
+    bool onSpeed;
+    bool invisible;
+    bool healing;
+    bool mana;
+
     public bool followPlayer;
     public bool fleePlayer;
 
-	// Use this for initialization
-	void Start () {
+    GameObject effects;
+
+    // Use this for initialization
+    void Start () {
 
         currentAnim = "Forward";
         bunnyAnim = GetComponentInChildren<Animator>();
         idling = false;
         currentLocation = this.transform.position;
-	}
+        effects = gameObject.transform.Find("effects").gameObject;
+        rl = GameObject.FindObjectOfType<ResourceLoader>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -140,7 +152,61 @@ public class Bunny : MonoBehaviour {
         destination = fleeLocation;
     }
 
-    /*IEnumerator PotionEffects(Potion pot)
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (rl.activeItem != null)
+            {
+                if (rl.activeItem.item.item is Potion)
+                {
+                    GivePotion(rl.activeItem);
+                }
+            }
+        }
+    }
+    public void GivePotion(InventorySlot slot)
+    {
+        Potion temp = slot.item.item as Potion;
+
+        if (temp.Primary == Ingredient.Attributes.none || temp.Primary == null)
+        {
+            if (Random.Range(0, 1.0f) < 0.5f)
+            {
+                int rand = Random.Range(0, 7);
+                switch (rand)
+                {
+                    case 0:
+                        temp = new Potion("Healing Potion", "Potions/potions_healing", 10, Ingredient.Attributes.healing, null, null, 0);
+                        break;
+                    case 1:
+                        temp = new Potion("Sleep Potion", "Potions/potions_sleep", 40, Ingredient.Attributes.sleep, null, null, 0);
+                        break;
+                    case 2:
+                        temp = new Potion("Invisibility Potion", "Potions/potions_invisibility", 25, Ingredient.Attributes.invisibility, null, null, 0);
+                        break;
+                    case 3:
+                        temp = new Potion("Poison Potion", "Potions/potions_poison", 25, Ingredient.Attributes.poison, null, null, 0);
+                        break;
+                    case 4:
+                        temp = new Potion("Transformation Potion", "Potions/potions_transform", 25, Ingredient.Attributes.transformation, null, null, 0);
+                        break;
+                    case 5:
+                        temp = new Potion("Mana Potion", "Potions/potions_mana", 10, Ingredient.Attributes.mana, null, null, 0);
+                        break;
+                    case 6:
+                        temp = new Potion("Speed Potion", "Potions/potions_speed", 25, Ingredient.Attributes.speed, null, null, 0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        StartCoroutine(PotionEffects(temp));
+    }
+
+        IEnumerator PotionEffects(Potion pot)
     {
         effects.SetActive(true);
         Ingredient.Attributes? type = pot.Primary;
@@ -149,9 +215,11 @@ public class Bunny : MonoBehaviour {
         {
             case Ingredient.Attributes.healing:
                 effectsAnim.SetBool("Healing", true);
+                followPlayer = true;
+                fleePlayer = false;
                 break;
             case Ingredient.Attributes.invisibility:
-                info.state.Add(Status.invisible);
+                invisible = true;
                 effectsAnim.SetBool("Invisible", true);
                 effectsAnim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.83f);
@@ -159,27 +227,22 @@ public class Bunny : MonoBehaviour {
                 Color c = GetComponent<SpriteRenderer>().color;
                 c.a = 0.25f;
                 GetComponent<SpriteRenderer>().color = c;
-                info.potionTimers.Add(Status.invisible, new NPCController.TimerData(Time.time, pot.Duration));
                 break;
             case Ingredient.Attributes.mana:
                 effectsAnim.SetBool("Mana", true);
                 break;
             case Ingredient.Attributes.poison:
                 speed--;
-                info.state.Add(Status.poisoned);
-                info.potionTimers.Add(Status.poisoned, new NPCController.TimerData(Time.time, pot.Duration));
+                poisoned = true;             
                 effectsAnim.SetBool("Poison", true);
                 break;
             case Ingredient.Attributes.sleep:
-                info.state.Add(Status.asleep);
-                info.potionTimers.Add(Status.asleep, new NPCController.TimerData(Time.time, pot.Duration));
+                sleeping = true;              
                 effectsAnim.SetBool("Sleep", true);
                 sleeping = true;
-                allowedToMove = false;
                 break;
             case Ingredient.Attributes.speed:
-                info.state.Add(Status.fast);
-                info.potionTimers.Add(Status.fast, new NPCController.TimerData(Time.time, pot.Duration));
+                onSpeed = true;
                 speed = 8;
                 effectsAnim.SetBool("Speed", true);
                 break;
@@ -187,10 +250,9 @@ public class Bunny : MonoBehaviour {
                 effectsAnim.SetBool("Transformation", true);
                 effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
-                info.state.Add(Status.transformed);
-                info.potionTimers.Add(Status.transformed, new NPCController.TimerData(Time.time, pot.Duration));
+                transformed = true;
                 speed++;
-                playerAnim.SetBool("Transform", true);
+                bunnyAnim.SetBool("Transform", true);
                 effectsAnim.SetBool("Transformation", false);
                 break;
             case Ingredient.Attributes.none:
@@ -198,11 +260,7 @@ public class Bunny : MonoBehaviour {
             default:
                 break;
         }
-        controller.npcData[characterName] = info;
-        while (closed == false)
-        {
-            yield return null;
-        }
+        
 
         yield return new WaitForSeconds((pot.Duration / 10) * GameObject.FindObjectOfType<MoonCycle>().CLOCK_SPEED);
 
@@ -212,8 +270,7 @@ public class Bunny : MonoBehaviour {
                 effectsAnim.SetBool("Healing", false);
                 break;
             case Ingredient.Attributes.invisibility:
-                info.state.Remove(Status.invisible);
-                info.potionTimers.Remove(Status.invisible);
+                invisible = false;
                 effectsAnim.SetBool("Invisible", true);
                 effectsAnim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.83f);
@@ -229,40 +286,35 @@ public class Bunny : MonoBehaviour {
                 break;
             case Ingredient.Attributes.poison:
                 speed++;
-                info.state.Remove(Status.poisoned);
-                info.potionTimers.Remove(Status.poisoned);
+                poisoned = false;
                 effectsAnim.SetBool("Poison", false);
                 break;
             case Ingredient.Attributes.sleep:
-                info.state.Remove(Status.asleep);
-                info.potionTimers.Remove(Status.asleep);
+                sleeping = false;
                 effectsAnim.SetBool("Sleep", false);
-                playerAnim.SetBool("Sleep", false);
+                //bunnyAnim.SetBool("Sleep", false);
                 yield return new WaitForSeconds(0.33f);
                 sleeping = false;
-                allowedToMove = true;
                 break;
             case Ingredient.Attributes.speed:
-                info.state.Remove(Status.fast);
-                info.potionTimers.Remove(Status.fast);
+                onSpeed = false;
                 speed = 4;
                 effectsAnim.SetBool("Speed", false);
                 break;
             case Ingredient.Attributes.transformation:
-                info.state.Remove(Status.transformed);
-                info.potionTimers.Remove(Status.transformed);
+                transformed = false;
                 speed--;
                 effectsAnim.SetBool("Transformation", true);
                 effectsAnim.Play("Transformation", 0, 0);
                 yield return new WaitForSeconds(0.5f);
-                playerAnim.SetBool("Transform", false);
+                bunnyAnim.SetBool("Transform", false);
                 effectsAnim.SetBool("Transformation", false);
                 break;
             default:
                 break;
         }
-        controller.npcData[characterName] = info;
+       
         effects.SetActive(false);
-    }*/
+    }
 
 }

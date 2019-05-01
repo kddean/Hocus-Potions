@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BunnyManager : MonoBehaviour {
 
+  
 
     Bunny[] bunnies;
 
@@ -35,7 +36,8 @@ public class BunnyManager : MonoBehaviour {
         bunnyHome = GameObject.Find("BunnyHome").transform.position;
         Player = GameObject.FindGameObjectWithTag("Player");
         alreadySetBunnies = false;
-	}
+       
+    }
 	
 	// Update is called once per frame
 	void Update () {
