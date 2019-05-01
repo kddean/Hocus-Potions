@@ -37,6 +37,8 @@ public class Bunny : MonoBehaviour {
         currentLocation = this.transform.position;
         effects = gameObject.transform.Find("effects").gameObject;
         rl = GameObject.FindObjectOfType<ResourceLoader>();
+        speed = 1;
+        effectsAnim = effects.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -86,7 +88,7 @@ public class Bunny : MonoBehaviour {
         }
         else if (currentLocation != destination)
         {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, destination, Time.deltaTime);
+            this.transform.position = Vector2.MoveTowards(this.transform.position, destination, speed*Time.deltaTime);
 
         }
         else { Wandering(); }
@@ -120,7 +122,7 @@ public class Bunny : MonoBehaviour {
       if(currentLocation != destination)
         {           
             destination = GameObject.Find("BunnyManager").GetComponent<BunnyManager>().Player.transform.position + new Vector3(1,0);
-            this.transform.position =  Vector2.MoveTowards(this.transform.position, destination, Time.deltaTime);
+            this.transform.position =  Vector2.MoveTowards(this.transform.position, destination, speed*Time.deltaTime);
         }
         else
         {
@@ -152,9 +154,9 @@ public class Bunny : MonoBehaviour {
         destination = fleeLocation;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnMouseDown()
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        
         {
             if (rl.activeItem != null)
             {
