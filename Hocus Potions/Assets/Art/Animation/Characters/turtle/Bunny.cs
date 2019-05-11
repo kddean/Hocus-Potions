@@ -35,7 +35,7 @@ public class Bunny : MonoBehaviour {
         bunnyAnim = GetComponentInChildren<Animator>();
         idling = false;
         currentLocation = this.transform.position;
-        effects = gameObject.transform.Find("effects").gameObject;
+        effects = gameObject.transform.Find("bunnyeffects").gameObject;
         rl = GameObject.FindObjectOfType<ResourceLoader>();
         speed = 1;
         effectsAnim = effects.GetComponent<Animator>();
@@ -49,11 +49,17 @@ public class Bunny : MonoBehaviour {
         //Movement
         if (bunnyAnim != null && bunnyAnim.enabled)
         {
-            if (transform.position.x < destination.x)
+            
+            if (transform.position.x < destination.x || idling == true)
             {
                 bunnyAnim.SetBool(currentAnim, false);
                 currentAnim = "Right";
                 bunnyAnim.SetBool(currentAnim, true);
+
+                if (idling)
+                {
+                    bunnyAnim.SetBool(currentAnim, false);
+                }
             }
             else if (transform.position.x > destination.x)
             {
@@ -62,17 +68,17 @@ public class Bunny : MonoBehaviour {
                 bunnyAnim.SetBool(currentAnim, true);
 
             }
-            else if (transform.position.y > destination.y)
+            else if (transform.position.y > destination.y )
             {
                 bunnyAnim.SetBool(currentAnim, false);
                 currentAnim = "Backward";
                 bunnyAnim.SetBool(currentAnim, true);
 
             }
-            else if (transform.position.y < destination.y || idling == true)
+            else if (transform.position.y < destination.y )
             {
                 bunnyAnim.SetBool(currentAnim, false);
-                currentAnim = "Foreward";
+                currentAnim = "Forward";
                 bunnyAnim.SetBool(currentAnim, true);
             }
         }
@@ -120,7 +126,8 @@ public class Bunny : MonoBehaviour {
     {
        
       if(currentLocation != destination)
-        {           
+        {
+            idling = false;
             destination = GameObject.Find("BunnyManager").GetComponent<BunnyManager>().Player.transform.position + new Vector3(1,0);
             this.transform.position =  Vector2.MoveTowards(this.transform.position, destination, speed*Time.deltaTime);
         }
@@ -205,7 +212,9 @@ public class Bunny : MonoBehaviour {
             }
         }
 
+        Inventory.RemoveItem(slot);
         StartCoroutine(PotionEffects(temp));
+
     }
 
         IEnumerator PotionEffects(Potion pot)
@@ -234,14 +243,18 @@ public class Bunny : MonoBehaviour {
                 effectsAnim.SetBool("Mana", true);
                 break;
             case Ingredient.Attributes.poison:
-                speed--;
+                speed = 0.5f;
                 poisoned = true;             
                 effectsAnim.SetBool("Poison", true);
+                followPlayer = false;
+                fleePlayer = true;
                 break;
             case Ingredient.Attributes.sleep:
                 sleeping = true;              
                 effectsAnim.SetBool("Sleep", true);
                 sleeping = true;
+                speed = 0;
+                idling = true;
                 break;
             case Ingredient.Attributes.speed:
                 onSpeed = true;
@@ -274,11 +287,11 @@ public class Bunny : MonoBehaviour {
             case Ingredient.Attributes.invisibility:
                 invisible = false;
                 effectsAnim.SetBool("Invisible", true);
-                effectsAnim.Play("Invisible", 0, 0);
+                //effectsAnim.Play("Invisible", 0, 0);
                 yield return new WaitForSeconds(0.83f);
                 effectsAnim.SetBool("Invisible", false);
                 Color c = GetComponent<SpriteRenderer>().color;
-                c.a = 0.25f;
+                c.a = 1f;
                 GetComponent<SpriteRenderer>().color = c;
                 break;
             case Ingredient.Attributes.mana:
@@ -287,7 +300,7 @@ public class Bunny : MonoBehaviour {
             case Ingredient.Attributes.none:
                 break;
             case Ingredient.Attributes.poison:
-                speed++;
+                speed = 1;
                 poisoned = false;
                 effectsAnim.SetBool("Poison", false);
                 break;
@@ -297,6 +310,8 @@ public class Bunny : MonoBehaviour {
                 //bunnyAnim.SetBool("Sleep", false);
                 yield return new WaitForSeconds(0.33f);
                 sleeping = false;
+                speed = 1;
+                idling = false;
                 break;
             case Ingredient.Attributes.speed:
                 onSpeed = false;
