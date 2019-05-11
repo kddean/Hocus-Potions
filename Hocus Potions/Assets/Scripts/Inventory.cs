@@ -75,15 +75,7 @@ public class Inventory {
         ResourceLoader rl = GameObject.FindGameObjectWithTag("loader").GetComponent<ResourceLoader>();
         Brewing b = new Brewing();
         Inventory.Add(b.Brew(rl.ingredients["catnip"], rl.ingredients["thistle"], rl.ingredients["lambsgrass"]), 1, false);
-        Tutorial2();
-        //Final Presentation - Can delete
-        Inventory.Add(b.Brew(rl.ingredients["catnip"], rl.ingredients["lavender"], rl.ingredients["poppy"]), 3, false);
-        Inventory.Add(b.Brew(rl.ingredients["poppy"], rl.ingredients["nightshade"], rl.ingredients["mugwort"]), 3, false);
-        Inventory.Add(b.Brew(rl.ingredients["catnip"], rl.ingredients["thistle"], rl.ingredients["lambsgrass"]), 2, false);
-        Inventory.Add(b.Brew(rl.ingredients["catnip"], rl.ingredients["mugwort"], rl.ingredients["lily"]), 3, false);
-        Inventory.Add(b.Brew(rl.ingredients["poppy"], rl.ingredients["lambsgrass"], rl.ingredients["thistle"]), 3, false);
-        Inventory.Add(b.Brew(rl.ingredients["lavender"], rl.ingredients["nightshade"], rl.ingredients["lambsgrass"]), 3, false);
-
+        Tutorial2();        
 
     }
 
