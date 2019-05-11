@@ -92,7 +92,7 @@ public class Bunny : MonoBehaviour {
         {
             fleeingPlayer();
         }
-        else if (currentLocation != destination)
+        else if (currentLocation != destination && !idling)
         {
             this.transform.position = Vector2.MoveTowards(this.transform.position, destination, speed*Time.deltaTime);
 
@@ -332,6 +332,32 @@ public class Bunny : MonoBehaviour {
         }
        
         effects.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name.Contains("bunny"))
+        {
+            StartCoroutine(BunnyFriend());
+        }
+        else if (collision.gameObject.GetComponent<NPC>())
+        {
+            StartCoroutine(FleeNPC(collision.gameObject));
+        }
+
+        Wandering();
+    }
+
+    IEnumerator BunnyFriend()
+    {
+        idling = true;
+        yield return new WaitForSeconds(6);
+        idling = false;
+    }
+    IEnumerator FleeNPC(GameObject npc)
+    {
+        destination = new Vector3(npc.transform.position.x - 10, npc.transform.position.y + 10);
+        yield return new WaitForSeconds(10);
     }
 
 }
