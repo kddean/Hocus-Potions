@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Bunny : MonoBehaviour {
+public class Bunny : MonoBehaviour, IPointerDownHandler {
 
     ResourceLoader rl;
     string currentAnim;
@@ -161,19 +161,12 @@ public class Bunny : MonoBehaviour {
         destination = fleeLocation;
     }
 
-    public void OnMouseDown()
-    {
-        
-        {
-            if (rl.activeItem != null)
-            {
-                if (rl.activeItem.item.item is Potion)
-                {
-                    GivePotion(rl.activeItem);
-                }
-            }
+    public void OnPointerDown(PointerEventData eventData) {
+        if (rl.activeItem != null && rl.activeItem.item.item is Potion) {
+            GivePotion(rl.activeItem);
         }
     }
+
     public void GivePotion(InventorySlot slot)
     {
         Potion temp = slot.item.item as Potion;
@@ -360,4 +353,5 @@ public class Bunny : MonoBehaviour {
         yield return new WaitForSeconds(10);
     }
 
+   
 }

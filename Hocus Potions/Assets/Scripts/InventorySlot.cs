@@ -300,6 +300,16 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     dragging = false;
                     return;
                 }
+
+                //Use potion on bunny
+                if (item.item is Potion && ray.collider.bounds.Contains(new Vector2(mouse.x, mouse.y)) && ray.collider.gameObject.GetComponent<Bunny>() != null) {
+                    ray.collider.gameObject.GetComponent<Bunny>().GivePotion(this);
+                    transform.SetParent(startingParent);
+                    transform.localPosition = temp;
+                    transform.SetSiblingIndex(index);
+                    dragging = false;
+                    return;
+                }
             }
             transform.SetParent(startingParent);
             transform.localPosition = temp;
