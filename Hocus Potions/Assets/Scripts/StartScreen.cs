@@ -35,7 +35,9 @@ public class StartScreen : MonoBehaviour {
 
     public void ToggleControls() {
         CanvasGroup[] cgs = GetComponentsInChildren<CanvasGroup>();
+        CanvasGroup credits = GameObject.Find("CreditsPanel").GetComponent<CanvasGroup>();
         foreach(CanvasGroup c in cgs) {
+            if(c == credits) { continue; }
             c.interactable = !c.interactable;
             c.blocksRaycasts = !c.blocksRaycasts;
             c.alpha = Mathf.Abs(c.alpha - 1);
@@ -43,6 +45,25 @@ public class StartScreen : MonoBehaviour {
         KeybindManager[] keybindManagers = GameObject.FindObjectsOfType<KeybindManager>();
         foreach (KeybindManager km in keybindManagers) {
             km.LoadKeybindText();
+        }
+    }
+
+    public void Credits() {
+        CanvasGroup[] cgs = GetComponentsInChildren<CanvasGroup>();
+        foreach (CanvasGroup c in cgs) {
+            if (c.gameObject.name.Equals("Keybinds")) { continue; }
+            c.interactable = !c.interactable;
+            c.blocksRaycasts = !c.blocksRaycasts;
+            c.alpha = Mathf.Abs(c.alpha - 1);
+        }
+    }
+
+    public void CloseButton() {
+        CanvasGroup[] cgs = GetComponentsInChildren<CanvasGroup>();
+        foreach (CanvasGroup c in cgs) {
+            c.interactable = false;
+            c.blocksRaycasts = false; 
+            c.alpha = 0; 
         }
     }
 

@@ -508,6 +508,39 @@ public class NPCController : MonoBehaviour {
         }
     }
 
+    public void LakePotion(Ingredient.Attributes? type) {
+        StartCoroutine(LakePotionDelay(type, GameObject.FindObjectOfType<MoonCycle>().Days));
+    }
+
+    IEnumerator LakePotionDelay(Ingredient.Attributes? type, int day) {
+        while(GameObject.FindObjectOfType<MoonCycle>().Days == day) {
+            yield return new WaitForSeconds(GameObject.FindObjectOfType<MoonCycle>().CLOCK_SPEED);
+        }
+        foreach (string s in npcData.Keys.ToList()) {
+            NPCInfo tempInfo = npcData[s];
+            if (s.Equals("Ralphie")) { continue; }
+            switch (type) {
+                case Ingredient.Attributes.invisibility:
+                    tempInfo.potionTimers.Add(NPC.Status.invisible, new TimerData(Time.time, 1440));
+                    break;
+                case Ingredient.Attributes.poison:
+                    tempInfo.potionTimers.Add(NPC.Status.poisoned, new TimerData(Time.time, 1440));
+                    break;
+                case Ingredient.Attributes.speed:
+                    tempInfo.potionTimers.Add(NPC.Status.fast, new TimerData(Time.time, 1440));
+                    break;
+                case Ingredient.Attributes.transformation:
+                    tempInfo.potionTimers.Add(NPC.Status.transformed, new TimerData(Time.time, 1440));
+                    break;
+                case Ingredient.Attributes.sleep:
+                    tempInfo.potionTimers.Add(NPC.Status.asleep, new TimerData(Time.time, 1440));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     [System.Serializable]
     private class CompareTimes : IComparer<Schedule> {
         int IComparer<Schedule>.Compare(Schedule a, Schedule b) {

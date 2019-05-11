@@ -272,6 +272,10 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 if (dialogueCanvas.GetComponent<DialogueCanvas>().active && dialogueCanvas.GetComponent<DialogueCanvas>().user.Equals(characterName)) {
                     ExitButton();
                 }
+                if (!info.returning) {
+                    info.requestKey = "";
+                    controller.npcData[characterName] = info;
+                }
                 Destroy(this.gameObject);
             }
         }
@@ -371,7 +375,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         madeChoice = true;
                     } else {
                         GiveQuest();
-                        return;
                     }
                 }
                 controller.npcData[characterName] = info;
@@ -527,6 +530,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
                 break;
             case "Dante":
+                if (controller.NPCQuestFlags["Ralphie"] && !controller.NPCQuestFlags["Dante"]) {
+                    scriptedQuest = true;
+                }
                 break;
             case "Franklin":
                 if (controller.NPCQuestFlags["Amara"] && !controller.NPCQuestFlags["Franklin"]) {
@@ -595,7 +601,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         controller.npcData[CharacterName] = info;
         dialoguePieces = Dialogue[key][0].Split('*');
         currentDialogue = 0;
-        dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[0];
+       // dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[0];
         requested = true;
     }
 
@@ -668,7 +674,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
             }
         }
-        info.given.Add(temp);
+
         info.returning = false;
         requested = false;
         done = true;
@@ -783,6 +789,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
             if (finishedQuestline) {
                 controller.NPCQuestFlags[characterName] = true;
                 info.affinity += (requests[index].GetValue(type) * requests[index].Strength);
+                if (characterName.Equals("Ralphie")) {
+                    controller.LakePotion(temp.Primary);
+                }
             }
         }
 
@@ -861,7 +870,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     public void AcceptButton() {
         ExitButton();
         info.returning = false;
-        info.requestKey = "";
         controller.npcData[CharacterName] = info;
         List<string> queueList = controller.npcQueue.Values.ToList();
         int index = queueList.FindIndex(item => item.Equals(characterName));
