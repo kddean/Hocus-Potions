@@ -21,11 +21,13 @@ public class Tutorial : MonoBehaviour {
     public GameObject notification;
     bool startText = false;
     bool finishedTutorial = false;
+    bool doingTutorial = false;
     // Use this for initialization
     void Start() {
         skipButton = GameObject.Find("TutorialCanvas");
         skipButton.SetActive(false);
         doorway = GameObject.Find("ToWorld");
+        player = GameObject.FindObjectOfType<Player>();
     }
 
     // Update is called once per frame
@@ -34,12 +36,17 @@ public class Tutorial : MonoBehaviour {
             StartCoroutine(RunTutorial());
             skipButton.SetActive(true);
             doTutorial = false;
+            doingTutorial = true;
         }
 
         if (finishedTutorial && cat != null && cat.transform.position == new Vector3(0.5f, -4.5f, 0)) {
             ExitButton();
             Destroy(cat);
             Destroy(this);
+        }
+
+        if (!finishedTutorial && doingTutorial) {
+            player.allowedToMove = false;
         }
 
         if (Monitor.TryEnter(path, 1)) {
@@ -94,7 +101,6 @@ public class Tutorial : MonoBehaviour {
         if (!finishedTutorial) {
             Time.timeScale = 0;
             doorway.SetActive(false);
-            player = GameObject.FindObjectOfType<Player>();
             player.allowedToMove = false;
             speed = 4;
             cat = Instantiate(Resources.Load<GameObject>("Characters/TutorialCat"));
@@ -106,12 +112,12 @@ public class Tutorial : MonoBehaviour {
 
             dc = Resources.FindObjectsOfTypeAll<DialogueCanvas>()[0];
             exitButton = dc.GetComponentsInChildren<Button>()[1].gameObject;
-            dialogue = new string[] { "Hail, young witch", "Oh, don’t look so surprised!", "How do you expect to become a witch if you can’t handle a talking cat?", "I’m Princess, I’ve lived in these parts for a while, I even knew your Great Aunt back in the day", "She would be proud to know you’ve decided to take over the family business", "I’m glad to see you’ve already started dressing the part, too.", "So... you don’t really know where to start, do you?", "Well, luckily for you your Great Aunt left her old spellbook. I think you can open it up with M",
+            dialogue = new string[] { "Hail, young witch.", "Oh, don’t look so surprised!", "How do you expect to become a witch if you can’t handle a talking cat?", "I’m Princess, I’ve lived in these parts for a while, I even knew your Great Aunt back in the day", "She would be proud to know you’ve decided to take over the family business.", "I’m glad to see you’ve already started dressing the part, too.", "So... you don’t really know where to start, do you?", "Well, luckily for you your Great Aunt left her old spellbook. I think you can open it up with M.",
             "Great, I’m glad that old pile of papers still works, although it looks like some pages have gone missing over the years.", "You’re new to brewing potions, right? Well, it’s not too hard to get started.", "Here, take these ingredients, plop ‘em in the cauldron over there, and see what you can make.",
             "Nice, that looks like a great potion of speed. You can drink it now if you want, or you can save it for later.", "You can get more ingredients by finding them in the wild surrounding your house", "Or you can grow them yourself! Here are some seeds you can plant in the old garden plots outside.",
             "There, now you have some to get you started.", "Don’t worry about saying thanks, I’m a cat, I don’t have thumbs so I can’t use them anyways.", "You can put them in that storage chest for now, if you’d like.", "Why don’t you go ahead and make sure the darn thing isn’t rusted shut?",
-            "One last thing -- your Aunt passed her spellcraft knowledge along, didn’t she?", "You can equip spells by pressing and holding Left Ctrl.", "Spells aren’t my area of expertise though, so you’ll have to figure out how to use them yourself",
-            "I think you’re ready to get started, I better get back home before my roommates get worried.", "Oh, one last thing...", "There’s been talk of strange entities in these woods...", "You best watch yourself around anyone who looks... suspicious.", "That aside though, I expect the locals will be coming by and asking you for help once word gets out that there’s a new witch in town.", "They may not all like magic, but they do like shoving their problems on others", "Good luck, little witch." };
+            "One last thing -- your Aunt passed her spellcraft knowledge along, didn’t she?", "You can equip spells by pressing and holding Left Ctrl.", "Spells aren’t my area of expertise though, so you’ll have to figure out how to use them yourself.",
+            "I think you’re ready to get started, I better get back home before my roommates get worried.", "Oh, one last thing...", "There’s been talk of strange entities in these woods...", "You best watch yourself around anyone who looks... suspicious.", "That aside though, I expect the locals will be coming by and asking you for help once word gets out that there’s a new witch in town.", "They may not all like magic, but they do like shoving their problems on others.", "Good luck, little witch." };
 
 
 
@@ -146,6 +152,7 @@ public class Tutorial : MonoBehaviour {
             Time.timeScale = 1;
             GameObject.FindObjectOfType<Pathfinding>().InitializePath(cat.transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
             player.allowedToMove = true;
+            doingTutorial = false;
             doorway.SetActive(true);
             dc.GetComponentsInChildren<Text>()[4].text = "";
 
@@ -193,6 +200,7 @@ public class Tutorial : MonoBehaviour {
             Inventory.Tutorial1();
             InventorySlot[] slots = GameObject.FindObjectsOfType<InventorySlot>();
             while (!madePotion) {
+                player.allowedToMove = false;
                 foreach (InventorySlot s in slots) {
                     if (s.item != null && s.item.item != null && s.item.item.name.Contains("Potion")) {
                         madePotion = true;
@@ -220,7 +228,7 @@ public class Tutorial : MonoBehaviour {
             while (GameObject.FindGameObjectWithTag("storage") != null) {
                 yield return null;
             }
-
+            player.allowedToMove = false;
             dc.gameObject.SetActive(true);
         } else if (index == 21) {
             dc.gameObject.SetActive(false);
@@ -254,6 +262,7 @@ public class Tutorial : MonoBehaviour {
         doorway.SetActive(true);
         GameObject.FindObjectOfType<Player>().allowedToMove = true;
         finishedTutorial = true;
+        doingTutorial = false;
         dc.GetComponentsInChildren<Text>()[4].text = "";
     }
 }

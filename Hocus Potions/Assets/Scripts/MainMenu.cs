@@ -146,6 +146,7 @@ public class MainMenu : MonoBehaviour {
         data.currentMap = npcs.CurrentMap;
         data.npcNames2 = npcs.NPCQuestFlags.Keys.ToList();
         data.questFlags = npcs.NPCQuestFlags.Values.ToList();
+        data.gaveHint = npcs.gaveHint;
 
         data.keybinds = GameObject.FindObjectOfType<InputManager>().keybinds;
 
@@ -313,7 +314,7 @@ public class MainMenu : MonoBehaviour {
 
             npcs.CurrentMap = data.currentMap;
             npcs.LoadNPCS();
-
+            npcs.gaveHint = data.gaveHint;
             GameObject.FindObjectOfType<ShrineManager>().endNature = data.endNature;
             GameObject.FindObjectOfType<ShrineManager>().endOrder = data.endOrder;
             GameObject.FindObjectOfType<ShrineManager>().endSocial = data.endSocial;

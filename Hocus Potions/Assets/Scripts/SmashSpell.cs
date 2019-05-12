@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class SmashSpell : MonoBehaviour, IPointerDownHandler {
     ResourceLoader rl;
     Mana mana;
+    bool clicked;
     // Use this for initialization
     Ingredient[][] spawnOptions;
     void Start() {
@@ -16,10 +17,11 @@ public class SmashSpell : MonoBehaviour, IPointerDownHandler {
         spawnOptions[1] = new Ingredient[] { rl.ingredients["garnet"], rl.ingredients["jet"] };
         spawnOptions[2] = new Ingredient[] { rl.ingredients["amber"] };
         spawnOptions[3] = new Ingredient[] { rl.ingredients["amber"] };
+        clicked = false;
     }
 
     private void OnMouseEnter() {
-        if (rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Smash")) {
+        if (!clicked) {
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/Smash Mouse"), Vector2.zero, CursorMode.Auto);
         }
     }
@@ -29,7 +31,7 @@ public class SmashSpell : MonoBehaviour, IPointerDownHandler {
     }
     public void OnPointerDown(PointerEventData eventData) {
         Player player = GameObject.FindObjectOfType<Player>();
-        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f) {
+        if (player.Status.Contains(Player.PlayerStatus.asleep) || player.Status.Contains(Player.PlayerStatus.transformed) || Vector3.Distance(player.transform.position, transform.position) > 3f || clicked) {
             return;
         }
         if(eventData.button == PointerEventData.InputButton.Right && rl.activeSpell != null && rl.activeSpell.SpellName.Equals("Smash")) {
@@ -37,7 +39,7 @@ public class SmashSpell : MonoBehaviour, IPointerDownHandler {
                 mana.OOM();
                 return;
             }
-
+            clicked = true;
             int type;
             BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
             foreach (BoxCollider2D b in colliders) {
@@ -156,5 +158,6 @@ public class SmashSpell : MonoBehaviour, IPointerDownHandler {
         foreach (BoxCollider2D b in colliders) {
             b.enabled = true;
         }
+        clicked = false;
     }
 }

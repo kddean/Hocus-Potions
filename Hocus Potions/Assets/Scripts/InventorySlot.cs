@@ -346,6 +346,8 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                         foreach(Ingredient.Attributes att in rl.knownAttributes[temp]) {
                             text[1].text += "- " + att.ToString() + "\n";
                         }
+                    } else {
+                        text[1].text = "";
                     }
                 } else {
                    Inventory.Add(temp, 1, false);

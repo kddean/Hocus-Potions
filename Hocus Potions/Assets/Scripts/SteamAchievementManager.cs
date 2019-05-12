@@ -166,7 +166,6 @@ class SteamAchievementManager : MonoBehaviour {
                         SteamUserStats.GetStat("AverageSpeed", out m_flAverageSpeed);
                         */
             bool bSuccess = SteamUserStats.StoreStats();
-            Debug.Log(bSuccess);
             // If this failed, we never sent anything to the server, try
             // again later.
             m_bStoreStats = !bSuccess;

@@ -38,8 +38,6 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
     bool clicked;
 
 
-
-
     public enum Status { poisoned, fast, invisible, transformed, asleep }
 
     public string CharacterName {
@@ -362,7 +360,7 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         dialoguePieces = dialogue[info.requestKey][0].Split('*');
                         currentDialogue = dialoguePieces.Length - 1;
                     }
-                    
+
                     if (!rl.requestList.TryGetValue(characterName, out requests)) {
                         allowedToMove = true;
                         player.allowedToMove = true;
@@ -373,12 +371,14 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                         currentDialogue = dialoguePieces.Length - 1;
                         requested = true;
                         madeChoice = true;
+                    } else if (info.shouldGiveHint) {
+                        GiveHint();
                     } else {
                         GiveQuest();
                     }
                 }
                 controller.npcData[characterName] = info;
-            }
+            } 
 
             dialogueCanvas.SetActive(true);
             dialogueCanvas.GetComponent<DialogueCanvas>().active = true;
@@ -410,6 +410,42 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
             }
         }
+    }
+
+    public void UpdateRegion(string regionName) {
+        region = regionName;
+        if(dialoguePieces.Length != 0) {
+            string key = GenerateKey();
+            if (key == null) {
+                allowedToMove = true;
+                player.allowedToMove = true;
+                clicked = false;
+                return;
+            }
+            List<string> initial;
+            try {
+                initial = dialogue[key];
+            } catch (KeyNotFoundException) {
+                allowedToMove = true;
+                player.allowedToMove = true;
+                clicked = false;
+                return;
+            }
+            List<string> options = new List<string>();
+            foreach (string s in initial) {
+                if (s.Length > 3) {
+                    options.Add(s);
+                }
+            }
+            if (options.Count == 1) {
+                dialoguePieces = options[0].Split('*');
+            } else {
+                int rand = Random.Range(0, options.Count);
+                dialoguePieces = options[rand].Split('*');
+            }
+            currentDialogue = 0;
+        }
+
     }
 
     private string GenerateKey() {
@@ -454,9 +490,28 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
 
     public void NextDialogueInside() {
         currentDialogue++;
+        if (!intro && info.shouldGiveHint) {
+            if(currentDialogue == dialoguePieces.Length - 1) {
+                nextCG.alpha = 0;
+                nextCG.interactable = false;
+                nextCG.blocksRaycasts = false;
+                info.shouldGiveHint = false;
+                GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
+                nextTarget = new Vector3(69.5f, -12.5f, 0);
+            }
+            if (currentDialogue < dialoguePieces.Length) {
+                dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+            }
+            return;
+        }
+
         if (!responding && !requested && !info.returning && currentDialogue == dialoguePieces.Length) {
             intro = false;
-            GiveQuest();
+            if (info.shouldGiveHint) {
+                GiveHint();
+            } else {
+                GiveQuest();
+            }
             return;
         }
 
@@ -479,18 +534,18 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
             } else if (currentDialogue == dialoguePieces.Length - 1) {
                 done = true;
-                nextCG.GetComponent<CanvasGroup>().alpha = 0;
-                nextCG.GetComponent<CanvasGroup>().interactable = false;
-                nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                nextCG.alpha = 0;
+                nextCG.interactable = false;
+                nextCG.blocksRaycasts = false;
             }
         }
 
         dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
         if (currentDialogue == dialoguePieces.Length - 1) {
             if (!rl.requestList.TryGetValue(characterName, out requests)) {
-                nextCG.GetComponent<CanvasGroup>().alpha = 0;
-                nextCG.GetComponent<CanvasGroup>().interactable = false;
-                nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                nextCG.alpha = 0;
+                nextCG.interactable = false;
+                nextCG.blocksRaycasts = false;
             }
         }
 
@@ -500,9 +555,9 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         currentDialogue++;
         dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
         if (currentDialogue == dialoguePieces.Length - 1) {
-            nextCG.GetComponent<CanvasGroup>().alpha = 0;
-            nextCG.GetComponent<CanvasGroup>().interactable = false;
-            nextCG.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            nextCG.alpha = 0;
+            nextCG.interactable = false;
+            nextCG.blocksRaycasts = false;
             if (intro) {
                 dialoguePieces = new string[0];
                 currentDialogue = 0;
@@ -511,11 +566,34 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    private void GiveHint() {
+        switch (characterName) {
+            case "Black_Robed_Traveler":
+                dialoguePieces = dialogue["request_OrderHint"][0].Split('*');
+                currentDialogue = 0;
+                dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+                break;
+            case "Red_Robed_Traveler":
+                dialoguePieces = dialogue["request_SocialHint"][0].Split('*');
+                currentDialogue = 0;
+                dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+                break;
+            case "White_Robed_Traveler":
+                dialoguePieces = dialogue["request_ChaosHint"][0].Split('*');
+                currentDialogue = 0;
+                dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[currentDialogue];
+                break;
+            default:
+                info.shouldGiveHint = false;
+                GiveQuest();
+                break;
+        }
+    }
+
     private void GiveQuest() {
         int choice = -1;
-        if(info.availableQuests.Count == 0) {
-            PopulateQuestList();
-        }
+
+        PopulateQuestList();
         scriptedQuest = false;
         
         switch (characterName) {
@@ -601,14 +679,62 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
         controller.npcData[CharacterName] = info;
         dialoguePieces = Dialogue[key][0].Split('*');
         currentDialogue = 0;
-       // dialogueCanvas.GetComponentInChildren<Text>().text = dialoguePieces[0];
         requested = true;
     }
 
     void PopulateQuestList() {
         info.availableQuests = new List<int>();
         for(int i = 0; i < requests.Count; i++) {
-            if(!requests[i].Key.Contains("1") && !requests[i].Key.Contains("2") && !requests[i].Key.Contains("3")) {
+            //ignore scripted quests and finished quests
+            if(!requests[i].Key.Contains("1") && !requests[i].Key.Contains("2") && !requests[i].Key.Contains("3") && !info.finishedQuests.Contains(i)) {
+                //Checks for which quests they can give
+                if (characterName.Equals("Bernadette")) {
+                    if (controller.npcData["Bernadette"].scriptedQuestNum == 1) {
+                        if (requests[i].Key.Contains("birds")) {
+                            continue;
+                        }
+                    } else {
+                        if (requests[i].Key.Contains("hide") || requests[i].Key.Contains("skinny") || requests[i].Key.Contains("ring")) {
+                            continue;
+                        }
+                    }
+                } else if (characterName.Equals("Amara")) {
+                    if (controller.npcData["Bernadette"].scriptedQuestNum > 1) {
+                        if (requests[i].Key.Contains("chill")) {
+                            if (!info.finishedQuests.Contains(i)) {
+                                info.finishedQuests.Add(i);
+                            }
+                            continue;
+                        }
+                    } else if(!controller.NPCQuestFlags["Bernadette"]){
+                        if (requests[i].Key.Contains("present")) {
+                            continue;
+                        }
+                    }
+                } else if (characterName.Equals("Geoff")) {
+                    if (controller.npcData["Bernadette"].scriptedQuestNum > 1) {
+                        if (requests[i].Key.Contains("pre")) {
+                            if (!info.finishedQuests.Contains(i)) {
+                                info.finishedQuests.Add(i);
+                            }
+                            continue;
+                        }
+                    } else {
+                        if (requests[i].Key.Contains("deal") || requests[i].Key.Contains("organize")) {
+                            continue;
+                        }
+                    }
+                } else if (characterName.Equals("Franklin")) {
+                    if (controller.npcData["Bernadette"].scriptedQuestNum > 1) {
+                        if (requests[i].Key.Contains("tired")) {
+                            if (!info.finishedQuests.Contains(i)) {
+                                info.finishedQuests.Add(i);
+                            }
+                            continue;
+                        }
+                    }
+                } 
+
                 info.availableQuests.Add(i);
             }
         }
@@ -794,7 +920,8 @@ public class NPC : MonoBehaviour, IPointerDownHandler {
                 }
             }
         }
-
+        info.finishedQuests.Add(index);
+        info.percentCompleted = (float)info.finishedQuests.Count / (float)requests.Count;
         controller.npcData[CharacterName] = info;
         GameObject.FindObjectOfType<Pathfinding>().InitializePath(transform.position, new Vector3(0.5f, -4.5f, 0), 0, path);
         nextTarget = new Vector3(69.5f, -12.5f, 0);

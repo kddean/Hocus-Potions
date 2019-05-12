@@ -143,6 +143,9 @@ public class Shrine : MonoBehaviour, IPointerDownHandler {
                 List<string> npcs = npcController.NPCQuestFlags.Keys.ToList();
                 foreach(string s in npcs) {
                     npcController.NPCQuestFlags[s] = false;
+                    NPCController.NPCInfo tempInfo = npcController.npcData[s];
+                    tempInfo.finishedQuests = new List<int>();
+                    npcController.npcData[s] = tempInfo;
                 }
             } else {
                 dialogue = manager.rejectDialogue["order"];
@@ -158,6 +161,9 @@ public class Shrine : MonoBehaviour, IPointerDownHandler {
                 List<string> npcs = npcController.NPCQuestFlags.Keys.ToList();
                 foreach (string s in npcs) {
                     npcController.NPCQuestFlags[s] = false;
+                    NPCController.NPCInfo tempInfo = npcController.npcData[s];
+                    tempInfo.finishedQuests = new List<int>();
+                    npcController.npcData[s] = tempInfo;
                 }
 
                 List<string> keys = GameObject.FindObjectOfType<NPCController>().npcData.Keys.ToList();
@@ -185,6 +191,9 @@ public class Shrine : MonoBehaviour, IPointerDownHandler {
                 List<string> npcs = npcController.NPCQuestFlags.Keys.ToList();
                 foreach (string s in npcs) {
                     npcController.NPCQuestFlags[s] = false;
+                    NPCController.NPCInfo tempInfo = npcController.npcData[s];
+                    tempInfo.finishedQuests = new List<int>();
+                    npcController.npcData[s] = tempInfo;
                 }
 
                 Inventory.RemoveItem(slot);

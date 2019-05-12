@@ -62,6 +62,7 @@ public class SaveData {
     public List<string> npcNames2;
     public List<bool> questFlags;
     public int currentMap;
+    public bool gaveHint;
 
     //Keybinds
     public List<KeyCode> keybinds;

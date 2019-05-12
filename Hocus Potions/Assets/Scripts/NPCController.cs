@@ -24,6 +24,7 @@ public class NPCController : MonoBehaviour {
     bool resetting;
     public bool swapping;
     public bool saving;
+    public bool gaveHint;
 
     public int CurrentMap {
         get {
@@ -64,9 +65,13 @@ public class NPCController : MonoBehaviour {
         public Vec3 pathEnd;
         public Vec3 nextTarget;
         public List<int> availableQuests;
+        public List<int> finishedQuests;
         public int scriptedQuestNum;
+        public float percentCompleted;
+        public bool shouldGiveHint;
 
-        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, bool option, int scriptedQuestNum, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget, List<int> availableQuests) {
+
+        public NPCInfo(float x, float y, float z, int map, int timesInteracted, bool returning, string requestKey, float affinity, bool option, int scriptedQuestNum, List<Item> given, List<Schedule> locations, bool spawned, List<NPC.Status> state, Dictionary<NPC.Status, TimerData> potionTimers, Vec3 pathEnd, Vec3 nextTarget, List<int> availableQuests, List<int> finishedQuests, float percentCompleted, bool shouldGiveHint) {
             this.x = x;
             this.y = y;
             this.z = z;
@@ -84,9 +89,10 @@ public class NPCController : MonoBehaviour {
             this.pathEnd = pathEnd;
             this.nextTarget = nextTarget;
             this.availableQuests = availableQuests;
+            this.finishedQuests = finishedQuests;
             this.scriptedQuestNum = scriptedQuestNum;
-
-
+            this.percentCompleted = percentCompleted;
+            this.shouldGiveHint = shouldGiveHint;
         }
     }
 
@@ -143,6 +149,7 @@ public class NPCController : MonoBehaviour {
         SetQueue(0);
         resetting = false;
         swapping = false;
+        gaveHint = false;
     }
 
 
@@ -476,18 +483,58 @@ public class NPCController : MonoBehaviour {
         }
         
         List<string> available = new List<string>();
-        foreach (string key in npcData.Keys.ToList()) {
-            if (!queued.Contains(key)) {
-                available.Add(key);
+        float averageCompletion = 0.0f;
+        int count = 0;
+        foreach(string s in npcData.Keys.ToList()) {
+            count++;
+            averageCompletion += npcData[s].percentCompleted;
+        }
+        averageCompletion /= count;
+        if (averageCompletion < 0.8f || gaveHint) {
+            foreach (string key in npcData.Keys.ToList()) {
+                if (!queued.Contains(key) && HasAvailableQuests(key)) {
+                    available.Add(key);
+                }
+            }           
+        } else {
+            NPCInfo BlackData, RedData, WhiteData;
+            string highest;
+            gaveHint = true;
+            BlackData = npcData["Black_Robed_Traveler"];
+            RedData = npcData["Red_Robed_Traveler"];
+            WhiteData = npcData["White_Robed_Traveler"];
+            if (BlackData.affinity >= RedData.affinity) {
+                if (BlackData.affinity >= WhiteData.affinity) {
+                    highest = "Black_Robed_Traveler";
+                    BlackData.shouldGiveHint = true;
+                    GameObject.FindObjectOfType<ShrineManager>().order = true;
+                } else {
+                    highest = "White_Robed_Traveler";
+                    WhiteData.shouldGiveHint = true;
+                    GameObject.FindObjectOfType<ShrineManager>().nature = true;
+                }
+            } else {
+                if (RedData.affinity >= WhiteData.affinity) {
+                    highest = "Red_Robed_Traveler";
+                    RedData.shouldGiveHint = true;
+                    GameObject.FindObjectOfType<ShrineManager>().social = true;
+                } else {
+                    highest = "White_Robed_Traveler";
+                    WhiteData.shouldGiveHint = true;
+                    GameObject.FindObjectOfType<ShrineManager>().nature = true;
+                }
             }
+            available.Add(highest); 
         }
 
         string sendChar = "";
+        int rand = UnityEngine.Random.Range(0, available.Count);
 
-        int rand = UnityEngine.Random.Range(0, available.Count - 1);
         int spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
         int spawnHour = UnityEngine.Random.Range(8, 13);
-        if (mc.Days < 5 && available.Contains("Bernadette")) { sendChar = "Bernadette"; } else {
+        if (mc.Days < 4 && available.Contains("Bernadette")) {
+            sendChar = "Bernadette";
+        } else {
             sendChar = available[rand];
         }
         Schedule schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -7.5f, -0.5f, 0, sendChar);
@@ -497,7 +544,6 @@ public class NPCController : MonoBehaviour {
         available.Remove(sendChar);
         if (available.Count > 0) {
             spawnMinute = Mathf.RoundToInt(UnityEngine.Random.Range(0, 50) / 10) * 10;
-            //TODO: Change the times for this later
             spawnHour = UnityEngine.Random.Range(13, 17);
             rand = UnityEngine.Random.Range(0, available.Count - 1);
             schedule = new Schedule(false, day, spawnHour, spawnMinute, "", 0, -6.5f, 0.5f, 0, available[rand]);
@@ -505,6 +551,65 @@ public class NPCController : MonoBehaviour {
             schedule = new Schedule(false, day, spawnHour + 6, spawnMinute, "", 1, 69.5f, -12.5f, 0, available[rand]);
             npcQueue.Add(schedule, available[rand]);
             available.RemoveAt(rand);
+        }
+    }
+
+
+    private bool HasAvailableQuests(string checkChar) {
+        List<Request> requests = new List<Request>();
+        GameObject.FindObjectOfType<ResourceLoader>().requestList.TryGetValue(checkChar, out requests);
+        if(requests == null) {
+            return false;
+        }
+        int count = 0;
+        for (int i = 0; i < requests.Count; i++) {
+            //ignore scripted quests and finished quests
+            if (!requests[i].Key.Contains("1") && !requests[i].Key.Contains("2") && !requests[i].Key.Contains("3") && !npcData[checkChar].finishedQuests.Contains(i)) {
+                //Checks for which quests they can give
+                if (checkChar.Equals("Bernadette")) {
+                    if (!NPCQuestFlags["Bernadette"]) {
+                        if (requests[i].Key.Contains("birds")) {
+                            continue;
+                        }
+                    } else {
+                        if (requests[i].Key.Contains("hide") || requests[i].Key.Contains("skinny") || requests[i].Key.Contains("ring")) {
+                            continue;
+                        }
+                    }
+                } else if (checkChar.Equals("Amara")) {
+                    if (NPCQuestFlags["Bernadette"]) {
+                        if (requests[i].Key.Contains("chill")) {
+                            continue;
+                        }
+                    } else {
+                        if (requests[i].Key.Contains("present")) {
+                            continue;
+                        }
+                    }
+                } else if (checkChar.Equals("Geoff")) {
+                    if (NPCQuestFlags["Bernadette"]) {
+                        if (requests[i].Key.Contains("pre")) {
+                            continue;
+                        }
+                    } else {
+                        if (requests[i].Key.Contains("deal") || requests[i].Key.Contains("organize")) {
+                            continue;
+                        }
+                    }
+                } else if (checkChar.Equals("Franklin")) {
+                    if (NPCQuestFlags["Bernadette"]) {
+                        if (requests[i].Key.Contains("tired")) {
+                            continue;
+                        }
+                    }
+                }
+                count++;
+            }
+        }
+        if(count > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 

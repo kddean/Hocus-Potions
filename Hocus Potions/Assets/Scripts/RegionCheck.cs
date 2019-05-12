@@ -8,7 +8,7 @@ public class RegionCheck : MonoBehaviour {
         if(collision.isTrigger) { return; }
         NPC npc = collision.gameObject.GetComponent<NPC>();
         if( npc != null) {
-            npc.region = gameObject.name;
+            npc.UpdateRegion(gameObject.name);               
         }
     }
 }
